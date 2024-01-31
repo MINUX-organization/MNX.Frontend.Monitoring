@@ -27,13 +27,15 @@ export function UiDropdown<T>({
       styles['wrapper']
     )}>
       <Menu>
-        <Menu.Button>
+        <Menu.Button className={styles['button']}>
           {renderLabel?.(label) ?? <span>{getLabel?.(label)}</span>}
         </Menu.Button>
-        <Menu.Items>
-          {_.map(options, (option) => (
-            renderOption?.(option) ?? <div>{getOption?.(option)}</div>
-          ))}
+        <Menu.Items className={styles['items']}>
+        {_.map(options, (option) => (
+          <Menu.Item key={getOption(option)}>
+            {renderOption?.(option) ?? <div>{getOption?.(option)}</div>}
+          </Menu.Item>
+        ))} 
         </Menu.Items>
       </Menu>
     </div>

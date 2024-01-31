@@ -1,9 +1,11 @@
 .wrapper {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(9, minmax(auto, 9.375rem));
+  justify-content: center;
+  align-self: flex-end;
   height: 3.125rem;
   font-size: var(--font-size-22px);
-  align-self: flex-end;
-  justify-content: center;
+
   gap: 0.3125rem;
 }
 
@@ -51,5 +53,6 @@
   &.alt {
     background: var(--color-active-link-bg);
     border: solid 1px var(--color-active-link);
+    border-top: none;
   }
 }
