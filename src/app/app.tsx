@@ -1,10 +1,11 @@
-import React from "react"
+import { AppLoader } from "./app-loader"
+import { AppRouter } from "./app-router"
 
 function App() {
   return ( 
-    <React.Fragment>
-      
-    </React.Fragment>
+    <AppLoader>
+      <AppRouter/>
+    </AppLoader>
   )
 }
 
