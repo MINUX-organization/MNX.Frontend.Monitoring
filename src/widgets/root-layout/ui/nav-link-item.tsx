@@ -1,18 +1,8 @@
-import _ from 'lodash';
-import { MouseEvent } from "react";
-import { NavItem } from "./nav-links"; 
-import { NavLink, useHref, useLocation } from "react-router-dom"
+import { NavLink, useLocation } from "react-router-dom"
+import { UiDropdown } from '@/shared/ui/ui-dropdown';
+import { NavLinkItemProps } from "../model/types";
 import styles from './navLinks.module.scss';
 import clsx from 'clsx';
-import { UiDropdown } from '@/shared/ui/ui-dropdown';
-import { createEffect, createSignal } from 'solid-js';
-
-type NavLinkItemProps = {
-  className: ({ isActive }: {
-    isActive?: boolean | undefined;
-  }) => string;
-  field: NavItem
-}
 
 export function NavLinkItem({
   field,
@@ -35,6 +25,7 @@ export function NavLinkItem({
       renderLabel={(field) => (
         <span
           className={clsx(
+            //TODO: Parse string to first '/' for except wrong logic
             !(currentLocation.includes(field.path)) && styles['inactive-link'],
             currentLocation.includes(field.path) && styles['active-link']
           )}

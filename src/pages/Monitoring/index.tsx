@@ -1,7 +1,1 @@
-export function Monitoring() {
-  return (
-    <div>
-      ferf
-    </div>
-  )
-}
+export { Monitoring } from './ui/monitoring.page'

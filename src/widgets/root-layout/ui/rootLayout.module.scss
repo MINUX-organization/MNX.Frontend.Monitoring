@@ -1,7 +1,18 @@
 .wrapper {
   display: flex;
+  height: 100svh;
   flex-direction: column;
-  .container {
+  .header {
+    height: 5rem;
+  }
+  .aside {
+    width: 5rem;
+    height: 100svh;
+    position: fixed;
+    border-right: var(--border);
+  }
+  .main {
+    margin-left: 80px;
     flex-grow: 1;
   }
 }

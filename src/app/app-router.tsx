@@ -5,8 +5,8 @@ import {
 } from "react-router-dom";
 import { RootLayout } from "@/widgets/root-layout";
 import { ROUTER_PATHS } from "@/shared/constants/routes";
-import { Monitoring } from "@/pages/Monitoring";
-import { Gpus } from "@/pages/Devices/GPUs";
+import { Monitoring } from "@/pages/monitoring";
+import { Gpus } from "@/pages/devices/GPUs";
 
 const router = createBrowserRouter([
   {
