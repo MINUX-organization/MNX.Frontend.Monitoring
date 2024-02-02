@@ -16,6 +16,5 @@ export const confirmationContext = createStrictContext<ConfirmationContext>();
 
 export const useGetConfirmation = () => {
   const { getConfirmation } = useStrictContext(confirmationContext);
-
   return getConfirmation;
 };

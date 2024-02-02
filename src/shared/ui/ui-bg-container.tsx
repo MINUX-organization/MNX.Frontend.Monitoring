@@ -9,7 +9,7 @@ export function UiBgContainer({
 } : {
   className?: string;
   color: 'opaque' | 'transparent';
-  children: ReactNode;
+  children?: ReactNode;
 }) {
   return (
     <div className={clsx(

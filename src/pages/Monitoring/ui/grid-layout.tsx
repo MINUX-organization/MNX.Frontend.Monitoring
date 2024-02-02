@@ -1,5 +1,4 @@
 import _ from "lodash";
-import { ReactNode } from "react";
 import styles from './gridLayout.module.scss'
 import { ElementSlot } from "../model/types";
 import clsx from "clsx";

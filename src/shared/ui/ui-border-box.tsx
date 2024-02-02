@@ -11,7 +11,7 @@ type Corners = {
 
 type UiBorderBoxProps = {
   className?: string;
-  children: ReactNode;
+  children?: ReactNode;
 } & Partial<Corners>
 
 export function UiBorderBox({

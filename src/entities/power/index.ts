@@ -1,0 +1,1 @@
+export { TotalPower } from './ui/total-power'
