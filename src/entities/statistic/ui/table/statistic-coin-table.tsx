@@ -1,7 +1,7 @@
-import { UiBorderBox } from "@/shared/ui/ui-border-box"
-import { StatisticCoin } from "../../model/types"
-import styles from './statisticCoinTable.module.scss'
-import { UiBgContainer } from "@/shared/ui/ui-bg-container"
+import { UiBorderBox } from "@/shared/ui/ui-border-box";
+import { StatisticCoin } from "../../model/types";
+import styles from './statisticCoinTable.module.scss';
+import { UiBgContainer } from "@/shared/ui/ui-bg-container";
 import clsx from "clsx";
 import _ from "lodash";
 import React from "react";

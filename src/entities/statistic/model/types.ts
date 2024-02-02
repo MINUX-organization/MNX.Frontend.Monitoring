@@ -25,3 +25,9 @@ export type Shares = {
   accepted: number;
   rejected: number;
 }
+
+export type FieldWidget = {
+  label: string;
+  value?: number;
+  style?: string;
+}
