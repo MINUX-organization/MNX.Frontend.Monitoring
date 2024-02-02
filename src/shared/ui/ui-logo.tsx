@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import styles from './uiLogo.module.scss'
+import styles from './styles/uiLogo.module.scss'
 
 export function UiLogo({ className }: { className?: string }) {
   return (

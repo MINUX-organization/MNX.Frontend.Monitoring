@@ -1,4 +1,4 @@
-import styles from './uiDropdown.module.scss';
+import styles from './styles/uiDropdown.module.scss';
 import { Menu } from '@headlessui/react'
 import { ReactNode } from "react";
 import clsx from "clsx";

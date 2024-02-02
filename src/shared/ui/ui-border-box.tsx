@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import styles from './uiBorderBox.module.scss' 
+import styles from './styles/uiBorderBox.module.scss' 
 import { ReactNode } from "react";
 
 type Corners = {
@@ -12,13 +12,13 @@ type Corners = {
 type UiBorderBoxProps = {
   className?: string;
   children?: ReactNode;
-  withPaing?: boolean
+  withPadding?: boolean
 } & Partial<Corners>
 
 export function UiBorderBox({
   className,
   children,
-  withPaing,
+  withPadding,
   ...corners
  } : UiBorderBoxProps
  ) {
@@ -26,7 +26,7 @@ export function UiBorderBox({
     <section className={clsx(
       className,
       styles['wrapper'],
-      withPaing && styles['padding'],
+      withPadding && styles['padding'],
       corners.topLeft && styles['topLeft'],
       corners.lowerLeft && styles['lowerLeft'],
       corners.topRight && styles['topRight'],

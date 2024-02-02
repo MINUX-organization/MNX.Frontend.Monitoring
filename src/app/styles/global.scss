@@ -16,6 +16,9 @@
   --font-size-root: 16px;
 
   --border: solid 1px var(--color-border);
+
+  --gap-content: 0.375rem;
+  --gap-widget: 1.25rem;
 }
 
 html {
@@ -55,6 +58,6 @@ a {
 @font-face {
   font-family: "GillSansMT";
   src: local("GillSansMT"),
-   url("../shared/assets/fonts/Gill-Sans-MT.ttf") format("truetype");
+   url("../../shared/assets/fonts/Gill-Sans-MT.ttf") format("truetype");
   font-weight: normal;
 }

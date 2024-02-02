@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { ReactNode } from "react";
-import styles from './uiBgContainer.module.scss'
+import styles from './styles/uiBgContainer.module.scss'
 
 export function UiBgContainer({
   className,

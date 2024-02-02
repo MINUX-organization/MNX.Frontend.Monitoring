@@ -1,5 +1,5 @@
 import clsx from "clsx"
-import styles from './uiCentered.module.scss'
+import styles from './styles/uiCentered.module.scss'
 import { ReactNode } from "react";
 
 export function UiCentered({

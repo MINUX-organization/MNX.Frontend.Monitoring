@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import styles from './uiHeader.module.scss';
+import styles from './styles/uiHeader.module.scss';
 import { UiLogo } from "./ui-logo";
 import { ReactNode } from "react";
 
@@ -19,7 +19,7 @@ export function UiHeader({
         styles['wrapper']
       )}
     >
-      <UiLogo className={styles['padding']}/>
+      <UiLogo className={styles['logo']}/>
       {links}
       {right}
     </header>

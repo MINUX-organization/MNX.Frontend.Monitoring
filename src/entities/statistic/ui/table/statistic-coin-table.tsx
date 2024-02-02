@@ -1,6 +1,6 @@
 import { UiBorderBox } from "@/shared/ui/ui-border-box"
-import { StatisticCoin } from "../model/types"
-import styles from './statiscticCoinTable.module.scss'
+import { StatisticCoin } from "../../model/types"
+import styles from './statisticCoinTable.module.scss'
 import { UiBgContainer } from "@/shared/ui/ui-bg-container"
 import clsx from "clsx";
 import _ from "lodash";
@@ -22,7 +22,7 @@ export function StatisticCoinTable({
   values?: StatisticCoin[]
 }) {
   return (
-    <UiBorderBox withPaing className={clsx(
+    <UiBorderBox withPadding className={clsx(
       className,
       styles['wrapper']
     )}>

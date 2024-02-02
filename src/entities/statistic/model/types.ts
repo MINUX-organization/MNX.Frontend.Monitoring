@@ -3,9 +3,25 @@ export type StatisticCoin = {
   algorithm: string;
   hashrate: {
     value: number,
-    measurement: string};
-  shares: {
-    accepted: number;
-    rejected: number;
-  }
+    measurement: string
+  };
+  shares: Shares;
+}
+
+export type StatisticGpu = {
+  total: number;
+  nvidia: number;
+  amd: number;
+  intel: number;
+}
+
+export type StatisticCpu = {
+  total: number;
+  intel: number;
+  amd: number;
+}
+
+export type Shares = {
+  accepted: number;
+  rejected: number;
 }

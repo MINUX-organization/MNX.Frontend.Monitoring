@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { ReactNode } from "react";
-import styles from "./uiAside.module.scss"
+import styles from "./styles/uiAside.module.scss"
 import _ from "lodash";
 
 export function Aside({
