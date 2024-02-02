@@ -1,13 +1,19 @@
-import { TotalPower } from "@/entities/power";
-import { ElementSlot } from "../model/types";
-import { GridLayout } from "./grid-layout";
-import { TotalWorkers } from "@/entities/workers";
+import { StatisticCoinTable, TotalPower, TotalWorkers } from "@/entities/statistic";
+import styles from './monitoring.page.module.scss'
 
 export function Monitoring() {
-  const slots: ElementSlot[] = [
-    {components: [<TotalPower/>, <TotalWorkers/>], slot: 'item-1'}
-  ]
   return (
-    <GridLayout slots={slots}/>
+    <div className={styles['wrapper']}>
+      <article className={styles['slot-1']}>
+        <TotalPower className={styles['item-1']}/>
+        <TotalWorkers className={styles['item-2']}/>
+        <StatisticCoinTable className={styles['item-3']}/>
+      </article>
+      <article className={styles['slot-2']}> 
+      </article>
+      <article className={styles['slot-3']}>
+
+      </article>
+    </div>
   )
 }

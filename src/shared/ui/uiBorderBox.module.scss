@@ -1,5 +1,9 @@
 .wrapper {
   border: var(--border);
+
+  &.padding {
+    padding: 0.375rem;
+  } 
 }
 
 .topLeft {

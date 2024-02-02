@@ -1,1 +1,0 @@
-export { TotalWorkers } from './ui/total-workers'

@@ -11,7 +11,7 @@ export function TotalWorkers({
   value?: number
 }) {
   return (
-    <UiBorderBox className={clsx(
+    <UiBorderBox withPaing className={clsx(
       className,
       styles['wrapper']
     )}>

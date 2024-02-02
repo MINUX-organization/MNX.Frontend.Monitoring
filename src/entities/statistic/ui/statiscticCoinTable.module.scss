@@ -1,0 +1,45 @@
+.wrapper {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: auto auto 1fr;
+  gap: 0.375rem;
+
+  .slot-1 {
+    display: grid;
+    grid-column: 1 / 6;
+    align-items: center;
+    grid-template-columns: subgrid;
+
+    .title-text {
+      text-align: center;
+      color: var(--color-font-gray);
+    }
+  }
+
+  .slot-2 {
+    height: 1px;
+    background-color: var(--color-border);
+    grid-row: 2;
+    grid-column: 1/6;
+    grid-row: 2;
+  }
+
+  .slot-3 {
+    display: grid;
+    grid-column: 1/6;
+    grid-template-columns: subgrid;
+    grid-template-rows: repeat(auto-fill, 2rem);
+    text-align: center;
+
+    .measure {
+      color: var(--color-measure);
+    }
+    .accepted {
+      color: var(--color-optimistic);
+    }
+    .rejected {
+      color: var(--color-negative);
+    }
+  }
+}

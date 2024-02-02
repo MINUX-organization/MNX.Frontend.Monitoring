@@ -1,0 +1,54 @@
+import { UiBorderBox } from "@/shared/ui/ui-border-box"
+import { StatisticCoin } from "../model/types"
+import styles from './statiscticCoinTable.module.scss'
+import { UiBgContainer } from "@/shared/ui/ui-bg-container"
+import clsx from "clsx";
+import _ from "lodash";
+import React from "react";
+
+const titles: string[] = [
+  'Coin',
+  'Algorithm',
+  'Value',
+  'Shares Accepted',
+  'Shares Rejected'
+] as const
+
+export function StatisticCoinTable({
+  className,
+  values,
+} : {
+  className: string,
+  values?: StatisticCoin[]
+}) {
+  return (
+    <UiBorderBox withPaing className={clsx(
+      className,
+      styles['wrapper']
+    )}>
+      <UiBgContainer className={styles['slot-1']} color="opaque">
+        {_.map(titles, (title) => (
+          <span key={title} className={styles['title-text']}>{title}</span>
+        ))}
+      </UiBgContainer>
+      <div className={clsx(
+        styles['line'],
+        styles['slot-2']
+      )}>
+      </div>
+      <UiBgContainer className={styles['slot-3']} color="opaque">
+        {_.map(values, (value) => (
+          <React.Fragment>
+            <span>{value.coin}</span>
+            <span>{value.algorithm}</span>
+            <span>{value.hashrate.value}&nbsp;
+              <span className={styles['measure']}>{value.hashrate.measurement}</span>
+            </span>
+            <span className={styles['accepted']}>{value.shares.accepted}</span>
+            <span className={styles['rejected']}>{value.shares.rejected}</span>  
+          </React.Fragment>
+        ))}
+      </UiBgContainer>
+    </UiBorderBox>
+  )
+}

@@ -20,7 +20,7 @@ export function UiBgContainer({
         transparent: styles['transparent']
       }[color]
     )}>
-      {children}
+      {children} 
     </div>
   )
 }

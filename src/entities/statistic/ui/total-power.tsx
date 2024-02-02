@@ -1,6 +1,6 @@
 import { UiBgContainer } from "@/shared/ui/ui-bg-container";
 import { UiBorderBox } from "@/shared/ui/ui-border-box";
-import styles from './totalWorkers.module.scss';
+import styles from './totalPower.module.scss';
 import clsx from "clsx";
 
 export function TotalPower({
@@ -11,7 +11,7 @@ export function TotalPower({
   value?: {value: number, measurement: string};
 }) {
   return (
-    <UiBorderBox className={clsx(
+    <UiBorderBox withPaing className={clsx(
       className,
       styles['wrapper']
     )}>

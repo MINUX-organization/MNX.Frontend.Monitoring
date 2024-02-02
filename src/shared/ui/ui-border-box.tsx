@@ -12,11 +12,13 @@ type Corners = {
 type UiBorderBoxProps = {
   className?: string;
   children?: ReactNode;
+  withPaing?: boolean
 } & Partial<Corners>
 
 export function UiBorderBox({
   className,
   children,
+  withPaing,
   ...corners
  } : UiBorderBoxProps
  ) {
@@ -24,6 +26,7 @@ export function UiBorderBox({
     <section className={clsx(
       className,
       styles['wrapper'],
+      withPaing && styles['padding'],
       corners.topLeft && styles['topLeft'],
       corners.lowerLeft && styles['lowerLeft'],
       corners.topRight && styles['topRight'],
