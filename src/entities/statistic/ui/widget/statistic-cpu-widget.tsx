@@ -9,7 +9,7 @@ type StatiscticCpuTableProps = {
   value?: StatisticCpu
 }
 
-export function StatiscticCpuTable({
+export function StatisticCpuWidget({
   className,
   value
 } : StatiscticCpuTableProps) {

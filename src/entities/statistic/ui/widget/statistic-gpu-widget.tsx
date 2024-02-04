@@ -9,7 +9,7 @@ type StatisticGpuTableProps = {
   value?: StatisticGpu;
 }
 
-export function StatisticGpuTable({
+export function StatisticGpuWidget({
   className,
   value
 } : StatisticGpuTableProps) {
