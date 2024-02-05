@@ -1,9 +1,10 @@
-import { ChartData, LineChart } from "@/shared/lib/charts/line-chart";
+import { UiBgContainer } from "@/shared/ui/ui-bg-container";
+import { ChartDataValue, LineChart } from "@/shared/lib/charts/line-chart";
 import { UiBorderBox } from "@/shared/ui/ui-border-box";
 import styles from './statisticCoin.module.scss';
 import { ReactNode } from "react"; 
 import clsx from "clsx";
-import { UiBgContainer } from "@/shared/ui/ui-bg-container";
+import _ from "lodash";
 
 export function StatisticCoinChart<T>({
   className,
@@ -12,7 +13,7 @@ export function StatisticCoinChart<T>({
   renderCoins
 } : {
   className?: string;
-  data?: ChartData[];
+  data?: ChartDataValue[];
   coins?: T[];
   renderCoins?: (coin?: T) => ReactNode;
 }) {
@@ -21,6 +22,9 @@ export function StatisticCoinChart<T>({
       className,
       styles['wrapper']
     )}>
+      {_.map(coins, (coin) => (
+        renderCoins?.(coin)
+      ))}
       <UiBgContainer color='opaque'>
         <LineChart lineColor="red" data={data} legend="MH/s"/>
       </UiBgContainer>

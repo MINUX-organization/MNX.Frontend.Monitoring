@@ -1,0 +1,16 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.opaque {
+  background-color: var(--color-cotainer-opaque);
+
+  &:hover {
+    background-color: color-mix(
+      in srgb, 
+      --color-cotainer-opaque 80%, 
+      white);
+  }
+}

@@ -147,6 +147,6 @@ export function LineChart({
     }]
   }
   return (
-    <Line className={className} options={options} data={dataset}/>
+    <Line className={className} options={options} data={dataset} updateMode='active'/>
   )
 }

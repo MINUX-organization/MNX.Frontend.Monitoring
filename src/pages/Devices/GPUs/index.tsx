@@ -1,7 +1,10 @@
+
+
 export function Gpus() {
-  return (
-    <div>
-      rggr
-    </div>
+  
+  return ( 
+      <div>
+        rggr
+      </div> 
   )
 }
