@@ -1,15 +1,16 @@
-import { FieldWidget, StatisticCpu } from "../../model/types";
+import { FieldWidget, TotalCpus } from "../../model/types";
 import { UiBgContainer } from "@/shared/ui/ui-bg-container";
 import { UiLabelBoard } from "@/shared/ui/ui-label-board";
 import styles from './statiscticWidgets.module.scss';
 import clsx from "clsx";
+import React from "react";
 
 type StatiscticCpuTableProps = {
   className?: string,
-  value?: StatisticCpu
-}
+  value?: TotalCpus
+} 
 
-export function StatisticCpuWidget({
+function TotalCpusWidget({
   className,
   value
 } : StatiscticCpuTableProps) {
@@ -43,3 +44,5 @@ export function StatisticCpuWidget({
     />
   )
 }
+
+export const MemoizedTotalCpusWidget = React.memo(TotalCpusWidget)

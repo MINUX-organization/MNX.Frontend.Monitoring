@@ -2,8 +2,9 @@ import { UiBgContainer } from "@/shared/ui/ui-bg-container";
 import { UiBorderBox } from "@/shared/ui/ui-border-box";
 import styles from './totalWorkers.module.scss';
 import clsx from "clsx";
+import React from "react";
 
-export function TotalWorkers({
+function TotalWorkers({
   className,
   value
 } : {
@@ -22,3 +23,5 @@ export function TotalWorkers({
     </UiBorderBox>
   )
 }
+
+export const MemoizedTotalWorkers = React.memo(TotalWorkers)

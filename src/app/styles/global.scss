@@ -27,6 +27,7 @@ html {
 }
 
 body {
+  overflow: hidden;
   font-size: var(--font-size-root);
   background: var(--color-bg);
   height: 100svh;

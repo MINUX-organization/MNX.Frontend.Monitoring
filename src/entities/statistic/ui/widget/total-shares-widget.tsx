@@ -3,20 +3,21 @@ import styles from './statiscticWidgets.module.scss'
 import { FieldWidget, Shares } from "../../model/types"
 import clsx from "clsx"
 import { UiLabelBoard } from "@/shared/ui/ui-label-board"
+import React from "react"
 
 type TotalSharesProps = {
   className?: string,
-  shares?: Shares
+  value?: Shares
 }
 
-export function TotalShares({
+function TotalShares({
   className,
-  shares
+  value
 } : TotalSharesProps) {
   const label = 'Total Shares';
   const fields: FieldWidget[] = [
-    {label: 'Accepted', value: shares?.accepted, style: 'green'},
-    {label: 'Rejected', value: shares?.rejected, style: 'red'},
+    {label: 'Accepted', value: value?.accepted, style: 'green'},
+    {label: 'Rejected', value: value?.rejected, style: 'red'},
   ]
   return (
     <UiLabelBoard
@@ -42,3 +43,5 @@ export function TotalShares({
     />
   )
 }
+
+export const MemoizedTotalShares = React.memo(TotalShares)

@@ -1,4 +1,6 @@
-using MNX.Backend.Test.Model;
+using MNX.Backend.Test.Controllers;
+using MNX.Backend.Test.Utils;
+using MNX.Backend.Test.Utils.Abstractions;
 
 namespace MNX.Backend.Test
 {
@@ -9,9 +11,11 @@ namespace MNX.Backend.Test
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddControllers();
+            builder.Services.AddLogging();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddSignalR();
+            builder.Services.AddScoped<IMonitoringBroadcaster, MonitoringBroadcaster>();
 
             var app = builder.Build();
 
@@ -27,7 +31,8 @@ namespace MNX.Backend.Test
 
             app.MapControllers();
 
-            app.MapHub<MonitoringHub>("/monitoringHub");
+
+            app.MapHub<MonitoringHub>("hubs/monitoring");
 
             app.Run();
         }

@@ -16,6 +16,8 @@ import {
 import { Line } from 'react-chartjs-2';
 import { CHART_COLORS } from '../../constants/chart-line-color';
 import { createGradient } from './utils/create-gradient';
+import { MeasureUnit } from '@/shared/types/measure-unit';
+import { z } from 'zod';
 
 ChartJS.defaults.font.size = 14;
 
@@ -31,10 +33,11 @@ ChartJS.register(
   // ChartDataLabels
 );
 
-export type ChartDataValue = {
-  time: string; 
-  value: number;
-}
+export const ChartDataValue = z.object({
+  time: z.string(),
+  valueUnit: MeasureUnit
+})
+export type ChartDataValue = z.infer<typeof ChartDataValue>
 
 export function LineChart({
   className,
@@ -65,7 +68,7 @@ export function LineChart({
     responsive: true,
     parsing: {
       xAxisKey: 'time',
-      yAxisKey: 'value'
+      yAxisKey: 'valueUnit.value'
     },
     plugins: {
       legend: {
@@ -147,6 +150,6 @@ export function LineChart({
     }]
   }
   return (
-    <Line className={className} options={options} data={dataset} updateMode='active'/>
+    <Line className={className} options={options} data={dataset} updateMode='none'/>
   )
 }

@@ -1,18 +1,19 @@
-import { FieldWidget, StatisticGpu } from "../../model/types";
+import { FieldWidget, TotalGpus } from "../../model/types";
 import { UiBgContainer } from "@/shared/ui/ui-bg-container";
 import { UiLabelBoard } from "@/shared/ui/ui-label-board";
 import styles from './statiscticWidgets.module.scss';
 import clsx from "clsx";
+import React from "react";
 
-type StatisticGpuTableProps = {
+type TotalGpusTableProps = {
   className?: string;
-  value?: StatisticGpu;
+  value?: TotalGpus;
 }
 
-export function StatisticGpuWidget({
+function TotalGpusWidget({
   className,
   value
-} : StatisticGpuTableProps) {
+} : TotalGpusTableProps) {
   const label = 'GPU'
   const fields: FieldWidget[] = [
     {label: 'Total', value: value?.total},
@@ -44,3 +45,5 @@ export function StatisticGpuWidget({
     />
   )
 }
+
+export const MemoizedTotalGpusWidget = React.memo(TotalGpusWidget)

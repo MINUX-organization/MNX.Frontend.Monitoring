@@ -14,7 +14,7 @@ const titles: string[] = [
   'Shares Rejected'
 ] as const
 
-export function StatisticCoinTable({
+function StatisticCoinTable({
   className,
   values,
 } : {
@@ -38,17 +38,19 @@ export function StatisticCoinTable({
       </div>
       <UiBgContainer className={styles['slot-3']} color="opaque">
         {_.map(values, (value) => (
-          <React.Fragment>
+          <div className={styles['subgrid']}>
             <span>{value.coin}</span>
             <span>{value.algorithm}</span>
             <span>{value.hashrate.value}&nbsp;
-              <span className={styles['measure']}>{value.hashrate.measurement}</span>
+              <span className={styles['measure']}>{value.hashrate.measureUnit}</span>
             </span>
             <span className={styles['accepted']}>{value.shares.accepted}</span>
             <span className={styles['rejected']}>{value.shares.rejected}</span>  
-          </React.Fragment>
+          </div>
         ))}
       </UiBgContainer>
     </UiBorderBox>
   )
 }
+
+export const MemoizedStatisticCoinTable = React.memo(StatisticCoinTable)

@@ -2,18 +2,18 @@ import { UiBgContainer } from "@/shared/ui/ui-bg-container";
 import { ChartDataValue, LineChart } from "@/shared/lib/charts/line-chart";
 import { UiBorderBox } from "@/shared/ui/ui-border-box";
 import styles from './statisticCoin.module.scss';
-import { ReactNode } from "react"; 
+import React, { ReactNode } from "react"; 
 import clsx from "clsx";
 import _ from "lodash";
 
-export function StatisticCoinChart<T>({
+function StatisticCoinChart<T>({
   className,
-  data,
+  values,
   coins,
   renderCoins
 } : {
   className?: string;
-  data?: ChartDataValue[];
+  values?: ChartDataValue[];
   coins?: T[];
   renderCoins?: (coin?: T) => ReactNode;
 }) {
@@ -25,9 +25,11 @@ export function StatisticCoinChart<T>({
       {_.map(coins, (coin) => (
         renderCoins?.(coin)
       ))}
-      <UiBgContainer color='opaque'>
-        <LineChart lineColor="red" data={data} legend="MH/s"/>
+      <UiBgContainer color='opaque' className={styles['container']}>
+        <LineChart lineColor="red" data={values} legend="MH/s"/>
       </UiBgContainer>
     </UiBorderBox> 
   )
 }
+
+export const MemoizedStatisticCoinChart = React.memo(StatisticCoinChart)
