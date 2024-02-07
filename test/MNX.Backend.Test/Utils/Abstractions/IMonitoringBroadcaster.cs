@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.SignalR;
-using MNX.Backend.Test.Controllers;
-
-namespace MNX.Backend.Test.Utils.Abstractions
+﻿namespace MNX.Backend.Test.Utils.Abstractions
 {
     public interface IMonitoringBroadcaster
     {

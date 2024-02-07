@@ -37,8 +37,8 @@ function StatisticCoinTable({
       )}>
       </div>
       <UiBgContainer className={styles['slot-3']} color="opaque">
-        {_.map(values, (value) => (
-          <div className={styles['subgrid']}>
+        {_.map(values, (value, index) => (
+          <div key={index } className={styles['subgrid']}>
             <span>{value.coin}</span>
             <span>{value.algorithm}</span>
             <span>{value.hashrate.value}&nbsp;
