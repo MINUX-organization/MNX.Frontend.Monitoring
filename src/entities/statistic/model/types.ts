@@ -23,6 +23,12 @@ export const TotalGpus = z.object({
 })
 export type TotalGpus = z.infer<typeof TotalGpus>
 
+export const TotalPower = MeasureUnit
+export type TotalPower = z.infer<typeof TotalPower>
+
+export const TotalWorkers = z.number()
+export type TotalWorkers = z.infer<typeof TotalWorkers>
+
 export const TotalCpus = z.object({
   total: z.number(),
   amd: z.number(),

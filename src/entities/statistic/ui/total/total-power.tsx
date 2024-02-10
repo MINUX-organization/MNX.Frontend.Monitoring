@@ -2,15 +2,15 @@ import { UiBgContainer } from "@/shared/ui/ui-bg-container";
 import { UiBorderBox } from "@/shared/ui/ui-border-box";
 import styles from './totalPower.module.scss';
 import clsx from "clsx";
-import { MeasureUnit } from "@/shared/types/measure-unit";
 import React from "react";
+import { TotalPower as type } from "../../model/types";
 
 function TotalPower({
   className,
   value
 } : {
   className?: string;
-  value?: MeasureUnit;
+  value?: type;
 }) {
   return (
     <UiBorderBox withPadding className={clsx(

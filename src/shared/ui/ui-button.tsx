@@ -7,7 +7,7 @@ export type UiButtonProps = {
   variant: UiButtonVariant;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
-export function UiButton({ className, variant, ...props }: UiButtonProps) {
+export function UiButton({ className, variant, children, ...props }: UiButtonProps) {
   return (
     <button
       {...props}
@@ -20,6 +20,8 @@ export function UiButton({ className, variant, ...props }: UiButtonProps) {
           outlined: styles['outlined'],
         }[variant],
       )}
-    />
+    >
+      {children}
+    </button>
   );
 }

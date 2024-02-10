@@ -12,7 +12,6 @@ import {
   ScriptableChartContext,
   ScriptableContext,
 } from 'chart.js';
-// import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { Line } from 'react-chartjs-2';
 import { CHART_COLORS } from '../../constants/chart-line-color';
 import { createGradient } from './utils/create-gradient';

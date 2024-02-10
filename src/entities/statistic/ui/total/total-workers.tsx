@@ -3,13 +3,14 @@ import { UiBorderBox } from "@/shared/ui/ui-border-box";
 import styles from './totalWorkers.module.scss';
 import clsx from "clsx";
 import React from "react";
+import { TotalWorkers as type } from "../../model/types";
 
 function TotalWorkers({
   className,
   value
 } : {
   className?: string;
-  value?: number
+  value?: type
 }) {
   return (
     <UiBorderBox withPadding className={clsx(

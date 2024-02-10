@@ -17,7 +17,7 @@ export function Monitoring() {
     totalShares,
     totalCpus,
     totalGpus,
-    chartDataValue,
+    chartDataValues,
     statisticCoins
   } = useMonitoringSignalTrigger();
   return (
@@ -32,7 +32,7 @@ export function Monitoring() {
           <MemoizedTotalShares className={styles['item-1']} value={totalShares}/>
           <MemoizedTotalGpusWidget className={styles['item-2']} value={totalGpus}/>
           <MemoizedTotalCpusWidget className={styles['item-3']} value={totalCpus}/>
-          <MemoizedStatisticCoinChart className={styles['item-4']} values={chartDataValue}/> 
+          <MemoizedStatisticCoinChart className={styles['item-4']} values={chartDataValues}/> 
         </article>
         <article className={styles['slot-3']}>
         </article>

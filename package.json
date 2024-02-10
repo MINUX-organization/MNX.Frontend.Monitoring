@@ -26,6 +26,7 @@
     "react-signalr": "^0.2.19",
     "sass": "^1.70.0",
     "solid-js": "^1.8.12",
+    "ts-pattern": "^5.0.6",
     "zod": "^3.22.4"
   },
   "devDependencies": {

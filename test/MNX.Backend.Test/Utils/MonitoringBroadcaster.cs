@@ -8,62 +8,70 @@ namespace MNX.Backend.Test.Utils
 {
     public class MonitoringBroadcaster(IHubContext<MonitoringHub> hubContext) : IMonitoringBroadcaster
     {
+        private const string MONITORING_TRIGGER = "ReceivedMonitoringData";
         private readonly Random _random = new();
 
-        public async Task ReceivedHashRateForAPeriod(int pointCount, string connectionId)
+        public async Task SendHashRateForAPeriod(int pointCount, string connectionId)
         {
             DateTime _startTime = DateTime.Now.AddSeconds(pointCount * -1);
-            List<ChartData> chartData = [];
+            List<ChartData> chartDataList = [];
             for (int i = 0; i < pointCount; i++)
             {
                 DateTime currentTime = _startTime.AddSeconds(i + 2);
-                chartData.Add(
+                chartDataList.Add(
                     new ChartData(currentTime.ToString("HH:mm:ss"),
                     new ValueUnit(_random.Next(1000), "Mh/s")));
             }
-            await hubContext.Clients.Client(connectionId).SendAsync("ReceivedHashRateForAPeriod", chartData);
+            await hubContext
+                    .Clients
+                    .Client(connectionId)
+                    .SendAsync(MONITORING_TRIGGER, new ObjectType("ChartDataValues", chartDataList));
         }
 
-        public async Task ReceivedCurrentHashRate(string connectionId)
+        public async Task SendCurrentHashRate(string connectionId)
         {
             while (!string.IsNullOrEmpty(connectionId))
             {
+                ChartData chartData = new(DateTime.Now.ToString("HH:mm:ss"), new ValueUnit(_random.Next(1000), "Mh/s"));
                 await Task.Delay(2000);
-                await hubContext.Clients.Client(connectionId).SendAsync(
-                    "ReceivedCurrentHashRate",
-                    new ChartData(DateTime.Now.ToString("HH:mm:ss"),
-                    new ValueUnit(_random.Next(1000), "Mh/s")));
+                await hubContext
+                        .Clients
+                        .Client(connectionId)
+                        .SendAsync(MONITORING_TRIGGER, new ObjectType("ChartDataValue", chartData));
             }
         }
 
-        public async Task ReceivedTotalPower(string connectionId)
+        public async Task SendTotalPower(string connectionId)
         {
             while (!string.IsNullOrEmpty(connectionId))
             {
-                await hubContext.Clients.Client(connectionId).SendAsync(
-                    "ReceivedTotalPower",
-                    new ValueUnit(_random.Next(1000), "Watt"));
-                await Task.Delay(2000);
-            }
-        }
-
-        public async Task ReceivedTotalWorkers(string connectionId)
-        {
-            while (!string.IsNullOrEmpty(connectionId))
-            {
-                await hubContext.Clients.Client(connectionId).SendAsync(
-                    "ReceivedTotalWorkers",
-                    _random.Next(1000));
+                ValueUnit valueUnit = new(_random.Next(1000), "Watt");
+                await hubContext
+                        .Clients
+                        .Client(connectionId)
+                        .SendAsync(MONITORING_TRIGGER, new ObjectType("TotalPower", valueUnit));
                 await Task.Delay(2000);
             }
         }
 
-        public async Task ReceivedStatisticCoins(string connectionId)
+        public async Task SendTotalWorkers(string connectionId)
+        {
+            while (!string.IsNullOrEmpty(connectionId))
+            {
+                await hubContext
+                        .Clients
+                        .Client(connectionId)
+                        .SendAsync(MONITORING_TRIGGER, new ObjectType("TotalWorkers", _random.Next(1000)));
+                await Task.Delay(2000);
+            }
+        }
+
+        public async Task SendStatisticCoins(int coinCount, string connectionId)
         {
             while (!string.IsNullOrEmpty(connectionId))
             {
                 List<StatisticCoin> coinList = [];
-                for (int i = 0; i < 15; i++) 
+                for (int i = 0; i < coinCount; i++) 
                 {
                     coinList.Add(new StatisticCoin(
                         "Bitcoin", 
@@ -71,49 +79,49 @@ namespace MNX.Backend.Test.Utils
                         new Shares(_random.Next(1000), _random.Next(1000)),
                         new ValueUnit(_random.Next(1000), "Mh/s"))); 
                 }
-                await hubContext.Clients.Client(connectionId).SendAsync(
-                    "ReceivedStatisticCoins",
-                    coinList);
+                await hubContext
+                        .Clients
+                        .Client(connectionId)
+                        .SendAsync(MONITORING_TRIGGER, new ObjectType("StatisticCoins", coinList));
                 await Task.Delay(2000);
             }
         }
 
-        public async Task ReceivedTotalShares(string connectionId)
+        public async Task SendTotalShares(string connectionId)
         {
             while (!string.IsNullOrEmpty(connectionId))
             {
-                await hubContext.Clients.Client(connectionId).SendAsync(
-                    "ReceivedTotalShares",
-                    new Shares(_random.Next(1000), _random.Next(1000)));
+                Shares shares = new(_random.Next(1000), _random.Next(1000));
+                await hubContext
+                        .Clients
+                        .Client(connectionId)
+                        .SendAsync(MONITORING_TRIGGER, new ObjectType("TotalShares", shares));
                 await Task.Delay(2000);
             }
         }
 
-        public async Task ReceivedTotalGpus(string connectionId)
+        public async Task SendTotalGpus(string connectionId)
         {
             while (!string.IsNullOrEmpty(connectionId))
             {
-                await hubContext.Clients.Client(connectionId).SendAsync(
-                    "ReceivedTotalGpus",
-                    new TotalGpus(
-                        _random.Next(1000), 
-                        _random.Next(1000), 
-                        _random.Next(1000), 
-                        _random.Next(1000)));
+                TotalGpus totalGpus = new(_random.Next(1000), _random.Next(1000), _random.Next(1000), _random.Next(1000));
+                await hubContext
+                        .Clients
+                        .Client(connectionId)
+                        .SendAsync(MONITORING_TRIGGER, new ObjectType("TotalGpus", totalGpus));
                 await Task.Delay(2000);
             }
         }
 
-        public async Task ReceivedTotalCpus(string connectionId)
+        public async Task SendTotalCpus(string connectionId)
         {
             while (!string.IsNullOrEmpty(connectionId))
             {
-                await hubContext.Clients.Client(connectionId).SendAsync(
-                    "ReceivedTotalCpus",
-                    new TotalCpus(
-                        _random.Next(1000),
-                        _random.Next(1000),
-                        _random.Next(1000)));
+                TotalCpus totalCpus = new(_random.Next(1000), _random.Next(1000), _random.Next(1000));
+                await hubContext
+                        .Clients
+                        .Client(connectionId)
+                        .SendAsync(MONITORING_TRIGGER, new ObjectType("TotalCpus", totalCpus));
                 await Task.Delay(2000);
             }
         }

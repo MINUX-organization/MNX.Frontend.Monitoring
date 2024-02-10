@@ -18,14 +18,14 @@ namespace MNX.Backend.Test.Controllers
             string connectionId = Context.ConnectionId;
 
             await Task.WhenAll([
-                _monitoringBroadcaster.ReceivedHashRateForAPeriod(150, connectionId),
-                _monitoringBroadcaster.ReceivedCurrentHashRate(connectionId),
-                _monitoringBroadcaster.ReceivedTotalShares(connectionId),
-                _monitoringBroadcaster.ReceivedTotalPower(connectionId),
-                _monitoringBroadcaster.ReceivedTotalWorkers(connectionId),
-                _monitoringBroadcaster.ReceivedTotalGpus(connectionId),
-                _monitoringBroadcaster.ReceivedTotalCpus(connectionId),
-                _monitoringBroadcaster.ReceivedStatisticCoins(connectionId)
+                _monitoringBroadcaster.SendHashRateForAPeriod(150, connectionId),
+                _monitoringBroadcaster.SendCurrentHashRate(connectionId),
+                _monitoringBroadcaster.SendTotalShares(connectionId),
+                _monitoringBroadcaster.SendTotalPower(connectionId),
+                _monitoringBroadcaster.SendTotalWorkers(connectionId),
+                _monitoringBroadcaster.SendTotalGpus(connectionId),
+                _monitoringBroadcaster.SendTotalCpus(connectionId),
+                _monitoringBroadcaster.SendStatisticCoins(15, connectionId)
             ]);
         }
     }
