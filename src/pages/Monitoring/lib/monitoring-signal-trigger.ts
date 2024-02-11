@@ -1,19 +1,21 @@
 import { Shares, StatisticCoin, TotalCpus, TotalGpus, TotalPower, TotalWorkers } from "@/entities/statistic/model/types";
-import { ChartDataValue } from "@/shared/lib/charts/line-chart";
+import { ChartData } from "@/shared/lib/charts/line-chart";
 import { WebsocketContext } from "@/shared/lib/providers/websocket-context"; 
 import { match } from 'ts-pattern';
-import { useState } from "react";
 import { ZodSaveParse } from "@/shared/lib/utils/zod-save-parse";
+import { useStateObject } from "@/shared/lib/utils/state-object";
+import { CoinsChart } from "@/features/changeCoinChart/ui/change-coin-chart-list";
 
 type Type = 
-  "ChartDataValues" |
-  "ChartDataValue"  |
-  "StatisticCoins"  |
-  "TotalShares"     |
-  "TotalPower"      |
-  "TotalWorkers"    |
-  "TotalGpus"       |
-  "TotalCpus"
+  "ChartDataList"      |
+  "ChartData"          |
+  "StatisticCoinList"  |
+  "TotalShares"        |
+  "TotalPower"         |
+  "TotalWorkers"       |
+  "TotalGpus"          |
+  "TotalCpus"          |
+  "CoinsChart"
   
 type TriggerData = {
   type: Type;
@@ -21,55 +23,62 @@ type TriggerData = {
 }
 
 export function useMonitoringSignalTrigger() {
-  const [maxLenght, setMaxLenght] = useState<number>(150);
-  const [chartDataValues, setChartDataValues] = useState<ChartDataValue[]>([])
-  const [totalPower, setTotalPower] = useState<TotalPower>()
-  const [totalWorkers, setTotalWorkers] = useState<TotalWorkers>()
-  const [statisticCoins, setStatisticCoins] = useState<StatisticCoin[]>([])
-  const [totalShares, setTotalShares] = useState<Shares>()
-  const [totalGpus, setTotalGpus] = useState<TotalGpus>()
-  const [totalCpus, setTotalCpus] = useState<TotalCpus>()
+  const maxLenght = useStateObject<number>(150);
+  const chartDataList = useStateObject<ChartData[]>();
+  const statisticCoinList = useStateObject<StatisticCoin[]>();
+  const totalWorkers = useStateObject<TotalWorkers>();
+  const totalPower = useStateObject<TotalPower>();
+  const totalGpus = useStateObject<TotalGpus>();
+  const totalCpus = useStateObject<TotalCpus>();
+  const totalShares = useStateObject<Shares>();
+  const coinsChart = useStateObject<CoinsChart>();
 
   WebsocketContext.useSignalREffect(
     'ReceivedMonitoringData',
     (data: TriggerData) => {
       match(data)
-        .with({ type: "ChartDataValues" }, ({ newData }) => {
-          ZodSaveParse(newData, ChartDataValue.array(), (checkedData) => {
-            setMaxLenght(checkedData.length)
-            setChartDataValues(checkedData);
+        .with({ type: "ChartDataList" }, ({ newData }) => {
+          ZodSaveParse(newData, ChartData.array(), (checkedData) => {
+            maxLenght.setValue(checkedData.length)
+            chartDataList.setValue(checkedData);
           });
         })
-        .with({ type: "ChartDataValue" }, ({ newData }) => {
-          ZodSaveParse(newData, ChartDataValue, (checkedData) => {
-            if (chartDataValues.length >= maxLenght)
-              setChartDataValues(chartDataValues.splice(0, 1))
-            setChartDataValues(chartDataValues.concat(checkedData))
+        .with({ type: "ChartData" }, ({ newData }) => {
+          ZodSaveParse(newData, ChartData, (checkedData) => { 
+            if (chartDataList.value?.length ?? 0 >= maxLenght.value!)
+              chartDataList.setValue(chartDataList.value?.splice(0, 1))
+            chartDataList.setValue(chartDataList.value?.concat(checkedData))
           });
         })
-        .with({ type: "TotalPower" }, ({ newData }) => 
-          ZodSaveParse(newData, TotalPower, (checkedData) => setTotalPower(checkedData)))
-        .with({ type: "TotalGpus" }, ({ newData }) => 
-          ZodSaveParse(newData, TotalGpus, (checkedData) => setTotalGpus(checkedData)))
-        .with({ type: "TotalCpus" }, ({ newData }) => 
-          ZodSaveParse(newData, TotalCpus, (checkedData) => setTotalCpus(checkedData)))
-        .with({ type: 'StatisticCoins'}, ({ newData }) => 
-          ZodSaveParse(newData, StatisticCoin.array(), (checkedData) => setStatisticCoins(checkedData)))
-        .with({ type: "TotalShares" }, ({ newData }) => 
-          ZodSaveParse(newData, Shares, (checkedData) => setTotalShares(checkedData)))
-        .with({ type: "TotalWorkers" }, ({ newData }) => 
-          ZodSaveParse(newData, TotalWorkers, (checkedData) => setTotalWorkers(checkedData)))
+        .with({ type: 'TotalPower' }, ({ newData }) => 
+          ZodSaveParse(newData, TotalPower, (checkedData) => totalPower.setValue(checkedData)))
+        .with({ type: 'TotalGpus' }, ({ newData }) => 
+          ZodSaveParse(newData, TotalGpus, (checkedData) => totalGpus.setValue(checkedData)))
+        .with({ type: 'TotalCpus' }, ({ newData }) => 
+          ZodSaveParse(newData, TotalCpus, (checkedData) => totalCpus.setValue(checkedData)))
+        .with({ type: 'StatisticCoinList'}, ({ newData }) => 
+          ZodSaveParse(newData, StatisticCoin.array(), (checkedData) => statisticCoinList.setValue(checkedData)))
+        .with({ type: 'TotalShares' }, ({ newData }) => 
+          ZodSaveParse(newData, Shares, (checkedData) => totalShares.setValue(checkedData)))
+        .with({ type: 'TotalWorkers' }, ({ newData }) => 
+          ZodSaveParse(newData, TotalWorkers, (checkedData) => totalWorkers.setValue(checkedData)))
+        .with({ type: 'CoinsChart'}, ({ newData }) => 
+          ZodSaveParse(newData, CoinsChart, (checkedData) => coinsChart.setValue(checkedData)))
+        .otherwise(() => {
+          return;
+        });
     }, 
     []
   )
 
   return {
-    chartDataValues,
+    chartDataList,
     totalPower,
     totalWorkers,
     totalShares,
     totalGpus,
-    statisticCoins,
-    totalCpus
+    statisticCoinList,
+    totalCpus,
+    coinsChart
   }
 }

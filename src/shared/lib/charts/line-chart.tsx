@@ -32,11 +32,11 @@ ChartJS.register(
   // ChartDataLabels
 );
 
-export const ChartDataValue = z.object({
+export const ChartData = z.object({
   time: z.string(),
   valueUnit: MeasureUnit
 })
-export type ChartDataValue = z.infer<typeof ChartDataValue>
+export type ChartData = z.infer<typeof ChartData>
 
 export function LineChart({
   className,
@@ -49,7 +49,7 @@ export function LineChart({
   title?: string;
   legend?: string
   lineColor?: 'red' | 'blue' | 'green';
-  data?: ChartDataValue[];
+  data?: ChartData[];
 }) {
   const currentColor = {
     red: CHART_COLORS.RED,
@@ -144,11 +144,11 @@ export function LineChart({
       //   anchor: 'end',
       //   clamping: true,
       //   color: currentColor,
-      //   formatter: (ctx: ChartDataValue) => ctx.value
+      //   formatter: (ctx: ChartData) => ctx.value
       // },
     }]
   }
   return (
-    <Line className={className} options={options} data={dataset} updateMode='none'/>
+    <Line className={className} options={options} data={dataset} updateMode='resize'/>
   )
 }

@@ -2,7 +2,6 @@
 using MNX.Backend.Test.Controllers;
 using MNX.Backend.Test.Model;
 using MNX.Backend.Test.Utils.Abstractions;
-using System;
 
 namespace MNX.Backend.Test.Utils
 {
@@ -25,7 +24,7 @@ namespace MNX.Backend.Test.Utils
             await hubContext
                     .Clients
                     .Client(connectionId)
-                    .SendAsync(MONITORING_TRIGGER, new ObjectType("ChartDataValues", chartDataList));
+                    .SendAsync(MONITORING_TRIGGER, new ObjectType("ChartDataList", chartDataList));
         }
 
         public async Task SendCurrentHashRate(string connectionId)
@@ -37,7 +36,7 @@ namespace MNX.Backend.Test.Utils
                 await hubContext
                         .Clients
                         .Client(connectionId)
-                        .SendAsync(MONITORING_TRIGGER, new ObjectType("ChartDataValue", chartData));
+                        .SendAsync(MONITORING_TRIGGER, new ObjectType("ChartData", chartData));
             }
         }
 
@@ -82,7 +81,7 @@ namespace MNX.Backend.Test.Utils
                 await hubContext
                         .Clients
                         .Client(connectionId)
-                        .SendAsync(MONITORING_TRIGGER, new ObjectType("StatisticCoins", coinList));
+                        .SendAsync(MONITORING_TRIGGER, new ObjectType("StatisticCoinList", coinList));
                 await Task.Delay(2000);
             }
         }
@@ -124,6 +123,19 @@ namespace MNX.Backend.Test.Utils
                         .SendAsync(MONITORING_TRIGGER, new ObjectType("TotalCpus", totalCpus));
                 await Task.Delay(2000);
             }
+        }
+
+        public async Task SendCoinsChart(string connectionId)
+        {
+            List<string> coins = [
+                "Bitcoin", "Etherium",
+                "Ethereum Classic", "NotCoin", 
+                "Raven", "Solana", 
+                "Icarus", "Monero"];
+            await hubContext
+                    .Clients
+                    .Client(connectionId)
+                    .SendAsync(MONITORING_TRIGGER, new ObjectType("CoinsChart", coins));
         }
     }
 }

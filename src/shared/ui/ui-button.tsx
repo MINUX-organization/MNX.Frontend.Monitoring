@@ -1,13 +1,20 @@
 import clsx from "clsx";
 import { ButtonHTMLAttributes } from "react";
-import styles from './styles/uiBgContainer.module.scss'
+import styles from './styles/uiButton.module.scss'
 
-type UiButtonVariant = "transparent" | "opaque" | "outlined";
-export type UiButtonProps = {
-  variant: UiButtonVariant;
-} & ButtonHTMLAttributes<HTMLButtonElement>;
+type UiButtonVariant = {
+  variant: "transparent" | "opaque" | "outlined";
+  isActive?: boolean;
+};
+export type UiButtonProps = UiButtonVariant & ButtonHTMLAttributes<HTMLButtonElement>;
 
-export function UiButton({ className, variant, children, ...props }: UiButtonProps) {
+export function UiButton({ 
+  className, 
+  variant, 
+  isActive, 
+  children, 
+  ...props 
+} : UiButtonProps) {
   return (
     <button
       {...props}
@@ -19,6 +26,7 @@ export function UiButton({ className, variant, children, ...props }: UiButtonPro
           opaque: styles['opaque'],
           outlined: styles['outlined'],
         }[variant],
+        isActive && styles['active']
       )}
     >
       {children}

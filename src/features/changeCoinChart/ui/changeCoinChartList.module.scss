@@ -1,0 +1,13 @@
+.wrapper {
+  width: 6rem;
+  display: grid;
+  margin-right: var(--gap-content);
+  gap: var(--gap-content);
+  overflow-y: auto; 
+}
+
+.non-data {
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-border);
+}

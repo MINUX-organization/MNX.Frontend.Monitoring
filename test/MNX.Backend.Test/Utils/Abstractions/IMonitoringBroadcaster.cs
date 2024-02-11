@@ -10,5 +10,6 @@
         Task SendTotalShares(string connectionId);
         Task SendTotalGpus(string connectionId);
         Task SendTotalCpus(string connectionId);
+        Task SendCoinsChart(string connectionId);
     }
 }

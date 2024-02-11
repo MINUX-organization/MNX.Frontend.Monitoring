@@ -8,16 +8,19 @@ namespace MNX.Backend.Test.Controllers
         private readonly IMonitoringBroadcaster _monitoringBroadcaster = monitoringBroadcaster;
         private string _coinState = String.Empty;
 
-        public void ChosenCoinMessage(string message)
+        public async Task SendCoin(string message)
         {
+            string connectionId = Context.ConnectionId;
+
             _coinState = message;
+            await _monitoringBroadcaster.SendHashRateForAPeriod(150, connectionId);
         }
 
         public override async Task OnConnectedAsync()
         {
             string connectionId = Context.ConnectionId;
 
-            await Task.WhenAll([
+            await Task.WhenAny([
                 _monitoringBroadcaster.SendHashRateForAPeriod(150, connectionId),
                 _monitoringBroadcaster.SendCurrentHashRate(connectionId),
                 _monitoringBroadcaster.SendTotalShares(connectionId),
@@ -25,7 +28,8 @@ namespace MNX.Backend.Test.Controllers
                 _monitoringBroadcaster.SendTotalWorkers(connectionId),
                 _monitoringBroadcaster.SendTotalGpus(connectionId),
                 _monitoringBroadcaster.SendTotalCpus(connectionId),
-                _monitoringBroadcaster.SendStatisticCoins(15, connectionId)
+                _monitoringBroadcaster.SendStatisticCoins(15, connectionId),
+                _monitoringBroadcaster.SendCoinsChart(connectionId)
             ]);
         }
     }

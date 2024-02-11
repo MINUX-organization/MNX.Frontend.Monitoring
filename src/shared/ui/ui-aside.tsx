@@ -3,14 +3,18 @@ import { ReactNode } from "react";
 import styles from "./styles/uiAside.module.scss"
 import _ from "lodash";
 
-export function Aside({
+export function UiAside<T>({
   className,
   variant,
-  elements
+  elements,
+  renderElement,
+  children
 } : {
   className?: string;
-  variant: 'vertical' | 'horizontal'
-  elements?: ReactNode[]
+  variant: 'vertical' | 'horizontal';
+  elements?: T[];
+  renderElement?: (element: T) => ReactNode;
+  children?: ReactNode;
 }) {
   return (
     <aside className={clsx(
@@ -21,8 +25,9 @@ export function Aside({
         horizontal: styles['horizontal']
       }[variant]
     )}>
-      {_.map(elements, (element) => (
-        element
+      {children}
+      {_.map(elements, (element) => ( 
+        renderElement?.(element)
       ))}
     </aside>
   )
