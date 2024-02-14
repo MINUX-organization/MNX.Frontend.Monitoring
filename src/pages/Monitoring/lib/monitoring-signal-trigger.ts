@@ -1,10 +1,10 @@
-import { Shares, StatisticCoin, TotalCpus, TotalGpus, TotalPower, TotalWorkers } from "@/entities/statistic/model/types";
+import { Shares, StatisticCoin, TotalCpus, TotalGpus, TotalPower, TotalWorkers } from "@/entities/total/model/types";
 import { ChartData } from "@/shared/lib/charts/line-chart";
 import { WebsocketContext } from "@/shared/lib/providers/websocket-context"; 
 import { match } from 'ts-pattern';
 import { ZodSaveParse } from "@/shared/lib/utils/zod-save-parse";
 import { useStateObject } from "@/shared/lib/utils/state-object";
-import { CoinsChart } from "@/features/changeCoinChart/ui/change-coin-chart-list";
+import { CoinsChart } from "@/features/change-coin-chart/ui/change-coin-chart-list";
 
 type Type = 
   "ChartDataList"      |
@@ -15,7 +15,7 @@ type Type =
   "TotalWorkers"       |
   "TotalGpus"          |
   "TotalCpus"          |
-  "CoinsChart"
+  "CoinChartList"
   
 type TriggerData = {
   type: Type;
@@ -34,7 +34,7 @@ export function useMonitoringSignalTrigger() {
   const coinsChart = useStateObject<CoinsChart>();
 
   WebsocketContext.useSignalREffect(
-    'ReceivedMonitoringData',
+    'ReceivedTotalData',
     (data: TriggerData) => {
       match(data)
         .with({ type: "ChartDataList" }, ({ newData }) => {
@@ -62,7 +62,7 @@ export function useMonitoringSignalTrigger() {
           ZodSaveParse(newData, Shares, (checkedData) => totalShares.setValue(checkedData)))
         .with({ type: 'TotalWorkers' }, ({ newData }) => 
           ZodSaveParse(newData, TotalWorkers, (checkedData) => totalWorkers.setValue(checkedData)))
-        .with({ type: 'CoinsChart'}, ({ newData }) => 
+        .with({ type: 'CoinChartList'}, ({ newData }) => 
           ZodSaveParse(newData, CoinsChart, (checkedData) => coinsChart.setValue(checkedData)))
         .otherwise(() => {
           return;

@@ -1,15 +1,16 @@
-import { 
-  MemoizedStatisticCoinChart, 
+import {
   MemoizedStatisticCoinTable, 
   MemoizedTotalCpusWidget, 
   MemoizedTotalGpusWidget, 
   MemoizedTotalPower, 
   MemoizedTotalShares, 
-  MemoizedTotalWorkers } from "@/entities/statistic";
+  MemoizedTotalWorkers } from "@/entities/total";
 import styles from './monitoring.page.module.scss'
 import { WebsocketContextProvider } from "@/shared/lib/providers/websocket-context";
 import { useMonitoringSignalTrigger } from "../lib/monitoring-signal-trigger";
-import { ChangeCoinChartList } from "@/features/changeCoinChart";
+import { ChangeCoinChartList } from "@/features/change-coin-chart";
+import { WorkerList } from "@/entities/worker";
+import { MemoizedStatisticCoinChart } from "@/entities/chart";
   
 export function Monitoring() {
   const {
@@ -40,6 +41,7 @@ export function Monitoring() {
             renderCoinList={() => <ChangeCoinChartList coins={coinsChart}/>}/> 
         </article>
         <article className={styles['slot-3']}>
+          <WorkerList/>
         </article>
       </div>
     </WebsocketContextProvider>

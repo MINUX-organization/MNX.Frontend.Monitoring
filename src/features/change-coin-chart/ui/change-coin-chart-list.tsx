@@ -22,6 +22,7 @@ export function ChangeCoinChartList({
     if (!coins) return;
     currentCoinChartObject.setValue(coins ? coins[0] : '')
     WebsocketContext.invoke("SendCoin", currentCoinChartObject)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [coins])
 
   if (!coins) return ( 

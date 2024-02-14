@@ -6,7 +6,8 @@ namespace MNX.Backend.Test.Controllers
     public class MonitoringHub(IMonitoringBroadcaster monitoringBroadcaster) : Hub
     {
         private readonly IMonitoringBroadcaster _monitoringBroadcaster = monitoringBroadcaster;
-        private string _coinState = String.Empty;
+
+        private string _coinState = string.Empty;
 
         public async Task SendCoin(string message)
         {

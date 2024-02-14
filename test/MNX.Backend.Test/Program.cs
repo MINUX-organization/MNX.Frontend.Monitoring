@@ -31,7 +31,6 @@ namespace MNX.Backend.Test
 
             app.MapControllers();
 
-
             app.MapHub<MonitoringHub>("hubs/monitoring");
 
             app.Run();

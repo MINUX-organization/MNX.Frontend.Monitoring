@@ -1,0 +1,1 @@
+export { MemoizedStatisticCoinChart } from './ui/statisctic-coin-chart'
