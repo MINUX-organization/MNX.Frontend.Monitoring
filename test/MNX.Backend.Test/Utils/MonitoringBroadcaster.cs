@@ -7,7 +7,7 @@ namespace MNX.Backend.Test.Utils
 {
     public class MonitoringBroadcaster(IHubContext<MonitoringHub> hubContext) : IMonitoringBroadcaster
     {
-        private const string MONITORING_TRIGGER = "ReceivedMonitoringData";
+        private const string MONITORING_TRIGGER = "ReceivedTotalData";
         private readonly Random _random = new();
 
         public async Task SendHashRateForAPeriod(int pointCount, string connectionId)

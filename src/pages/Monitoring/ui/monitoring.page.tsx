@@ -8,8 +8,8 @@ import {
 import styles from './monitoring.page.module.scss'
 import { WebsocketContextProvider } from "@/shared/lib/providers/websocket-context";
 import { useMonitoringSignalTrigger } from "../lib/monitoring-signal-trigger";
-import { ChangeCoinChartList } from "@/features/change-coin-chart";
-import { WorkerList } from "@/entities/worker";
+import { MemoizedChangeCoinChartList } from "@/features/chart/change-coin-chart";
+import { MemoizedWorkerList } from "@/entities/worker";
 import { MemoizedStatisticCoinChart } from "@/entities/chart";
   
 export function Monitoring() {
@@ -38,10 +38,10 @@ export function Monitoring() {
           <MemoizedStatisticCoinChart 
             className={styles['item-4']} 
             values={chartDataList}
-            renderCoinList={() => <ChangeCoinChartList coins={coinsChart}/>}/> 
+            renderCoinList={() => <MemoizedChangeCoinChartList coins={coinsChart}/>}/> 
         </article>
         <article className={styles['slot-3']}>
-          <WorkerList/>
+          <MemoizedWorkerList/>
         </article>
       </div>
     </WebsocketContextProvider>

@@ -1,7 +1,11 @@
-import { UiBgContainer } from "@/shared/ui/ui-bg-container"
-import { WorkerList as Type } from "../model/types"
-import styles from './workerItem.module.scss'
 import clsx from "clsx"
+import styles from './styles/workerItem.module.scss'
+import { Worker as Type, WorkerInfo } from "../model/types"
+import { WorkerItemPanel } from "./worker-item-panel";
+import { useStateObject } from "@/shared/lib/utils/state-object"; 
+import { WorkerItemFlightSheetTable } from "./worker-item-flight-sheet-table";
+import { WorkerItemDropdown } from "./worker-item-dropdown";
+import { WorkerItemInfo } from "./worker-item-info";
 
 export function WorkerItem({
   className,
@@ -10,30 +14,32 @@ export function WorkerItem({
   className?: string;
   worker?: Type;
 }) {
+  const isOpen = useStateObject<boolean>(false);
+  const labels = [
+    'Coin', 'Flight Sheet', 'Miner', 
+    'Hashrate', 'Shares Accepted', 'Shares Rejected'
+  ];
+  const workerInfo: Partial<WorkerInfo> = {
+    miningUpTime: worker?.miningUpTime,
+    bootedUpTime: worker?.bootedUpTime,
+    localIp: worker?.localIp,
+    minuxVersion: worker?.minuxVersion,
+    nvidiaCount: worker?.nvidiaCount,
+    amdCount: worker?.amdCount,
+    intelCount: worker?.intelCount
+  }
   return (
     <div className={clsx(
       className,
       styles['wrapper']
     )}>
-      <UiBgContainer 
-        className={styles['grid-container']} 
-        color="opaque"
-      >
-        <span className={styles['item-1']}>{worker?.id ?? 'N/A'}</span>
-        <span className={styles['item-2']}>{worker?.name ?? 'N/A'}</span>
-        <span className={styles['item-3']}>{worker?.gpus ?? 'N/A'}</span>
-        <span className={styles['item-4']}>{worker?.isActive ?? 'N/A'}</span>
-        <div className={styles['item-5']}>
-          <span>{worker?.online ?? 'N/A'}</span>
-          <span>{worker?.online && (worker?.onlineSpeed.value ?? 'N/A')}</span>
-        </div>
-        <span className={styles['item-6']}>{worker?.averageTemp ?? 'N/A'}</span>
-        <span className={styles['item-7']}>{worker?.fan ?? 'N/A'}</span>
-        <div className={styles['item-8']}>
-          <span>{worker?.power.value ?? 'N/A'}</span>
-          <span>{worker?.power.value && (worker?.power.measureUnit ?? 'N/A')}</span>
-        </div>
-      </UiBgContainer>
+      <WorkerItemPanel worker={worker} onClick={() => isOpen.setValue(!isOpen.value)}/>
+      <WorkerItemDropdown
+        isOpen={isOpen.value}
+        workerFlightSheetRender={() => 
+          <WorkerItemFlightSheetTable flightSheets={worker?.flightSheetInfo} labels={labels}/>}
+        workerInfoRender={() => <WorkerItemInfo workerInfo={workerInfo}/>}
+      />
     </div>
   )
 }

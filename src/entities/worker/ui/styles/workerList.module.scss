@@ -7,12 +7,12 @@
 .wrapper {
   width: 100%;
   display: grid;
-  text-align: center;
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: repeat(auto-fill, min(3.5rem));
 
   .table-label {
     @include subgrid();
+    text-align: center;
     align-items: center;
     padding: 0 0.375rem;
     .text-label { 
@@ -45,11 +45,13 @@
     }
   }
   
-  .table-info {
+  .table-items {
+    min-height: 400px;
     @include subgrid();
-    border-left-width: 2px;
-    border-right-width: 2px;
+    grid-auto-rows: min-content;
+    border-left-width: 4px;
+    border-right-width: 4px;
+    border-bottom-width: 0;
+    gap: var(--gap-content);
   }
 }
-
-

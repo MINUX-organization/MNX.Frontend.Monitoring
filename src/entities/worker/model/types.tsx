@@ -13,6 +13,9 @@ export const Shares = z.object({
 }) 
 export type Shares = z.infer<typeof Shares>
 
+export const OnlineState = z.enum(['1', '2', '3', '4', 'ofline'])
+export type OnlineState = z.infer<typeof OnlineState>
+
 export const OnlineSpeed = MeasureUnit
 export type OnlineSpeed = z.infer<typeof OnlineSpeed>
 
@@ -25,8 +28,8 @@ export const FlightSheetInfo = z.object({
   miner: z.string({invalid_type_error: 'Miner must be a string'}),
   hashrate: MeasureUnit,
   shares: Shares
-}).array()
-export type FlightSheetInfo = z.infer<typeof Shares>
+})
+export type FlightSheetInfo = z.infer<typeof FlightSheetInfo>
 
 export const UpTime = z.object({
   mining: z.string({invalid_type_error: 'Mining must be a string'}),
@@ -34,27 +37,33 @@ export const UpTime = z.object({
 })
 export type UpTime = z.infer<typeof UpTime>
 
-export const TotalGpus = z.object({
-  nvidia: z.number({invalid_type_error: 'Mining must be a string'}),
-  amd: z.number({invalid_type_error: 'Booted must be a string'}),
-  intel: z.number({invalid_type_error: 'Booted must be a string'})
-})
-export type TotalGpus = z.infer<typeof TotalGpus>
-
 export const Worker = z.object({
   id: z.number({invalid_type_error: 'Id must be a number'}),
   name: z.string({invalid_type_error: 'Name must be a string'}),
-  gpus: Gpus, 
+  gpusState: Gpus, 
   isActive: IsActive,
-  online: z.enum(['1', '2', '3', '4', 'ofline']),
+  onlineState: OnlineState,
   onlineSpeed: OnlineSpeed,
-  averageTemp: z.string({invalid_type_error: 'AverageTemp must be a string'}),
-  fan: z.number({invalid_type_error: 'Fan must be a string'}),
+  averageTemperature: z.string({invalid_type_error: 'AverageTemp must be a string'}),
+  fanSpeed: z.number({invalid_type_error: 'Fan must be a string'}),
   power: Power,
-  flightSheetInfo: FlightSheetInfo,
-  upTime: UpTime,
+  flightSheetInfo: FlightSheetInfo.array(),
+  miningUpTime: z.string({invalid_type_error: 'MiningUpTime must be a string'}),
+  bootedUpTime: z.string({invalid_type_error: 'BootedUpTime must be a string'}),
   localIp: z.string({invalid_type_error: 'LocalIp must be a string'}),
   minuxVersion: z.string({invalid_type_error: 'MinuxVersion must be a string'}),
-  totalGpus: TotalGpus
+  nvidiaCount: z.number({invalid_type_error: 'Mining must be a string'}),
+  amdCount: z.number({invalid_type_error: 'Booted must be a string'}),
+  intelCount: z.number({invalid_type_error: 'Booted must be a string'})
 })
-export type WorkerList = z.infer<typeof Worker>
+export type Worker = z.infer<typeof Worker>
+
+export type WorkerInfo = {
+  miningUpTime: string;
+  bootedUpTime: string;
+  localIp: string;
+  minuxVersion: string;
+  nvidiaCount: number;
+  amdCount: number;
+  intelCount: number;
+}

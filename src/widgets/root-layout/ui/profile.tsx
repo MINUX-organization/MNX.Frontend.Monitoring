@@ -12,7 +12,7 @@ export function Profile() {
   return (
     <UiBorderBox>
       <UiBgContainer color="opaque">
-        fef
+        Profile
       </UiBgContainer>
     </UiBorderBox>
   );

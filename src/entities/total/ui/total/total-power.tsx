@@ -19,8 +19,8 @@ function TotalPower({
     )}>
       <UiBgContainer className={styles['container']} color="opaque">
         <span>Total Power</span>
-        <span>{value?.value ?? 'N/A'}&nbsp;
-          <span className={styles['measure']}>{value?.measureUnit}</span>
+        <span>{value?.value ?? 'N/A'}
+          {value && <span className={styles['measure']}>&nbsp;{value?.measureUnit}</span>}
         </span>
       </UiBgContainer>
     </UiBorderBox>

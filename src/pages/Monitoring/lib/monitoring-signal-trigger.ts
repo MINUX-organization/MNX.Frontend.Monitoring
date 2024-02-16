@@ -1,10 +1,11 @@
-import { Shares, StatisticCoin, TotalCpus, TotalGpus, TotalPower, TotalWorkers } from "@/entities/total/model/types";
+import { Shares, StatisticCoin, TotalCpus, TotalGpus, TotalPower, TotalWorkers } from "@/entities/total";
 import { ChartData } from "@/shared/lib/charts/line-chart";
 import { WebsocketContext } from "@/shared/lib/providers/websocket-context"; 
 import { match } from 'ts-pattern';
 import { ZodSaveParse } from "@/shared/lib/utils/zod-save-parse";
 import { useStateObject } from "@/shared/lib/utils/state-object";
-import { CoinsChart } from "@/features/change-coin-chart/ui/change-coin-chart-list";
+import { CoinsChart } from "@/features/chart/change-coin-chart/ui/change-coin-chart-list";
+import _ from "lodash";
 
 type Type = 
   "ChartDataList"      |
@@ -24,6 +25,7 @@ type TriggerData = {
 
 export function useMonitoringSignalTrigger() {
   const maxLenght = useStateObject<number>(150);
+  const coinsCache = useStateObject<string[]>([]);
   const chartDataList = useStateObject<ChartData[]>();
   const statisticCoinList = useStateObject<StatisticCoin[]>();
   const totalWorkers = useStateObject<TotalWorkers>();
@@ -56,8 +58,16 @@ export function useMonitoringSignalTrigger() {
           ZodSaveParse(newData, TotalGpus, (checkedData) => totalGpus.setValue(checkedData)))
         .with({ type: 'TotalCpus' }, ({ newData }) => 
           ZodSaveParse(newData, TotalCpus, (checkedData) => totalCpus.setValue(checkedData)))
-        .with({ type: 'StatisticCoinList'}, ({ newData }) => 
-          ZodSaveParse(newData, StatisticCoin.array(), (checkedData) => statisticCoinList.setValue(checkedData)))
+        .with({ type: 'StatisticCoinList'}, ({ newData }) => {
+          ZodSaveParse(newData, StatisticCoin.array(), (checkedData) => {
+            const coinsList = _.map(checkedData, (item) => item.coin);
+            if (!_.isEqual(coinsCache.value, coinsList)) {
+              coinsCache.setValue(coinsList);
+              coinsChart.setValue(coinsList);
+            }
+            statisticCoinList.setValue(checkedData); 
+          })
+        }) 
         .with({ type: 'TotalShares' }, ({ newData }) => 
           ZodSaveParse(newData, Shares, (checkedData) => totalShares.setValue(checkedData)))
         .with({ type: 'TotalWorkers' }, ({ newData }) => 

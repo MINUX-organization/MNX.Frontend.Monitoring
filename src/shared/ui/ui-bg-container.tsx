@@ -1,24 +1,29 @@
 import clsx from "clsx";
-import { ReactNode } from "react";
+import { HTMLAttributes, ReactNode } from "react";
 import styles from './styles/uiBgContainer.module.scss'
+
+type UiBgContainerProps = {
+  className?: string;
+  color: 'opaque' | 'transparent';
+  children?: ReactNode;
+} & HTMLAttributes<HTMLDivElement>
 
 export function UiBgContainer({
   className,
   color,
-  children
-} : {
-  className?: string;
-  color: 'opaque' | 'transparent';
-  children?: ReactNode;
-}) {
+  children,
+  ...props
+} : UiBgContainerProps) {
   return (
-    <div className={clsx(
-      className,
-      styles['wrapper'],
-      {
-        opaque: styles['opaque'],
-        transparent: styles['transparent']
-      }[color]
+    <div 
+      {...props}
+      className={clsx(
+        className,
+        styles['wrapper'],
+        {
+          opaque: styles['opaque'],
+          transparent: styles['transparent']
+        }[color]
     )}>
       {children} 
     </div>

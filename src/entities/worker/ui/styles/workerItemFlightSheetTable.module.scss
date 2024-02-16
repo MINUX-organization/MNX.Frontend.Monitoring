@@ -1,0 +1,22 @@
+@mixin subgrid() {
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: 1 / 7;
+}
+
+.wrapper {
+  display: grid;
+  text-align: center;
+  grid-template-columns: repeat(6, 1fr);
+  font-size: var(--font-size-18px);
+  .grid-title {
+    align-items: center;
+    @include subgrid();
+    color: var(--color-font-gray);
+  }
+  .grid-items {
+    @include subgrid();
+    align-items: center;
+    grid-auto-rows: min-content;
+  }
+}
