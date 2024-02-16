@@ -4,16 +4,23 @@ import { Worker as Type, WorkerInfo } from "../model/types"
 import { WorkerItemPanel } from "./worker-item-panel";
 import { useStateObject } from "@/shared/lib/utils/state-object"; 
 import { WorkerItemFlightSheetTable } from "./worker-item-flight-sheet-table";
-import { WorkerItemDropdown } from "./worker-item-dropdown";
+import { FeaturesProps, WorkerItemDropdown } from "./worker-item-dropdown";
 import { WorkerItemInfo } from "./worker-item-info";
+import React from "react";
 
-export function WorkerItem({
-  className,
-  worker
-} : {
+type WorkerItemProps = {
   className?: string;
   worker?: Type;
-}) {
+} & FeaturesProps 
+
+function WorkerItem({
+  className,
+  worker,
+  workerStopMiningRender,
+  workerPowerOffRender,
+  workerRebootRender,
+  workerRebootInRender
+} : WorkerItemProps) {
   const isOpen = useStateObject<boolean>(false);
   const labels = [
     'Coin', 'Flight Sheet', 'Miner', 
@@ -39,7 +46,13 @@ export function WorkerItem({
         workerFlightSheetRender={() => 
           <WorkerItemFlightSheetTable flightSheets={worker?.flightSheetInfo} labels={labels}/>}
         workerInfoRender={() => <WorkerItemInfo workerInfo={workerInfo}/>}
+        workerStopMiningRender={workerStopMiningRender}
+        workerPowerOffRender={workerPowerOffRender}
+        workerRebootRender={workerRebootRender}
+        workerRebootInRender={workerRebootInRender}
       />
     </div>
   )
 }
+
+export const MemoizedWorkerItem = React.memo(WorkerItem)

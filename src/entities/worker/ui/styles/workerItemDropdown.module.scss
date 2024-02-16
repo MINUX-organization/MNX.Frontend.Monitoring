@@ -11,4 +11,13 @@
     padding: 0.625rem;
     height: auto;
   }
+
+  .features {
+    padding-left: var(--gap-widget);
+    gap: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: min-content;
+    grid-template-rows: repeat(auto-fill, 2.5rem);
+  }
 }

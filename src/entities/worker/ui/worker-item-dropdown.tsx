@@ -2,6 +2,20 @@ import clsx from "clsx";
 import styles from './styles/workerItemDropdown.module.scss'
 import { ReactNode } from "react";
 
+export type FeaturesProps = {
+  workerStopMiningRender?: () => ReactNode;
+  workerPowerOffRender?: () => ReactNode;
+  workerRebootRender?: () => ReactNode;
+  workerRebootInRender?: () => ReactNode;
+}
+
+export type WorkerItemDropdownProps = {
+  className?: string;
+  isOpen?: boolean;
+  workerFlightSheetRender?: () => ReactNode;
+  workerInfoRender?: () => ReactNode;
+} & FeaturesProps
+
 export function WorkerItemDropdown({
   className,
   isOpen,
@@ -11,16 +25,7 @@ export function WorkerItemDropdown({
   workerRebootRender,
   workerRebootInRender,
   workerInfoRender
-} : {
-  className?: string;
-  isOpen?: boolean;
-  workerFlightSheetRender?: () => ReactNode;
-  workerStopMiningRender?: () => ReactNode;
-  workerPowerOffRender?: () => ReactNode;
-  workerRebootRender?: () => ReactNode;
-  workerRebootInRender?: () => ReactNode;
-  workerInfoRender?: () => ReactNode;
-}) {
+} : WorkerItemDropdownProps) {
   return (
     <div className={clsx(
       className,
@@ -29,8 +34,8 @@ export function WorkerItemDropdown({
     )}>
       {workerFlightSheetRender?.()}
       <div className={styles['features']}>
-        {workerStopMiningRender?.()}
         {workerPowerOffRender?.()}
+        {workerStopMiningRender?.()}
         {workerRebootRender?.()}
         {workerRebootInRender?.()}
       </div>

@@ -44,7 +44,7 @@ export const Worker = z.object({
   isActive: IsActive,
   onlineState: OnlineState,
   onlineSpeed: OnlineSpeed,
-  averageTemperature: z.string({invalid_type_error: 'AverageTemp must be a string'}),
+  averageTemperature: z.number({invalid_type_error: 'AverageTemp must be a number'}),
   fanSpeed: z.number({invalid_type_error: 'Fan must be a string'}),
   power: Power,
   flightSheetInfo: FlightSheetInfo.array(),

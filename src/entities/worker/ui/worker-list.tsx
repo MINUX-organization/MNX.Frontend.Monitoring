@@ -3,7 +3,6 @@ import { Worker as Type } from "../model/types"
 import styles from './styles/workerList.module.scss'
 import _ from "lodash"
 import { UiBorderBox } from "@/shared/ui/ui-border-box"
-import { WorkerItem } from "./worker-item"
 import React, { ReactNode } from "react" 
 
 function WorkerList({
@@ -13,7 +12,7 @@ function WorkerList({
 } : {
   className?: string;
   workers?: Type[];
-  renderWorkerItem?: (worker: Type) => ReactNode;
+  renderWorkerItem?: (worker?: Type) => ReactNode;
 }) {
   const labels = [
     'ID', 'Name', 'GPUs', 

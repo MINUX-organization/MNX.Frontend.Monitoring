@@ -2,16 +2,58 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  
-  &:hover {
-    background-color: color-mix(in srgb, var(--color-cotainer-opaque) 95%, white 10%);
-  }
+
   &.active {
     background-color: var(--color-active-button);
+  }
+
+  .container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.outline {
+  border: var(--border);
+  padding: 0.1875rem;
+
+  &.outline-transparent {
+    border-color: transparent;
+  }
+  &.outline-opaque {
+    border-color: var(--color-cotainer-opaque);
+  }
+  &.outline-red {
+    border-color: var(--color-negative);
+  }
+  &.outline-blue {
+    border-color: var(--color-active-button);
   }
 }
 
 .opaque {
   background-color: var(--color-cotainer-opaque);
+  border-color: var(--color-cotainer-opaque);
+  &:hover {
+    background-color: color-mix(in srgb, var(--color-cotainer-opaque) 90%, white 10%);
+  }
+}
 
+.red {
+  background-color: var(--color-negative);
+  border-color: var(--color-negative);
+  &:hover {
+    background-color: color-mix(in srgb, var(--color-negative) 90%, white 10%);
+  }
+}
+
+.blue {
+  background-color: var(--color-active-button);
+  border-color: var(--color-active-button);
+  &:hover {
+    background-color: color-mix(in srgb, var(--color-active-button) 90%, white 10%);
+  }
 }

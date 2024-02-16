@@ -2,6 +2,7 @@ import { UiBgContainer } from "@/shared/ui/ui-bg-container";
 import { FlightSheetInfo } from "../model/types";
 import styles from './styles/workerItemFlightSheetTable.module.scss';
 import _ from "lodash";
+import clsx from "clsx";
 
 export function WorkerItemFlightSheetTable({
   className, 
@@ -13,30 +14,30 @@ export function WorkerItemFlightSheetTable({
   labels?: string[];
 }) {
   return ( 
-    <UiBgContainer className={styles['wrapper']} color="opaque">
-      <div className={styles['grid-title']}>
+    <div className={clsx(className, styles['wrapper'])}>
+      <UiBgContainer className={styles['grid-title']} color="opaque">
         {_.map(labels, (label, index) => (
           <span key={index}>{label}</span>
         ))}
-      </div>
+      </UiBgContainer>
       <div className={styles['grid-items']}>
         {_.map(flightSheets, (flightSheet) => (
-          <div key={flightSheet.flightSheet} className={className}>
+          <div key={flightSheet.flightSheet} className={styles['grid-item']}>
             <span>{flightSheet.coin}</span>
             <span>{flightSheet.flightSheet}</span>
             <span>{flightSheet.miner}</span>
             <span>
               {flightSheet.hashrate.value}
               &nbsp;
-              <span>
+              <span className={styles['measure']}>
                 {flightSheet.hashrate.measureUnit}
               </span>
             </span>
-            <span>{flightSheet.shares.accepted}</span>
-            <span>{flightSheet.shares.rejected}</span>
+            <span className={styles['positive']}>{flightSheet.shares.accepted}</span>
+            <span className={styles['negative']}>{flightSheet.shares.rejected}</span>
           </div>
         ))} 
       </div>
-    </UiBgContainer>
+    </div>
   )
 }

@@ -15,7 +15,7 @@ export function ChangeCoinChartButton({
 }) {
   return (
     <UiButton 
-      variant="opaque" 
+      color="opaque" 
       className={clsx(
         className,
         styles['wrapper'],

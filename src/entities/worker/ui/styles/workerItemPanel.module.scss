@@ -18,6 +18,12 @@
     grid-column: 2 / 4;
   }
   .item-3{
+    display: grid;
+    gap: 0.125rem;
+    justify-content: center;
+    align-items: center;
+    grid-auto-columns: min-content;
+    grid-template-columns: repeat(10, auto);
     grid-column: 4 / 6;
   }
   .item-4{
@@ -35,4 +41,34 @@
   .item-8{
     grid-column: 12 / 13;
   }
+}
+
+.measure {
+  color: var(--color-measure);
+}
+
+@mixin square {
+  width: 15px;
+  height: 15px;
+}
+
+.active-square {
+  @include square();
+  background-color: var(--color-positive);
+}
+
+.inactive-square {
+  @include square();
+  background-color: var(--color-negative);
+}
+
+.error-square {
+  @include square();
+  border: 1px solid var(--color-negative);
+}
+
+.empty-square {
+  @include square();
+  background-color: var(--color-font-gray);
+  opacity: 80%;
 }
