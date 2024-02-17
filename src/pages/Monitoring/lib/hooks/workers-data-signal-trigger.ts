@@ -17,7 +17,7 @@ import {
   WorkerNvidiaCount, 
   WorkerOnlineState
 } from "@/entities/worker/model/types";
-import { updateWorkerProperty } from "../utils/update";
+import { updateWorkerProperty } from "../utils/update-worker-property";
 
 export function useWorkersDataSignalTrigger() {
   const workersList = useStateObject<Type[]>();
