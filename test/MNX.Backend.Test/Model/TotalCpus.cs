@@ -1,4 +1,4 @@
 ﻿namespace MNX.Backend.Test.Model
 {
-    public record TotalCpus(int Total, int Amd, int Intel);
+    public record TotalCpusCount(int Total, int Amd, int Intel);
 }

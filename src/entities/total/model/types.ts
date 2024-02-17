@@ -1,40 +1,40 @@
 import { MeasureUnit } from "@/shared/types/measure-unit";
 import { z } from "zod";
 
-export const Shares = z.object({
+export const SharesCount = z.object({
   accepted: z.number({ invalid_type_error: 'Accepted must be a number'}),
   rejected: z.number({ invalid_type_error: 'Rejected must be a number'}) 
 }) 
-export type Shares = z.infer<typeof Shares>
+export type SharesCount = z.infer<typeof SharesCount>
 
-export const StatisticCoin = z.object({
+export const TotalCoinValue = z.object({
   coin: z.string({invalid_type_error: 'Coin must be a string'}),
   algorithm: z.string({invalid_type_error: 'Algorithm must be a string'}),
   hashrate: MeasureUnit,
-  shares: Shares
+  shares: SharesCount
 })
-export type StatisticCoin = z.infer<typeof StatisticCoin>
+export type TotalCoinValue = z.infer<typeof TotalCoinValue>
 
-export const TotalGpus = z.object({
+export const TotalGpusCount = z.object({
   total: z.number({invalid_type_error: 'Total must be a number'}),
   nvidia: z.number({invalid_type_error: 'Nvidia must be a number'}),
   amd: z.number({invalid_type_error: 'Amd must be a number'}),
   intel: z.number({invalid_type_error: 'Intel must be a number'})
 })
-export type TotalGpus = z.infer<typeof TotalGpus>
+export type TotalGpusCount = z.infer<typeof TotalGpusCount>
 
 export const TotalPower = MeasureUnit
 export type TotalPower = z.infer<typeof TotalPower>
 
-export const TotalWorkers = z.number({invalid_type_error: 'TotalWorkers must be a number'})
-export type TotalWorkers = z.infer<typeof TotalWorkers>
+export const TotalWorkersCount = z.number({invalid_type_error: 'TotalWorkersCount must be a number'})
+export type TotalWorkersCount = z.infer<typeof TotalWorkersCount>
 
-export const TotalCpus = z.object({
+export const TotalCpusCount = z.object({
   total: z.number({invalid_type_error: 'Total must be a number'}),
   amd: z.number({invalid_type_error: 'Amd must be a number'}),
   intel: z.number({invalid_type_error: 'Intel must be a number'})
 })
-export type TotalCpus = z.infer<typeof TotalCpus>
+export type TotalCpusCount = z.infer<typeof TotalCpusCount>
 
 export type FieldWidget = {
   label: string;

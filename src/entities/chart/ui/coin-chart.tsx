@@ -5,7 +5,7 @@ import styles from './statisticCoin.module.scss';
 import React, { ReactNode } from "react"; 
 import clsx from "clsx";
 
-export function StatisticCoinChart({
+export function CoinChart({
   className,
   values,
   renderCoinList
@@ -28,4 +28,4 @@ export function StatisticCoinChart({
   )
 }
 
-export const MemoizedStatisticCoinChart = React.memo(StatisticCoinChart)
+export const MemoizedCoinChart = React.memo(CoinChart)

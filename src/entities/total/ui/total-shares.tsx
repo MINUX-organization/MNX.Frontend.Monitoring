@@ -1,24 +1,21 @@
-import { FieldWidget, TotalCpus } from "../../model/types";
-import { UiBgContainer } from "@/shared/ui/ui-bg-container";
-import { UiLabelBoard } from "@/shared/ui/ui-label-board";
-import styles from './statiscticWidgets.module.scss';
-import clsx from "clsx";
-import React from "react";
+import { UiBgContainer } from "@/shared/ui/ui-bg-container"
+import styles from './totalCount.module.scss'
+import { FieldWidget, SharesCount } from "../model/types"
+import clsx from "clsx"
+import { UiLabelBoard } from "@/shared/ui/ui-label-board"
+import React from "react"
 
-type StatiscticCpuTableProps = {
-  className?: string,
-  value?: TotalCpus
-} 
-
-function TotalCpusWidget({
+function TotalShares({
   className,
   value
-} : StatiscticCpuTableProps) {
-  const label = 'CPU';
+} : {
+  className?: string,
+  value?: SharesCount
+}) {
+  const label = 'Total Shares';
   const fields: FieldWidget[] = [
-    {label: 'Total', value: value?.total},
-    {label: 'Intel', value: value?.intel, style: 'blue'},
-    {label: 'AMD', value: value?.amd, style: 'red'},
+    {label: 'Accepted', value: value?.accepted, style: 'green'},
+    {label: 'Rejected', value: value?.rejected, style: 'red'},
   ]
   return (
     <UiLabelBoard
@@ -45,4 +42,4 @@ function TotalCpusWidget({
   )
 }
 
-export const MemoizedTotalCpusWidget = React.memo(TotalCpusWidget)
+export const MemoizedTotalShares = React.memo(TotalShares)

@@ -30,7 +30,10 @@
     grid-column: 6 / 7;
   }
   .item-5{
+    display: flex;
+    align-items: center;
     grid-column: 7 / 8;
+    gap: 0.2rem;
   }
   .item-6{
     grid-column: 10 / 11;
@@ -59,16 +62,23 @@
 
 .inactive-square {
   @include square();
-  background-color: var(--color-negative);
+  border: 1px solid var(--color-negative);
 }
 
 .error-square {
   @include square();
-  border: 1px solid var(--color-negative);
+  background-color: var(--color-negative);
 }
 
 .empty-square {
   @include square();
   background-color: var(--color-font-gray);
   opacity: 80%;
+}
+
+.img {
+  height: 30px;
+  width: 30px;
+  margin-right: 0.3rem;
+  display: inline-block;
 }

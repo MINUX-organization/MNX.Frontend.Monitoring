@@ -1,16 +1,16 @@
 import { UiBgContainer } from "@/shared/ui/ui-bg-container";
 import { UiBorderBox } from "@/shared/ui/ui-border-box";
-import styles from './totalWorkers.module.scss';
+import styles from './totalPower.module.scss';
 import clsx from "clsx";
 import React from "react";
-import { TotalWorkers as type } from "../../model/types";
+import { TotalPower as type } from "../model/types";
 
-function TotalWorkers({
+function TotalPower({
   className,
   value
 } : {
   className?: string;
-  value?: type
+  value?: type;
 }) {
   return (
     <UiBorderBox withPadding className={clsx(
@@ -18,11 +18,13 @@ function TotalWorkers({
       styles['wrapper']
     )}>
       <UiBgContainer className={styles['container']} color="opaque">
-        <span>Total Workers</span>
-        <span>{value ?? 'N/A'}</span>
+        <span>Total Power</span>
+        <span>{value?.value ?? 'N/A'}
+          {value && <span className={styles['measure']}>&nbsp;{value?.measureUnit}</span>}
+        </span>
       </UiBgContainer>
     </UiBorderBox>
   )
 }
 
-export const MemoizedTotalWorkers = React.memo(TotalWorkers)
+export const MemoizedTotalPower = React.memo(TotalPower)

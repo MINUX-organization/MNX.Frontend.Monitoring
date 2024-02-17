@@ -7,7 +7,7 @@ export function PowerOffButton({
   workerId
 } : {
   className?: string;
-  workerId?: number;
+  workerId?: string;
 }) {
   return (
     <UiButton

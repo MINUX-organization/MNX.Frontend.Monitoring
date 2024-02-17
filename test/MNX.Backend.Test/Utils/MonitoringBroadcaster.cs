@@ -24,19 +24,20 @@ namespace MNX.Backend.Test.Utils
             await hubContext
                     .Clients
                     .Client(connectionId)
-                    .SendAsync(MONITORING_TRIGGER, new ObjectType("ChartDataList", chartDataList));
+                    .SendAsync("ReceivedHashRateForAPeriod", chartDataList);
         }
 
         public async Task SendCurrentHashRate(string connectionId)
         {
             while (!string.IsNullOrEmpty(connectionId))
             {
-                ChartData chartData = new(DateTime.Now.ToString("HH:mm:ss"), new ValueUnit(_random.Next(1000), "Mh/s"));
+                ChartData chartData = 
+                    new(DateTime.Now.ToString("HH:mm:ss"), new ValueUnit(_random.Next(1000), "Mh/s"));
                 await Task.Delay(2000);
                 await hubContext
                         .Clients
                         .Client(connectionId)
-                        .SendAsync(MONITORING_TRIGGER, new ObjectType("ChartData", chartData));
+                        .SendAsync("ReceivedCurrentHashRate", chartData);
             }
         }
 
@@ -60,7 +61,7 @@ namespace MNX.Backend.Test.Utils
                 await hubContext
                         .Clients
                         .Client(connectionId)
-                        .SendAsync(MONITORING_TRIGGER, new ObjectType("TotalWorkers", _random.Next(1000)));
+                        .SendAsync(MONITORING_TRIGGER, new ObjectType("TotalWorkersCount", _random.Next(1000)));
                 await Task.Delay(2000);
             }
         }
@@ -69,10 +70,10 @@ namespace MNX.Backend.Test.Utils
         {
             while (!string.IsNullOrEmpty(connectionId))
             {
-                List<StatisticCoin> coinList = [];
+                List<TotalCoinValue> coinsList = [];
                 for (int i = 0; i < coinCount; i++) 
                 {
-                    coinList.Add(new StatisticCoin(
+                    coinsList.Add(new TotalCoinValue(
                         "Bitcoin", 
                         "BTC", 
                         new Shares(_random.Next(1000), _random.Next(1000)),
@@ -81,7 +82,7 @@ namespace MNX.Backend.Test.Utils
                 await hubContext
                         .Clients
                         .Client(connectionId)
-                        .SendAsync(MONITORING_TRIGGER, new ObjectType("StatisticCoinList", coinList));
+                        .SendAsync(MONITORING_TRIGGER, new ObjectType("TotalCoinsList", coinsList));
                 await Task.Delay(2000);
             }
         }
@@ -103,11 +104,11 @@ namespace MNX.Backend.Test.Utils
         {
             while (!string.IsNullOrEmpty(connectionId))
             {
-                TotalGpus totalGpus = new(_random.Next(1000), _random.Next(1000), _random.Next(1000), _random.Next(1000));
+                TotalGpusCount totalGpusCount = new(_random.Next(1000), _random.Next(1000), _random.Next(1000), _random.Next(1000));
                 await hubContext
                         .Clients
                         .Client(connectionId)
-                        .SendAsync(MONITORING_TRIGGER, new ObjectType("TotalGpus", totalGpus));
+                        .SendAsync(MONITORING_TRIGGER, new ObjectType("TotalGpusCount", totalGpusCount));
                 await Task.Delay(2000);
             }
         }
@@ -116,11 +117,11 @@ namespace MNX.Backend.Test.Utils
         {
             while (!string.IsNullOrEmpty(connectionId))
             {
-                TotalCpus totalCpus = new(_random.Next(1000), _random.Next(1000), _random.Next(1000));
+                TotalCpusCount totalCpusCount = new(_random.Next(1000), _random.Next(1000), _random.Next(1000));
                 await hubContext
                         .Clients
                         .Client(connectionId)
-                        .SendAsync(MONITORING_TRIGGER, new ObjectType("TotalCpus", totalCpus));
+                        .SendAsync(MONITORING_TRIGGER, new ObjectType("TotalCpusCount", totalCpusCount));
                 await Task.Delay(2000);
             }
         }

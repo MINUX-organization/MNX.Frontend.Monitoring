@@ -7,7 +7,7 @@ export function StopMiningButton({
   workerId
 } : {
   className?: string;
-  workerId?: number;
+  workerId?: string;
 }) {
   return (
     <UiButton

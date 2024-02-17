@@ -11,7 +11,7 @@
 
   --color-active-link: #FC8800;
   --color-active-link-bg: #594125;
-  --color-hover: #2e777c;
+  --color-hover-link-bg: #2e777c;
   --color-active-button: #3C9EA5;
 
   --font-size-22px: 1.375rem;
@@ -29,6 +29,7 @@ html {
 }
 
 body {
+  scrollbar-gutter: stable both-edges;
   overflow: hidden;
   font-size: var(--font-size-root);
   background: var(--color-bg);
@@ -64,4 +65,37 @@ a {
   src: local("GillSansMT"),
    url("../../shared/assets/fonts/Gill-Sans-MT.ttf") format("truetype");
   font-weight: normal;
+}
+
+@mixin scrollbar() {
+  width: 10px;
+}
+
+@mixin scrollbar-thumb() {
+  background-color: color-mix(in srgb, var(--color-border), black 25%);
+} 
+
+@mixin scrollbar-track() {
+  background-color: color-mix(in srgb, var(--color-border), black 60%);
+}
+
+::-webkit-scrollbar {
+  @include scrollbar();
+} 
+
+::-webkit-scrollbar-track {
+  @include scrollbar-track();
+}
+
+::-webkit-scrollbar-thumb {
+  @include scrollbar-thumb();
+} 
+::-moz-scrollbar {
+  @include scrollbar();
+} 
+::-moz-scrollbar-thumb {
+  @include scrollbar-thumb();
+} 
+::-moz-scrollbar-track {
+  @include scrollbar-track();
 }

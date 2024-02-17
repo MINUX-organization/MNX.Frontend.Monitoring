@@ -28,7 +28,7 @@
 .inactive-link {
   @include container();
   &:hover {
-    background: linear-gradient(rgba(0, 0, 0, 0), var(--color-hover))
+    background: linear-gradient(rgba(0, 0, 0, 0), var(--color-hover-link-bg))
   }
 
   &.alt {
@@ -38,7 +38,7 @@
   }
   
   &.alt:hover {
-    background: var(--color-hover);
+    background: var(--color-hover-link-bg);
   }
 }
 

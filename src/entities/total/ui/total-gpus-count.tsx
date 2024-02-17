@@ -1,23 +1,23 @@
-import { UiBgContainer } from "@/shared/ui/ui-bg-container"
-import styles from './statiscticWidgets.module.scss'
-import { FieldWidget, Shares } from "../../model/types"
-import clsx from "clsx"
-import { UiLabelBoard } from "@/shared/ui/ui-label-board"
-import React from "react"
+import { FieldWidget, TotalGpusCount as type } from "../model/types";
+import { UiBgContainer } from "@/shared/ui/ui-bg-container";
+import { UiLabelBoard } from "@/shared/ui/ui-label-board";
+import styles from './totalCount.module.scss';
+import clsx from "clsx";
+import React from "react";
 
-type TotalSharesProps = {
-  className?: string,
-  value?: Shares
-}
-
-function TotalShares({
+function TotalGpusCount({
   className,
   value
-} : TotalSharesProps) {
-  const label = 'Total Shares';
+} : {
+  className?: string;
+  value?: type;
+}) {
+  const label = 'GPU'
   const fields: FieldWidget[] = [
-    {label: 'Accepted', value: value?.accepted, style: 'green'},
-    {label: 'Rejected', value: value?.rejected, style: 'red'},
+    {label: 'Total', value: value?.total},
+    {label: 'Nvidia', value: value?.nvidia, style: 'green'},
+    {label: 'AMD', value: value?.amd, style: 'red'},
+    {label: 'Intel', value: value?.intel, style: 'blue'},
   ]
   return (
     <UiLabelBoard
@@ -44,4 +44,4 @@ function TotalShares({
   )
 }
 
-export const MemoizedTotalShares = React.memo(TotalShares)
+export const MemoizedTotalGpusCount = React.memo(TotalGpusCount)

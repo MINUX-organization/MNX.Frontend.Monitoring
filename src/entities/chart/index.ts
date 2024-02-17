@@ -1,1 +1,1 @@
-export { MemoizedStatisticCoinChart } from './ui/statisctic-coin-chart'
+export { MemoizedCoinChart } from './ui/coin-chart'

@@ -1,5 +1,5 @@
 import { UiBgContainer } from "@/shared/ui/ui-bg-container";
-import { FlightSheetInfo } from "../model/types";
+import { WorkerFlightSheetInfo } from "../model/types";
 import styles from './styles/workerItemFlightSheetTable.module.scss';
 import _ from "lodash";
 import clsx from "clsx";
@@ -10,7 +10,7 @@ export function WorkerItemFlightSheetTable({
   labels,
 }: {
   className?: string;
-  flightSheets?: FlightSheetInfo[];
+  flightSheets?: WorkerFlightSheetInfo[];
   labels?: string[];
 }) {
   return ( 

@@ -1,17 +1,17 @@
 import clsx from "clsx"
-import { Worker as Type } from "../model/types"
-import styles from './styles/workerList.module.scss'
 import _ from "lodash"
-import { UiBorderBox } from "@/shared/ui/ui-border-box"
 import React, { ReactNode } from "react" 
+import { Worker as Type } from "../model/types"
+import styles from './styles/workersList.module.scss'
+import { UiBorderBox } from "@/shared/ui/ui-border-box"
 
-function WorkerList({
+function WorkersList({
   className,
-  workers,
+  workersList,
   renderWorkerItem
 } : {
   className?: string;
-  workers?: Type[];
+  workersList?: Type[];
   renderWorkerItem?: (worker?: Type) => ReactNode;
 }) {
   const labels = [
@@ -31,14 +31,16 @@ function WorkerList({
             className={clsx(
               styles['text-label'],
               styles[`item-${index + 1}`]
-          )}>{label}</span>
+          )}>
+            {label}
+          </span>
         ))}
       </div> 
       <UiBorderBox className={styles['table-items']} withPadding>
-        {_.map(workers, (worker) => renderWorkerItem?.(worker))}
+        {_.map(workersList, (worker) => renderWorkerItem?.(worker))}
       </UiBorderBox> 
     </div>
   )
 }
 
-export const MemoizedWorkerList = React.memo(WorkerList);
+export const MemoizedWorkersList = React.memo(WorkersList);

@@ -2,7 +2,9 @@
   width: 6rem;
   margin-right: var(--gap-content);
   gap: var(--gap-content);
-  overflow-y: auto; 
+  flex-shrink: 0;
+  overflow-y: auto;
+  padding-right: 5px;
 }
 
 .non-data {

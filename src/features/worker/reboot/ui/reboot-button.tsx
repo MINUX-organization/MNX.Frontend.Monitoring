@@ -7,7 +7,7 @@ export function RebootButton({
   workerId
 } : {
   className?: string;
-  workerId?: number;
+  workerId?: string;
 }) {
   return (
     <UiButton

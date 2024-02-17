@@ -1,14 +1,14 @@
-export { MemoizedStatisticCoinTable } from './ui/table/statistic-coin-table';
-export { MemoizedTotalPower } from './ui/total/total-power'
-export { MemoizedTotalWorkers } from './ui/total/total-workers'
-export { MemoizedTotalShares } from './ui/widget/total-shares-widget'
-export { MemoizedTotalGpusWidget } from './ui/widget/statistic-gpu-widget'
-export { MemoizedTotalCpusWidget } from './ui/widget/statistic-cpu-widget'
+export { MemoizedTotalCoinsList } from './ui/total-coins-list';
+export { MemoizedTotalPower } from './ui/total-power'
+export { MemoizedTotalWorkersCount } from './ui/total-workers-count'
+export { MemoizedTotalShares } from './ui/total-shares'
+export { MemoizedTotalGpusCount } from './ui/total-gpus-count'
+export { MemoizedTotalCpusCount } from './ui/total-cpus-count'
 export { 
-  Shares, 
-  StatisticCoin, 
-  TotalCpus, 
-  TotalGpus, 
+  SharesCount, 
+  TotalCoinValue, 
+  TotalCpusCount, 
+  TotalGpusCount, 
   TotalPower, 
-  TotalWorkers 
+  TotalWorkersCount 
 } from './model/types'

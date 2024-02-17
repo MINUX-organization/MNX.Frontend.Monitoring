@@ -1,6 +1,6 @@
 import { UiBorderBox } from "@/shared/ui/ui-border-box";
-import { StatisticCoin } from "../../model/types";
-import styles from './statisticCoinTable.module.scss';
+import { TotalCoinValue as Type } from "../model/types";
+import styles from './totalCoinList.module.scss';
 import { UiBgContainer } from "@/shared/ui/ui-bg-container";
 import clsx from "clsx";
 import _ from "lodash";
@@ -14,12 +14,12 @@ const titles: string[] = [
   'Shares Rejected'
 ] as const
 
-function StatisticCoinTable({
+function TotalCoinValue({
   className,
   values,
 } : {
   className: string,
-  values?: StatisticCoin[]
+  values?: Type[]
 }) {
   return (
     <UiBorderBox withPadding className={clsx(
@@ -53,4 +53,4 @@ function StatisticCoinTable({
   )
 }
 
-export const MemoizedStatisticCoinTable = React.memo(StatisticCoinTable)
+export const MemoizedTotalCoinsList = React.memo(TotalCoinValue)

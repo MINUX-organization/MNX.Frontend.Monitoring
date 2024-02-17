@@ -5,6 +5,10 @@
 
   &.active {
     background-color: var(--color-active-button);
+
+    &:hover {
+      background-color: color-mix(in srgb, var(--color-active-button) 90%, white 10%);
+    }
   }
 
   .container {

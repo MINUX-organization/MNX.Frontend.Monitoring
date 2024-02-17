@@ -1,10 +1,10 @@
 import { UiButton } from "@/shared/ui/ui-button";
 import { WebsocketContext } from "@/shared/lib/providers/websocket-context";
 import { StateObject } from "@/shared/lib/utils/state-object";
-import styles from './changeCoinChartButton.module.scss';
+import styles from './changeChartCoinButton.module.scss';
 import clsx from "clsx";
 
-export function ChangeCoinChartButton({
+export function ChangeChartCoinButton({
   className,
   currentCoin,
   coin

@@ -1,101 +1,55 @@
 import {
-  MemoizedStatisticCoinTable, 
-  MemoizedTotalCpusWidget, 
-  MemoizedTotalGpusWidget, 
+  MemoizedTotalCoinsList, 
+  MemoizedTotalCpusCount, 
+  MemoizedTotalGpusCount, 
   MemoizedTotalPower, 
   MemoizedTotalShares, 
-  MemoizedTotalWorkers } from "@/entities/total";
+  MemoizedTotalWorkersCount } from "@/entities/total";
 import styles from './monitoring.page.module.scss'
 import { WebsocketContextProvider } from "@/shared/lib/providers/websocket-context";
-import { useMonitoringSignalTrigger } from "../lib/monitoring-signal-trigger";
-import { MemoizedChangeCoinChartList } from "@/features/chart/change-coin-chart";
-import { MemoizedWorkerItem, MemoizedWorkerList } from "@/entities/worker";
-import { MemoizedStatisticCoinChart } from "@/entities/chart";
+import { useTotalDataSignalTrigger } from "../lib/hooks/total-data-signal-trigger";
+import { MemoizedChangeChartCoinsList } from "@/features/chart/change-coin-chart";
+import { MemoizedWorkerItem, MemoizedWorkersList } from "@/entities/worker";
+import { MemoizedCoinChart } from "@/entities/chart";
 import { PowerOffButton } from "@/features/worker/power-off";
 import { StopMiningButton } from "@/features/worker/stop-mining";
 import { RebootButton } from "@/features/worker/reboot";
 import { RebootInButton } from "@/features/worker/reboot-in";
-import { Worker as Type } from "@/entities/worker";
-  
-const testWorker: Type = {
-  id: 1,
-  name: "Sample Worker",
-  gpusState: [
-    'active', 'inactive', 'error', 
-    'empty', 'active', 'inactive', 
-    'error', 'empty', 'empty', 
-    'empty', 'empty', 'empty', 
-    'empty', 'empty',
-  ],
-  isActive: true,
-  onlineState: '1',
-  onlineSpeed: { value: 100, measureUnit: 'Mh/s' },
-  averageTemperature: 50,
-  fanSpeed: 70,
-  power: { value: 750, measureUnit: 'W' },
-  flightSheetInfo: [
-    {
-      coin: "Ethereum",
-      flightSheet: "Sample Flight Sheet",
-      miner: "Sample Miner",
-      hashrate: { value: 100, measureUnit: 'Mh/s' },
-      shares: { accepted: 100, rejected: 5 }
-    },
-    {
-      coin: "Bitcoin",
-      flightSheet: "Text Flight Sheet",
-      miner: "Sample Miner",
-      hashrate: { value: 100, measureUnit: 'Mh/s' },
-      shares: { accepted: 100, rejected: 5 }
-    },
-    {
-      coin: "Monero",
-      flightSheet: "Mega Flight Sheet",
-      miner: "Sample Miner",
-      hashrate: { value: 100, measureUnit: 'Mh/s' },
-      shares: { accepted: 100, rejected: 5 }
-    }
-  ],
-  miningUpTime: "10 hours",
-  bootedUpTime: "1 day",
-  localIp: "192.168.1.100",
-  minuxVersion: "v2.1.0",
-  nvidiaCount: 3,
-  amdCount: 2,
-  intelCount: 1
-};
+import { useChartDataSignalTrigger } from "../lib/hooks/chart-data-signal-trigger";
+import { useWorkersDataSignalTrigger } from "../lib/hooks/workers-data-signal-trigger";
 
 export function Monitoring() {
   const {
     totalPower: {value: totalPower},
-    totalWorkers: {value: totalWorkers},
+    totalWorkersCount: {value: totalWorkersCount},
     totalShares: {value: totalShares},
-    totalCpus: {value: totalCpus},
-    totalGpus: {value: totalGpus},
-    chartDataList: {value: chartDataList},
-    statisticCoinList: {value: statisticCoinList},
-    coinsChart: {value: coinsChart}
-  } = useMonitoringSignalTrigger();
+    totalCpusCount: {value: totalCpusCount},
+    totalGpusCount: {value: totalGpusCount},
+    totalCoinsList: {value: totalCoinsList},
+    chartCoinsList: {value: chartCoinsList}
+  } = useTotalDataSignalTrigger();
+  const { value: chartDataList } = useChartDataSignalTrigger();
+  const { value: workersList } = useWorkersDataSignalTrigger();
   return (
     <WebsocketContextProvider url="http://localhost:5090/hubs/monitoring">
       <div className={styles['wrapper']}>
         <article className={styles['slot-1']}>
           <MemoizedTotalPower className={styles['item-1']} value={totalPower}/>
-          <MemoizedTotalWorkers className={styles['item-2']} value={totalWorkers}/>
-          <MemoizedStatisticCoinTable className={styles['item-3']} values={statisticCoinList}/>
+          <MemoizedTotalWorkersCount className={styles['item-2']} value={totalWorkersCount}/>
+          <MemoizedTotalCoinsList className={styles['item-3']} values={totalCoinsList}/>
         </article>
         <article className={styles['slot-2']}>
           <MemoizedTotalShares className={styles['item-1']} value={totalShares}/>
-          <MemoizedTotalGpusWidget className={styles['item-2']} value={totalGpus}/>
-          <MemoizedTotalCpusWidget className={styles['item-3']} value={totalCpus}/>
-          <MemoizedStatisticCoinChart 
+          <MemoizedTotalGpusCount className={styles['item-2']} value={totalGpusCount}/>
+          <MemoizedTotalCpusCount className={styles['item-3']} value={totalCpusCount}/>
+          <MemoizedCoinChart 
             className={styles['item-4']} 
             values={chartDataList}
-            renderCoinList={() => <MemoizedChangeCoinChartList coins={coinsChart}/>}/> 
+            renderCoinList={() => <MemoizedChangeChartCoinsList coinsList={chartCoinsList}/>}/> 
         </article>
         <article className={styles['slot-3']}>
-          <MemoizedWorkerList 
-            workers={[testWorker]}
+          <MemoizedWorkersList 
+            workersList={workersList}
             renderWorkerItem={(worker) => (
               <MemoizedWorkerItem
                 key={worker?.id}

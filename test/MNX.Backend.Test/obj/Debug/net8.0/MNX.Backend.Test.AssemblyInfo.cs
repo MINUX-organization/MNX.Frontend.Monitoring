@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MNX.Backend.Test")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c8c878f5d9142db0f06c9e5b277552d9d322e512")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8b435340a70f3062015b1a360ff16e9b1a4f1aaf")]
 [assembly: System.Reflection.AssemblyProductAttribute("MNX.Backend.Test")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MNX.Backend.Test")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

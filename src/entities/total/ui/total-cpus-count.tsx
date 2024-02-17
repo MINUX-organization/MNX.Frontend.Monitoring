@@ -1,25 +1,24 @@
-import { FieldWidget, TotalGpus } from "../../model/types";
+import { FieldWidget, TotalCpusCount as type } from "../model/types";
 import { UiBgContainer } from "@/shared/ui/ui-bg-container";
 import { UiLabelBoard } from "@/shared/ui/ui-label-board";
-import styles from './statiscticWidgets.module.scss';
+import styles from './totalCount.module.scss';
 import clsx from "clsx";
 import React from "react";
 
-type TotalGpusTableProps = {
-  className?: string;
-  value?: TotalGpus;
-}
+type StatiscticCpuTableProps = {
+  className?: string,
+  value?: type
+} 
 
-function TotalGpusWidget({
+function TotalCpusCount({
   className,
   value
-} : TotalGpusTableProps) {
-  const label = 'GPU'
+} : StatiscticCpuTableProps) {
+  const label = 'CPU';
   const fields: FieldWidget[] = [
     {label: 'Total', value: value?.total},
-    {label: 'Nvidia', value: value?.nvidia, style: 'green'},
-    {label: 'AMD', value: value?.amd, style: 'red'},
     {label: 'Intel', value: value?.intel, style: 'blue'},
+    {label: 'AMD', value: value?.amd, style: 'red'},
   ]
   return (
     <UiLabelBoard
@@ -46,4 +45,4 @@ function TotalGpusWidget({
   )
 }
 
-export const MemoizedTotalGpusWidget = React.memo(TotalGpusWidget)
+export const MemoizedTotalCpusCount = React.memo(TotalCpusCount)

@@ -1,5 +1,5 @@
 import { UiBorderBox } from "./ui-border-box";
-import styles from './styles/UiLabelBoard.module.scss';
+import styles from './styles/uiLabelBoard.module.scss';
 import clsx from "clsx";
 import { ReactNode } from "react";
 import _ from "lodash";
