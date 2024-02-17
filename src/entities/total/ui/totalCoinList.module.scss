@@ -42,6 +42,7 @@
 
     .subgrid { 
       gap: 1rem;
+      align-items: center;
       @include subgrid();
     }
 

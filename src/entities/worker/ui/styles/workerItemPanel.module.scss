@@ -62,6 +62,7 @@
 
 .inactive-square {
   @include square();
+  background-color: none;
   border: 1px solid var(--color-negative);
 }
 

@@ -17,6 +17,7 @@ import { RebootButton } from "@/features/worker/reboot";
 import { RebootInButton } from "@/features/worker/reboot-in";
 import { useChartDataSignalTrigger } from "../lib/hooks/chart-data-signal-trigger";
 import { useWorkersDataSignalTrigger } from "../lib/hooks/workers-data-signal-trigger";
+import { BACKEND_APIS } from "@/shared/constants/backend-urls";
 
 export function Monitoring() {
   const {
@@ -31,7 +32,7 @@ export function Monitoring() {
   const { value: chartDataList } = useChartDataSignalTrigger();
   const { value: workersList } = useWorkersDataSignalTrigger();
   return (
-    <WebsocketContextProvider url="http://localhost:5090/hubs/monitoring">
+    <WebsocketContextProvider url={BACKEND_APIS.HUB_MONITORING}>
       <div className={styles['wrapper']}>
         <article className={styles['slot-1']}>
           <MemoizedTotalPower className={styles['item-1']} value={totalPower}/>

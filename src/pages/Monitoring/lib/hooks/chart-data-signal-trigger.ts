@@ -1,3 +1,4 @@
+import { BACKEND_TRIGGERS } from "@/shared/constants/backend-triggers";
 import { ChartData } from "@/shared/lib/charts/line-chart";
 import { WebsocketContext } from "@/shared/lib/providers/websocket-context";
 import { useStateObject } from "@/shared/lib/utils/state-object";
@@ -9,7 +10,7 @@ export function useChartDataSignalTrigger() {
   const maxLenght = useStateObject<number>(150);
 
   WebsocketContext.useSignalREffect(
-    'ReceivedCurrentHashRate',
+    BACKEND_TRIGGERS.RECEIVED_CURRENT_HASHRATE,
     (data: unknown) => {
       ZodSaveParse(data, ChartData, (checkedData) => { 
         if (chartCoinsList.value?.length ?? 0 >= maxLenght.value!)
@@ -21,7 +22,7 @@ export function useChartDataSignalTrigger() {
   );
 
   WebsocketContext.useSignalREffect(
-    'ReceivedHashRateForAPeriod',
+    BACKEND_TRIGGERS.RECEIVED_HASH_RATE_FOR_A_PERIOD,
     (data: unknown) => {
       ZodSaveParse(data, ChartData.array(), (checkedData) => {
         maxLenght.setValue(checkedData.length)
