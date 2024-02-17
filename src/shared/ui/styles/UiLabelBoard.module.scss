@@ -1,0 +1,11 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-content);
+
+  .grid {
+    display: grid;
+    gap: var(--gap-content);
+    grid-template-columns: repeat(auto-fit, minmax(3rem, 1fr));
+  }
+}

@@ -1,0 +1,26 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+
+  .header {
+    height: 5rem;
+  }
+
+  .UiAside {
+    width: 5rem;
+    height: 100svh;
+    position: fixed;
+    border-right: var(--border);
+  }
+  
+  .main {
+    overflow-y: auto;
+    max-height: 100vh;
+    margin-left: 80px;
+    flex-grow: 1;
+  }
+}
+
+.grow { 
+  flex-grow: 1;
+}

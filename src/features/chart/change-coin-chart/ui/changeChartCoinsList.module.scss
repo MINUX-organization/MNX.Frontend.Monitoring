@@ -1,0 +1,14 @@
+.wrapper {
+  width: 6rem;
+  margin-right: var(--gap-content);
+  gap: var(--gap-content);
+  flex-shrink: 0;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+.non-data {
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-border);
+}

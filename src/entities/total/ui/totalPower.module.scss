@@ -1,0 +1,16 @@
+.wrapper {
+  width: 100%;
+
+  .container {
+    width: inherit;
+    height: 100%;
+    align-items: center;
+    gap: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .measure {
+    color: var(--color-measure)
+  }
+}

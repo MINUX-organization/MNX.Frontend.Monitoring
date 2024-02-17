@@ -1,0 +1,23 @@
+.wrapper { 
+  
+  .label {
+    text-align: center;
+  }
+}
+
+.text-gray {
+  text-align: center;
+  color: var(--color-font-gray)
+}
+
+.green {
+  color: var(--color-positive)
+}
+
+.red {
+  color: var(--color-negative)
+}
+
+.blue {
+  color: var(--color-measure)
+}
