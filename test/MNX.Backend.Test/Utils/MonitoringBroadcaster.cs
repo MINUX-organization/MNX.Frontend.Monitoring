@@ -66,15 +66,24 @@ namespace MNX.Backend.Test.Utils
             }
         }
 
-        public async Task SendStatisticCoins(int coinCount, string connectionId)
+        public async Task SendStatisticCoins(string connectionId)
         {
+            List<string> coins = [
+                "Bitcoin",
+                "Etherium",
+                "Ethereum Classic",
+                "NotCoin",
+                "Raven",
+                "Solana",
+                "Icarus",
+                "Monero"];
             while (!string.IsNullOrEmpty(connectionId))
             {
                 List<TotalCoinValue> coinsList = [];
-                for (int i = 0; i < coinCount; i++) 
+                for (int i = 0; i < coins.Count; i++) 
                 {
                     coinsList.Add(new TotalCoinValue(
-                        "Bitcoin", 
+                        coins[i], 
                         "BTC", 
                         new Shares(_random.Next(1000), _random.Next(1000)),
                         new ValueUnit(_random.Next(1000), "Mh/s"))); 
@@ -126,17 +135,26 @@ namespace MNX.Backend.Test.Utils
             }
         }
 
-        public async Task SendCoinsChart(string connectionId)
+        public async Task SendWorkersList(string connectionId)
         {
-            List<string> coins = [
-                "Bitcoin", "Etherium",
-                "Ethereum Classic", "NotCoin", 
-                "Raven", "Solana", 
-                "Icarus", "Monero"];
+            List<Worker> workersList = [];
+            Worker worker = new(
+                "124ftg2t",
+                "Worker_1", 
+                1, 
+                ["active", "inactive", "empty", "error"], 
+                true, 
+                "2", 
+                new ValueUnit(23, "Mb/h"), 
+                67, 90,
+                new ValueUnit(500, "W"),
+                [ new("Bitcoin", "SuperSheet", "lolMiner", new ValueUnit(321, "Mh/s"), new Shares(32, 42))], 
+                "1:00:00", "2:00:00", "125.0.0.1", "v1.0.0", 23, 12, 15);
+            workersList.Add(worker);
             await hubContext
                     .Clients
                     .Client(connectionId)
-                    .SendAsync(MONITORING_TRIGGER, new ObjectType("CoinsChart", coins));
+                    .SendAsync("ReceivedWorkersInformation", workersList);
         }
     }
 }

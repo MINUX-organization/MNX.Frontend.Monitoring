@@ -6,10 +6,10 @@
         Task SendCurrentHashRate(string connectionId);
         Task SendTotalPower(string connectionId);
         Task SendTotalWorkers(string connectionId);
-        Task SendStatisticCoins(int coinCount, string connectionId);
+        Task SendStatisticCoins(string connectionId);
         Task SendTotalShares(string connectionId);
         Task SendTotalGpus(string connectionId);
         Task SendTotalCpus(string connectionId);
-        Task SendCoinsChart(string connectionId);
+        Task SendWorkersList(string connectionId);
     }
 }

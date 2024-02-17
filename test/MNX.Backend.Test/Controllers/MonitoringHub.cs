@@ -29,8 +29,8 @@ namespace MNX.Backend.Test.Controllers
                 _monitoringBroadcaster.SendTotalWorkers(connectionId),
                 _monitoringBroadcaster.SendTotalGpus(connectionId),
                 _monitoringBroadcaster.SendTotalCpus(connectionId),
-                _monitoringBroadcaster.SendStatisticCoins(15, connectionId),
-                _monitoringBroadcaster.SendCoinsChart(connectionId)
+                _monitoringBroadcaster.SendStatisticCoins(connectionId),
+                _monitoringBroadcaster.SendWorkersList(connectionId)
             ]);
         }
     }

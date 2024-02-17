@@ -6,6 +6,7 @@ import { useStateObject } from "@/shared/lib/utils/state-object";
 import { CoinChartList } from "@/features/chart/change-coin-chart";
 import _ from "lodash";
 import { TriggerTotalData } from "../../model/types";
+import { BACKEND_TRIGGERS } from "@/shared/constants/backend-triggers";
 
 export function useTotalDataSignalTrigger() {
   const coinsCache = useStateObject<string[]>([]);
@@ -18,7 +19,7 @@ export function useTotalDataSignalTrigger() {
   const totalShares = useStateObject<SharesCount>();
 
   WebsocketContext.useSignalREffect(
-    'ReceivedTotalData',
+    BACKEND_TRIGGERS.RECEIVED_TOTAL_DATA,
     (data: TriggerTotalData) => {
       match(data)
         .with({ type: 'TotalPower' }, ({ newData }) => 

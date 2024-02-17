@@ -18,11 +18,12 @@ import {
   WorkerOnlineState
 } from "@/entities/worker/model/types";
 import { updateWorkerProperty } from "../utils/update-worker-property";
+import { BACKEND_TRIGGERS } from "@/shared/constants/backend-triggers";
 
 export function useWorkersDataSignalTrigger() {
   const workersList = useStateObject<Type[]>();
   WebsocketContext.useSignalREffect(
-    'ReceivedWorkersInformation',
+    BACKEND_TRIGGERS.RECEIVED_WORKERS_INFORMATION,
     (data: unknown) => {
       ZodSaveParse(data, Type.array(), (checkedData) => {
         workersList.setValue(checkedData) 
@@ -32,7 +33,7 @@ export function useWorkersDataSignalTrigger() {
   )
 
   WebsocketContext.useSignalREffect(
-    'ReceivedWorkersState',
+    BACKEND_TRIGGERS.RECEIVED_WORKERS_STATE,
     (data: unknown) => {
       ZodSaveParse(data, Type.array(), (checkedData) => { 
         workersList.setValue(_.merge(workersList.value, checkedData))
@@ -42,7 +43,7 @@ export function useWorkersDataSignalTrigger() {
   )
 
   WebsocketContext.useSignalREffect(
-    'ReceivedWorkerStateChange',
+    BACKEND_TRIGGERS.RECEIVED_WORKER_STATE_CHANGE,
     (data: TriggerWorkerDataStatic) => {
       match(data)
         .with({ type: 'Name' }, ({ newData }) => {
@@ -131,7 +132,7 @@ export function useWorkersDataSignalTrigger() {
   )
 
   WebsocketContext.useSignalREffect(
-    'ReceivedWorkersDynamicData',
+    BACKEND_TRIGGERS.RECEIVED_WORKERS_DYNAMIC_DATA,
     (data: TriggerWorkerData) => {
       ZodSaveParse(data, Type.array(), (checkedData) => { 
         workersList.setValue(_.merge(workersList.value, checkedData))
