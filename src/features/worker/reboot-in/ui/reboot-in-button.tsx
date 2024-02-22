@@ -4,10 +4,12 @@ import clsx from "clsx";
 
 export function RebootInButton({
   className,
-  workerId
+  workerId,
+  workerIsOnline
 } : {
   className?: string;
   workerId?: string;
+  workerIsOnline?: boolean;
 }) {
   return (
     <UiButton
@@ -17,6 +19,7 @@ export function RebootInButton({
       )}
       color="blue"
       withBorder
+      isClickable={workerIsOnline ?? false}
     >
       <span>REBOOT IN 30s</span>
     </UiButton>

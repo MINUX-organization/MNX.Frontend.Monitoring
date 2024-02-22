@@ -16,7 +16,7 @@ type WorkerItemProps = {
 function WorkerItem({
   className,
   worker,
-  workerStopMiningRender,
+  workerStartStopMiningRender,
   workerPowerOffRender,
   workerRebootRender,
   workerRebootInRender
@@ -46,7 +46,7 @@ function WorkerItem({
         workerFlightSheetRender={() => 
           <WorkerItemFlightSheetTable flightSheets={worker?.flightSheetInfo} labels={labels}/>}
         workerInfoRender={() => <WorkerItemInfo workerInfo={workerInfo}/>}
-        workerStopMiningRender={workerStopMiningRender}
+        workerStartStopMiningRender={workerStartStopMiningRender}
         workerPowerOffRender={workerPowerOffRender}
         workerRebootRender={workerRebootRender}
         workerRebootInRender={workerRebootInRender}

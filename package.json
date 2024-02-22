@@ -11,7 +11,6 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.18",
-    "@microsoft/signalr": "^8.0.0",
     "axios": "^1.6.7",
     "chart.js": "^4.4.1",
     "chartjs-plugin-datalabels": "^2.2.0",
@@ -26,7 +25,8 @@
     "react-signalr": "^0.2.19",
     "sass": "^1.70.0",
     "ts-pattern": "^5.0.6",
-    "zod": "^3.22.4"
+    "zod": "^3.22.4",
+    "zustand": "^4.5.1"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.202",

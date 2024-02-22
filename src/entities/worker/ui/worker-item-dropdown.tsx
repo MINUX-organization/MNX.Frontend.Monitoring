@@ -3,7 +3,7 @@ import styles from './styles/workerItemDropdown.module.scss'
 import { ReactNode } from "react";
 
 export type FeaturesProps = {
-  workerStopMiningRender?: () => ReactNode;
+  workerStartStopMiningRender?: () => ReactNode;
   workerPowerOffRender?: () => ReactNode;
   workerRebootRender?: () => ReactNode;
   workerRebootInRender?: () => ReactNode;
@@ -20,7 +20,7 @@ export function WorkerItemDropdown({
   className,
   isOpen,
   workerFlightSheetRender,
-  workerStopMiningRender,
+  workerStartStopMiningRender,
   workerPowerOffRender,
   workerRebootRender,
   workerRebootInRender,
@@ -34,8 +34,8 @@ export function WorkerItemDropdown({
     )}>
       {workerFlightSheetRender?.()}
       <div className={styles['features']}>
+        {workerStartStopMiningRender?.()}
         {workerPowerOffRender?.()}
-        {workerStopMiningRender?.()}
         {workerRebootRender?.()}
         {workerRebootInRender?.()}
       </div>

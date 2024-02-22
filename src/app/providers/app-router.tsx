@@ -7,6 +7,7 @@ import { RootLayout } from "@/widgets/root-layout";
 import { ROUTER_PATHS } from "@/shared/constants/routes";
 import { Monitoring } from "@/pages/monitoring";
 import { Gpus } from "@/pages/devices/GPUs";
+import { Cryptos } from "@/pages/cryptos";
 
 const router = createBrowserRouter([
   {
@@ -18,7 +19,7 @@ const router = createBrowserRouter([
         loader: () => redirect(ROUTER_PATHS.MONITORING),
       },
       {
-        path: 'devices',
+        path: ROUTER_PATHS.DEVICES,
         loader: () => redirect(ROUTER_PATHS.GPUS),
       },
       {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: ROUTER_PATHS.GPUS,
         element: <Gpus/>,
+      },
+      {
+        path: ROUTER_PATHS.CRYPTOS,
+        element: <Cryptos/>,
       },
     ],
   },

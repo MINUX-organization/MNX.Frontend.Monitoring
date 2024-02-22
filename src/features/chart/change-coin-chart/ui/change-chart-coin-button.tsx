@@ -23,7 +23,7 @@ export function ChangeChartCoinButton({
       isActive={currentCoin.value === coin}
       onClick={() => { 
         if (coin === currentCoin.value) return
-        WebsocketContext.invoke("SendCoin", coin)
+        WebsocketContext.invoke("SendCoin", coin);
         currentCoin.setValue(coin);
       }}
     >

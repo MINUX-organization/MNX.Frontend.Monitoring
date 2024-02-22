@@ -4,10 +4,12 @@ import clsx from "clsx";
 
 export function PowerOffButton({
   className,
-  workerId
+  workerId,
+  workerIsOnline
 } : {
   className?: string;
   workerId?: string;
+  workerIsOnline?: boolean;
 }) {
   return (
     <UiButton
@@ -17,6 +19,7 @@ export function PowerOffButton({
       )}
       color="red"
       withBorder
+      isClickable={workerIsOnline ?? false}
     >
       <span>POWER OFF</span>
     </UiButton>

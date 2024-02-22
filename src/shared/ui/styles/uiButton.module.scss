@@ -61,3 +61,9 @@
     background-color: color-mix(in srgb, var(--color-active-button) 90%, white 10%);
   }
 }
+
+.not-clickable {
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.5;
+}
