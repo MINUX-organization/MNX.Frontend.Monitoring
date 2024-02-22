@@ -1,4 +1,3 @@
-import { AxiosResponse } from "axios";
 import { apiInstance } from "../_api-instance";
 import { BACKEND_APIS } from "@/shared/constants/backend-urls";
 
@@ -8,5 +7,5 @@ interface Response {
   algorithm: string;
 }
 
-export const getCryptocurrenciesList = () => 
-  apiInstance().get(BACKEND_APIS.CRYPTOCURRENCY) as Promise<AxiosResponse<Response, unknown>>;
+export const getCryptocurrenciesList = async () => 
+  (await apiInstance().get(BACKEND_APIS.CRYPTOCURRENCY)).data as Response[];

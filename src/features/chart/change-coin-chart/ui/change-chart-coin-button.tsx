@@ -18,7 +18,7 @@ export function ChangeChartCoinButton({
       color="opaque" 
       className={clsx(
         className,
-        styles['wrapper'],
+        styles['change-chart-coin-button'],
       )}
       isActive={currentCoin.value === coin}
       onClick={() => { 

@@ -1,6 +1,4 @@
 import { UiButton } from "@/shared/ui/ui-button";
-import styles from './startStopMiningButton.module.scss';
-import clsx from "clsx";
 
 export function StartStopMiningButton({
   className,
@@ -13,14 +11,11 @@ export function StartStopMiningButton({
   workerIsActive?: boolean;
   workerIsOnline?: boolean;
 }) {
-  const text = workerIsActive ? 'START MINING' : 'STOP MINING'
-  const color = workerIsActive ? 'blue' : 'red'
+  const text = workerIsActive ? 'STOP MINING' : 'START MINING'
+  const color = workerIsActive ? 'red' : 'blue' 
   return (
     <UiButton 
-    className={clsx(
-      className,
-      styles['wrapper']
-      )}
+    className={className}
       color={color}
       withBorder
       isClickable={workerIsOnline ?? false}

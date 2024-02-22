@@ -22,7 +22,7 @@ function WorkersList({
   return (
     <div className={clsx(
       className,
-      styles['wrapper']
+      styles['worker-list']
     )}>
       <div className={styles['table-label']}>
         {_.map(labels, (label, index) => (

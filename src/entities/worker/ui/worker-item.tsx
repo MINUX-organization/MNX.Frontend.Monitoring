@@ -38,7 +38,7 @@ function WorkerItem({
   return (
     <div className={clsx(
       className,
-      styles['wrapper']
+      styles['worker-item']
     )}>
       <WorkerItemPanel worker={worker} onClick={() => isOpen.setValue(!isOpen.value)}/>
       <WorkerItemDropdown

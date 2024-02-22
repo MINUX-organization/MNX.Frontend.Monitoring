@@ -15,7 +15,7 @@ function TotalWorkersCount({
   return (
     <UiBorderBox withPadding className={clsx(
       className,
-      styles['wrapper']
+      styles['total-workers-count']
     )}>
       <UiBgContainer className={styles['container']} color="opaque">
         <span>Total Workers</span>

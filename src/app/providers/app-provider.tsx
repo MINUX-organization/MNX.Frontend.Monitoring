@@ -1,5 +1,6 @@
 import { ComposeChildren } from "@/shared/lib/utils/react";
 import { AppLoader } from "./app-loader";
+import QueryProvider from "./app-query";
 // import { Confirmations } from "@/widgets/confirmations";
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
@@ -7,6 +8,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     <ComposeChildren>
       {/* <Confirmations /> */}
       <AppLoader/>
+      <QueryProvider/>
       {children}
     </ComposeChildren>
   );

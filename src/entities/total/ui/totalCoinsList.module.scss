@@ -4,7 +4,7 @@
   grid-template-columns: subgrid;
 }
 
-.wrapper {
+.total-coin-list {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   overflow: hidden;

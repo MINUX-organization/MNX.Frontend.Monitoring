@@ -24,7 +24,7 @@ export function WorkerItemInfo({
     <UiAside 
       className={clsx(
         className,
-        styles['wrapper']
+        styles['worker-info']
       )}
       variant="horizontal"
     > 

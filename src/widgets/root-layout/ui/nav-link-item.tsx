@@ -10,12 +10,15 @@ export function NavLinkItem({
 } : NavLinkItemProps) {
   const currentLocation = useLocation().pathname;
   const withChildren: boolean = Boolean(field.children);
+
   if (!withChildren) return <NavLink to={field.path} className={className}>{field.label}</NavLink>
+
   const childrenLinkClassName = ({ isActive }: { isActive?: boolean }) =>
     clsx(
       !(isActive) && clsx(styles['inactive-link'], styles['alt']),
       isActive && clsx(styles['active-link'], styles['alt'])
   );
+  
   return (
     <UiDropdown 
       label={field} 

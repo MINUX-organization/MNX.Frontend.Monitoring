@@ -14,7 +14,7 @@ export function WorkerItemFlightSheetTable({
   labels?: string[];
 }) {
   return ( 
-    <div className={clsx(className, styles['wrapper'])}>
+    <div className={clsx(className, styles['worker-item-flight-sheet-table'])}>
       <UiBgContainer className={styles['grid-title']} color="opaque">
         {_.map(labels, (label, index) => (
           <span key={index}>{label}</span>

@@ -15,7 +15,7 @@ export function RootLayout({
   return (
     <div className={clsx(
       className,
-      styles['wrapper']
+      styles['root-layout']
     )}>
       <UiHeader 
         className={styles['header']} 

@@ -29,7 +29,7 @@ export function WorkerItemDropdown({
   return (
     <div className={clsx(
       className,
-      styles['wrapper'],
+      styles['worker-item-dropdown'],
       isOpen && styles['active']
     )}>
       {workerFlightSheetRender?.()}

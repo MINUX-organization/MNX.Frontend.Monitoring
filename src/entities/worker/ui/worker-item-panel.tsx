@@ -50,7 +50,7 @@ export function WorkerItemPanel({
     <UiBgContainer 
         className={clsx(
           className,
-          styles['wrapper']
+          styles['worker-item-panel']
         )} 
         color="opaque"
         onClick={onClick}

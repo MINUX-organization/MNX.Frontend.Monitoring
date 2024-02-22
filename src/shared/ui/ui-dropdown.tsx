@@ -24,7 +24,7 @@ export function UiDropdown<T>({
   return (
     <div className={clsx(
       className,
-      styles['wrapper']
+      styles['dropdown']
     )}>
       <Menu>
         <Menu.Button className={styles['button']}>

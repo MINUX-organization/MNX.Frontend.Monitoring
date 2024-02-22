@@ -15,7 +15,7 @@ function TotalPower({
   return (
     <UiBorderBox withPadding className={clsx(
       className,
-      styles['wrapper']
+      styles['total-power']
     )}>
       <UiBgContainer className={styles['container']} color="opaque">
         <span>Total Power</span>

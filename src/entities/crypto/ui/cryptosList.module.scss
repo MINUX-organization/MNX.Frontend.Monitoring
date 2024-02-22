@@ -1,0 +1,43 @@
+@mixin subgrid() {
+  display: grid;
+  grid-column: 1 / 5;
+  grid-template-columns: subgrid;
+}
+
+.cryptos-list {
+  width: 100%;
+  height: 100%;
+  .grid {
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(auto, 10rem)) 1fr;
+    .subgrid-title {
+      @include subgrid();
+      border-bottom: var(--border);
+      padding: 0.625rem;
+      align-items: center;
+      gap: 0.625rem;
+
+      .title-text {
+        color: var(--color-border);
+        text-align: center;
+      }
+    }
+
+    .subgrid-items {
+      @include subgrid();
+      grid-auto-rows: auto;
+      padding: 0.825rem;
+      gap: 0.825rem;
+      text-align: center;
+    }
+  }
+}
+
+.no-data {
+  justify-content: center;
+  align-items: center;
+  grid-column: 1 / 5;
+  text-align: center;
+  padding: 0.625rem;
+}

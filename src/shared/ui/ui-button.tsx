@@ -26,7 +26,7 @@ export function UiButton({
       className={clsx(
         className,
         !isClickable && styles['not-clickable'],
-        styles['wrapper'],
+        styles['button'],
         !withBorder && {
           transparent: styles['transparent'],
           opaque: styles['opaque'],

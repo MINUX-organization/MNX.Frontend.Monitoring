@@ -1,6 +1,4 @@
 import { UiButton } from "@/shared/ui/ui-button";
-import styles from './powerOffButton.module.scss';
-import clsx from "clsx";
 
 export function PowerOffButton({
   className,
@@ -13,10 +11,7 @@ export function PowerOffButton({
 }) {
   return (
     <UiButton
-      className={clsx(
-        className,
-        styles['wrapper']
-      )}
+      className={className}
       color="red"
       withBorder
       isClickable={workerIsOnline ?? false}

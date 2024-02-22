@@ -4,7 +4,7 @@
   grid-column: 1 / 13;
 }
 
-.wrapper {
+.worker-item-panel {
   @include subgrid();
   padding: 0;
   height: 3.5rem;

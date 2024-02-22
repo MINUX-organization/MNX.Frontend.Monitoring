@@ -1,7 +1,10 @@
-export function UiSpinner({ className }: { className: string }) {
+import styles from "./styles/uiSpinner.module.scss";
+import clsx from "clsx";
+
+export function UiSpinner({ className }: { className?: string }) {
   return (
     <svg
-      className={className}
+      className={clsx(className, styles["spinner"])}
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"

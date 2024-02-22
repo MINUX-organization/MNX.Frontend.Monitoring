@@ -1,7 +1,13 @@
-.wrapper {
+.bg-container {
+  width: inherit;
+  height: inherit;
   padding: 0.625rem;
 }
 
 .opaque {
   background-color: var(--color-cotainer-opaque);
+}
+
+.transparent {
+  background-color: var(--color-cotainer-transparent);
 }

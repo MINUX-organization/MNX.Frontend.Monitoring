@@ -1,6 +1,4 @@
 import { UiButton } from "@/shared/ui/ui-button";
-import styles from './rebootInButton.module.scss';
-import clsx from "clsx";
 
 export function RebootInButton({
   className,
@@ -13,10 +11,7 @@ export function RebootInButton({
 }) {
   return (
     <UiButton
-      className={clsx(
-        className,
-        styles['wrapper']
-      )}
+      className={className}
       color="blue"
       withBorder
       isClickable={workerIsOnline ?? false}

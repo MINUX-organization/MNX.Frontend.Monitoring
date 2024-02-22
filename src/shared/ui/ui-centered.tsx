@@ -12,7 +12,7 @@ export function UiCentered({
   return (
     <article className={clsx(
       className,
-      styles['wrapper']
+      styles['centered']
     )}>
       {children}
     </article>

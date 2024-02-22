@@ -27,7 +27,7 @@ function ChangeChartCoinsList({
   if (!coinsList) return ChangeCoinChartListEmpty()
   return (
     <UiAside 
-      className={styles['wrapper']} 
+      className={styles['change-chart-coins-list']} 
       variant="vertical" 
       elements={coinsList} 
       renderElement={(element) => (
@@ -45,7 +45,7 @@ function ChangeCoinChartListEmpty() {
   return (
     <UiAside 
       className={clsx(
-        styles['wrapper'],
+        styles['change-chart-coins-list'],
         styles['non-data']
       )}
       variant="vertical"

@@ -6,7 +6,7 @@ import {
   MemoizedTotalShares, 
   MemoizedTotalWorkersCount } from "@/entities/total";
 import styles from './monitoring.page.module.scss'
-import { WebsocketContext, WebsocketContextProvider } from "@/shared/lib/providers/websocket-context";
+import { WebsocketContextProvider } from "@/shared/lib/providers/websocket-context";
 import { useTotalDataSignalTrigger } from "../lib/hooks/total-data-signal-trigger";
 import { MemoizedChangeChartCoinsList } from "@/features/chart/change-coin-chart";
 import { MemoizedWorkerItem, MemoizedWorkersList } from "@/entities/worker";
@@ -20,7 +20,6 @@ import { useWorkersDataSignalTrigger } from "../lib/hooks/workers-data-signal-tr
 import { BACKEND_HUBS } from "@/shared/constants/backend-urls";
 
 export function Monitoring() {
-  console.log(WebsocketContext.connection?.state);
   const {
     totalPower: {value: totalPower},
     totalWorkersCount: {value: totalWorkersCount},
@@ -34,7 +33,7 @@ export function Monitoring() {
   const { value: workersList } = useWorkersDataSignalTrigger();
   return (
     <WebsocketContextProvider url={BACKEND_HUBS.MONITORING}>
-      <div className={styles['wrapper']}>
+      <div className={styles['monitoring-page']}>
         <article className={styles['slot-1']}>
           <MemoizedTotalPower className={styles['item-1']} value={totalPower}/>
           <MemoizedTotalWorkersCount className={styles['item-2']} value={totalWorkersCount}/>

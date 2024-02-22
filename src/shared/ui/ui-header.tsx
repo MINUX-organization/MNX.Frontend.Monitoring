@@ -16,7 +16,7 @@ export function UiHeader({
     <header
       className={clsx( 
         className,
-        styles['wrapper']
+        styles['header']
       )}
     >
       <UiLogo className={styles['logo']}/>
