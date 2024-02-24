@@ -66,6 +66,7 @@ a {
   src: local("GillSansMT"),
    url("../../shared/assets/fonts/Gill-Sans-MT.ttf") format("truetype");
   font-weight: normal;
+  font-display: fallback;
 }
 
 @mixin scrollbar() {

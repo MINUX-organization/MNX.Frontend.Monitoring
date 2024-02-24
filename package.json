@@ -20,13 +20,13 @@
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.50.1",
     "react-query": "^3.39.3",
     "react-router-dom": "^6.21.3",
     "react-signalr": "^0.2.19",
     "sass": "^1.70.0",
     "ts-pattern": "^5.0.6",
-    "zod": "^3.22.4",
-    "zustand": "^4.5.1"
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.202",

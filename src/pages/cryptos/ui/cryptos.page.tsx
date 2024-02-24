@@ -1,24 +1,19 @@
-import { Crypto, CryptosList } from "@/entities/crypto";
+import { CryptosList } from "@/entities/crypto";
 import styles from "./cryptos.page.module.scss";
-import { useQuery } from "react-query";
-import { getCryptocurrenciesList } from "@/shared/api";
-import { useCryptoStore } from "@/entities/crypto/model/crypto.store";
-import { ZodSaveParse } from "@/shared/lib/utils/zod-save-parse";
-import { useEffect } from "react";
+import { useCryptoQuery } from "@/entities/crypto/model/crypto.query";
+import { CryptoItem } from "@/entities/crypto/ui/crypto-item";
 
 export function Cryptos() {
-  const { isLoading, error, data } = useQuery("cryptosList", getCryptocurrenciesList);
-  const { setCryptosList, setIsCryptosListLoading } = useCryptoStore();
+  const { cryptosList, isLoading } = useCryptoQuery();
 
-  useEffect(() => {
-    if (data) setCryptosList(ZodSaveParse(data, Crypto.array()) ?? []);
-    setIsCryptosListLoading(isLoading);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading])
-  
   return (
     <div className={styles["cryptos-page"]}>
-      <CryptosList/>
+      <CryptosList 
+        cryptosList={cryptosList}  
+        isLoading={isLoading}
+        cryptoItemRender={(crypto) => <CryptoItem crypto={crypto} />}
+      />
+
     </div>
   )
 }

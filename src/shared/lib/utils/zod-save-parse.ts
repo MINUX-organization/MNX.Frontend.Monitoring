@@ -7,7 +7,7 @@ export function ZodSaveParse<T>(
 ) {
   const checkedData = schema.safeParse(data);
   if (!checkedData.success) { 
-    console.error(checkedData.error)
+    console.error(checkedData.error.message);
     return 
   }
   callback?.(checkedData.data);

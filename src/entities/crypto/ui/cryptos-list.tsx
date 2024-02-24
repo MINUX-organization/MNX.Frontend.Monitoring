@@ -1,19 +1,24 @@
 import _ from "lodash";
 import clsx from "clsx";
 import { match } from "ts-pattern";
-import { CryptoItem } from "./crypto-item";
 import styles from './cryptosList.module.scss';
 import { UiSpinner } from "@/shared/ui/ui-spinner";
-import { useCryptoStore } from "../model/crypto.store";
 import { UiBorderBox } from "@/shared/ui/ui-border-box";
 import { UiBgContainer } from "@/shared/ui/ui-bg-container";
+import { ReactNode } from "react";
+import { Crypto } from "../model/types";
 
 export function CryptosList({
   className,
+  cryptoItemRender,
+  cryptosList,
+  isLoading
 } : {
+  cryptosList?: Crypto[];
+  isLoading?: boolean;
   className?: string;
+  cryptoItemRender?: (crypto: Crypto) => ReactNode;
 }) {
-  const { cryptosList, isCryptosListLoading } = useCryptoStore();
   const titleLabels = ['Name', 'Full Name', 'Algorithm'];
   return (
     <UiBorderBox 
@@ -26,15 +31,13 @@ export function CryptosList({
             <span key={label} className={styles['title-text']}>{label}</span>
           ))}
         </div> 
-        {match(isCryptosListLoading)
+        {match(isLoading ?? false)
           .with(true, () => <span className={styles['no-data']}><UiSpinner/></span>)
           .with(false, () => {
             if (_.isEmpty(cryptosList)) {
-              return <span className={styles['no-data']}>No data</span>;
+              return <span className={styles['no-data']}>N/A</span>;
             } else {
-              return _.map(cryptosList, (crypto) => (
-                <CryptoItem key={crypto.shortName} crypto={crypto} />
-              ));
+              return _.map(cryptosList, (crypto) => cryptoItemRender?.(crypto));
             }
           })
           .exhaustive()

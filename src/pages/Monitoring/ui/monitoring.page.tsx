@@ -59,7 +59,8 @@ export function Monitoring() {
                     <StartStopMiningButton 
                       workerIsActive={worker?.isActive} 
                       workerIsOnline={worker?.onlineState !== "0"}
-                      workerId={worker?.id}/>}
+                      workerId={worker?.id}
+                    />}
                   workerPowerOffRender={() => 
                     <PowerOffButton workerIsOnline={worker?.onlineState !== "0"} workerId={worker?.id}/>}
                   workerRebootRender={() => 

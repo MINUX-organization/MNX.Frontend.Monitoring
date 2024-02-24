@@ -1,21 +1,23 @@
 import styles from './cryptoItem.module.scss';
 import { Crypto } from "../model/types";
-import { Trash2 } from "lucide-react";
 import clsx from "clsx";
+import { ReactNode } from 'react';
 
 export function CryptoItem({
   className,
-  crypto
+  crypto,
+  renderDeleteButton
 }: {
   className?: string;
   crypto?: Crypto;
+  renderDeleteButton?: () => ReactNode;
 }) {
   return (
     <div className={clsx(className, styles['crypto-item'])}>
       <span>{crypto?.shortName}</span>
       <span>{crypto?.fullName}</span>
       <span>{crypto?.algorithm}</span>
-      <Trash2 className={styles['icon']} size={20}/>
+      <span className={styles['icon']}>{renderDeleteButton?.()}</span>
     </div>
   );
 }
