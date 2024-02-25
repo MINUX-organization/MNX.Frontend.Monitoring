@@ -3,10 +3,10 @@ import styles from './styles/workerItemDropdown.module.scss'
 import { ReactNode } from "react";
 
 export type FeaturesProps = {
-  workerStartStopMiningRender?: () => ReactNode;
-  workerPowerOffRender?: () => ReactNode;
-  workerRebootRender?: () => ReactNode;
-  workerRebootInRender?: () => ReactNode;
+  renderWorkerStartStopMining?: () => ReactNode;
+  renderWorkerPowerOff?: () => ReactNode;
+  renderWorkerReboot?: () => ReactNode;
+  renderWorkerRebootIn?: () => ReactNode;
 }
 
 export type WorkerItemDropdownProps = {
@@ -20,10 +20,10 @@ export function WorkerItemDropdown({
   className,
   isOpen,
   workerFlightSheetRender,
-  workerStartStopMiningRender,
-  workerPowerOffRender,
-  workerRebootRender,
-  workerRebootInRender,
+  renderWorkerStartStopMining,
+  renderWorkerPowerOff,
+  renderWorkerReboot,
+  renderWorkerRebootIn,
   workerInfoRender
 } : WorkerItemDropdownProps) {
   return (
@@ -34,10 +34,10 @@ export function WorkerItemDropdown({
     )}>
       {workerFlightSheetRender?.()}
       <div className={styles['features']}>
-        {workerStartStopMiningRender?.()}
-        {workerPowerOffRender?.()}
-        {workerRebootRender?.()}
-        {workerRebootInRender?.()}
+        {renderWorkerStartStopMining?.()}
+        {renderWorkerPowerOff?.()}
+        {renderWorkerReboot?.()}
+        {renderWorkerRebootIn?.()}
       </div>
       {workerInfoRender?.()}
     </div>

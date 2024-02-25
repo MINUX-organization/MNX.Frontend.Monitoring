@@ -1,6 +1,6 @@
 :root {
   --color-bg: #20202A;
-  --color-cotainer-opaque: #242834;
+  --color-container-opaque: #242834;
   --color-cotainer-transparent: #00000020;
   --color-border-square: #1a1a22;
   --color-font-gray: #FFFFFF99;
@@ -46,6 +46,10 @@ body {
   box-sizing: inherit;
 }
 
+ol, ul {
+  list-style-type:  none;
+}
+
 button, input[type="submit"], input[type="reset"] {
 	background: none;
 	color: inherit;
@@ -54,6 +58,15 @@ button, input[type="submit"], input[type="reset"] {
 	font: inherit;
 	cursor: pointer;
 	outline: inherit;
+}
+
+input {
+  background: none;
+	color: inherit;
+	border: none;
+  padding: 0;
+	font: inherit;
+  outline: inherit;
 }
 
 a {

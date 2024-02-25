@@ -13,6 +13,7 @@
     grid-template-columns: repeat(3, minmax(auto, 10rem)) 1fr;
     .subgrid-title {
       @include subgrid();
+      height: 2.45rem;
       border-bottom: var(--border);
       padding: 0.625rem;
       align-items: center;

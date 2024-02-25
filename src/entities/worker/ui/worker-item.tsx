@@ -16,10 +16,10 @@ type WorkerItemProps = {
 function WorkerItem({
   className,
   worker,
-  workerStartStopMiningRender,
-  workerPowerOffRender,
-  workerRebootRender,
-  workerRebootInRender
+  renderWorkerStartStopMining,
+  renderWorkerPowerOff,
+  renderWorkerReboot,
+  renderWorkerRebootIn
 } : WorkerItemProps) {
   const isOpen = useStateObject<boolean>(false);
   const labels = [
@@ -46,10 +46,10 @@ function WorkerItem({
         workerFlightSheetRender={() => 
           <WorkerItemFlightSheetTable flightSheets={worker?.flightSheetInfo} labels={labels}/>}
         workerInfoRender={() => <WorkerItemInfo workerInfo={workerInfo}/>}
-        workerStartStopMiningRender={workerStartStopMiningRender}
-        workerPowerOffRender={workerPowerOffRender}
-        workerRebootRender={workerRebootRender}
-        workerRebootInRender={workerRebootInRender}
+        renderWorkerStartStopMining={renderWorkerStartStopMining}
+        renderWorkerPowerOff={renderWorkerPowerOff}
+        renderWorkerReboot={renderWorkerReboot}
+        renderWorkerRebootIn={renderWorkerRebootIn}
       />
     </div>
   )

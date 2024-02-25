@@ -55,17 +55,17 @@ export function Monitoring() {
                 <MemoizedWorkerItem
                   key={worker?.id}
                   worker={worker}
-                  workerStartStopMiningRender={() => 
+                  renderWorkerStartStopMining={() => 
                     <StartStopMiningButton 
                       workerIsActive={worker?.isActive} 
                       workerIsOnline={worker?.onlineState !== "0"}
                       workerId={worker?.id}
                     />}
-                  workerPowerOffRender={() => 
+                  renderWorkerPowerOff={() => 
                     <PowerOffButton workerIsOnline={worker?.onlineState !== "0"} workerId={worker?.id}/>}
-                  workerRebootRender={() => 
+                  renderWorkerReboot={() => 
                     <RebootButton workerIsOnline={worker?.onlineState !== "0"} workerId={worker?.id}/>}
-                  workerRebootInRender={() => 
+                  renderWorkerRebootIn={() => 
                     <RebootInButton workerIsOnline={worker?.onlineState !== "0"} workerId={worker?.id}/>}
                 />
               )}

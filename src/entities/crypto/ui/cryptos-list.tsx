@@ -10,14 +10,14 @@ import { Crypto } from "../model/types";
 
 export function CryptosList({
   className,
-  cryptoItemRender,
+  renderCryptoItem,
   cryptosList,
   isLoading
 } : {
   cryptosList?: Crypto[];
   isLoading?: boolean;
   className?: string;
-  cryptoItemRender?: (crypto: Crypto) => ReactNode;
+  renderCryptoItem?: (crypto: Crypto) => ReactNode;
 }) {
   const titleLabels = ['Name', 'Full Name', 'Algorithm'];
   return (
@@ -37,7 +37,7 @@ export function CryptosList({
             if (_.isEmpty(cryptosList)) {
               return <span className={styles['no-data']}>N/A</span>;
             } else {
-              return _.map(cryptosList, (crypto) => cryptoItemRender?.(crypto));
+              return _.map(cryptosList, (crypto) => renderCryptoItem?.(crypto));
             }
           })
           .exhaustive()
