@@ -1,6 +1,6 @@
 ﻿namespace MNX.Backend.Test.Model
 {
-    public class Worker
+    public class Rig
     {
         public string Id { get; set; }
         public string? Name { get; set; }
@@ -21,7 +21,7 @@
         public int AmdCount { get; set; }
         public int IntelCount { get; set; }
 
-        public Worker(
+        public Rig(
             string id, 
             string? name, 
             int? index, 

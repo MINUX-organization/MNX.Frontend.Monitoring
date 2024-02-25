@@ -3,7 +3,7 @@
   --color-container-opaque: #242834;
   --color-cotainer-transparent: #00000020;
   --color-border-square: #1a1a22;
-  --color-font-gray: #FFFFFF99;
+  --color-font-gray: #ffffff80;
   --color-border: #3C9EA5;
   
   --color-measure: #3C9EA5;
@@ -16,6 +16,7 @@
   --color-active-button: #3C9EA5;
 
   --font-size-22px: 1.375rem;
+  --font-size-20px: 1.25rem;
   --font-size-18px: 1.125rem;
   --font-size-root: 16px;
 
@@ -74,6 +75,13 @@ a {
   text-decoration: none;
 }
 
+::-webkit-input-placeholder {
+  color: var(--color-font-gray); 
+}
+::-moz-placeholder {
+  color: var(--color-font-gray);
+}
+
 @font-face {
   font-family: "GillSansMT";
   src: local("GillSansMT"),
@@ -88,7 +96,7 @@ a {
 
 @mixin scrollbar-thumb() {
   background-color: color-mix(in srgb, var(--color-border), black 25%);
-} 
+}
 
 @mixin scrollbar-track() {
   background-color: color-mix(in srgb, var(--color-border), black 60%);

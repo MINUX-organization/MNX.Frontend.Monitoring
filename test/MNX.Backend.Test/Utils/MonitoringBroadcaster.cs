@@ -54,14 +54,14 @@ namespace MNX.Backend.Test.Utils
             }
         }
 
-        public async Task SendTotalWorkers(string connectionId)
+        public async Task SendTotalRigs(string connectionId)
         {
             while (!string.IsNullOrEmpty(connectionId))
             {
                 await hubContext
                         .Clients
                         .Client(connectionId)
-                        .SendAsync(MONITORING_TRIGGER, new ObjectType("TotalWorkersCount", _random.Next(1000)));
+                        .SendAsync(MONITORING_TRIGGER, new ObjectType("TotalRigsCount", _random.Next(1000)));
                 await Task.Delay(2000);
             }
         }
@@ -135,12 +135,12 @@ namespace MNX.Backend.Test.Utils
             }
         }
 
-        public async Task SendWorkersList(string connectionId)
+        public async Task SendRigsList(string connectionId)
         {
-            List<Worker> workersList = [];
-            Worker worker = new(
+            List<Rig> rigsList = [];
+            Rig rig = new(
                 "124ftg2t",
-                "Worker_1", 
+                "Rig_1", 
                 1, 
                 ["active", "inactive", "empty", "error"], 
                 true, 
@@ -150,11 +150,11 @@ namespace MNX.Backend.Test.Utils
                 new ValueUnit(500, "W"),
                 [ new("Bitcoin", "SuperSheet", "lolMiner", new ValueUnit(321, "Mh/s"), new Shares(32, 42))], 
                 "1:00:00", "2:00:00", "125.0.0.1", "v1.0.0", 23, 12, 15);
-            workersList.Add(worker);
+            rigsList.Add(rig);
             await hubContext
                     .Clients
                     .Client(connectionId)
-                    .SendAsync("ReceivedWorkersInformation", workersList);
+                    .SendAsync("ReceivedRigsInformation", rigsList);
         }
     }
 }

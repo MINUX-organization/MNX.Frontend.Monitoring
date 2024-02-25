@@ -2,7 +2,7 @@ type TotalDataType =
   "TotalCoinsList"          |
   "TotalShares"             |
   "TotalPower"              |
-  "TotalWorkersCount"       |
+  "TotalRigsCount"       |
   "TotalGpusCount"          |
   "TotalCpusCount"
 
@@ -20,12 +20,12 @@ export type TriggerChartCoinData = {
   newData: unknown;
 }
 
-export type TriggerWorkerData = {
-  workerId: string;
+export type TriggerRigData = {
+  rigId: string;
   newData: unknown;
 }
 
-type WorkerDataType = 
+type RigDataType = 
 "Name"          |
 "GpuState"      |
 "ActiveState"   |
@@ -37,8 +37,8 @@ type WorkerDataType =
 "IntelCount"    |
 "FlightSheet"
 
-export type TriggerWorkerDataStatic = {
-  workerId: string;
-  type: WorkerDataType;
+export type TriggerRigDataStatic = {
+  rigId: string;
+  type: RigDataType;
   newData: unknown;
 }

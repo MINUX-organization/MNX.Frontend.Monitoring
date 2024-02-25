@@ -1,0 +1,85 @@
+@mixin subgrid() {
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: 1 / 13;
+}
+
+.rig-item-panel {
+  @include subgrid();
+  padding: 0;
+  height: 3.5rem;
+  text-align: center;
+  align-items: center;
+  font-size: var(--font-size-18px);
+  .item-1{
+    grid-column: 1;
+  }
+  .item-2{
+    grid-column: 2 / 4;
+  }
+  .item-3{
+    display: grid;
+    gap: 0.125rem;
+    justify-content: center;
+    align-items: center;
+    grid-auto-columns: min-content;
+    grid-template-columns: repeat(10, auto);
+    grid-column: 4 / 6;
+  }
+  .item-4{
+    grid-column: 6 / 7;
+  }
+  .item-5{
+    display: flex;
+    align-items: center;
+    grid-column: 7 / 8;
+    gap: 0.2rem;
+  }
+  .item-6{
+    grid-column: 10 / 11;
+  }
+  .item-7{
+    grid-column: 11 / 12;
+  }
+  .item-8{
+    grid-column: 12 / 13;
+  }
+}
+
+.measure {
+  color: var(--color-measure);
+}
+
+@mixin square {
+  width: 15px;
+  height: 15px;
+}
+
+.active-square {
+  @include square();
+  background-color: var(--color-positive);
+}
+
+.inactive-square {
+  @include square();
+  background-color: none;
+  border: 1px solid var(--color-negative);
+}
+
+.error-square {
+  @include square();
+  background-color: var(--color-negative);
+}
+
+.empty-square {
+  @include square();
+  background-color: var(--color-font-gray);
+  opacity: 80%;
+}
+
+.img {
+  height: 30px;
+  width: 30px;
+  margin-right: 0.3rem;
+  display: inline-block;
+}

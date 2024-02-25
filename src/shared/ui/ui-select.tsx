@@ -1,35 +1,35 @@
-import { Listbox } from '@headlessui/react'
-import { StateObject } from '../lib/utils/state-object'
-import clsx from 'clsx'
-import { ReactNode } from 'react';
-import styles from './styles/uiSelect.module.scss'
-import _ from 'lodash';
-import { UiBorderBox } from './ui-border-box';
 import { UiBgContainer } from './ui-bg-container';
-import { title } from 'process';
+import styles from './styles/uiSelect.module.scss';
+import { UiBorderBox } from './ui-border-box';
+import { Listbox } from '@headlessui/react';
+import { ReactNode } from 'react';
+import clsx from 'clsx';
+import _ from 'lodash';
+import { match } from 'ts-pattern';
+import { ChevronDown } from 'lucide-react';
 
 type UiSelectProps<T> = {
   options?: T[];
-  className?: string;
-  selectedLabel?: string;
-  selectedValue?: T;
   title?: string;
+  selectedValue?: T;
+  className?: string;
+  placeholder?: string;
   selectedOnChange?: (e?: T) => void; 
   getOptionLabel?: (option?: T) => string | undefined;
   renderOption?: (option?: T) => ReactNode;
-  renderLabel?: (selectedLabel?: string) => ReactNode;
+  renderSelectedValue?: (selectedValue?: T) => ReactNode;
 }
 
 export function UiSelect<T>({
   options,
   className,
   title,
-  selectedLabel,
   getOptionLabel, 
   selectedValue,
+  placeholder,
   selectedOnChange,
   renderOption,
-  renderLabel,
+  renderSelectedValue,
   ...props
 } : UiSelectProps<T>) {
   return (
@@ -41,14 +41,20 @@ export function UiSelect<T>({
       <Listbox {...props} as='div' value={selectedValue} onChange={selectedOnChange}>
         <Listbox.Button className={styles['button']}>
           <UiBorderBox>
-            <UiBgContainer className={styles['padding']} color='opaque'>
-              {renderLabel?.(selectedLabel)}
+            <UiBgContainer className={styles['select-container']} color='opaque'>
+              {selectedValue === '' ? (
+                <span className={styles['text-gray']}>{placeholder ?? 'Select an option'}</span>
+              ) : (
+                renderSelectedValue?.(selectedValue)
+              )}
+              <ChevronDown className={styles['chevron']} size={20}/>
             </UiBgContainer>
           </UiBorderBox>
         </Listbox.Button>
         <Listbox.Options className={styles['options']}>
           {_.map(options, (option) => (
             <Listbox.Option
+              className={styles['option']}
               key={getOptionLabel?.(option)}
               value={option}
             >

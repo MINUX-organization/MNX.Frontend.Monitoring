@@ -2,6 +2,10 @@
   width: inherit;
   height: inherit;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-content);
+  
   .button {
     text-align: left;
     width: 100%;
@@ -15,8 +19,29 @@
   background-color: var(--color-container-opaque);
   position: absolute;
   z-index: 1;
+
+  .option {
+    padding: var(--gap-content);
+    cursor: pointer;
+    height: 2rem;
+
+    &:hover {
+      background-color: var(--color-hover-link-bg);
+    }
+  }
 }
 
-.padding {
+.select-container {
+  display: flex;
+  height: 2rem;
+  justify-content: space-between;
   padding: var(--gap-content);
+}
+
+.text-gray {
+  color: var(--color-font-gray);
+}
+
+.chevron {
+  color: var(--color-border);
 }

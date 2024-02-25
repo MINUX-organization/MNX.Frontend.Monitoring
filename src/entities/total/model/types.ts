@@ -26,8 +26,8 @@ export type TotalGpusCount = z.infer<typeof TotalGpusCount>
 export const TotalPower = MeasureUnit
 export type TotalPower = z.infer<typeof TotalPower>
 
-export const TotalWorkersCount = z.number({invalid_type_error: 'TotalWorkersCount must be a number'})
-export type TotalWorkersCount = z.infer<typeof TotalWorkersCount>
+export const TotalRigsCount = z.number({invalid_type_error: 'TotalRigsCount must be a number'})
+export type TotalRigsCount = z.infer<typeof TotalRigsCount>
 
 export const TotalCpusCount = z.object({
   total: z.number({invalid_type_error: 'Total must be a number'}),

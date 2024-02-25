@@ -1,12 +1,17 @@
 .input {
   width: inherit;
   height: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-content);
 }
 
 .padding {
   padding: 0;
+  height: 2rem;
 }
 
 .padding-input {
+  width: 100%;
   padding: var(--gap-content);
 }

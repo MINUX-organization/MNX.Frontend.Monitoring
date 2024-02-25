@@ -1,4 +1,20 @@
 .crypto-form {
   width: 100%;
   max-width: 25rem;
+
+  .crypto-container {
+    padding: var(--gap-widget);
+
+    .crypto-form-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+  }
+
+  .title {
+    display: flex;
+    justify-content: center;
+    font-size: var(--font-size-20px);
+  }
 }

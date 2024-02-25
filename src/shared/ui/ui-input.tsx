@@ -20,7 +20,7 @@ export function UiInput<T extends FieldValues>({
   return (
     <div className={clsx(className, styles['input'])} {...props}>
       <label>{label}</label>
-      <UiBorderBox>
+      <UiBorderBox className={styles['input-container']}>
         <UiBgContainer className={styles['padding']} color="opaque">
           <input {...field} className={styles['padding-input']} placeholder={placeholder}/>
         </UiBgContainer>
