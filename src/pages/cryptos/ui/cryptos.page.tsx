@@ -12,7 +12,7 @@ export function Cryptos() {
       <CryptosList 
         cryptosList={cryptosList}  
         isLoading={isLoading}
-        renderCryptoItem={(crypto) => <CryptoItem crypto={crypto} />}
+        renderCryptoItem={(crypto) => <CryptoItem key={crypto.fullName} crypto={crypto} />}
       /> 
     </div>
   )

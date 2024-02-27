@@ -1,15 +1,24 @@
 .crypto-form {
   width: 100%;
   max-width: 25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
 
   .crypto-container {
-    padding: var(--gap-widget);
+    padding: 1.5rem;
 
     .crypto-form-container {
       display: flex;
       flex-direction: column;
       gap: 0.8rem;
     }
+  }
+
+  .button-submit{
+    align-self: flex-end;
+    width: 6.25rem;
+    height: 2.5rem;
   }
 
   .title {

@@ -5,7 +5,6 @@ import { Listbox } from '@headlessui/react';
 import { ReactNode } from 'react';
 import clsx from 'clsx';
 import _ from 'lodash';
-import { match } from 'ts-pattern';
 import { ChevronDown } from 'lucide-react';
 
 type UiSelectProps<T> = {
@@ -14,7 +13,7 @@ type UiSelectProps<T> = {
   selectedValue?: T;
   className?: string;
   placeholder?: string;
-  selectedOnChange?: (e?: T) => void; 
+  selectedOnChange?: (option?: T) => void; 
   getOptionLabel?: (option?: T) => string | undefined;
   renderOption?: (option?: T) => ReactNode;
   renderSelectedValue?: (selectedValue?: T) => ReactNode;
@@ -32,20 +31,20 @@ export function UiSelect<T>({
   renderSelectedValue,
   ...props
 } : UiSelectProps<T>) {
-  return (
+  return ( 
     <div className={clsx(
         className, 
         styles['select'],
       )}>
       <label>{title}</label>
-      <Listbox {...props} as='div' value={selectedValue} onChange={selectedOnChange}>
+      <Listbox {...props} as='div' value={selectedValue || '' as T} onChange={selectedOnChange}>
         <Listbox.Button className={styles['button']}>
           <UiBorderBox>
             <UiBgContainer className={styles['select-container']} color='opaque'>
-              {selectedValue === '' ? (
+              {selectedValue === '' || selectedValue === undefined ? (
                 <span className={styles['text-gray']}>{placeholder ?? 'Select an option'}</span>
               ) : (
-                renderSelectedValue?.(selectedValue)
+                renderSelectedValue?.(selectedValue) ?? <span></span>
               )}
               <ChevronDown className={styles['chevron']} size={20}/>
             </UiBgContainer>

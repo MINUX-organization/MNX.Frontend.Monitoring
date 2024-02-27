@@ -14,7 +14,7 @@
   background-color: var(--color-border-square);
 }
 
-$size: 0.8125rem;
+$size: 0.875rem;
 
 .topLeft {
   @include square($size);

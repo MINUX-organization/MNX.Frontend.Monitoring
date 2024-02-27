@@ -8,6 +8,7 @@ export const BACKEND_HUBS = {
 
 export const BACKEND_APIS = {
   CRYPTOCURRENCY: '/cryptocurrency',
+  ALHORITHM: '/algorithm/available',
   POOL: '/pool',
   WALLET: '/wallet',
 }

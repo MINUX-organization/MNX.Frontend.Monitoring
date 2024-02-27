@@ -1,7 +1,7 @@
 import { apiInstance } from "../_api-instance";
 import { BACKEND_APIS } from "@/shared/constants/backend-urls";
 
-interface Response {
+type Response = {
   shortName: string;
   fullName: string;
   algorithm: string;
