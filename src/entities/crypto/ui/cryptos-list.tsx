@@ -7,23 +7,6 @@ import { UiBorderBox } from "@/shared/ui/ui-border-box";
 import { UiBgContainer } from "@/shared/ui/ui-bg-container";
 import { ReactNode } from "react";
 import { Crypto } from "../model/types";
-import { UiSort } from "@/shared/ui/ui-sort";
-import { useStateObject } from "@/shared/lib/utils/state-object";
-
-const labels = [
-  {
-    label: 'Name',
-    value: 'shortName' as keyof Crypto
-  },
-  {
-    label: 'Full Name',
-    value: 'fullName' as keyof Crypto
-  },
-  {
-    label: 'Algorithm',
-    value: 'algorithm' as keyof Crypto
-  }
-]
 
 export function CryptosList({
   className,
