@@ -18,10 +18,10 @@ export function CryptoForm() {
     defaultValues: {
       shortName: '',
       fullName: '',
-      algorithm: ''
+      algorithmName: ''
     }
   })
-  const selectedAlgorithm = watch('algorithm');
+  const selectedAlgorithm = watch('algorithmName');
 
   const onSubmit: SubmitHandler<FormInput> = (data) => {
     addCrypto.mutate(data);
@@ -48,7 +48,7 @@ export function CryptoForm() {
               placeholder="Full Name of Crypto"/>
             <Controller 
               control={control} 
-              name="algorithm"
+              name="algorithmName"
               rules={{ required: true }}
               render={({ field: {onChange} }) => 
                 <UiSelect
@@ -56,7 +56,7 @@ export function CryptoForm() {
                   selectedOnChange={onChange}
                   selectedValue={selectedAlgorithm}
                   options={algorithms}
-                  placeholder="Select an algorithm"
+                  placeholder="Select an algorithmName"
                   renderSelectedValue={(selectedValue) => <span>{selectedValue}</span>}
                   getOptionLabel={(option) => option}/>}
             /> 

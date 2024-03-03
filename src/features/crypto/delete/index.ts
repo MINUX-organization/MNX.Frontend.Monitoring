@@ -1,0 +1,1 @@
+export { DeleteCrypto } from './ui/delete-ctypto'

@@ -9,7 +9,7 @@ export type SharesCount = z.infer<typeof SharesCount>
 
 export const TotalCoinValue = z.object({
   coin: z.string({invalid_type_error: 'Coin must be a string'}),
-  algorithm: z.string({invalid_type_error: 'Algorithm must be a string'}),
+  algorithmName: z.string({invalid_type_error: 'Algorithm must be a string'}),
   hashrate: MeasureUnit,
   shares: SharesCount
 })

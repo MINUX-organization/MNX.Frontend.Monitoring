@@ -42,6 +42,7 @@ export function UiSort<T>({
   const handleOnChange = (option?: SortOption<T>) => {
     sortBy.setValue(option?.value);
     selectedOption.setValue(option);
+    handleSort();
   }
 
   const handleDirectionChange = () => {
@@ -62,7 +63,6 @@ export function UiSort<T>({
       <button onClick={handleDirectionChange}>
         {direction.value === 'asc' ? 'Ascending' : 'Descending'}
       </button>
-      <button onClick={handleSort}>Sort</button>
     </div>
   );
 }

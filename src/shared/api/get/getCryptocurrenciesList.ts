@@ -4,7 +4,7 @@ import { BACKEND_APIS } from "@/shared/constants/backend-urls";
 type Response = {
   shortName: string;
   fullName: string;
-  algorithm: string;
+  algorithmName: string;
 }
 
 export const getCryptocurrenciesList = async () => 

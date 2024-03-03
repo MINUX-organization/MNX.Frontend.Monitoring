@@ -10,14 +10,14 @@ export function CryptoItem({
 }: {
   className?: string;
   crypto?: Crypto;
-  renderDeleteButton?: () => ReactNode;
+  renderDeleteButton?: (crypto?: Crypto) => ReactNode;
 }) {
   return (
     <div className={clsx(className, styles['crypto-item'])}>
       <span>{crypto?.shortName}</span>
       <span>{crypto?.fullName}</span>
-      <span>{crypto?.algorithm}</span>
-      <span className={styles['icon']}>{renderDeleteButton?.()}</span>
+      <span>{crypto?.algorithmName}</span>
+      <span className={styles['icon']}>{renderDeleteButton?.(crypto)}</span>
     </div>
   );
 }

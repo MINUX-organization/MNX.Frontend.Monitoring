@@ -12,14 +12,17 @@ export function useCryptoQuery() {
 
   const addCrypto = useMutation({
     mutationFn: (crypto: Crypto) => addCryptocurrency(crypto),
-    onSuccess: (__, variables) => {
+    onSuccess: (_data, variables) => {
       queryClient.setQueryData(['cryptosList'], _.concat(cryptosList, variables))
     }
   });
   
-  const deleteCrypto = useMutation(
-    (crypto: Crypto) => deleteCryptocurrency(crypto.fullName)
-  );
+  const deleteCrypto = useMutation({
+    mutationFn: (fullName: string) => deleteCryptocurrency(fullName),
+    onSuccess: (_data, variables) => {
+      queryClient.setQueryData(['cryptosList'], _.filter(cryptosList, (crypto) => crypto.fullName !== variables))
+    }
+  });
 
   return {
     cryptosList,
