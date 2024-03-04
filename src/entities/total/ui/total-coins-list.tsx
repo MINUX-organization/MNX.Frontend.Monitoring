@@ -40,7 +40,7 @@ function TotalCoinValue({
         {_.map(values, (value) => (
           <div key={value.coin} className={styles['subgrid']}>
             <span>{value.coin}</span>
-            <span>{value.algorithmName}</span>
+            <span>{value.algorithm}</span>
             <span>{value.hashrate.value}&nbsp;
               <span className={styles['measure']}>{value.hashrate.measureUnit}</span>
             </span>

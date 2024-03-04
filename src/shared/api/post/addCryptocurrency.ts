@@ -4,7 +4,7 @@ import { apiInstance } from "../_api-instance";
 type Request = {
   shortName: string;
   fullName: string;
-  algorithmName: string;
+  algorithm: string;
 };
 
 type Response = Request;

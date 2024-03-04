@@ -15,9 +15,9 @@ export function Cryptos() {
         isLoading={isLoading}
         renderCryptoItem={(crypto) => 
         <CryptoItem 
-          key={crypto.fullName} 
+          key={crypto.id} 
           crypto={crypto} 
-          renderDeleteButton={(crypto) => <DeleteCrypto cryptoFullName={crypto?.fullName}/>}
+          renderDeleteButton={(crypto) => <DeleteCrypto cryptoId={crypto?.id}/>}
         />}
       /> 
     </div>

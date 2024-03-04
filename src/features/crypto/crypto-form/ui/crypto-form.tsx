@@ -18,10 +18,10 @@ export function CryptoForm() {
     defaultValues: {
       shortName: '',
       fullName: '',
-      algorithmName: ''
+      algorithm: ''
     }
   })
-  const selectedAlgorithm = watch('algorithmName');
+  const selectedAlgorithm = watch('algorithm');
 
   const onSubmit: SubmitHandler<FormInput> = (data) => {
     addCrypto.mutate(data);
@@ -33,7 +33,11 @@ export function CryptoForm() {
       <UiBorderBox topLeft topRight bottomLeft bottomRight>
         <UiBgContainer className={styles['crypto-container']} color="transparent">
           <span className={styles['title']}>Add new coin</span>
-          <form id="crypto-form" className={styles['crypto-form-container']} onSubmit={handleSubmit(onSubmit)}>
+          <form 
+            id="crypto-form" 
+            className={styles['crypto-form-container']} 
+            onSubmit={handleSubmit(onSubmit)}
+          >
             <UiInput 
               control={control} 
               name="shortName"
@@ -48,7 +52,7 @@ export function CryptoForm() {
               placeholder="Full Name of Crypto"/>
             <Controller 
               control={control} 
-              name="algorithmName"
+              name="algorithm"
               rules={{ required: true }}
               render={({ field: {onChange} }) => 
                 <UiSelect
@@ -56,7 +60,7 @@ export function CryptoForm() {
                   selectedOnChange={onChange}
                   selectedValue={selectedAlgorithm}
                   options={algorithms}
-                  placeholder="Select an algorithmName"
+                  placeholder="Select an algorithm"
                   renderSelectedValue={(selectedValue) => <span>{selectedValue}</span>}
                   getOptionLabel={(option) => option}/>}
             /> 

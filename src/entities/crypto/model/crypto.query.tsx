@@ -7,28 +7,39 @@ import _ from "lodash";
 export function useCryptoQuery() {
   const queryClient = useQueryClient();
   const { isLoading, error, data } = useQuery(['cryptosList'], getCryptocurrenciesList);
-
+  
   const cryptosList = ZodSaveParse(data, Crypto.array().optional());
 
   const addCrypto = useMutation({
-    mutationFn: (crypto: Crypto) => addCryptocurrency(crypto),
-    onSuccess: (_data, variables) => {
-      queryClient.setQueryData(['cryptosList'], _.concat(cryptosList, variables))
+    mutationFn: (crypto: _.Omit<Crypto, 'id'>) => addCryptocurrency(crypto),
+    onSuccess: (data) => {
+      queryClient.setQueryData(['cryptosList'], _.concat(cryptosList, data))
     }
   });
   
   const deleteCrypto = useMutation({
-    mutationFn: (fullName: string) => deleteCryptocurrency(fullName),
+    mutationFn: (id: string) => deleteCryptocurrency(id),
     onSuccess: (_data, variables) => {
-      queryClient.setQueryData(['cryptosList'], _.filter(cryptosList, (crypto) => crypto.fullName !== variables))
+      queryClient.setQueryData(
+        ['cryptosList'],
+         _.filter(cryptosList, (crypto) => crypto.id !== variables)
+      )
     }
   });
+
+  const sortByProperty = (property: keyof Crypto) => {
+    queryClient.setQueryData(
+      ['cryptosList'],
+      _.sortBy(cryptosList, property)
+    )
+  }
 
   return {
     cryptosList,
     isLoading,
     error,
     addCrypto,
-    deleteCrypto
+    deleteCrypto,
+    sortByProperty
   }
 }
