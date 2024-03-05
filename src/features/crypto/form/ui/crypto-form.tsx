@@ -2,7 +2,7 @@ import { UiBgContainer } from "@/shared/ui/ui-bg-container";
 import { UiBorderBox } from "@/shared/ui/ui-border-box";
 import { useForm, Controller, SubmitHandler } from "react-hook-form"
 import { UiSelect } from "@/shared/ui/ui-select";
-import { Crypto, useCryptoQuery } from "@/entities/crypto";
+import { Crypto, useCryptoRepository } from "@/entities/crypto";
 import { UiInput } from "@/shared/ui/ui-input";
 import styles from './cryptoForm.module.scss';
 import { useQuery } from "react-query";
@@ -12,8 +12,9 @@ import { UiButton } from "@/shared/ui/ui-button";
 type FormInput = Crypto;
 
 export function CryptoForm() {
+  const { addCrypto } = useCryptoRepository();
   const { data : algorithms } = useQuery(['algorithms'], getAvailableAlgorithms);
-  const { addCrypto } = useCryptoQuery();
+
   const { control, handleSubmit, watch, reset } = useForm<FormInput>({
     defaultValues: {
       shortName: '',

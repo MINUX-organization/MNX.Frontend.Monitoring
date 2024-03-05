@@ -1,24 +1,24 @@
 import { CryptosList } from "@/entities/crypto";
 import styles from "./cryptos.page.module.scss";
-import { useCryptoQuery } from "@/entities/crypto/model/crypto.query";
 import { CryptoItem } from "@/entities/crypto/ui/crypto-item";
-import { CryptoForm } from "@/features/crypto/crypto-form";
+import { CryptoForm } from "@/features/crypto/form";
 import { DeleteCrypto } from "@/features/crypto/delete";
+import { CryptoSort } from "@/features/crypto/sort/ui/crypto-sort";
 
 export function Cryptos() {
-  const { cryptosList, isLoading } = useCryptoQuery();
   return (
     <div className={styles["cryptos-page"]}>
       <CryptoForm/>
-      <CryptosList 
-        cryptosList={cryptosList}  
-        isLoading={isLoading}
+      <CryptosList
         renderCryptoItem={(crypto) => 
-        <CryptoItem 
-          key={crypto.id} 
-          crypto={crypto} 
-          renderDeleteButton={(crypto) => <DeleteCrypto cryptoId={crypto?.id}/>}
-        />}
+          <CryptoItem 
+            key={crypto?.id} 
+            crypto={crypto} 
+            renderDeleteButton={(crypto) => <DeleteCrypto cryptoId={crypto?.id}/>}
+          />
+        }
+        renderSort={() => <CryptoSort/>}
+        // renderFilter={() => <UiFilter/>}
       /> 
     </div>
   )

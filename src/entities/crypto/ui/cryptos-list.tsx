@@ -7,53 +7,55 @@ import { UiBorderBox } from "@/shared/ui/ui-border-box";
 import { UiBgContainer } from "@/shared/ui/ui-bg-container";
 import { ReactNode } from "react";
 import { Crypto } from "../model/types";
+import { useCryptoQuery } from "../model/crypto.query";
 
 export function CryptosList({
   className,
   renderCryptoItem,
-  cryptosList,
-  isLoading
+  renderFilter,
+  renderSort
 } : {
-  cryptosList?: Crypto[];
-  isLoading?: boolean;
   className?: string;
+  renderFilter?: () => ReactNode;
+  renderSort?: () => ReactNode;
   renderCryptoItem?: (crypto: Crypto) => ReactNode;
 }) {
+  const { cryptosList, isLoading } = useCryptoQuery();
   const titleLabels = ['Name', 'Full Name', 'Algorithm'];
+  
   return (
-    <UiBorderBox
-      className={clsx(className, styles['cryptos-list'])}
-      topLeft topRight bottomLeft bottomRight
-    >
-      <UiBgContainer className={styles['grid']} color="transparent">
-        {/* <UiSort Solved
-          data={cryptos.value} 
-          sortOptions={labels}
-          onSort={(sortedData) => {
-            console.log(sortedData); 
-            cryptos.setValue(sortedData)
-          }}/> */}
-        <div className={styles['subgrid-title']}>
-          {_.map(titleLabels, (label) => (
-            <span key={label} className={styles['title-text']}>{label}</span>
-          ))}
-        </div> 
-        {match(isLoading ?? false)
-          .with(true, () => <span className={styles['no-data']}><UiSpinner/></span>)
-          .with(false, () => {
-            if (_.isEmpty(cryptosList)) {
-              return <span className={styles['no-data']}>N/A</span>;
-            } else {
-              return (
-                <div className={styles['subgrid-items']}>
-                  {_.map(cryptosList, (crypto) => renderCryptoItem?.(crypto))}
-                </div>
-              )
-            }
-          })
-          .exhaustive()
-        }
-      </UiBgContainer>
-    </UiBorderBox>
+    <div className={clsx(className, styles['cryptos-list'])}>
+      <div className={styles['features']}>
+        {renderFilter?.()}
+        {renderSort?.()}
+      </div>
+      <UiBorderBox
+        className={styles['cryptos-list-table']}
+        topLeft topRight bottomLeft bottomRight
+      >
+        <UiBgContainer className={styles['grid']} color="transparent">
+          <div className={styles['subgrid-title']}>
+            {_.map(titleLabels, (label) => (
+              <span key={label} className={styles['title-text']}>{label}</span>
+            ))}
+          </div> 
+          {match(isLoading ?? false)
+            .with(true, () => <span className={styles['no-data']}><UiSpinner/></span>)
+            .with(false, () => {
+              if (_.isEmpty(cryptosList)) {
+                return <span className={styles['no-data']}>N/A</span>;
+              } else {
+                return (
+                  <div className={styles['subgrid-items']}>
+                    {_.map(cryptosList, (crypto) => renderCryptoItem?.(crypto))}
+                  </div>
+                )
+              }
+            })
+            .exhaustive()
+          }
+        </UiBgContainer>
+      </UiBorderBox>
+    </div>
   )
 }

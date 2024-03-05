@@ -1,4 +1,4 @@
-import { useCryptoQuery } from "@/entities/crypto";
+import { useCryptoRepository } from "@/entities/crypto";
 import styles from './deleteCrypto.module.scss';
 import { Trash2 } from "lucide-react";
 
@@ -7,7 +7,7 @@ export function DeleteCrypto({
 } : {
   cryptoId?: string;
 }) {
-  const { deleteCrypto } = useCryptoQuery();
+  const { deleteCrypto } = useCryptoRepository();
   const handleClick = () => {
     if (!cryptoId) return;
     deleteCrypto.mutate(cryptoId);

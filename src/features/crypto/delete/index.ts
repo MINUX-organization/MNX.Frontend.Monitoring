@@ -1,1 +1,1 @@
-export { DeleteCrypto } from './ui/delete-ctypto'
+export { DeleteCrypto } from './ui/delete-crypto'
