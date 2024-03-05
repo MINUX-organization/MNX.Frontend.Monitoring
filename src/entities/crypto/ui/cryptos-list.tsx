@@ -7,7 +7,7 @@ import { UiBorderBox } from "@/shared/ui/ui-border-box";
 import { UiBgContainer } from "@/shared/ui/ui-bg-container";
 import { ReactNode } from "react";
 import { Crypto } from "../model/types";
-import { useCryptoQuery } from "../model/crypto.query";
+import { useCryptoRepository } from "..";
 
 export function CryptosList({
   className,
@@ -20,7 +20,7 @@ export function CryptosList({
   renderSort?: () => ReactNode;
   renderCryptoItem?: (crypto: Crypto) => ReactNode;
 }) {
-  const { cryptosList, isLoading } = useCryptoQuery();
+  const { getCryptosList, isLoading } = useCryptoRepository();
   const titleLabels = ['Name', 'Full Name', 'Algorithm'];
   
   return (
@@ -42,12 +42,12 @@ export function CryptosList({
           {match(isLoading ?? false)
             .with(true, () => <span className={styles['no-data']}><UiSpinner/></span>)
             .with(false, () => {
-              if (_.isEmpty(cryptosList)) {
+              if (_.isEmpty(getCryptosList())) {
                 return <span className={styles['no-data']}>N/A</span>;
               } else {
                 return (
                   <div className={styles['subgrid-items']}>
-                    {_.map(cryptosList, (crypto) => renderCryptoItem?.(crypto))}
+                    {_.map(getCryptosList(), (crypto) => renderCryptoItem?.(crypto))}
                   </div>
                 )
               }
