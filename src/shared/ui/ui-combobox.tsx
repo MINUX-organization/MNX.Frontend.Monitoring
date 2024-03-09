@@ -3,6 +3,9 @@ import { useStateObject } from "../lib/utils/state-object";
 import styles from './styles/uiCombobox.module.scss';
 import clsx from "clsx";
 import _ from "lodash";
+import { UiBorderBox } from "./ui-border-box";
+import { UiBgContainer } from "./ui-bg-container";
+import { ChevronDown } from "lucide-react";
 
 export function UiComboBox<T>({
   className,
@@ -10,17 +13,18 @@ export function UiComboBox<T>({
   options,
   placeholder,
   getOptionLabel,
+  selectedOption,
   selectedOnChange
 } : {
   className?: string;
   title?: string;
   placeholder?: string;
-  options: T[];
+  options?: T[];
+  selectedOption?: T;
   getOptionLabel: (option?: T) => string;
-  selectedOnChange: (option?: T | string) => void;
+  selectedOnChange?: (option?: T | string) => void;
 }) {
   const query = useStateObject('')
-  const selectedOption = useStateObject('')
 
   const filteredOptions =
     query.value === ''
@@ -32,15 +36,37 @@ export function UiComboBox<T>({
   return (
     <div className={clsx(className, styles['combobox'])}>
       {title && <label>{title}</label>}
-      <Combobox value={selectedOption.value} onChange={selectedOnChange}>
-        <Combobox.Input placeholder={placeholder} onChange={(event) => query.setValue(event.target.value)} />
-        <Combobox.Options>
+      <Combobox value={selectedOption} onChange={selectedOnChange}>
+        <div>
+        <UiBorderBox className={styles['select']}>
+          <UiBgContainer className={styles['select-container']} color="opaque">
+            <Combobox.Input 
+              className={styles['input']} 
+              placeholder={placeholder} 
+              onChange={(event) => query.setValue(event.target.value)} 
+            /> 
+            <Combobox.Button className={styles['button']}>
+              <ChevronDown className={styles['chevron']} size={20}/>
+            </Combobox.Button>
+          </UiBgContainer>
+        </UiBorderBox>
+        <Combobox.Options className={styles['options']}>
+          {!filteredOptions || filteredOptions.length === 0 && 
+            <span className={clsx(styles['no-options'], styles['text-gray'])}>
+              There are no options...
+            </span>
+          } 
           {_.map(filteredOptions, (option) => (
-            <Combobox.Option key={getOptionLabel?.(option)} value={getOptionLabel?.(option)}>
+            <Combobox.Option 
+              className={styles['option']}
+              key={getOptionLabel?.(option)} 
+              value={getOptionLabel?.(option)}
+            >
               {getOptionLabel?.(option)}
             </Combobox.Option>
           ))}
         </Combobox.Options>
+        </div>
       </Combobox>
     </div>
   )

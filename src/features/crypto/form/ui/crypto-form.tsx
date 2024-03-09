@@ -8,6 +8,7 @@ import styles from './cryptoForm.module.scss';
 import { useQuery } from "react-query";
 import { getAvailableAlgorithms } from "@/shared/api/get/getAvailableAlgorithms";
 import { UiButton } from "@/shared/ui/ui-button";
+import { UiComboBox } from "@/shared/ui/ui-combobox";
 
 type FormInput = Crypto;
 
@@ -56,14 +57,15 @@ export function CryptoForm() {
               name="algorithm"
               rules={{ required: true }}
               render={({ field: {onChange} }) => 
-                <UiSelect
+                <UiComboBox
                   title="Algorithm"
-                  selectedOnChange={onChange}
-                  selectedValue={selectedAlgorithm}
                   options={algorithms}
+                  selectedOption={selectedAlgorithm}
+                  selectedOnChange={onChange}
+                  getOptionLabel={(option) => option?.toString() || ''}
                   placeholder="Select an algorithm"
-                  renderSelectedValue={(selectedValue) => <span>{selectedValue}</span>}
-                  getOptionLabel={(option) => option}/>}
+                />
+              }
             /> 
           </form>
         </UiBgContainer>

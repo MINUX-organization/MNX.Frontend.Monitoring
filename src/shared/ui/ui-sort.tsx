@@ -65,10 +65,10 @@ export function UiSort<T>({
         className={styles['sort-select']}
         options={sortOptions}
         getOptionLabel={(option) => option?.label}
-        selectedValue={selectedOption.value}
+        selectedOption={selectedOption.value}
         placeholder="Sort by"
         selectedOnChange={(option) => handleSort(option)}
-        renderSelectedValue={(option) => option?.label}
+        renderSelectedOption={(option) => option?.label}
       />
       <button className={styles['sort-direction']} onClick={handleDirectionChange}>
         {direction.value === 'asc' ? <ArrowDownAZ size={24}/> : <ArrowDownZA size={24}/>}

@@ -10,13 +10,12 @@ import { ChevronDown } from 'lucide-react';
 type UiSelectProps<T> = {
   options?: T[];
   title?: string;
-  selectedValue?: T;
+  selectedOption?: T;
   className?: string;
   placeholder?: string;
   selectedOnChange?: (option?: T) => void; 
   getOptionLabel?: (option?: T) => string | undefined;
-  renderOption?: (option?: T) => ReactNode;
-  renderSelectedValue?: (selectedValue?: T) => ReactNode;
+  renderSelectedOption?: (selectedOption?: T) => ReactNode;
 }
 
 export function UiSelect<T>({
@@ -24,11 +23,10 @@ export function UiSelect<T>({
   className,
   title,
   getOptionLabel, 
-  selectedValue,
+  selectedOption,
   placeholder,
   selectedOnChange,
-  renderOption,
-  renderSelectedValue,
+  renderSelectedOption,
   ...props
 } : UiSelectProps<T>) {
   return ( 
@@ -37,14 +35,14 @@ export function UiSelect<T>({
         styles['select'],
       )}>
       {title && <label>{title}</label>}
-      <Listbox {...props} as='div' value={selectedValue || '' as T} onChange={selectedOnChange}>
+      <Listbox {...props} as='div' value={selectedOption || '' as T} onChange={selectedOnChange}>
         <Listbox.Button className={styles['button']}>
           <UiBorderBox>
             <UiBgContainer className={styles['select-container']} color='opaque'>
-              {selectedValue === '' || selectedValue === undefined ? (
+              {selectedOption === '' || selectedOption === undefined ? (
                 <span className={styles['text-gray']}>{placeholder ?? 'Select an option'}</span>
               ) : (
-                renderSelectedValue?.(selectedValue) ?? <span></span>
+                renderSelectedOption?.(selectedOption) ?? <span></span>
               )}
               <ChevronDown className={styles['chevron']} size={20}/>
             </UiBgContainer>
@@ -62,7 +60,7 @@ export function UiSelect<T>({
               key={getOptionLabel?.(option)}
               value={option}
             >
-              {renderOption?.(option) ?? getOptionLabel?.(option)}
+              {getOptionLabel?.(option)}
             </Listbox.Option>
           ))}
         </Listbox.Options>

@@ -15,7 +15,7 @@ export function UiSearch({
   return (
     <UiBorderBox className={clsx(className, styles['filter'])}>
       <UiBgContainer color={"opaque"} className={styles['filter-container']}>
-        <Search size={24} color="#3C9EA5"/>
+        <Search className={styles['filter-icon']} size={24}/>
         <input type="text" className={styles['filter-input']} onChange={onChange}/>
       </UiBgContainer>
     </UiBorderBox>
