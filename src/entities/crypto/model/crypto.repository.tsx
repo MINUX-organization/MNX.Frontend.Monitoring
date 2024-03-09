@@ -27,7 +27,7 @@ export function useCryptoRepository() {
       )
     }
   });
-
+  
   const getCryptosList = () => cryptosList;
 
   const setCryptosList = (cryptosList: Crypto[]) => 

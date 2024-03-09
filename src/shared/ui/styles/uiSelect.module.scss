@@ -14,21 +14,18 @@
 
 .options {
   width: 100%;
+  overflow-y: auto;
+  min-height: 2rem;
+  max-height: 12rem;
   background-color: var(--color-container-opaque);
+  border: var(--border);
+  border-top: none;
   position: absolute;
   z-index: 1;
 
   .option {
     padding: var(--gap-content);
-    border: var(--border);
-    border-bottom: none;
-    border-top: none;
     cursor: pointer;
-    height: 2rem;
-
-    &:last-child {
-      border-bottom: var(--border);
-    }
     
     &:hover {
       background-color: var(--color-hover-link-bg);
@@ -49,4 +46,11 @@
 
 .chevron {
   color: var(--color-border);
+}
+
+.no-options {
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

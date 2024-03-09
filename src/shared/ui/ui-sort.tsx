@@ -4,6 +4,7 @@ import { UiSelect } from './ui-select';
 import { useStateObject } from '../lib/utils/state-object';
 import styles from './styles/uiSort.module.scss';
 import clsx from 'clsx';
+import { ArrowDownAZ, ArrowDownZA } from 'lucide-react';
 
 
 export type SortOption<T> = {
@@ -49,7 +50,7 @@ export function UiSort<T>({
   useEffect(() => {
     handleSort();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data?.length]);
+  }, [data?.length, direction.value]);
 
   const handleDirectionChange = () => {
     direction.setValue(direction.value === 'asc' ? 'desc' : 'asc');
@@ -69,9 +70,9 @@ export function UiSort<T>({
         selectedOnChange={(option) => handleSort(option)}
         renderSelectedValue={(option) => option?.label}
       />
-      <button onClick={handleDirectionChange}>
-        {direction.value === 'asc' ? 'Ascending' : 'Descending'}
-      </button>
+      <button className={styles['sort-direction']} onClick={handleDirectionChange}>
+        {direction.value === 'asc' ? <ArrowDownAZ size={24}/> : <ArrowDownZA size={24}/>}
+      </button>   
     </div>
   );
 }

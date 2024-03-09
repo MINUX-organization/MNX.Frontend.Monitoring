@@ -36,7 +36,7 @@ export function UiSelect<T>({
         className, 
         styles['select'],
       )}>
-      <label>{title}</label>
+      {title && <label>{title}</label>}
       <Listbox {...props} as='div' value={selectedValue || '' as T} onChange={selectedOnChange}>
         <Listbox.Button className={styles['button']}>
           <UiBorderBox>
@@ -51,6 +51,11 @@ export function UiSelect<T>({
           </UiBorderBox>
         </Listbox.Button>
         <Listbox.Options className={styles['options']}>
+          {!options && 
+            <span className={clsx(styles['no-options'], styles['text-gray'])}>
+              There are no options...
+            </span>
+          } 
           {_.map(options, (option) => (
             <Listbox.Option
               className={styles['option']}
