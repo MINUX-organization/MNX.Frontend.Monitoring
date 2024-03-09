@@ -8,6 +8,7 @@
   
   .button {
     text-align: left;
+    min-height: 2rem;
     width: 100%;
   }
 }
@@ -35,7 +36,6 @@
 
 .select-container {
   display: flex;
-  height: 2rem;
   justify-content: space-between;
   padding: var(--gap-content);
 }

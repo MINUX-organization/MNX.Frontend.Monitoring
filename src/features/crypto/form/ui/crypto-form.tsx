@@ -1,7 +1,6 @@
 import { UiBgContainer } from "@/shared/ui/ui-bg-container";
 import { UiBorderBox } from "@/shared/ui/ui-border-box";
 import { useForm, Controller, SubmitHandler } from "react-hook-form"
-import { UiSelect } from "@/shared/ui/ui-select";
 import { Crypto, useCryptoRepository } from "@/entities/crypto";
 import { UiInput } from "@/shared/ui/ui-input";
 import styles from './cryptoForm.module.scss';

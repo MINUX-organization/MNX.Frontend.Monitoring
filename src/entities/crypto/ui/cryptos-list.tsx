@@ -11,24 +11,26 @@ import { useCryptoRepository } from "..";
 
 export function CryptosList({
   className,
+  renderSort,
+  renderSearch,
   renderCryptoItem,
-  renderFilter,
-  renderSort
 } : {
   className?: string;
-  renderFilter?: () => ReactNode;
   renderSort?: () => ReactNode;
+  renderSearch?: () => ReactNode;
   renderCryptoItem?: (crypto: Crypto) => ReactNode;
 }) {
   const { getCryptosList, isLoading } = useCryptoRepository();
   const titleLabels = ['Name', 'Full Name', 'Algorithm'];
-  
+
+  const renderFeatures = renderSort === undefined && renderSearch === undefined;
+
   return (
     <div className={clsx(className, styles['cryptos-list'])}>
-      <div className={styles['features']}>
-        {renderFilter?.()}
+      {!renderFeatures && <div className={styles['features']}>
         {renderSort?.()}
-      </div>
+        {renderSearch?.()}
+      </div>}
       <UiBorderBox
         className={styles['cryptos-list-table']}
         topLeft topRight bottomLeft bottomRight

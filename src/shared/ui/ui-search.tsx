@@ -1,22 +1,39 @@
-import styles from './styles/uiSearch.module.scss';
 import clsx from "clsx";
 import { ChangeEvent } from "react";
+import { Search } from "lucide-react";
 import { UiBorderBox } from "./ui-border-box";
 import { UiBgContainer } from "./ui-bg-container";
-import { Search } from "lucide-react";
+import styles from './styles/uiSearch.module.scss';
+import { useStateObject } from '../lib/utils/state-object';
 
 export function UiSearch({
   className,
-  onChange
+  onChange,
+  placeholder
 } : {
-  className: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  className?: string;
+  placeholder?: string;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }) {
+  const query = useStateObject('');
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    query.setValue(e.target.value);
+    if (onChange) {
+      onChange(e);
+    }
+  };
+    
   return (
-    <UiBorderBox className={clsx(className, styles['filter'])}>
-      <UiBgContainer color={"opaque"} className={styles['filter-container']}>
-        <Search className={styles['filter-icon']} size={24}/>
-        <input type="text" className={styles['filter-input']} onChange={onChange}/>
+    <UiBorderBox className={clsx(className, styles['search'])}>
+      <UiBgContainer color={"opaque"} className={styles['search-container']}>
+        <Search className={styles['search-icon']} size={20}/>
+        <input 
+          className={styles['search-input']} 
+          type='text' 
+          placeholder={placeholder}
+          value={query.value}
+          onChange={handleInputChange}/>
       </UiBgContainer>
     </UiBorderBox>
   )

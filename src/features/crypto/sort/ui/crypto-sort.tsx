@@ -1,6 +1,7 @@
 import { Crypto, useCryptoRepository } from "@/entities/crypto";
 import { SortOption, UiSort } from "@/shared/ui/ui-sort";
-import _ from "lodash";
+import styles from './cryptoSort.module.scss';
+import clsx from "clsx";
 
 export function CryptoSort({
   className 
@@ -8,15 +9,19 @@ export function CryptoSort({
   className?: string;
 }) {
   const { setCryptosList, getCryptosList } = useCryptoRepository();
-  const keys = Object.keys(getCryptosList() ? getCryptosList()![0] : "").splice(1);
-  const sortOptions: SortOption<Crypto>[] = _.map(keys, (key) => ({
-    value: key as keyof Crypto,
-    label: _.upperFirst(key) 
-  }))
+
+  const cryptosList = getCryptosList();
+
+  const sortOptions: SortOption<Crypto>[] = [
+    { value: "shortName" as keyof Crypto, label: "Short Name" },
+    { value: "fullName" as keyof Crypto, label: "Full Name" },
+    { value: "algorithm" as keyof Crypto, label: "Algorithm" }
+  ]
+
   return (
-     <UiSort
-      className={className}
-      data={getCryptosList()} 
+    <UiSort
+      className={clsx(className, styles['crypto-sort'])}
+      data={cryptosList} 
       sortOptions={sortOptions}
       onSort={(sortedData) => setCryptosList(sortedData)}
     /> 

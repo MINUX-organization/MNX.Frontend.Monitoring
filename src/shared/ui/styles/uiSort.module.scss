@@ -1,10 +1,7 @@
 .sort {
+  min-height: 2rem;
   display: flex;
   gap: 0.3rem;
-
-  .sort-select {
-    width: 15rem;
-  }
 
   .sort-direction {
     display: flex;
