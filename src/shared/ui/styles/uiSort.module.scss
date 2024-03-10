@@ -1,0 +1,10 @@
+.sort {
+  min-height: 2rem;
+  display: flex;
+  gap: 0.3rem;
+
+  .sort-direction {
+    display: flex;
+    align-items: center;
+  }
+}

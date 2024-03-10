@@ -1,0 +1,56 @@
+.select {
+  width: inherit;
+  height: inherit;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-content);
+  
+  .button {
+    text-align: left;
+    min-height: 2rem;
+    width: 100%;
+  }
+}
+
+.options {
+  width: 100%;
+  overflow-y: auto;
+  min-height: 2rem;
+  max-height: 12rem;
+  background-color: var(--color-container-opaque);
+  border: var(--border);
+  border-top: none;
+  position: absolute;
+  z-index: 1;
+
+  .option {
+    padding: var(--gap-content);
+    cursor: pointer;
+    
+    &:hover {
+      background-color: var(--color-hover-link-bg);
+    }
+  }
+}
+
+.select-container {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--gap-content);
+}
+
+.text-gray {
+  color: var(--color-font-gray);
+}
+
+.chevron {
+  color: var(--color-border);
+}
+
+.no-options {
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -9,7 +9,7 @@ export const ROUT_FIELDS: NavItem[] = [
     {label: 'GPUs', path: ROUTER_PATHS.GPUS},
     {label: 'CPUs', path: ROUTER_PATHS.CPUS}
   ]},
-  {label: 'Workerks', path: ROUTER_PATHS.WORKERS},
+  {label: 'Rigs', path: ROUTER_PATHS.RIGS},
   {label: 'Statistic', path: ROUTER_PATHS.STATISTIC},
   {label: 'FlightSheets', path: ROUTER_PATHS.FLIGHT_SHEETS},
   {label: 'Presets', path: ROUTER_PATHS.PRESETS},

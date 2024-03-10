@@ -1,6 +1,6 @@
 import { UiBorderBox } from "@/shared/ui/ui-border-box";
 import { TotalCoinValue as Type } from "../model/types";
-import styles from './totalCoinList.module.scss';
+import styles from './totalCoinsList.module.scss';
 import { UiBgContainer } from "@/shared/ui/ui-bg-container";
 import clsx from "clsx";
 import _ from "lodash";
@@ -24,7 +24,7 @@ function TotalCoinValue({
   return (
     <UiBorderBox withPadding className={clsx(
       className,
-      styles['wrapper']
+      styles['total-coin-list']
     )}>
       <UiBgContainer className={styles['slot-1']} color="opaque">
         {_.map(titles, (title) => (

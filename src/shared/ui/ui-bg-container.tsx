@@ -19,7 +19,7 @@ export function UiBgContainer({
       {...props}
       className={clsx(
         className,
-        styles['wrapper'],
+        styles['bg-container'],
         {
           opaque: styles['opaque'],
           transparent: styles['transparent']

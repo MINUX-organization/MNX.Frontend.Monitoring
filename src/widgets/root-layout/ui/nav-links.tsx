@@ -17,7 +17,7 @@ export function NavLinks({
   return (
     <div className={clsx(
       className,
-      styles['wrapper']
+      styles['nav-links']
     )}>
       {_.map(ROUT_FIELDS, (field) => (
         <NavLinkItem key={field.label} className={linkClassName} field={field}/>

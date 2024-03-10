@@ -18,12 +18,12 @@ export function ChangeChartCoinButton({
       color="opaque" 
       className={clsx(
         className,
-        styles['wrapper'],
+        styles['change-chart-coin-button'],
       )}
       isActive={currentCoin.value === coin}
       onClick={() => { 
         if (coin === currentCoin.value) return
-        WebsocketContext.invoke("SendCoin", coin)
+        WebsocketContext.invoke("SendCoin", coin);
         currentCoin.setValue(coin);
       }}
     >

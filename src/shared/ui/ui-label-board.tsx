@@ -20,7 +20,7 @@ export function UiLabelBoard<T>({
   return (
     <UiBorderBox withPadding className={clsx(
       className,
-      styles['wrapper']
+      styles['label-board']
     )}> 
       {renderLabel?.(label)} 
       <div className={styles['grid']}>

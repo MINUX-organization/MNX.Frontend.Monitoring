@@ -5,18 +5,17 @@
 import { ReactNode, useEffect, useState } from "react";
 
 export function AppLoader({ children }: { children?: ReactNode }) {
-  // const loadUsers = useUsers((s) => s.loadUsers);
+  // const loadUser = useUser((s) => s.loadUser);
   // const loadSession = useSession((s) => s.loadSession);
-  // const loadBoards = useBoards((s) => s.loadBoards);
   // const [isLoading, setIsLoading] = useState(true);
 
   // useEffect(() => {
   //   setIsLoading(true);
 
-  //   Promise.all([loadSession(), loadUsers(), loadBoards()]).finally(() => {
+  //   Promise.all([loadSession(), loadUser()]).finally(() => {
   //     setIsLoading(false);
   //   });
-  // }, [loadSession, loadUsers, loadBoards]);
+  // }, [loadSession, loadUser]);
 
   // if (isLoading) {
   //   return <UiPageSpinner />;

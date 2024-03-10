@@ -1,4 +1,4 @@
-.wrapper {
+.button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -28,7 +28,7 @@
     border-color: transparent;
   }
   &.outline-opaque {
-    border-color: var(--color-cotainer-opaque);
+    border-color: var(--color-container-opaque);
   }
   &.outline-red {
     border-color: var(--color-negative);
@@ -39,10 +39,10 @@
 }
 
 .opaque {
-  background-color: var(--color-cotainer-opaque);
-  border-color: var(--color-cotainer-opaque);
+  background-color: var(--color-container-opaque);
+  border-color: var(--color-container-opaque);
   &:hover {
-    background-color: color-mix(in srgb, var(--color-cotainer-opaque) 90%, white 10%);
+    background-color: color-mix(in srgb, var(--color-container-opaque) 90%, white 10%);
   }
 }
 
@@ -60,4 +60,10 @@
   &:hover {
     background-color: color-mix(in srgb, var(--color-active-button) 90%, white 10%);
   }
+}
+
+.not-clickable {
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.5;
 }

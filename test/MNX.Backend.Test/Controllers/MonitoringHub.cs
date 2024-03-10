@@ -26,11 +26,11 @@ namespace MNX.Backend.Test.Controllers
                 _monitoringBroadcaster.SendCurrentHashRate(connectionId),
                 _monitoringBroadcaster.SendTotalShares(connectionId),
                 _monitoringBroadcaster.SendTotalPower(connectionId),
-                _monitoringBroadcaster.SendTotalWorkers(connectionId),
+                _monitoringBroadcaster.SendTotalRigs(connectionId),
                 _monitoringBroadcaster.SendTotalGpus(connectionId),
                 _monitoringBroadcaster.SendTotalCpus(connectionId),
                 _monitoringBroadcaster.SendStatisticCoins(connectionId),
-                _monitoringBroadcaster.SendWorkersList(connectionId)
+                _monitoringBroadcaster.SendRigsList(connectionId)
             ]);
         }
     }

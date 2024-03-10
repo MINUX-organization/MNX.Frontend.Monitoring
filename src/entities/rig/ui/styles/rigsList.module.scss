@@ -1,0 +1,57 @@
+@mixin subgrid() {
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: 1 / 13;
+}
+
+.rig-list {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(auto-fill, min(3.5rem));
+
+  .table-label {
+    @include subgrid();
+    text-align: center;
+    align-items: center;
+    padding: 0 0.375rem;
+    .text-label { 
+      font-size: var(--font-size-18px);
+
+      &.item-1{
+        grid-column: 1;
+      }
+      &.item-2{
+        grid-column: 2 / 4;
+      }
+      &.item-3{
+        grid-column: 4 / 6;
+      }
+      &.item-4{
+        grid-column: 6 / 7;
+      }
+      &.item-5{
+        grid-column: 7 / 8;
+      }
+      &.item-6{
+        grid-column: 10 / 11;
+      }
+      &.item-7{
+        grid-column: 11 / 12;
+      }
+      &.item-8{
+        grid-column: 12 / 13;
+      }
+    }
+  }
+  
+  .table-items {
+    min-height: 400px;
+    @include subgrid();
+    grid-auto-rows: min-content;
+    border-left-width: 4px;
+    border-right-width: 4px;
+    border-bottom-width: 0;
+    gap: var(--gap-content);
+  }
+}

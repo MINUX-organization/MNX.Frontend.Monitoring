@@ -1,0 +1,1 @@
+export { Cryptos } from './ui/cryptos.page'

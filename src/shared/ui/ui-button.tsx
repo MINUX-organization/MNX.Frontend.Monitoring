@@ -4,9 +4,10 @@ import styles from './styles/uiButton.module.scss'
 import { match } from "ts-pattern";
 
 type UiButtonVariant = {
-  color: "transparent" | "opaque" | "red" | "blue";
+  color: "transparent" | "opaque" | "red" | "blue" | "none";
   isActive?: boolean;
   withBorder?: boolean;
+  isClickable?: boolean;
 };
 export type UiButtonProps = UiButtonVariant & ButtonHTMLAttributes<HTMLButtonElement>;
 
@@ -16,6 +17,7 @@ export function UiButton({
   isActive, 
   children,
   withBorder,
+  isClickable = true,
   ...props 
 } : UiButtonProps) {
   return (
@@ -23,12 +25,14 @@ export function UiButton({
       {...props}
       className={clsx(
         className,
-        styles['wrapper'],
+        !isClickable && styles['not-clickable'],
+        styles['button'],
         !withBorder && {
           transparent: styles['transparent'],
           opaque: styles['opaque'],
           red: styles['red'],
-          blue: styles['blue']
+          blue: styles['blue'],
+          none: styles['none']
         }[color],
         isActive && styles['active'],
         withBorder && styles['outline'],
@@ -36,7 +40,8 @@ export function UiButton({
           transparent: styles['outline-transparent'],
           opaque: styles['outline-opaque'],
           red: styles['outline-red'],
-          blue: styles['outline-blue']
+          blue: styles['outline-blue'],
+          none: styles['outline-none']
         }[color],
       )}
     >
@@ -50,7 +55,8 @@ export function UiButton({
                 transparent: styles['transparent'],
                 opaque: styles['opaque'],
                 red: styles['red'],
-                blue: styles['blue']
+                blue: styles['blue'],
+                none: styles['none']
               }[color],
             )}
           >

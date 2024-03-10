@@ -15,9 +15,13 @@ export function RootLayout({
   return (
     <div className={clsx(
       className,
-      styles['wrapper']
+      styles['root-layout']
     )}>
-      <UiHeader className={styles['header']} links={<NavLinks className={styles['grow']}/>} right={<Profile/>}/>
+      <UiHeader 
+        className={styles['header']} 
+        links={<NavLinks className={styles['grow']}/>} 
+        right={<Profile/>}
+      />
       <UiAside className={styles['UiAside']} variant="vertical"/>
       <main className={styles['main']}>
         <UiCentered children={<Outlet/>}/>

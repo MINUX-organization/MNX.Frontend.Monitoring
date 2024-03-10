@@ -18,7 +18,7 @@ export function CoinChart({
   return (
     <UiBorderBox withPadding className={clsx(
       className,
-      styles['wrapper']
+      styles['coin-chart']
     )}>
       {renderCoinList?.()}
       <UiBgContainer color='opaque' className={styles['container']}>

@@ -4,9 +4,9 @@ import { ReactNode } from "react";
 
 type Corners = {
   topRight: boolean;
-  lowerRight: boolean;
+  bottomRight: boolean;
   topLeft: boolean;
-  lowerLeft: boolean;
+  bottomLeft: boolean;
 }
 
 type UiBorderBoxProps = {
@@ -25,13 +25,13 @@ export function UiBorderBox({
   return (
     <section className={clsx(
       className,
-      styles['wrapper'],
+      styles['border-box'],
       withPadding && styles['padding'],
-      corners.topLeft && styles['topLeft'],
-      corners.lowerLeft && styles['lowerLeft'],
-      corners.topRight && styles['topRight'],
-      corners.lowerRight && styles['lowerRight']
     )}>
+      {corners.topLeft && <div className={styles['topLeft']}></div>}
+      {corners.bottomLeft && <div className={styles['bottomLeft']}></div>}
+      {corners.topRight && <div className={styles['topRight']}></div>}
+      {corners.bottomRight && <div className={styles['bottomRight']}></div>}
       {children}
     </section>
   )

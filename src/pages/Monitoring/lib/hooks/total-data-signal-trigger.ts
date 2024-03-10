@@ -1,4 +1,4 @@
-import { SharesCount, TotalCoinValue, TotalCpusCount, TotalGpusCount, TotalPower, TotalWorkersCount } from "@/entities/total";
+import { SharesCount, TotalCoinValue, TotalCpusCount, TotalGpusCount, TotalPower, TotalRigsCount } from "@/entities/total";
 import { WebsocketContext } from "@/shared/lib/providers/websocket-context"; 
 import { match } from 'ts-pattern';
 import { ZodSaveParse } from "@/shared/lib/utils/zod-save-parse";
@@ -12,7 +12,7 @@ export function useTotalDataSignalTrigger() {
   const coinsCache = useStateObject<string[]>([]);
   const chartCoinsList = useStateObject<CoinChartList>();
   const totalCoinsList = useStateObject<TotalCoinValue[]>();
-  const totalWorkersCount = useStateObject<TotalWorkersCount>();
+  const totalRigsCount = useStateObject<TotalRigsCount>();
   const totalPower = useStateObject<TotalPower>();
   const totalGpusCount = useStateObject<TotalGpusCount>();
   const totalCpusCount = useStateObject<TotalCpusCount>();
@@ -40,8 +40,8 @@ export function useTotalDataSignalTrigger() {
         }) 
         .with({ type: 'TotalShares' }, ({ newData }) => 
           ZodSaveParse(newData, SharesCount, (checkedData) => totalShares.setValue(checkedData)))
-        .with({ type: 'TotalWorkersCount' }, ({ newData }) => 
-          ZodSaveParse(newData, TotalWorkersCount, (checkedData) => totalWorkersCount.setValue(checkedData)))
+        .with({ type: 'TotalRigsCount' }, ({ newData }) => 
+          ZodSaveParse(newData, TotalRigsCount, (checkedData) => totalRigsCount.setValue(checkedData)))
         .otherwise(() => {return});
     }, 
     []
@@ -49,7 +49,7 @@ export function useTotalDataSignalTrigger() {
 
   return {
     totalPower,
-    totalWorkersCount,
+    totalRigsCount,
     totalShares,
     totalGpusCount,
     totalCoinsList,

@@ -23,7 +23,7 @@ function TotalGpusCount({
     <UiLabelBoard
       className={clsx(
         className,
-        styles['wrapper']
+        styles['total-count']
       )}
       label={label} 
       options={fields}

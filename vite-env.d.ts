@@ -1,11 +1,11 @@
 /// <reference types="vite/client" />
 
-interface ImportMetaEnv {
+export interface ImportMetaEnv {
   VITE_FRONTEND_PORT: number;
   VITE_BACKEND_PORT: number
-  VITE_BACKEND_URL: 'string'
+  VITE_BACKEND_DNS: 'string'
 }
 
-interface ImportMeta {
+export interface ImportMeta {
   readonly env: ImportMetaEnv
 }

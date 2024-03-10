@@ -19,7 +19,7 @@ export function UiAside<T>({
   return (
     <aside className={clsx(
         className,
-        styles['wrapper'],
+        styles['aside'],
       {
         vertical: styles['vertical'],
         horizontal: styles['horizontal']

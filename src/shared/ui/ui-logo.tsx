@@ -3,7 +3,7 @@ import styles from './styles/uiLogo.module.scss'
 
 export function UiLogo({ className }: { className?: string }) {
   return (
-    <div className={clsx(className, styles['wrapper'])}>
+    <div className={clsx(className, styles['logo'])}>
       <svg width="46" height="49" viewBox="0 0 46 49" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M0 14.864L17.5238 38.1768L11.2839 14.864H0Z" fill="#3C9EA5"/>
       <path d="M46 14.864L28.4762 38.3333L34.7161 14.864H46Z" fill="#3C9EA5"/>

@@ -4,7 +4,7 @@ export const ROUTER_PATHS = {
   DEVICES: 'devices',
   CPUS: "/devices/cpus",
   GPUS: "/devices/gpus",
-  WORKERS: 'workers',
+  RIGS: 'rigs',
   STATISTIC: 'statistic',
   FLIGHT_SHEETS: 'flight sheets',
   PRESETS: 'presets',
