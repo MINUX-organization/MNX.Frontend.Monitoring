@@ -1,9 +1,9 @@
 import { z } from "zod";
 
-export const Crypto = z.object({
+export const Wallets = z.object({
   id: z.string({invalid_type_error: 'Id must be a string'}),
-  shortName: z.string({invalid_type_error: 'ShortName must be a string'}),
-  fullName: z.string({invalid_type_error: 'FullName must be a string'}),
-  algorithm: z.string({invalid_type_error: 'Algorithm must be a string'})
+  name: z.string({invalid_type_error: 'Name must be a string'}),
+  address: z.string({invalid_type_error: 'Address must be a string'}),
+  cryptocurrency: z.string({invalid_type_error: 'Cryptocurrency must be a string'})
 })
-export type Crypto = z.infer<typeof Crypto>
+export type Wallets = z.infer<typeof Wallets>

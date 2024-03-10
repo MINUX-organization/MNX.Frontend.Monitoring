@@ -1,17 +1,17 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { addCryptocurrency, deleteCryptocurrency, getCryptocurrenciesList } from "@/shared/api";
 import { ZodSaveParse } from "@/shared/lib/utils/zod-save-parse";
-import { Crypto } from "./types";
+import { Wallets } from "./types";
 import _ from "lodash";
 
 export function useWalletRepository() {
   const queryClient = useQueryClient();
-  const { data, ...cryptoQuery } = useQuery(['cryptosList'], getCryptocurrenciesList);
+  const { data, ...cryptoQuery } = useQuery(['walletsList'], getCryptocurrenciesList);
 
-  const cryptosList = ZodSaveParse(data, Crypto.array().optional());
+  const cryptosList = ZodSaveParse(data, Wallets.array().optional());
   
   const addCrypto = useMutation({
-    mutationFn: (crypto: _.Omit<Crypto, 'id'>) => addCryptocurrency(crypto),
+    mutationFn: (wallet: _.Omit<Wallets, 'id'>) => addCryptocurrency(wallet),
     onSuccess: (data) => {
       queryClient.setQueryData(
         ['cryptosList'], _.concat(cryptosList, data))
@@ -23,14 +23,14 @@ export function useWalletRepository() {
     onSuccess: (_data, variables) => {
       queryClient.setQueryData(
         ['cryptosList'],
-         _.filter(cryptosList, (crypto) => crypto.id !== variables)
+         _.filter(cryptosList, (wallet) => wallet.id !== variables)
       )
     }
   });
   
-  const getCryptosList = () => cryptosList;
+  const getCryptocurrenciesList = () => cryptosList;
 
-  const setCryptosList = (cryptosList?: Crypto[]) => {
+  const setCryptosList = (cryptosList?: Wallets[]) => {
     if (!cryptosList) return;
     queryClient.setQueryData(['cryptosList'], cryptosList);
   }
@@ -38,7 +38,7 @@ export function useWalletRepository() {
   return {
     addCrypto,
     deleteCrypto,
-    getCryptosList,
+    getCryptocurrenciesList,
     setCryptosList,
     ...cryptoQuery
   }

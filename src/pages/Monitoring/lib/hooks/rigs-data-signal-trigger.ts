@@ -17,7 +17,7 @@ import {
   RigNvidiaCount, 
   RigOnlineState
 } from "@/entities/rig/model/types";
-import { updateRigProperty } from "../utils/update-rig-property";
+import { updateRigProperty } from '../utils/update-rig-property'
 import { BACKEND_TRIGGERS } from "@/shared/constants/backend-triggers";
 
 export function useRigsDataSignalTrigger() {

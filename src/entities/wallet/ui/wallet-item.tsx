@@ -1,5 +1,5 @@
 import styles from './cryptoItem.module.scss';
-import { Crypto } from "../model/types";
+import { Wallet } from "../model/types";
 import clsx from "clsx";
 import { ReactNode } from 'react';
 

@@ -20,7 +20,7 @@ export function CryptosList({
   renderSearch?: () => ReactNode;
   renderCryptoItem?: (crypto: Crypto) => ReactNode;
 }) {
-  const { getCryptosList, isLoading } = useCryptoRepository();
+  const { getCryptocurrenciesList, isLoading } = useCryptoRepository();
   const titleLabels = ['Name', 'Full Name', 'Algorithm'];
 
   const renderFeatures = renderSort === undefined && renderSearch === undefined;
@@ -44,12 +44,12 @@ export function CryptosList({
           {match(isLoading ?? false)
             .with(true, () => <span className={styles['no-data']}><UiSpinner/></span>)
             .with(false, () => {
-              if (_.isEmpty(getCryptosList())) {
+              if (_.isEmpty(getCryptocurrenciesList())) {
                 return <span className={styles['no-data']}>N/A</span>;
               } else {
                 return (
                   <div className={styles['subgrid-items']}>
-                    {_.map(getCryptosList(), (crypto) => renderCryptoItem?.(crypto))}
+                    {_.map(getCryptocurrenciesList(), (crypto) => renderCryptoItem?.(crypto))}
                   </div>
                 )
               }
