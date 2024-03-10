@@ -8,5 +8,5 @@ type Response = {
   algorithm: string;
 }
 
-export const getCryptocurrenciesList = async () => 
+export const getCryptocurrenciesListApi = async () => 
   (await apiInstance().get(BACKEND_APIS.CRYPTOCURRENCY)).data as Response[];

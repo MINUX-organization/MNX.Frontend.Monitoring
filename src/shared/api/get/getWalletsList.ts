@@ -8,5 +8,5 @@ type Response = {
   cryptocurrency: string;
 }
 
-export const getCryptocurrenciesList = async () => 
+export const getWalletsListApi = async () => 
   (await apiInstance().get(BACKEND_APIS.WALLET)).data as Response[];

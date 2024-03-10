@@ -1,45 +1,57 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { addCryptocurrency, deleteCryptocurrency, getCryptocurrenciesList } from "@/shared/api";
 import { ZodSaveParse } from "@/shared/lib/utils/zod-save-parse";
-import { Wallets } from "./types";
+import { Wallet } from "./types";
 import _ from "lodash";
+import { getWalletsListApi, addWalletApi, deleteWalletApi, editWalletApi } from "@/shared/api"
 
 export function useWalletRepository() {
   const queryClient = useQueryClient();
-  const { data, ...cryptoQuery } = useQuery(['walletsList'], getCryptocurrenciesList);
+  const { data, ...cryptoQuery } = useQuery(['walletsList'], getWalletsListApi);
 
-  const cryptosList = ZodSaveParse(data, Wallets.array().optional());
-  
+  const walletsList = ZodSaveParse(data, Wallet.array().optional());
+
   const addCrypto = useMutation({
-    mutationFn: (wallet: _.Omit<Wallets, 'id'>) => addCryptocurrency(wallet),
+    mutationFn: (wallet: _.Omit<Wallet, 'id'>) => addWalletApi(wallet),
     onSuccess: (data) => {
       queryClient.setQueryData(
-        ['cryptosList'], _.concat(cryptosList, data))
+        ['walletsList'], 
+        _.concat(walletsList, data))
     }
   });
   
-  const deleteCrypto = useMutation({
-    mutationFn: (id: string) => deleteCryptocurrency(id),
+  const editWallet = useMutation({
+    mutationFn: (wallet: Wallet) => editWalletApi(wallet, wallet.id),
     onSuccess: (_data, variables) => {
       queryClient.setQueryData(
-        ['cryptosList'],
-         _.filter(cryptosList, (wallet) => wallet.id !== variables)
+        ['walletsList'],
+        _.map(walletsList, (wallet) => wallet.id === variables.id ? variables : wallet)
+      )
+    }
+  })
+
+  const deleteWallet = useMutation({
+    mutationFn: (id: string) => deleteWalletApi(id),
+    onSuccess: (_data, variables) => {
+      queryClient.setQueryData(
+        ['walletsList'],
+         _.filter(walletsList, (wallet) => wallet.id !== variables)
       )
     }
   });
   
-  const getCryptocurrenciesList = () => cryptosList;
+  const getWalletsList = () => walletsList;
 
-  const setCryptosList = (cryptosList?: Wallets[]) => {
-    if (!cryptosList) return;
-    queryClient.setQueryData(['cryptosList'], cryptosList);
+  const setWalletsList = (walletsList?: Wallet[]) => {
+    if (!walletsList) return;
+    queryClient.setQueryData(['walletsList'], walletsList);
   }
     
   return {
     addCrypto,
-    deleteCrypto,
-    getCryptocurrenciesList,
-    setCryptosList,
+    editWallet,
+    deleteWallet,
+    getWalletsList,
+    setWalletsList,
     ...cryptoQuery
   }
 }

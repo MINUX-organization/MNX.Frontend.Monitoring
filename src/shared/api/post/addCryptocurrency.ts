@@ -9,5 +9,5 @@ type Request = {
 
 type Response = Request;
 
-export const addCryptocurrency = async (data: Request) => 
+export const addCryptocurrencyApi = async (data: Request) => 
   (await apiInstance().post(BACKEND_APIS.CRYPTOCURRENCY, data)).data as Response;

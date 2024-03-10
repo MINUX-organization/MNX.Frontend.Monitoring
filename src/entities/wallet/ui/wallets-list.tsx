@@ -1,38 +1,39 @@
 import _ from "lodash";
 import clsx from "clsx";
 import { match } from "ts-pattern";
-import styles from './cryptosList.module.scss';
+import styles from './walletsList.module.scss';
 import { UiSpinner } from "@/shared/ui/ui-spinner";
 import { UiBorderBox } from "@/shared/ui/ui-border-box";
 import { UiBgContainer } from "@/shared/ui/ui-bg-container";
 import { ReactNode } from "react";
-import { Crypto } from "../model/types";
-import { useCryptoRepository } from "../model/wallet.repository";
+import { Wallet } from "../model/types";
+import { useWalletRepository } from "../model/wallet.repository";
 
-export function CryptosList({
+export function WalletsList({
   className,
   renderSort,
   renderSearch,
-  renderCryptoItem,
+  renderWalletItem,
 } : {
   className?: string;
   renderSort?: () => ReactNode;
   renderSearch?: () => ReactNode;
-  renderCryptoItem?: (crypto: Crypto) => ReactNode;
+  renderWalletItem?: (wallet: Wallet) => ReactNode;
 }) {
-  const { getCryptocurrenciesList, isLoading } = useCryptoRepository();
-  const titleLabels = ['Name', 'Full Name', 'Algorithm'];
+  const { getWalletsList, isLoading } = useWalletRepository();
+
+  const titleLabels = ['Wallet Name', 'Coin', 'Address'];
 
   const renderFeatures = renderSort === undefined && renderSearch === undefined;
 
   return (
-    <div className={clsx(className, styles['cryptos-list'])}>
+    <div className={clsx(className, styles['wallets-list'])}>
       {!renderFeatures && <div className={styles['features']}>
         {renderSort?.()}
         {renderSearch?.()}
       </div>}
       <UiBorderBox
-        className={styles['cryptos-list-table']}
+        className={styles['wallets-list-table']}
         topLeft topRight bottomLeft bottomRight
       >
         <UiBgContainer className={styles['grid']} color="transparent">
@@ -44,12 +45,12 @@ export function CryptosList({
           {match(isLoading ?? false)
             .with(true, () => <span className={styles['no-data']}><UiSpinner/></span>)
             .with(false, () => {
-              if (_.isEmpty(getCryptocurrenciesList())) {
+              if (_.isEmpty(getWalletsList())) {
                 return <span className={styles['no-data']}>N/A</span>;
               } else {
                 return (
                   <div className={styles['subgrid-items']}>
-                    {_.map(getCryptocurrenciesList(), (crypto) => renderCryptoItem?.(crypto))}
+                    {_.map(getWalletsList(), (wallet) => renderWalletItem?.(wallet))}
                   </div>
                 )
               }

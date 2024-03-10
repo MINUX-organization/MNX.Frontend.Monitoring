@@ -1,23 +1,23 @@
-import styles from './cryptoItem.module.scss';
+import styles from './walletItem.module.scss';
 import { Wallet } from "../model/types";
 import clsx from "clsx";
 import { ReactNode } from 'react';
 
-export function CryptoItem({
+export function WalletItem({
   className,
-  crypto,
+  wallet,
   renderDeleteButton
 }: {
   className?: string;
-  crypto?: Crypto;
-  renderDeleteButton?: (crypto?: Crypto) => ReactNode;
+  wallet?: Wallet;
+  renderDeleteButton?: (wallet?: Wallet) => ReactNode;
 }) {
   return (
-    <div className={clsx(className, styles['crypto-item'])}>
-      <span>{crypto?.shortName}</span>
-      <span>{crypto?.fullName}</span>
-      <span>{crypto?.algorithm}</span>
-      <span className={styles['icon']}>{renderDeleteButton?.(crypto)}</span>
+    <div className={clsx(className, styles['wallet-item'])}>
+      <span>{wallet?.name}</span>
+      <span>{wallet?.cryptocurrency}</span>
+      <span>{wallet?.address}</span>
+      <span className={styles['icon']}>{renderDeleteButton?.(wallet)}</span>
     </div>
   );
 }

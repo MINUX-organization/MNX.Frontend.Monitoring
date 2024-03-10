@@ -9,5 +9,5 @@ type Response = {
 
 type Request = Response;
 
-export const editWallet = async (data: Request, id: string) => 
+export const editWalletApi = async (data: Request, id: string) => 
   (await apiInstance().put(`${BACKEND_APIS.WALLET}/${id}`, data)).data as Response[];
