@@ -7,7 +7,7 @@ import _ from "lodash";
 export function useCryptoRepository() {
   const queryClient = useQueryClient();
   const { data, ...cryptoQuery } = useQuery(['cryptosList'], getCryptocurrenciesList);
-  
+
   const cryptosList = ZodSaveParse(data, Crypto.array().optional());
   
   const addCrypto = useMutation({
@@ -30,8 +30,10 @@ export function useCryptoRepository() {
   
   const getCryptosList = () => cryptosList;
 
-  const setCryptosList = (cryptosList: Crypto[]) => 
-    queryClient.setQueryData(['cryptosList'], cryptosList)
+  const setCryptosList = (cryptosList?: Crypto[]) => {
+    if (!cryptosList) return;
+    queryClient.setQueryData(['cryptosList'], cryptosList);
+  }
     
   return {
     addCrypto,

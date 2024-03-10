@@ -12,22 +12,25 @@ export function CryptoSearch({
   className?: string 
 }) {
   const { setCryptosList, getCryptosList, isLoading } = useCryptoRepository(); 
+
   const cryptosList = useStateObject<Crypto[] | undefined>([]);
 
   useEffect(() => {
     if (isLoading) return;
     cryptosList.setValue(getCryptosList());
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading])
+  }, [isLoading]);
 
   const handleOnchange = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(e?.target?.value)
+    if (!e) return;
+    if (_.isEmpty(e?.target?.value)) setCryptosList(cryptosList.value)
+
     const filteredCrypto: Crypto[] = _.filter(cryptosList.value, (crypto) => {
       return _.includes(_.lowerCase(crypto?.fullName), _.lowerCase(e?.target?.value)) ||
         _.includes(_.lowerCase(crypto?.shortName), _.lowerCase(e?.target?.value)) || 
         _.includes(_.lowerCase(crypto?.algorithm), _.lowerCase(e?.target?.value))
     });
-    console.log(filteredCrypto)
+    
     setCryptosList(filteredCrypto);
   }
 
