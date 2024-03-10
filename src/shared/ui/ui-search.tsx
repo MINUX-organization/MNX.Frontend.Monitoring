@@ -13,14 +13,14 @@ export function UiSearch({
 } : {
   className?: string;
   placeholder?: string;
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (value: string) => void;
 }) {
   const query = useStateObject('');
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     query.setValue(e.target.value);
     if (onChange) {
-      onChange(e);
+      onChange(e.target.value);
     }
   };
     
