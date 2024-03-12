@@ -1,71 +1,78 @@
 import { UiBgContainer } from "@/shared/ui/ui-bg-container";
 import { UiBorderBox } from "@/shared/ui/ui-border-box";
 import { useForm, Controller, SubmitHandler } from "react-hook-form"
-import { Crypto, useCryptoRepository } from "@/entities/crypto";
 import { UiInput } from "@/shared/ui/ui-input";
-import styles from './cryptoForm.module.scss';
-import { useQuery } from "react-query";
-import { getAvailableAlgorithmsApi } from "@/shared/api";
+import styles from './walletForm.module.scss';
 import { UiButton } from "@/shared/ui/ui-button";
 import { UiComboBox } from "@/shared/ui/ui-combobox";
+import { Wallet, useWalletRepository } from "@/entities/wallet";
+import clsx from "clsx";
+import _ from "lodash";
+import { useCryptoRepository } from "@/entities/crypto";
 
-type FormInput = Crypto;
+type FormInput = Wallet;
 
-export function CryptoForm() {
-  const { addCrypto } = useCryptoRepository();
-  const { data : algorithms } = useQuery(['algorithms'], getAvailableAlgorithmsApi);
+export function WalletForm({
+  className
+} : {
+  className: string
+}) {
+  const { addWallet } = useWalletRepository();
+  const { getCryptosList } = useCryptoRepository();
+  const fullNamesList = _.map(getCryptosList(), 'fullName');
 
   const { control, handleSubmit, watch, reset } = useForm<FormInput>({
     defaultValues: {
-      shortName: '',
-      fullName: '',
-      algorithm: ''
+      name: '',
+      cryptocurrency: '',
+      address: ''
     }
   })
-  const selectedAlgorithm = watch('algorithm');
+  const selectedCrypto = watch('cryptocurrency');
 
   const onSubmit: SubmitHandler<FormInput> = (data) => {
-    addCrypto.mutate(data);
+    addWallet.mutate(data);
     reset();
   };
 
   return (
-    <div className={styles['crypto-form']}>
+    <div className={clsx(className, styles['wallet-form'])}>
       <UiBorderBox topLeft topRight bottomLeft bottomRight>
-        <UiBgContainer className={styles['crypto-container']} color="transparent">
-          <span className={styles['title']}>Add new coin</span>
+        <UiBgContainer className={styles['wallet-container']} color="transparent">
+          <span className={styles['title']}>Add new wallet</span>
           <form 
-            id="crypto-form" 
-            className={styles['crypto-form-container']} 
+            id="wallet-form" 
+            className={styles['wallet-form-container']} 
             onSubmit={handleSubmit(onSubmit)}
           >
             <UiInput 
               control={control} 
-              name="shortName"
+              name="name"
               rules={{ required: true }}
               label="Name" 
-              placeholder="Short Name of Crypto"/>
-            <UiInput 
-              control={control} 
-              name="fullName" 
-              rules={{ required: true }} 
-              label="Full Name" 
-              placeholder="Full Name of Crypto"/>
+              placeholder="Name of wallet"/>
             <Controller 
               control={control} 
-              name="algorithm"
+              name="cryptocurrency"
               rules={{ required: true }}
               render={({ field: {onChange} }) => 
                 <UiComboBox
-                  title="Algorithm"
-                  options={algorithms}
-                  selectedOption={selectedAlgorithm}
+                  title="Coin"
+                  options={fullNamesList}
+                  selectedOption={selectedCrypto}
                   selectedOnChange={onChange}
                   getOptionLabel={(option) => option?.toString() || ''}
-                  placeholder="Select an algorithm"
+                  placeholder="Select an coin"
                 />
               }
             /> 
+            <UiInput 
+              control={control} 
+              name="address" 
+              rules={{ required: true }} 
+              label="Address" 
+              placeholder="Address of wallet"
+            />
           </form>
         </UiBgContainer>
       </UiBorderBox>

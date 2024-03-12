@@ -19,15 +19,21 @@ export function useCryptoSearch() {
 
     filteredCryptosList.setValue(cryptosList);
     cryptosListSource.setValue(cryptosList);
+
+    return () => {
+      if (!isLoading) {
+        setCryptosList(cryptosList);
+      }
+    };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);
 
   useEffect(() => {
     if (!cryptosList || !cryptosListSource.value || !filteredCryptosList.value) return;
-    if (cryptosListSource.value.length === 0) return; 
+    if (cryptosListSource.value.length === 0) return;
     if (filteredCryptosList.value.length === cryptosList.length) return;
 
-    if (_.differenceWith(cryptosList, filteredCryptosList.value, _.isEqual).length > 0) {
+    if (cryptosList.length > filteredCryptosList.value.length) {
       const addedItem = _.differenceWith(cryptosList, filteredCryptosList.value, _.isEqual)[0];
       if (!addedItem) return; 
       cryptosListSource.setValue((prev) => [...prev!, addedItem]);
@@ -36,27 +42,40 @@ export function useCryptoSearch() {
       if (!deletedItem) return; 
       cryptosListSource.setValue((prev) => prev?.filter((crypto) => crypto?.shortName !== deletedItem?.shortName));
     }
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getCryptosList()?.length]);
 
   useEffect(() => {
     if (cryptosListSource.value?.length === 0) return;
     handleOnchange(cryptoSeacrh.value);
+    
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cryptosListSource.value])
+  }, [cryptosListSource.value?.length])
 
-  const handleOnchange = (value?: string) => {
-    if (value === '' || !value) setCryptosList(cryptosListSource.value);
+const handleOnchange = (value?: string) => {
+    cryptoSeacrh.setValue(value);
+
+    if (value === '' || !value) {
+      if (_.isEqual(cryptosListSource.value, filteredCryptosList.value)) {
+        return;
+      }
+
+      filteredCryptosList.setValue(cryptosListSource.value);
+      setCryptosList(cryptosListSource.value);
+      
+      return;
+    }
+    console.log(cryptosListSource.value)
     const filteredCryptos: Crypto[] = filterByAll(cryptosListSource.value, value!);
 
+    if (_.isEqual(filteredCryptos, filteredCryptosList.value)) return;
+
     filteredCryptosList.setValue(filteredCryptos);
-    cryptoSeacrh.setValue(value);
     setCryptosList(filteredCryptos);
   }
 
   return {
-    cryptosList,
-    filteredCryptosList,
     handleOnchange,
   };
 }

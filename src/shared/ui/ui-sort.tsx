@@ -6,7 +6,6 @@ import styles from './styles/uiSort.module.scss';
 import clsx from 'clsx';
 import { ArrowDownAZ, ArrowDownZA } from 'lucide-react';
 
-
 export type SortOption<T> = {
   value: keyof T;
   label: string;
@@ -41,14 +40,23 @@ export function UiSort<T>({
 
     const newSortBy = option?.value || sortBy.value; 
     const sortedData = sortArray(data, newSortBy, direction.value); 
+    
     onSort?.(sortedData);
+
     if (!option) return;
+
     sortBy.setValue(newSortBy);
     selectedOption.setValue(option);
   }, [data, sortBy, direction.value, onSort, selectedOption]);
 
   useEffect(() => {
-    handleSort();
+    const timeoutId = setTimeout(() => {
+      handleSort();
+    }, 10);
+  
+    return () => {
+      clearTimeout(timeoutId);
+    };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data?.length, direction.value]);
 

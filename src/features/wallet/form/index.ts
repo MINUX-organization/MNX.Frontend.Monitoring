@@ -1,1 +1,1 @@
-export { CryptoForm } from './ui/crypto-form'
+export { WalletForm } from './ui/wallet-form'

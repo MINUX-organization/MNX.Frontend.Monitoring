@@ -1,17 +1,19 @@
 import { WalletItem, WalletsList } from '@/entities/wallet';
 import styles from './wallets.page.module.scss';
+import { DeleteWallet } from '@/features/wallet/delete';
+import { WalletForm } from '@/features/wallet/form';
 
 export function Wallets() {
   return (
     <div className={styles["wallets-page"]}>
-      {/* <CryptoForm/> */}
+      <WalletForm className={styles["wallet-form"]}/>
       <WalletsList
         className={styles['wallets-list']}
         renderWalletItem={(wallet) => 
           <WalletItem 
             key={wallet?.id} 
             wallet={wallet} 
-            // renderDeleteButton={(crypto) => <DeleteCrypto cryptoId={crypto?.id}/>}
+            renderDeleteButton={(wallet) => <DeleteWallet walletId={wallet?.id}/>}
           />
         }
         // renderSort={() => <CryptoSort />}

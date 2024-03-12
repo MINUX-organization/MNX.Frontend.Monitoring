@@ -1,4 +1,4 @@
-import { ComposeChildren } from "@/shared/lib/utils/react";
+import { ComposeChildren } from "@/shared/lib/hooks/react";
 import { AppLoader } from "./app-loader";
 import QueryProvider from "./app-query";
 // import { Confirmations } from "@/widgets/confirmations";

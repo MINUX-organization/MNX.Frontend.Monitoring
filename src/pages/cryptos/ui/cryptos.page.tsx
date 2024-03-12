@@ -8,7 +8,7 @@ import { CryptoSearch } from "@/features/crypto/search";
 export function Cryptos() {
   return (
     <div className={styles["cryptos-page"]}>
-      <CryptoForm/>
+      <CryptoForm className={styles['crypto-form']}/>
       <CryptosList
         className={styles['cryptos-list']}
         renderCryptoItem={(crypto) => 

@@ -10,7 +10,7 @@ export function useWalletRepository() {
 
   const walletsList = ZodSaveParse(data, Wallet.array().optional());
 
-  const addCrypto = useMutation({
+  const addWallet = useMutation({
     mutationFn: (wallet: _.Omit<Wallet, 'id'>) => addWalletApi(wallet),
     onSuccess: (data) => {
       queryClient.setQueryData(
@@ -47,7 +47,7 @@ export function useWalletRepository() {
   }
     
   return {
-    addCrypto,
+    addWallet,
     editWallet,
     deleteWallet,
     getWalletsList,
