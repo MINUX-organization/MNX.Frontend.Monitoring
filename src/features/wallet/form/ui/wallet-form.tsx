@@ -5,12 +5,26 @@ import { UiInput } from "@/shared/ui/ui-input";
 import styles from './walletForm.module.scss';
 import { UiButton } from "@/shared/ui/ui-button";
 import { UiComboBox } from "@/shared/ui/ui-combobox";
-import { Wallet, useWalletRepository } from "@/entities/wallet";
+import { useWalletRepository } from "@/entities/wallet";
 import clsx from "clsx";
+import { Crypto, useCryptoRepository } from "@/entities/crypto";
 import _ from "lodash";
-import { useCryptoRepository } from "@/entities/crypto";
 
-type FormInput = Wallet;
+function mapWallet(data: FormInput, cryptosList?: Crypto[]) {
+  const findedCrypto = _.find(cryptosList, ['fullName', data.cryptocurrency])
+  if (!findedCrypto) return
+  return {
+    name: data.name,
+    address: data.address,
+    cryptocurrencyId: findedCrypto.id
+  }
+}
+
+type FormInput = {
+  name: string;
+  cryptocurrency: string;
+  address: string;
+};
 
 export function WalletForm({
   className
@@ -19,7 +33,7 @@ export function WalletForm({
 }) {
   const { addWallet } = useWalletRepository();
   const { getCryptosList } = useCryptoRepository();
-  const fullNamesList = _.map(getCryptosList(), 'fullName');
+  const cryptosList = getCryptosList();
 
   const { control, handleSubmit, watch, reset } = useForm<FormInput>({
     defaultValues: {
@@ -28,10 +42,13 @@ export function WalletForm({
       address: ''
     }
   })
-  const selectedCrypto = watch('cryptocurrency');
-
+  const selectedCrypto = watch('cryptocurrency')
+  
   const onSubmit: SubmitHandler<FormInput> = (data) => {
-    addWallet(data);
+    const mapedData = mapWallet(data, cryptosList)
+    console.log(mapedData)
+    if (!mapedData) return
+    addWallet(mapedData);
     reset();
   };
 
@@ -58,10 +75,10 @@ export function WalletForm({
               render={({ field: {onChange} }) => 
                 <UiComboBox
                   title="Coin"
-                  options={fullNamesList}
+                  options={cryptosList}
                   selectedOption={selectedCrypto}
                   selectedOnChange={onChange}
-                  getOptionLabel={(option) => option?.toString() || ''}
+                  getOptionLabel={(option) => option.fullName}
                   placeholder="Select an coin"
                 />
               }
@@ -79,7 +96,7 @@ export function WalletForm({
       <UiButton
         className={styles['button-submit']}
         type="submit" 
-        form="crypto-form" 
+        form="wallet-form" 
         color="blue" 
         withBorder
       >

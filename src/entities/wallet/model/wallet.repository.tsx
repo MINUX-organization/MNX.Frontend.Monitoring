@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { ZodSaveParse } from "@/shared/lib/utils/zod-save-parse";
-import { Wallet } from "./types";
+import { PostWallet, Wallet } from "./types";
 import _ from "lodash";
 import { getWalletsListApi, addWalletApi, deleteWalletApi, editWalletApi } from "@/shared/api"
 
@@ -11,7 +11,7 @@ export function useWalletRepository() {
   const walletsList = ZodSaveParse(data, Wallet.array().optional());
 
   const addWalletMutation = useMutation({
-    mutationFn: (wallet: _.Omit<Wallet, 'id'>) => addWalletApi(wallet),
+    mutationFn: (wallet: PostWallet) => addWalletApi(wallet),
     onSuccess: (data) => {
       queryClient.setQueryData(
         ['walletsList'], 
@@ -39,7 +39,7 @@ export function useWalletRepository() {
     }
   });
   
-  const addWallet = (wallet: Wallet) => {
+  const addWallet = (wallet: PostWallet) => {
     addWalletMutation.mutate(wallet);
   }
 

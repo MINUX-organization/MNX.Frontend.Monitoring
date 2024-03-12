@@ -12,20 +12,14 @@ export function useSearch<T>(
   const itemsSource = useStateObject<T[]>([]);
   const itemSeacrh = useStateObject<string | undefined>('');
 
-  const items = getItems();
+  const items = getItems() || [];
 
   useEffect(() => {
     if (isLoading) return;
-    if (!getItems) return;
+    if (!items) return;
 
     filteredItems.setValue(items);
     itemsSource.setValue(items);
-
-    return () => {
-      if (!isLoading) {
-        setItems(items);
-      }
-    };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);
 
@@ -45,7 +39,7 @@ export function useSearch<T>(
 
       if (!deletedItem) return; 
 
-      itemsSource.setValue((prev) => _.remove(prev, (item) => _.isEqual(item, deletedItem)));
+      itemsSource.setValue((prev) => _.remove(prev!, (item) => _.isEqual(item, deletedItem)));
     }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -55,6 +49,9 @@ export function useSearch<T>(
     if (itemsSource.value?.length === 0) return;
     handleOnchange(itemSeacrh.value);
     
+    return () => {
+      setItems(itemsSource.value)
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [itemsSource.value?.length])
 

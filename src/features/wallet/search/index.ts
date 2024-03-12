@@ -1,1 +1,1 @@
-export { CryptoSearch } from './ui/crypto-search';
+export { WalletSearch } from './ui/wallet-search';

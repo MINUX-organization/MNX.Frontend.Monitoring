@@ -20,9 +20,9 @@ export function UiComboBox<T>({
   title?: string;
   placeholder?: string;
   options?: T[];
-  selectedOption?: T;
-  getOptionLabel: (option?: T) => string;
-  selectedOnChange?: (option?: T | string) => void;
+  selectedOption?: string;
+  getOptionLabel: (option: T) => string;
+  selectedOnChange?: (option?: string) => void;
 }) {
   const query = useStateObject('')
 
@@ -41,7 +41,7 @@ export function UiComboBox<T>({
         <UiBorderBox className={styles['select']}>
           <UiBgContainer className={styles['select-container']} color="opaque">
             <Combobox.Input 
-              className={styles['input']} 
+              className={styles['input']}
               placeholder={placeholder} 
               onChange={(event) => query.setValue(event.target.value)} 
             /> 

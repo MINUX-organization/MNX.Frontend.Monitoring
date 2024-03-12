@@ -13,6 +13,8 @@ export function DeleteCrypto({
     deleteCrypto(cryptoId);
   }
   return (
-    <Trash2 className={styles['delete']} size={20} onClick={handleClick}/>
+    <button className={styles['delete']}>
+      <Trash2 size={20} onClick={handleClick}/>
+    </button>
   )
 }

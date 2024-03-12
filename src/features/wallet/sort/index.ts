@@ -1,1 +1,1 @@
-export { CryptoSort } from "./ui/crypto-sort"
+export { WalletSort } from "./ui/wallet-sort"

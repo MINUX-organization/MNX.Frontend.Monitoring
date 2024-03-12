@@ -63,7 +63,7 @@ export function CryptoForm({
               render={({ field: {onChange} }) => 
                 <UiComboBox
                   title="Algorithm"
-                  options={algorithms}
+                  options={algorithms ?? []}
                   selectedOption={selectedAlgorithm}
                   selectedOnChange={onChange}
                   getOptionLabel={(option) => option?.toString() || ''}
