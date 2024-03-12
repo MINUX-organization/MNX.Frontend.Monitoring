@@ -10,15 +10,15 @@ export function useCryptoRepository() {
 
   const cryptosList = ZodSaveParse(data, Crypto.array().optional());
   
-  const addCrypto = useMutation({
+  const addCryptoMutation = useMutation({
     mutationFn: (crypto: _.Omit<Crypto, 'id'>) => addCryptocurrencyApi(crypto),
     onSuccess: (data) => {
       queryClient.setQueryData(
         ['cryptosList'], _.concat(cryptosList, data))
     }
   });
-  
-  const deleteCrypto = useMutation({
+
+  const deleteCryptoMutation = useMutation({
     mutationFn: (id: string) => deleteCryptocurrencyApi(id),
     onSuccess: (_data, variables) => {
       queryClient.setQueryData(
@@ -28,6 +28,14 @@ export function useCryptoRepository() {
     }
   });
   
+  const addCrypto = (crypto: Crypto) => {
+    addCryptoMutation.mutate(crypto);
+  }
+
+  const deleteCrypto = (id: string) => {
+    deleteCryptoMutation.mutate(id);
+  }
+
   const getCryptosList = () => cryptosList;
 
   const setCryptosList = (cryptosList?: Crypto[]) => {

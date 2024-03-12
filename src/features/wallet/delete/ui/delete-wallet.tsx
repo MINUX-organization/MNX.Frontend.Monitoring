@@ -10,7 +10,7 @@ export function DeleteWallet({
   const { deleteWallet } = useWalletRepository();
   const handleClick = () => {
     if (!walletId) return;
-    deleteWallet.mutate(walletId);
+    deleteWallet(walletId);
   }
   return (
     <Trash2 className={styles['delete']} size={20} onClick={handleClick}/>

@@ -10,7 +10,7 @@ export function useWalletRepository() {
 
   const walletsList = ZodSaveParse(data, Wallet.array().optional());
 
-  const addWallet = useMutation({
+  const addWalletMutation = useMutation({
     mutationFn: (wallet: _.Omit<Wallet, 'id'>) => addWalletApi(wallet),
     onSuccess: (data) => {
       queryClient.setQueryData(
@@ -19,7 +19,7 @@ export function useWalletRepository() {
     }
   });
   
-  const editWallet = useMutation({
+  const editWalletMutation = useMutation({
     mutationFn: (wallet: Wallet) => editWalletApi(wallet, wallet.id),
     onSuccess: (_data, variables) => {
       queryClient.setQueryData(
@@ -29,7 +29,7 @@ export function useWalletRepository() {
     }
   })
 
-  const deleteWallet = useMutation({
+  const deleteWalletMutation = useMutation({
     mutationFn: (id: string) => deleteWalletApi(id),
     onSuccess: (_data, variables) => {
       queryClient.setQueryData(
@@ -39,6 +39,18 @@ export function useWalletRepository() {
     }
   });
   
+  const addWallet = (wallet: Wallet) => {
+    addWalletMutation.mutate(wallet);
+  }
+
+  const editWallet = (wallet: Wallet) => {
+    editWalletMutation.mutate(wallet);
+  }
+
+  const deleteWallet = (id: string) => {
+    deleteWalletMutation.mutate(id);
+  }
+
   const getWalletsList = () => walletsList;
 
   const setWalletsList = (walletsList?: Wallet[]) => {

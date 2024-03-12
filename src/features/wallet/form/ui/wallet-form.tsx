@@ -31,7 +31,7 @@ export function WalletForm({
   const selectedCrypto = watch('cryptocurrency');
 
   const onSubmit: SubmitHandler<FormInput> = (data) => {
-    addWallet.mutate(data);
+    addWallet(data);
     reset();
   };
 

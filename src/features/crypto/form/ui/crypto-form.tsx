@@ -30,7 +30,7 @@ export function CryptoForm({
   const selectedAlgorithm = watch('algorithm');
 
   const onSubmit: SubmitHandler<FormInput> = (data) => {
-    addCrypto.mutate(data);
+    addCrypto(data);
     reset();
   };
 
