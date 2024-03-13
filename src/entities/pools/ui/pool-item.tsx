@@ -14,9 +14,9 @@ export function PoolItem({
 }) {
   return (
     <div className={clsx(className, styles['wallet-item'])}>
-      <span>{pool?.domain}</span>
       <span>{pool?.cryptocurrency}</span>
-      <span>{pool?.address}</span>
+      <span>{pool?.domain}</span>
+      <span>{pool?.port}</span>
       <span className={styles['icon']}>{renderDeleteButton?.(pool)}</span>
     </div>
   );

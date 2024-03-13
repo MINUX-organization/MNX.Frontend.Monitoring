@@ -4,7 +4,7 @@
   grid-template-columns: subgrid;
 }
 
-.wallets-list {
+.cryptos-list {
   width: 100%;
   height: 100%;
 
@@ -15,34 +15,32 @@
     margin-bottom: 1rem;
   }
 
-  .wallets-list-table {
+  .cryptos-list-table {
     height: auto;
     .grid {
       min-height: 18rem;
       padding: 0;
       display: grid;
-      grid-template-columns: repeat(3, minmax(auto, 10rem)) 1fr;
+      grid-template-columns: repeat(3, min(10rem)) 1fr;
       grid-auto-rows: min-content;
   
       .subgrid-title {
         @include subgrid();
-        height: 2.45rem;
+        height: auto;
         border-bottom: var(--border);
-        padding: 0.625rem;
+        padding: var(--padding-grid);
         align-items: center;
-        gap: 0.625rem;
+        gap: 0.825rem;
   
         .title-text {
-          color: var(--color-border);
-          text-align: center;
+          color: var(--color-border); 
         }
       }
   
       .subgrid-items {
         @include subgrid();
-        padding: 0.825rem;
+        padding: var(--padding-grid);
         gap: 0.825rem;
-        text-align: center;
       }
     }
   }

@@ -79,7 +79,7 @@ export function WalletForm({
                   selectedOption={selectedCrypto}
                   selectedOnChange={onChange}
                   getOptionLabel={(option) => option.fullName}
-                  placeholder="Select an coin"
+                  placeholder="Select a coin"
                 />
               }
             /> 
