@@ -10,7 +10,7 @@ export function usePoolRepository() {
 
   const poolsList = ZodSaveParse(data, Pool.array().optional());
 
-  const addWalletMutation = useMutation({
+  const addPoolMutation = useMutation({
     mutationFn: (pool: PostPool) => addPoolApi(pool),
     onSuccess: (data) => {
       queryClient.setQueryData(
@@ -19,7 +19,7 @@ export function usePoolRepository() {
     }
   });
   
-  const editWalletMutation = useMutation({
+  const editPoolMutation = useMutation({
     mutationFn: (value: {id: string, pool: PostPool}) => editPoolApi(value.pool, value.id),
     onSuccess: (_data, variables) => {
       queryClient.setQueryData(
@@ -29,7 +29,7 @@ export function usePoolRepository() {
     }
   })
 
-  const deleteWalletMutation = useMutation({
+  const deletePoolMutation = useMutation({
     mutationFn: (id: string) => deletePoolApi(id),
     onSuccess: (_data, variables) => {
       queryClient.setQueryData(
@@ -39,35 +39,35 @@ export function usePoolRepository() {
     }
   });
   
-  const addWallet = (pool: PostPool) => {
-    addWalletMutation.mutate(pool);
+  const addPool = (pool: PostPool) => {
+    addPoolMutation.mutate(pool);
   }
 
-  const editWallet = (pool: PostPool) => {
+  const editPool = (pool: PostPool) => {
     const id = _.find(poolsList, ['domain', pool.domain])?.id;
 
     if (!id) return;
 
-    editWalletMutation.mutate({id, pool});
+    editPoolMutation.mutate({id, pool});
   }
 
-  const deleteWallet = (id: string) => {
-    deleteWalletMutation.mutate(id);
+  const deletePool = (id: string) => {
+    deletePoolMutation.mutate(id);
   }
 
-  const getWalletsList = () => poolsList;
+  const getPoolsList = () => poolsList;
 
-  const setWalletsList = (poolsList?: Pool[]) => {
+  const setPoolsList = (poolsList?: Pool[]) => {
     if (!poolsList) return;
     queryClient.setQueryData(['poolsList'], poolsList);
   }
     
   return {
-    addWallet,
-    editWallet,
-    deleteWallet,
-    getWalletsList,
-    setWalletsList,
+    addPool,
+    editPool,
+    deletePool,
+    getPoolsList,
+    setPoolsList,
     ...cryptoQuery
   }
 }

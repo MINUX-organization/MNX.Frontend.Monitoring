@@ -6,10 +6,10 @@ import { UiSpinner } from "@/shared/ui/ui-spinner";
 import { UiBorderBox } from "@/shared/ui/ui-border-box";
 import { UiBgContainer } from "@/shared/ui/ui-bg-container";
 import { ReactNode } from "react";
-import { Wallet } from "../model/types";
-import { useWalletRepository } from "../model/pool.repository";
+import { Pool } from "../model/types";
+import { usePoolRepository } from "../model/pool.repository";
 
-export function WalletsList({
+export function PoolsList({
   className,
   renderSort,
   renderSearch,
@@ -18,9 +18,9 @@ export function WalletsList({
   className?: string;
   renderSort?: () => ReactNode;
   renderSearch?: () => ReactNode;
-  renderWalletItem?: (wallet: Wallet) => ReactNode;
+  renderWalletItem?: (pool: Pool) => ReactNode;
 }) {
-  const { getWalletsList, isLoading } = useWalletRepository();
+  const { getPoolsList, isLoading } = usePoolRepository();
 
   const titleLabels = ['Wallet Name', 'Coin', 'Address'];
 
@@ -45,12 +45,12 @@ export function WalletsList({
           {match(isLoading ?? false)
             .with(true, () => <span className={styles['no-data']}><UiSpinner/></span>)
             .with(false, () => {
-              if (_.isEmpty(getWalletsList())) {
+              if (_.isEmpty(getPoolsList())) {
                 return <span className={styles['no-data']}>N/A</span>;
               } else {
                 return (
                   <div className={styles['subgrid-items']}>
-                    {_.map(getWalletsList(), (wallet) => renderWalletItem?.(wallet))}
+                    {_.map(getPoolsList(), (wallet) => renderWalletItem?.(wallet))}
                   </div>
                 )
               }

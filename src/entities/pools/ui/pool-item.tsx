@@ -13,7 +13,7 @@ export function PoolItem({
   renderDeleteButton?: (pool?: Pool) => ReactNode;
 }) {
   return (
-    <div className={clsx(className, styles['wallet-item'])}>
+    <div className={clsx(className, styles['pool-item'])}>
       <span>{pool?.cryptocurrency}</span>
       <span>{pool?.domain}</span>
       <span>{pool?.port}</span>
