@@ -21,6 +21,7 @@ export function CryptosList({
   renderCryptoItem?: (crypto: Crypto) => ReactNode;
 }) {
   const { getCryptosList, isLoading } = useCryptoRepository();
+  
   const titleLabels = ['Name', 'Full Name', 'Algorithm'];
 
   const renderFeatures = renderSort === undefined && renderSearch === undefined;

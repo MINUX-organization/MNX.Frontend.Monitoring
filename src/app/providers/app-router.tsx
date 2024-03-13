@@ -8,6 +8,7 @@ import { ROUTER_PATHS } from "@/shared/constants/routes";
 import { Monitoring } from "@/pages/monitoring";
 import { Gpus } from "@/pages/devices/GPUs";
 import { Cryptos } from "@/pages/cryptos";
+import { Wallets } from "@/pages/wallets";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
         path: ROUTER_PATHS.CRYPTOS,
         element: <Cryptos/>,
       },
+      {
+        path: ROUTER_PATHS.WALLETS,
+        element: <Wallets/>
+      }
     ],
   },
 ]);

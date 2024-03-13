@@ -5,15 +5,20 @@ import { Crypto, useCryptoRepository } from "@/entities/crypto";
 import { UiInput } from "@/shared/ui/ui-input";
 import styles from './cryptoForm.module.scss';
 import { useQuery } from "react-query";
-import { getAvailableAlgorithms } from "@/shared/api/get/getAvailableAlgorithms";
+import { getAvailableAlgorithmsApi } from "@/shared/api";
 import { UiButton } from "@/shared/ui/ui-button";
 import { UiComboBox } from "@/shared/ui/ui-combobox";
+import clsx from "clsx";
 
 type FormInput = Crypto;
 
-export function CryptoForm() {
+export function CryptoForm({
+  className
+} : {
+  className?: string
+}) {
   const { addCrypto } = useCryptoRepository();
-  const { data : algorithms } = useQuery(['algorithms'], getAvailableAlgorithms);
+  const { data : algorithms } = useQuery(['algorithms'], getAvailableAlgorithmsApi);
 
   const { control, handleSubmit, watch, reset } = useForm<FormInput>({
     defaultValues: {
@@ -25,12 +30,12 @@ export function CryptoForm() {
   const selectedAlgorithm = watch('algorithm');
 
   const onSubmit: SubmitHandler<FormInput> = (data) => {
-    addCrypto.mutate(data);
+    addCrypto(data);
     reset();
   };
 
   return (
-    <div className={styles['crypto-form']}>
+    <div className={clsx(className, styles['crypto-form'])}>
       <UiBorderBox topLeft topRight bottomLeft bottomRight>
         <UiBgContainer className={styles['crypto-container']} color="transparent">
           <span className={styles['title']}>Add new coin</span>
@@ -44,13 +49,13 @@ export function CryptoForm() {
               name="shortName"
               rules={{ required: true }}
               label="Name" 
-              placeholder="Short Name of Crypto"/>
+              placeholder="Short name of crypto"/>
             <UiInput 
               control={control} 
               name="fullName" 
               rules={{ required: true }} 
-              label="Full Name" 
-              placeholder="Full Name of Crypto"/>
+              label="Full name" 
+              placeholder="Full name of crypto"/>
             <Controller 
               control={control} 
               name="algorithm"
@@ -58,7 +63,7 @@ export function CryptoForm() {
               render={({ field: {onChange} }) => 
                 <UiComboBox
                   title="Algorithm"
-                  options={algorithms}
+                  options={algorithms ?? []}
                   selectedOption={selectedAlgorithm}
                   selectedOnChange={onChange}
                   getOptionLabel={(option) => option?.toString() || ''}

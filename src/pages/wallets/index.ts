@@ -1,0 +1,1 @@
+export { Wallets } from './ui/wallets.page'

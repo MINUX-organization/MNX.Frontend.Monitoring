@@ -1,4 +1,8 @@
 .cryptos-page {
   display: flex;
   gap: 2rem;
+
+  .crypto-form {
+    margin-top: 3.125rem;
+  }
 }
