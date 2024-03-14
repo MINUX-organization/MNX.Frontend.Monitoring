@@ -2,70 +2,70 @@ import { UiBgContainer } from "@/shared/ui/ui-bg-container";
 import { UiBorderBox } from "@/shared/ui/ui-border-box";
 import { useForm, Controller, SubmitHandler } from "react-hook-form"
 import { UiInput } from "@/shared/ui/ui-input";
-import styles from './walletForm.module.scss';
+import styles from './poolForm.module.scss';
 import { UiButton } from "@/shared/ui/ui-button";
 import { UiComboBox } from "@/shared/ui/ui-combobox";
-import { useWalletRepository } from "@/entities/wallet";
+import { usePoolRepository } from "@/entities/pool";
 import clsx from "clsx";
 import { useCryptoRepository } from "@/entities/crypto";
-import { mapWallet } from "../utils/mapWallet";
+import { mapPool } from "../utils/mapPool";
 
 export type FormInput = {
-  name: string;
+  domain: string;
+  port: string;
   cryptocurrency: string;
-  address: string;
 };
 
-export function WalletForm({
+export function PoolForm({
   className
 } : {
   className: string
 }) {
-  const { addWallet } = useWalletRepository();
+  const { addPool } = usePoolRepository();
   const { getCryptosList } = useCryptoRepository();
   const cryptosList = getCryptosList();
 
   const { control, handleSubmit, watch, reset } = useForm<FormInput>({
     defaultValues: {
-      name: '',
+      domain: '',
+      port: '',
       cryptocurrency: '',
-      address: ''
     }
   })
   const selectedCrypto = watch('cryptocurrency')
   
   const onSubmit: SubmitHandler<FormInput> = (data) => {
-    const mapedData = mapWallet(data, cryptosList)
+    const mapedData = mapPool(data, cryptosList)
 
     if (!mapedData) return
 
-    addWallet(mapedData);
+    addPool(mapedData);
 
     reset();
   };
 
   return (
-    <div className={clsx(className, styles['wallet-form'])}>
+    <div className={clsx(className, styles['pool-form'])}>
       <UiBorderBox topLeft topRight bottomLeft bottomRight>
-        <UiBgContainer className={styles['wallet-container']} color="transparent">
-          <span className={styles['title']}>Add new wallet</span>
+        <UiBgContainer className={styles['pool-container']} color="transparent">
+          <span className={styles['title']}>Add new pool</span>
           <form 
-            id="wallet-form" 
-            className={styles['wallet-form-container']} 
+            id="pool-form" 
+            className={styles['pool-form-container']} 
             onSubmit={handleSubmit(onSubmit)}
           >
             <UiInput 
               control={control} 
-              name="name"
+              name="domain"
               rules={{ required: true }}
-              label="Name" 
-              placeholder="Name of wallet"/>
+              label="Domain" 
+              placeholder="Domain of pool"/>
             <UiInput 
               control={control} 
-              name="address" 
+              name="port" 
               rules={{ required: true }} 
-              label="Address" 
-              placeholder="Address of wallet"
+              label="Port" 
+              placeholder="Port of pool"
             />
             <Controller 
               control={control} 
@@ -88,7 +88,7 @@ export function WalletForm({
       <UiButton
         className={styles['button-submit']}
         type="submit" 
-        form="wallet-form" 
+        form="pool-form" 
         color="blue" 
         withBorder
       >

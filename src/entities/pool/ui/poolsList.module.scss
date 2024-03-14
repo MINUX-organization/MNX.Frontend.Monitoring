@@ -4,7 +4,7 @@
   grid-template-columns: subgrid;
 }
 
-.cryptos-list {
+.pools-list {
   width: 100%;
   height: 100%;
 
@@ -15,7 +15,7 @@
     margin-bottom: 1rem;
   }
 
-  .cryptos-list-table {
+  .pools-list-table {
     height: auto;
     .grid {
       min-height: 18rem;
@@ -29,6 +29,7 @@
         height: auto;
         border-bottom: var(--border);
         padding: var(--padding-grid);
+        align-items: center;
         gap: 0.825rem;
   
         .title-text {

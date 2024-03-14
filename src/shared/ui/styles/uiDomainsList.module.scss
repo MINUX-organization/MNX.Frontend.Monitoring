@@ -4,7 +4,7 @@
   grid-template-columns: subgrid;
 }
 
-.cryptos-list {
+.domains-list {
   width: 100%;
   height: 100%;
 
@@ -15,13 +15,13 @@
     margin-bottom: 1rem;
   }
 
-  .cryptos-list-table {
+  .domains-list-table {
     height: auto;
     .grid {
       min-height: 18rem;
       padding: 0;
       display: grid;
-      grid-template-columns: repeat(3, min(10rem)) 1fr;
+      grid-template-columns: repeat(3, minmax(10rem, auto)) 1fr;
       grid-auto-rows: min-content;
   
       .subgrid-title {
@@ -29,11 +29,10 @@
         height: auto;
         border-bottom: var(--border);
         padding: var(--padding-grid);
-        align-items: center;
         gap: 0.825rem;
   
         .title-text {
-          color: var(--color-border); 
+          color: var(--color-border);
         }
       }
   

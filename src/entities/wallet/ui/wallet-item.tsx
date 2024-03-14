@@ -15,8 +15,8 @@ export function WalletItem({
   return (
     <div className={clsx(className, styles['wallet-item'])}>
       <span>{wallet?.name}</span>
-      <span>{wallet?.cryptocurrency}</span>
       <span>{wallet?.address}</span>
+      <span>{wallet?.cryptocurrency}</span>
       <span className={styles['icon']}>{renderDeleteButton?.(wallet)}</span>
     </div>
   );

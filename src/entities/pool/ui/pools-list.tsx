@@ -13,16 +13,16 @@ export function PoolsList({
   className,
   renderSort,
   renderSearch,
-  renderWalletItem,
+  renderPoolItem,
 } : {
   className?: string;
   renderSort?: () => ReactNode;
   renderSearch?: () => ReactNode;
-  renderWalletItem?: (pool: Pool) => ReactNode;
+  renderPoolItem?: (pool: Pool) => ReactNode;
 }) {
   const { getPoolsList, isLoading } = usePoolRepository();
 
-  const titleLabels = ['Wallet Name', 'Coin', 'Address'];
+  const titleLabels = ['Domain', 'Port', 'Coin'];
 
   const renderFeatures = renderSort === undefined && renderSearch === undefined;
 
@@ -50,7 +50,7 @@ export function PoolsList({
               } else {
                 return (
                   <div className={styles['subgrid-items']}>
-                    {_.map(getPoolsList(), (wallet) => renderWalletItem?.(wallet))}
+                    {_.map(getPoolsList(), (wallet) => renderPoolItem?.(wallet))}
                   </div>
                 )
               }
