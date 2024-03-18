@@ -8,7 +8,7 @@ import { UiComboBox } from "@/shared/ui/ui-combobox";
 import { useWalletRepository } from "@/entities/wallet";
 import clsx from "clsx";
 import { useCryptoRepository } from "@/entities/crypto";
-import { mapWallet } from "../utils/mapWallet";
+import { mapWallet } from "@/shared/lib/utils/map-wallet";
 
 export type FormInput = {
   name: string;
@@ -92,7 +92,7 @@ export function WalletForm({
         color="blue" 
         withBorder
       >
-        <span>Add</span>
+        Add
       </UiButton>
     </div>
   )

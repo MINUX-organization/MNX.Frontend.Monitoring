@@ -1,5 +1,5 @@
 import { Crypto } from "@/entities/crypto"
-import { FormInput } from "../ui/wallet-form"
+import { FormInput } from "../../../features/wallet/form/ui/wallet-form"
 import _ from "lodash"
 
 export function mapWallet(data: FormInput, cryptosList?: Crypto[]) {

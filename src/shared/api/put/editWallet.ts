@@ -14,5 +14,5 @@ type Request = {
   cryptocurrencyId: string;
 };
 
-export const editWalletApi = async (data: Request, id: string) => 
-  (await apiInstance().put(`${BACKEND_APIS.WALLET}/${id}`, data)).data as Response[];
+export const editWalletApi = async (id: string, data: Request) => 
+  (await apiInstance().put(`${BACKEND_APIS.WALLET}/${id}`, data)).data as Response;

@@ -20,11 +20,11 @@ export function useWalletRepository() {
   });
   
   const editWalletMutation = useMutation({
-    mutationFn: (value: {id: string, wallet: PostWallet}) => editWalletApi(value.wallet, value.id),
-    onSuccess: (_data, variables) => {
+    mutationFn: (value: {id: string, wallet: PostWallet}) => editWalletApi(value.id, value.wallet),
+    onSuccess: (data) => {
       queryClient.setQueryData(
         ['walletsList'],
-        _.map(walletsList, (wallet) => wallet.id === variables.id ? variables : wallet)
+        _.map(walletsList, (wallet) => wallet.id === data.id ? data : wallet)
       )
     }
   })
@@ -43,11 +43,7 @@ export function useWalletRepository() {
     addWalletMutation.mutate(wallet);
   }
 
-  const editWallet = (wallet: PostWallet) => {
-    const id = _.find(walletsList, ['name', wallet.name])?.id;
-    
-    if (!id) return;
-
+  const editWallet = (id: string, wallet: PostWallet) => {
     editWalletMutation.mutate({id, wallet});
   }
 

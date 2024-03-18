@@ -1,7 +1,6 @@
 import { Dialog } from "@headlessui/react";
 import { ReactNode } from "react";
 import styles from './styles/uiModal.module.scss';
-import clsx from "clsx";
 import { UiBorderBox } from "./ui-border-box";
 import { UiBgContainer } from "./ui-bg-container";
 
@@ -23,19 +22,15 @@ export function UiModal({
   return (
       <Dialog 
         as='div' 
-        className={clsx(
-            className, 
-            styles['modal']
-          )
-        }
+        className={styles['modal']}
         open={isOpen}
         onClose={onClose}
       > 
         <div className={styles['background']}/>
         <div className={styles['content']}>
           <div className={styles['centered']}>
-            <UiBorderBox>
-              <UiBgContainer color="transparent" className={styles['content-box']}>
+            <UiBorderBox className={className}>
+              <UiBgContainer color="opaqueBlack" className={styles['content-box']}>
                 <Dialog.Panel>
                   <Dialog.Title>
                     {renderTitle?.()}

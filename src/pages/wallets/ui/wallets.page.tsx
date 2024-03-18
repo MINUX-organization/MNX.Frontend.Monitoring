@@ -24,7 +24,7 @@ export function Wallets() {
           <WalletItem 
             key={wallet?.id} 
             wallet={wallet}
-            renderEditButton={(wallet) => <EditWallet/>}
+            renderEditButton={(wallet) => <EditWallet wallet={wallet}/>}
             renderDeleteButton={(wallet) => <DeleteWallet walletId={wallet?.id}/>}
           />
         }
