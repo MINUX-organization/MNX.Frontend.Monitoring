@@ -3,7 +3,9 @@
   grid-template-columns: subgrid;
   grid-column: 1 / 5;
 
-  .icon {
+  .icon-container {
+    display: flex;
+    gap: .5rem;
     justify-self: flex-end;
   }
 }

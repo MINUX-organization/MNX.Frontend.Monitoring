@@ -6,10 +6,12 @@ import { ReactNode } from 'react';
 export function WalletItem({
   className,
   wallet,
+  renderEditButton,
   renderDeleteButton
 }: {
   className?: string;
   wallet?: Wallet;
+  renderEditButton?: (wallet?: Wallet) => ReactNode;
   renderDeleteButton?: (wallet?: Wallet) => ReactNode;
 }) {
   return (
@@ -17,7 +19,10 @@ export function WalletItem({
       <span>{wallet?.name}</span>
       <span>{wallet?.address}</span>
       <span>{wallet?.cryptocurrency}</span>
-      <span className={styles['icon']}>{renderDeleteButton?.(wallet)}</span>
+      <div className={styles['icon-container']}>
+        <span className={styles['icon']}>{renderEditButton?.(wallet)}</span>
+        <span className={styles['icon']}>{renderDeleteButton?.(wallet)}</span>
+      </div>
     </div>
   );
 }

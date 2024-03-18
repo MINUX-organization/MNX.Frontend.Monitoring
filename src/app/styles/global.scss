@@ -27,12 +27,7 @@
   --gap-widget: 1.25rem;
 }
 
-html {
-  box-sizing: border-box;
-}
-
 body {
-  scrollbar-gutter: stable both-edges;
   overflow: hidden;
   font-size: var(--font-size-root);
   background: var(--color-bg);
@@ -66,7 +61,6 @@ input {
   background: none;
 	color: inherit;
 	border: none;
-  padding: 0;
 	font: inherit;
   outline: inherit;
   font-size: inherit;

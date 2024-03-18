@@ -5,6 +5,7 @@ import { WalletForm } from '@/features/wallet/form';
 import { WalletSort } from '@/features/wallet/sort';
 import { WalletSearch } from '@/features/wallet/search';
 import { UiDomainsList } from '@/shared/ui/ui-domains-list';
+import { EditWallet } from '@/features/wallet/edit';
 
 export function Wallets() {
   const { getWalletsList, isLoading } = useWalletRepository();
@@ -22,7 +23,8 @@ export function Wallets() {
         renderDomainItem={(wallet) => 
           <WalletItem 
             key={wallet?.id} 
-            wallet={wallet} 
+            wallet={wallet}
+            renderEditButton={(wallet) => <EditWallet/>}
             renderDeleteButton={(wallet) => <DeleteWallet walletId={wallet?.id}/>}
           />
         }

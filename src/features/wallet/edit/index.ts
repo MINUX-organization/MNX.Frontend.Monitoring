@@ -1,0 +1,1 @@
+export { EditWallet } from './ui/edit-wallet'
