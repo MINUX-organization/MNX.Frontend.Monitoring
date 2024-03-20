@@ -1,5 +1,5 @@
 import _ from "lodash"
-import { FormInput } from "../ui/pool-form"
+import { FormInput } from "../../../features/pool/form/ui/pool-form"
 import { Crypto } from "@/entities/crypto"
 
 export function mapPool(data: FormInput, cryptosList?: Crypto[]) {

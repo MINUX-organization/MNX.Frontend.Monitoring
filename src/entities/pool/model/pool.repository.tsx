@@ -20,11 +20,11 @@ export function usePoolRepository() {
   });
   
   const editPoolMutation = useMutation({
-    mutationFn: (value: {id: string, pool: PostPool}) => editPoolApi(value.pool, value.id),
-    onSuccess: (_data, variables) => {
+    mutationFn: (value: {id: string, pool: PostPool}) => editPoolApi(value.id, value.pool),
+    onSuccess: (data) => {
       queryClient.setQueryData(
         ['poolsList'],
-        _.map(poolsList, (pool) => pool.id === variables.id ? variables : pool)
+        _.map(poolsList, (pool) => pool.id === data.id ? data : pool)
       )
     }
   })
@@ -43,11 +43,7 @@ export function usePoolRepository() {
     addPoolMutation.mutate(pool);
   }
 
-  const editPool = (pool: PostPool) => {
-    const id = _.find(poolsList, ['domain', pool.domain])?.id;
-
-    if (!id) return;
-
+  const editPool = (id: string, pool: PostPool) => {
     editPoolMutation.mutate({id, pool});
   }
 

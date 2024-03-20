@@ -14,5 +14,5 @@ type Request = {
   cryptocurrencyId: string
 }
 
-export const editPoolApi = async (data: Request, id: string) => 
-  (await apiInstance().put<Response>(`${BACKEND_APIS.POOL}/${id}`, data)).data
+export const editPoolApi = async (id: string, data: Request) => 
+  (await apiInstance().put<Response>(`${BACKEND_APIS.POOL}/${id}`, data)).data as Response

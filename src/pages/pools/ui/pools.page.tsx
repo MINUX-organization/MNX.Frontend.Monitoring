@@ -5,6 +5,7 @@ import { PoolForm } from '@/features/pool/form';
 import { PoolSort } from '@/features/pool/sort';
 import { PoolSearch } from '@/features/pool/search';
 import { UiDomainsList } from '@/shared/ui/ui-domains-list';
+import { EditPool } from '@/features/pool/edit';
 
 export function Pools() {
   const { getPoolsList, isLoading } = usePoolRepository();
@@ -22,7 +23,8 @@ export function Pools() {
         renderDomainItem={(pool) => 
           <PoolItem 
             key={pool?.id} 
-            pool={pool} 
+            pool={pool}
+            renderEditButton={(pool) => <EditPool pool={pool}/>}
             renderDeleteButton={(pool) => <DeletePool poolId={pool?.id}/>}
           />
         }

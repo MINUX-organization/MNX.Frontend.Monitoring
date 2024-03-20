@@ -8,7 +8,7 @@ import { UiComboBox } from "@/shared/ui/ui-combobox";
 import { usePoolRepository } from "@/entities/pool";
 import clsx from "clsx";
 import { useCryptoRepository } from "@/entities/crypto";
-import { mapPool } from "../utils/mapPool";
+import { mapPool } from "@/shared/lib/utils/map-pool";
 
 export type FormInput = {
   domain: string;
