@@ -29,8 +29,11 @@ export function Monitoring() {
     totalCoinsList: {value: totalCoinsList},
     chartCoinsList: {value: chartCoinsList}
   } = useTotalDataSignalTrigger();
+  
   const { value: chartDataList } = useChartDataSignalTrigger();
+
   const { value: rigsList } = useRigsDataSignalTrigger();
+  
   return (
     <WebsocketContextProvider url={BACKEND_HUBS.MONITORING}>
       <div className={styles['monitoring-page']}>

@@ -7,8 +7,8 @@ export const BACKEND_HUBS = {
 } as const
 
 export const BACKEND_APIS = {
-  CRYPTOCURRENCY: '/cryptocurrency',
-  ALHORITHM: '/algorithm/available',
-  POOL: '/pool',
-  WALLET: '/wallet',
+  CRYPTOCURRENCY: '/cryptocurrencies',
+  ALHORITHM: '/algorithms/available',
+  POOL: '/pools',
+  WALLET: '/wallets',
 }

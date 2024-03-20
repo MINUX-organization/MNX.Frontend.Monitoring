@@ -22,6 +22,7 @@ import { BACKEND_TRIGGERS } from "@/shared/constants/backend-triggers";
 
 export function useRigsDataSignalTrigger() {
   const rigsList = useStateObject<Type[]>();
+  
   WebsocketContext.useSignalREffect(
     BACKEND_TRIGGERS.RECEIVED_RIGS_INFORMATION,
     (data: unknown) => {

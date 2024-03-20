@@ -1,0 +1,11 @@
+.pool-item {
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: 1 / 5;
+
+  .icon-container {
+    display: flex;
+    gap: 1rem;
+    justify-self: flex-end;
+  }
+}

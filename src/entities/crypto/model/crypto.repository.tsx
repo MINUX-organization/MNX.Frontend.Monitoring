@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { addCryptocurrencyApi, deleteCryptocurrencyApi, getCryptocurrenciesListApi } from "@/shared/api";
 import { ZodSaveParse } from "@/shared/lib/utils/zod-save-parse";
-import { Crypto } from "./types";
+import { Crypto, PostCrypto } from "./types";
 import _ from "lodash";
 
 export function useCryptoRepository() {
@@ -11,7 +11,7 @@ export function useCryptoRepository() {
   const cryptosList = ZodSaveParse(data, Crypto.array().optional());
   
   const addCryptoMutation = useMutation({
-    mutationFn: (crypto: _.Omit<Crypto, 'id'>) => addCryptocurrencyApi(crypto),
+    mutationFn: (crypto: PostCrypto) => addCryptocurrencyApi(crypto),
     onSuccess: (data) => {
       queryClient.setQueryData(
         ['cryptosList'], _.concat(cryptosList, data))

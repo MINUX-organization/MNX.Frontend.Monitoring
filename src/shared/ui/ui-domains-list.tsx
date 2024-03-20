@@ -1,39 +1,39 @@
-import _ from "lodash";
 import clsx from "clsx";
-import { match } from "ts-pattern";
-import styles from './walletsList.module.scss';
-import { UiSpinner } from "@/shared/ui/ui-spinner";
-import { UiBorderBox } from "@/shared/ui/ui-border-box";
-import { UiBgContainer } from "@/shared/ui/ui-bg-container";
 import { ReactNode } from "react";
-import { Wallet } from "../model/types";
-import { useWalletRepository } from "../model/wallet.repository";
+import { UiBorderBox } from "./ui-border-box";
+import { UiBgContainer } from "./ui-bg-container";
+import styles from './styles/uiDomainsList.module.scss';
+import _ from "lodash";
+import { match } from "ts-pattern";
+import { UiSpinner } from "./ui-spinner";
 
-export function WalletsList({
+export function UiDomainsList<T>({
   className,
+  domainsList,
+  titleLabels,
+  isLoading,
   renderSort,
   renderSearch,
-  renderWalletItem,
+  renderDomainItem,
 } : {
   className?: string;
+  domainsList?: T[];
+  titleLabels?: string[];
+  isLoading?: boolean;
   renderSort?: () => ReactNode;
   renderSearch?: () => ReactNode;
-  renderWalletItem?: (wallet: Wallet) => ReactNode;
+  renderDomainItem?: (domain: T) => ReactNode;
 }) {
-  const { getWalletsList, isLoading } = useWalletRepository();
-
-  const titleLabels = ['Wallet Name', 'Coin', 'Address'];
-
   const renderFeatures = renderSort === undefined && renderSearch === undefined;
 
   return (
-    <div className={clsx(className, styles['wallets-list'])}>
+    <div className={clsx(className, styles['domains-list'])}>
       {!renderFeatures && <div className={styles['features']}>
         {renderSort?.()}
         {renderSearch?.()}
       </div>}
       <UiBorderBox
-        className={styles['wallets-list-table']}
+        className={styles['domains-list-table']}
         topLeft topRight bottomLeft bottomRight
       >
         <UiBgContainer className={styles['grid']} color="transparent">
@@ -43,14 +43,14 @@ export function WalletsList({
             ))}
           </div> 
           {match(isLoading ?? false)
-            .with(true, () => <span className={styles['no-data']}><UiSpinner/></span>)
+            .with(true, () => <span className={styles['no-data']}> <UiSpinner/> </span>)
             .with(false, () => {
-              if (_.isEmpty(getWalletsList())) {
+              if (_.isEmpty(domainsList)) {
                 return <span className={styles['no-data']}>N/A</span>;
               } else {
                 return (
                   <div className={styles['subgrid-items']}>
-                    {_.map(getWalletsList(), (wallet) => renderWalletItem?.(wallet))}
+                    {_.map(domainsList, (domain) => renderDomainItem?.(domain))}
                   </div>
                 )
               }

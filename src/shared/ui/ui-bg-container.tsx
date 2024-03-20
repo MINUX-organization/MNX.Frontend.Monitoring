@@ -4,7 +4,7 @@ import styles from './styles/uiBgContainer.module.scss'
 
 type UiBgContainerProps = {
   className?: string;
-  color: 'opaque' | 'transparent';
+  color: 'opaque' | 'opaqueBlack' | 'transparent';
   children?: ReactNode;
 } & HTMLAttributes<HTMLDivElement>
 
@@ -15,13 +15,14 @@ export function UiBgContainer({
   ...props
 } : UiBgContainerProps) {
   return (
-    <div 
+    <div
       {...props}
       className={clsx(
         className,
         styles['bg-container'],
         {
           opaque: styles['opaque'],
+          opaqueBlack: styles['opaque-black'],
           transparent: styles['transparent']
         }[color]
     )}>

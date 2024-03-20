@@ -16,7 +16,7 @@ export function NavLinkItem({
   const childrenLinkClassName = ({ isActive }: { isActive?: boolean }) =>
     clsx(
       !(isActive) && clsx(styles['inactive-link'], styles['alt']),
-      isActive && clsx(styles['active-link'], styles['alt'])
+      isActive && clsx(styles['active-link'], styles['alt'], styles['white'])
   );
   
   return (

@@ -7,3 +7,6 @@ export const Crypto = z.object({
   algorithm: z.string({invalid_type_error: 'Algorithm must be a string'})
 })
 export type Crypto = z.infer<typeof Crypto>
+
+const PostCrypto = Crypto.omit({id: true})
+export type PostCrypto = z.infer<typeof PostCrypto>

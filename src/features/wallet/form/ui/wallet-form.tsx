@@ -7,20 +7,10 @@ import { UiButton } from "@/shared/ui/ui-button";
 import { UiComboBox } from "@/shared/ui/ui-combobox";
 import { useWalletRepository } from "@/entities/wallet";
 import clsx from "clsx";
-import { Crypto, useCryptoRepository } from "@/entities/crypto";
-import _ from "lodash";
+import { useCryptoRepository } from "@/entities/crypto";
+import { mapWallet } from "@/shared/lib/utils/map-wallet";
 
-function mapWallet(data: FormInput, cryptosList?: Crypto[]) {
-  const findedCrypto = _.find(cryptosList, ['fullName', data.cryptocurrency])
-  if (!findedCrypto) return
-  return {
-    name: data.name,
-    address: data.address,
-    cryptocurrencyId: findedCrypto.id
-  }
-}
-
-type FormInput = {
+export type FormInput = {
   name: string;
   cryptocurrency: string;
   address: string;
@@ -46,9 +36,11 @@ export function WalletForm({
   
   const onSubmit: SubmitHandler<FormInput> = (data) => {
     const mapedData = mapWallet(data, cryptosList)
-    console.log(mapedData)
+
     if (!mapedData) return
+
     addWallet(mapedData);
+
     reset();
   };
 
@@ -68,6 +60,13 @@ export function WalletForm({
               rules={{ required: true }}
               label="Name" 
               placeholder="Name of wallet"/>
+            <UiInput 
+              control={control} 
+              name="address" 
+              rules={{ required: true }} 
+              label="Address" 
+              placeholder="Address of wallet"
+            />
             <Controller 
               control={control} 
               name="cryptocurrency"
@@ -79,16 +78,9 @@ export function WalletForm({
                   selectedOption={selectedCrypto}
                   selectedOnChange={onChange}
                   getOptionLabel={(option) => option.fullName}
-                  placeholder="Select an coin"
+                  placeholder="Select a coin"
                 />
               }
-            /> 
-            <UiInput 
-              control={control} 
-              name="address" 
-              rules={{ required: true }} 
-              label="Address" 
-              placeholder="Address of wallet"
             />
           </form>
         </UiBgContainer>
@@ -100,7 +92,7 @@ export function WalletForm({
         color="blue" 
         withBorder
       >
-        <span>Add</span>
+        Add
       </UiButton>
     </div>
   )

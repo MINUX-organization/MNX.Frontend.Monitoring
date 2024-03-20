@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { NavLinkItem } from "./nav-link-item";
 import { ROUT_FIELDS } from "../model/constants";
 
-export function NavLinks({
+export function NavLinksList({
   className
 } : {
   className?: string;
