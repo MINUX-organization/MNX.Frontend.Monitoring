@@ -1,12 +1,9 @@
+import { AuthContext } from "@/shared/lib/providers/auth-context";
 import { useStateObject } from "@/shared/lib/utils/state-object";
-import React, { createContext } from "react";
-
-const AuthContext = createContext({
-  isAuthenticated: false,
-});
+import React from "react";
 
 const AuthProvider = ({ children } : { children: React.ReactNode }) => {
-  const { value: isAuthenticated, setValue: SetIsAuthenticated } = useStateObject(false);
+  const { value: isAuthenticated, setValue: setIsAuthenticated } = useStateObject(false);
 
   return (
     <AuthContext.Provider value={{ isAuthenticated }}>
@@ -15,4 +12,4 @@ const AuthProvider = ({ children } : { children: React.ReactNode }) => {
   );
 };
 
-export { AuthContext, AuthProvider };
+export { AuthProvider };
