@@ -1,7 +1,7 @@
 :root {
   --color-bg: #20202A;
   --color-container-opaque: #242834;
-  --color-container-opaque-black: hsla(0, 0%, 0%, 0.6);
+  --color-container-opaque-black: #1C202B;
   --color-cotainer-transparent: #00000020;
   --color-border-square: #1a1a22;
   --color-font-gray: #ffffff80;
@@ -16,6 +16,7 @@
   --color-hover-link-bg: #2e777c;
   --color-active-button: #3C9EA5;
 
+  --font-size-96px: 6rem;
   --font-size-22px: 1.375rem;
   --font-size-20px: 1.25rem;
   --font-size-18px: 1.125rem;
@@ -83,6 +84,14 @@ a {
   font-family: "GillSansMT";
   src: local("GillSansMT"),
    url("../../shared/assets/fonts/Gill-Sans-MT.ttf") format("truetype");
+  font-weight: normal;
+  font-display: fallback;
+}
+
+@font-face {
+  font-family: "FaunaPro";
+  src: local("FaunaPro"),
+   url("../../shared/assets/fonts/FaunaPro-Regular.ttf") format("truetype");
   font-weight: normal;
   font-display: fallback;
 }

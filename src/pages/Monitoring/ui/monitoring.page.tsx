@@ -6,7 +6,7 @@ import {
   MemoizedTotalShares, 
   MemoizedTotalRigsCount } from "@/entities/total";
 import styles from './monitoring.page.module.scss'
-import { WebsocketContextProvider } from "@/shared/lib/providers/websocket-context";
+import { WebsocketContextProvider } from "@/shared/lib/providers/websocket-provider";
 import { useTotalDataSignalTrigger } from "../lib/hooks/total-data-signal-trigger";
 import { MemoizedChangeChartCoinsList } from "@/features/chart/change-coin-chart";
 import { MemoizedRigItem, MemoizedRigsList } from "@/entities/rig";

@@ -5,7 +5,7 @@ import styles from './changeChartCoinsList.module.scss';
 import { z } from "zod";
 import clsx from "clsx";
 import { useEffect } from "react";
-import { WebsocketContext } from "@/shared/lib/providers/websocket-context";
+import { WebsocketContext } from "@/shared/lib/providers/websocket-provider";
 import React from "react";
 
 

@@ -10,6 +10,7 @@ import { ChevronDown } from 'lucide-react';
 type UiSelectProps<T> = {
   options?: T[];
   title?: string;
+  color?: 'opaque' | 'opaqueBlack' | 'transparent';
   selectedOption?: T;
   className?: string;
   placeholder?: string;
@@ -22,6 +23,7 @@ export function UiSelect<T>({
   options,
   className,
   title,
+  color,
   getOptionLabel, 
   selectedOption,
   placeholder,
@@ -38,7 +40,7 @@ export function UiSelect<T>({
       <Listbox {...props} as='div' value={selectedOption || '' as T} onChange={selectedOnChange}>
         <Listbox.Button className={styles['button']}>
           <UiBorderBox>
-            <UiBgContainer className={styles['select-container']} color='opaque'>
+            <UiBgContainer className={styles['select-container']} color={color ?? 'opaque'}>
               {selectedOption === '' || selectedOption === undefined ? (
                 <span className={styles['text-gray']}>{placeholder ?? 'Select an option'}</span>
               ) : (

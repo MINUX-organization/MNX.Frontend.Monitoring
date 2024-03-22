@@ -57,12 +57,14 @@ export function PoolForm({
             <UiInput 
               control={control} 
               name="domain"
+              color="opaque"
               rules={{ required: true }}
               label="Domain" 
               placeholder="Domain of pool"/>
             <UiInput 
               control={control} 
-              name="port" 
+              name="port"
+              color="opaque"
               rules={{ required: true }} 
               label="Port" 
               placeholder="Port of pool"
