@@ -1,5 +1,5 @@
-import { Dialog } from "@headlessui/react";
-import { ReactNode } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import { Fragment, ReactNode } from "react";
 import styles from './styles/uiModal.module.scss';
 import { UiBorderBox } from "./ui-border-box";
 import { UiBgContainer } from "./ui-bg-container";
@@ -20,10 +20,20 @@ export function UiModal({
   renderContent?: () => ReactNode;
 }) {
   return (
+    <Transition 
+      appear 
+      show={isOpen} 
+      as={Fragment}
+      enter={styles['animation-enter']}
+      enterFrom={styles['animation-enter-from ']}
+      enterTo={styles['animation-enter-to']}
+      leave={styles['animation-leave']}
+      leaveFrom={styles['animation-leave-from']}
+      leaveTo={styles['animation-leave-to']}
+    >
       <Dialog 
         as='div' 
         className={styles['modal']}
-        open={isOpen}
         onClose={onClose}
       > 
         <div className={styles['background']}/>
@@ -45,5 +55,6 @@ export function UiModal({
           </div>
         </div>
       </Dialog>
+    </Transition>
   )
 }

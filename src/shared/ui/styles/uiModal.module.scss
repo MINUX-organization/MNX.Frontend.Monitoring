@@ -4,8 +4,8 @@
 
   .background {
     background: black;
-    opacity: 0.5;
     position: fixed;
+    opacity: 0.5;
     inset: 0;
   }
 
@@ -28,7 +28,7 @@
 }
 
 .animation-enter { 
-  transition: transform 300ms ease-out;
+  transition:  200ms ease-out;
 }
 
 .animation-enter-from {
@@ -40,7 +40,7 @@
 }
 
 .animation-leave {
-  transition: transform 200ms ease-in;
+  transition:  200ms ease-in;
 }
 
 .animation-leave-from {
