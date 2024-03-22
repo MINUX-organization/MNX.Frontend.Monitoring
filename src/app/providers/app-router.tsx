@@ -10,6 +10,9 @@ import { Gpus } from "@/pages/devices/GPUs";
 import { Cryptos } from "@/pages/cryptos";
 import { Wallets } from "@/pages/wallets";
 import { Pools } from "@/pages/pools";
+import PrivateRoute from "../guards/private-route";
+
+
 
 const router = createBrowserRouter([
   {
@@ -26,23 +29,23 @@ const router = createBrowserRouter([
       },
       {
         path: ROUTER_PATHS.MONITORING,
-        element: <Monitoring />,
+        element: <PrivateRoute children={<Monitoring />}/>
       },
       {
         path: ROUTER_PATHS.GPUS,
-        element: <Gpus />,
+        element: <PrivateRoute children={<Gpus />}/>
       },
       {
         path: ROUTER_PATHS.CRYPTOS,
-        element: <Cryptos />,
+        element: <PrivateRoute children={<Cryptos />}/>
       },
       {
         path: ROUTER_PATHS.WALLETS,
-        element: <Wallets />
+        element: <PrivateRoute children={<Wallets />}/>
       },
       {
         path: ROUTER_PATHS.POOLS,
-        element: <Pools />
+        element: <PrivateRoute children={<Pools />}/>
       }
     ],
   },

@@ -4,7 +4,7 @@ export function useSessionRepository() {
   const saveSession = (session: Session) => 
     localStorage.setItem('session', JSON.stringify(session));
 
-  const getSession = () => {
+  const getSession = (): Session | null => {
     const session = localStorage.getItem('session');
     return session ? JSON.parse(session) : null;
   }
