@@ -1,1 +1,1 @@
-export 
+export { Session } from './model/types';

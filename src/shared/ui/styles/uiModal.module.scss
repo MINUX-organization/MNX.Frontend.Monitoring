@@ -28,7 +28,7 @@
 }
 
 .animation-enter { 
-  transition:  200ms ease-out;
+  transition: opacity 200ms ease-out;
 }
 
 .animation-enter-from {
@@ -40,7 +40,7 @@
 }
 
 .animation-leave {
-  transition:  200ms ease-in;
+  transition: opacity 200ms ease-in;
 }
 
 .animation-leave-from {
