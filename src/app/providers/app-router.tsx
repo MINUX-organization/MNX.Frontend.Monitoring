@@ -11,10 +11,13 @@ import { Cryptos } from "@/pages/cryptos";
 import { Wallets } from "@/pages/wallets";
 import { Pools } from "@/pages/pools";
 import PrivateRoute from "../guards/private-route";
-
-
+import { Login } from "@/pages/login";
 
 const router = createBrowserRouter([
+  {
+    path: ROUTER_PATHS.LOGIN,
+    element: <Login/>,
+  },
   {
     path: ROUTER_PATHS.HOME,
     element: <RootLayout/>,

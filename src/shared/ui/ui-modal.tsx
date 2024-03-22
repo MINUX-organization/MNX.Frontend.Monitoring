@@ -40,7 +40,7 @@ export function UiModal({
         <div className={styles['content']}>
           <div className={styles['centered']}>
             <UiBorderBox className={className}>
-              <UiBgContainer color="opaqueBlack" className={styles['content-box']}>
+              <UiBgContainer color="opaque" className={styles['content-box']}>
                 <Dialog.Panel>
                   <Dialog.Title>
                     {renderTitle?.()}

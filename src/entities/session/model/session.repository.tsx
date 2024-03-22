@@ -1,15 +1,22 @@
+import { useStateObject } from "@/shared/lib/utils/state-object";
 import { Session } from "./types";
 
 export function useSessionRepository() {
-  const saveSession = (session: Session) => 
-    localStorage.setItem('session', JSON.stringify(session));
+  const session = useStateObject(
+    localStorage.getItem('session') ? JSON.parse(localStorage.getItem('session')!) : null
+  );
 
-  const getSession = (): Session | null => {
-    const session = localStorage.getItem('session');
-    return session ? JSON.parse(session) : null;
+  const saveSession = (value: Session) => {
+    localStorage.setItem('session', JSON.stringify(value));
+    session.setValue(value);
   }
 
-  const removeSession = () => localStorage.removeItem('session');
+  const getSession = (): Session | null => session.value;
+
+  const removeSession = () => {
+    localStorage.removeItem('session')
+    session.setValue(null)
+  };
 
   return { saveSession, getSession, removeSession };
 }

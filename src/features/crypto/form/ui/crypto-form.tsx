@@ -45,13 +45,15 @@ export function CryptoForm({
             onSubmit={handleSubmit(onSubmit)}
           >
             <UiInput 
-              control={control} 
+              control={control}
+              color="opaque"
               name="shortName"
               rules={{ required: true }}
               label="Name" 
               placeholder="Short name of crypto"/>
             <UiInput 
-              control={control} 
+              control={control}
+              color="opaque"
               name="fullName" 
               rules={{ required: true }} 
               label="Full name" 

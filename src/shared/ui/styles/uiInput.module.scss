@@ -6,9 +6,11 @@
   gap: var(--gap-content);
 }
 
-.padding {
+.padding-flex {
   padding: 0;
-  height: 2rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
 }
 
 .padding-input {

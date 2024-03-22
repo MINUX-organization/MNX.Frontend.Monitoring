@@ -57,12 +57,14 @@ export function WalletForm({
             <UiInput 
               control={control} 
               name="name"
+              color="opaque"
               rules={{ required: true }}
               label="Name" 
               placeholder="Name of wallet"/>
             <UiInput 
               control={control} 
-              name="address" 
+              name="address"
+              color="opaque"
               rules={{ required: true }} 
               label="Address" 
               placeholder="Address of wallet"
