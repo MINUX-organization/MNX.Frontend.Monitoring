@@ -58,14 +58,16 @@ export function EditPoolForm({
         onSubmit={handleSubmit(onSubmit)}
       >
         <UiInput 
-          control={control} 
+          control={control}
           name="domain"
+          color="opaqueBlack"
           rules={{ required: true }}
           label="Domain" 
           placeholder="Domain of pool"/>
         <UiInput 
           control={control} 
-          name="port" 
+          name="port"
+          color="opaqueBlack"
           rules={{ required: true }} 
           label="Address" 
           placeholder="Port of pool"
@@ -77,6 +79,7 @@ export function EditPoolForm({
           render={({ field: {onChange} }) => 
             <UiComboBox
               title="Coin"
+              color="opaqueBlack"
               options={cryptosList}
               selectedOption={selectedCrypto}
               selectedOnChange={onChange}

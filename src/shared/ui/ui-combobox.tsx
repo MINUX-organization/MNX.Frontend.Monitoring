@@ -11,6 +11,7 @@ export function UiComboBox<T>({
   className,
   title,
   options,
+  color,
   placeholder,
   getOptionLabel,
   selectedOption,
@@ -19,6 +20,7 @@ export function UiComboBox<T>({
   className?: string;
   title?: string;
   placeholder?: string;
+  color?: 'opaque' | 'opaqueBlack' | 'transparent';
   options?: T[];
   selectedOption?: string;
   getOptionLabel: (option: T) => string;
@@ -39,7 +41,7 @@ export function UiComboBox<T>({
       <Combobox value={selectedOption} onChange={selectedOnChange}>
         <div>
         <UiBorderBox className={styles['select']}>
-          <UiBgContainer className={styles['select-container']} color="opaque">
+          <UiBgContainer className={styles['select-container']} color={color ?? 'opaque'}>
             <Combobox.Input 
               className={styles['input']}
               placeholder={placeholder} 
@@ -50,7 +52,14 @@ export function UiComboBox<T>({
             </Combobox.Button>
           </UiBgContainer>
         </UiBorderBox>
-        <Combobox.Options className={styles['options']}>
+        <Combobox.Options className={clsx(
+          styles['options'],
+          {
+            'opaque': styles['opaque'],
+            'opaqueBlack': styles['opaque-black'],
+            'transparent': styles['transparent']
+          }[color ?? "opaque"]
+        )}>
           {!filteredOptions || filteredOptions.length === 0 && 
             <span className={clsx(styles['no-options'], styles['text-gray'])}>
               There are no options...

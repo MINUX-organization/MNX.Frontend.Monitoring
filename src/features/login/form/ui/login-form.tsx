@@ -29,7 +29,6 @@ export function LoginForm({
       password: ""
     },
   })
-  
 
   const onSubmit: SubmitHandler<FormInput> = (data) => {
     /// fetch auth
@@ -39,7 +38,7 @@ export function LoginForm({
       access_expires_in: 'string',
       refresh_expires_in: 'string'
     }
-    
+
     saveSession(session);
     setIsAuthenticated(true);
     

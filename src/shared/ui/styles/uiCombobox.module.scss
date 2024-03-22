@@ -21,7 +21,6 @@
     overflow-y: auto;
     min-height: 2rem;
     max-height: 12rem;
-    background-color: var(--color-container-opaque);
     border: var(--border);
     border-top: none;
     position: absolute;
@@ -54,4 +53,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.opaque {
+  background-color: var(--color-container-opaque);
+}
+
+.opaque-black {
+  background-color: var(--color-container-opaque-black);
+}
+
+.transparent {
+  background-color: var(--color-cotainer-transparent);
 }

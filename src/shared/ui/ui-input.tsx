@@ -5,7 +5,7 @@ import { UiBorderBox } from "./ui-border-box";
 import { UiBgContainer } from "./ui-bg-container";
 
 type UiInputProps<T extends FieldValues> = {
-  color: 'opaque' | 'opaqueBlack' | 'transparent';
+  color?: 'opaque' | 'opaqueBlack' | 'transparent';
   label?: string;
   className?: string;
   placeholder?: string
@@ -23,7 +23,7 @@ export function UiInput<T extends FieldValues>({
     <div className={clsx(className, styles['input'])} {...props}>
       <label>{label}</label>
       <UiBorderBox className={styles['input-container']}>
-        <UiBgContainer className={styles['padding-flex']} color={color}>
+        <UiBgContainer className={styles['padding-flex']} color={color ?? 'opaque'}>
           <input {...field} type={props.type} className={styles['padding-input']} placeholder={placeholder}/>
         </UiBgContainer>
       </UiBorderBox>

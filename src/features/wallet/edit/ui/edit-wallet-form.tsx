@@ -60,12 +60,14 @@ export function EditWalletForm({
         <UiInput 
           control={control} 
           name="name"
+          color="opaqueBlack"
           rules={{ required: true }}
           label="Name" 
           placeholder="Name of wallet"/>
         <UiInput 
           control={control} 
-          name="address" 
+          name="address"
+          color="opaqueBlack"
           rules={{ required: true }} 
           label="Address" 
           placeholder="Address of wallet"
@@ -77,6 +79,7 @@ export function EditWalletForm({
           render={({ field: {onChange} }) => 
             <UiComboBox
               title="Coin"
+              color="opaqueBlack"
               options={cryptosList}
               selectedOption={selectedCrypto}
               selectedOnChange={onChange}
