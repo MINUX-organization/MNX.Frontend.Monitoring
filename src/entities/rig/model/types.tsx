@@ -34,14 +34,14 @@ export type RigAverageTemperature = z.infer<typeof RigAverageTemperature>;
 export const RigPower = MeasureUnit
 export type RigPower = z.infer<typeof RigPower>
 
-export const RigFlightSheetInfo = z.object({
+export const RigCoinInfo = z.object({
   coin: z.string({invalid_type_error: 'Coin must be a string'}),
   flightSheet: z.string({invalid_type_error: 'FlightSheet must be a string'}),
   miner: z.string({invalid_type_error: 'Miner must be a string'}),
   hashrate: MeasureUnit,
   shares: RigShares
 })
-export type RigFlightSheetInfo = z.infer<typeof RigFlightSheetInfo>
+export type RigCoinInfo = z.infer<typeof RigCoinInfo>
 
 export const RigLocalIp = z.string({invalid_type_error: 'RigLocalIp must be a string'});
 export type RigLocalIp = z.infer<typeof RigLocalIp>;
@@ -58,6 +58,16 @@ export type RigAmdCount = z.infer<typeof RigAmdCount>;
 export const RigIntelCount = z.number({invalid_type_error: 'RigIntelCount must be a number'});
 export type RigIntelCount = z.infer<typeof RigIntelCount>;
 
+export type RigInfo = {
+  miningUpTime: string;
+  bootedUpTime: string;
+  localIp: string;
+  minuxVersion: string;
+  nvidiaCount: number;
+  amdCount: number;
+  intelCount: number;
+}
+
 export const Rig = z.object({
   id: RigId,
   name: RigName.optional(),
@@ -69,7 +79,7 @@ export const Rig = z.object({
   averageTemperature: RigAverageTemperature.optional(),
   fanSpeed: z.number({invalid_type_error: 'Fan must be a string'}).optional(),
   power: RigPower.optional(),
-  flightSheetInfo: RigFlightSheetInfo.array().optional(),
+  coinInfo: RigCoinInfo.array().optional(),
   miningUpTime: z.string({invalid_type_error: 'MiningUpTime must be a string'}).optional(),
   bootedUpTime: z.string({invalid_type_error: 'BootedUpTime must be a string'}).optional(),
   localIp: RigLocalIp.optional(),
@@ -80,12 +90,10 @@ export const Rig = z.object({
 }).nullable();
 export type Rig = z.infer<typeof Rig>
 
-export type RigInfo = {
-  miningUpTime: string;
-  bootedUpTime: string;
-  localIp: string;
-  minuxVersion: string;
-  nvidiaCount: number;
-  amdCount: number;
-  intelCount: number;
-}
+export const RigTotal = z.object({
+  id: RigId,
+  name: RigName.optional(),
+  isActive: RigIsActive.optional(),
+  onlineState: RigOnlineState.optional(),
+
+})

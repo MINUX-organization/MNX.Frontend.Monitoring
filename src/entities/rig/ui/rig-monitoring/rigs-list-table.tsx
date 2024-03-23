@@ -1,7 +1,7 @@
 import clsx from "clsx"
 import _ from "lodash"
 import React, { ReactNode } from "react" 
-import { Rig as Type } from "../model/types"
+import { Rig as Type } from "../../model/types"
 import styles from './styles/rigsList.module.scss'
 import { UiBorderBox } from "@/shared/ui/ui-border-box"
 

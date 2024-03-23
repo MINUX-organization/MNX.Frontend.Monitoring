@@ -1,6 +1,6 @@
 import { UiBgContainer } from "@/shared/ui/ui-bg-container";
 import styles from './styles/rigItemPanel.module.scss';
-import { Rig as Type } from "../model/types"
+import { Rig as Type } from "../../model/types"
 import { Circle } from 'lucide-react';
 import { match } from "ts-pattern";
 import clsx from "clsx";

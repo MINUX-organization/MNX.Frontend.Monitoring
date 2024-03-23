@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import styles from './styles/rigItemInfo.module.scss';
 import _ from "lodash";
-import { RigInfo } from "../model/types";
+import { RigInfo } from "../../model/types";
 import { UiAside } from "@/shared/ui/ui-aside";
 
 export function RigItemInfo({ 

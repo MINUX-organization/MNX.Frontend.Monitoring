@@ -7,7 +7,7 @@ import { match } from "ts-pattern";
 import _ from "lodash";
 import { 
   RigAmdCount,
-  RigFlightSheetInfo,
+  RigCoinInfo,
   RigGpusState,
   RigIntelCount,
   RigIsActive,
@@ -120,10 +120,10 @@ export function useRigsDataSignalTrigger() {
           })
         })
         .with({ type: 'FlightSheet' }, ({ newData }) => {
-          ZodSaveParse(newData, RigFlightSheetInfo.array(), (checkedData) => {
+          ZodSaveParse(newData, RigCoinInfo.array(), (checkedData) => {
             updateRigProperty(rigsList, data.rigId, (rig) => {
               if (!rig) return;
-              rig.flightSheetInfo = checkedData;
+              rig.coinInfo = checkedData;
             });
           })
         })
