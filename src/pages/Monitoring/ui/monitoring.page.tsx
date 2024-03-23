@@ -9,7 +9,7 @@ import styles from './monitoring.page.module.scss'
 import { WebsocketContextProvider } from "@/shared/lib/providers/websocket-provider";
 import { useTotalDataSignalTrigger } from "../lib/hooks/total-data-signal-trigger";
 import { MemoizedChangeChartCoinsList } from "@/features/chart/change-coin-chart";
-import { MemoizedRigItem, MemoizedRigsList } from "@/entities/rig";
+import { MemoizedRigItem, MemoizedRigsListTable } from "@/entities/rig";
 import { MemoizedCoinChart } from "@/entities/chart";
 import { PowerOffButton } from "@/features/rig/power-off";
 import { StartStopMiningButton } from "@/features/rig/start-stop-mining";
@@ -52,7 +52,7 @@ export function Monitoring() {
             renderCoinList={() => <MemoizedChangeChartCoinsList coinsList={chartCoinsList}/>}/> 
         </article>
         <article className={styles['slot-3']}>
-            <MemoizedRigsList 
+            <MemoizedRigsListTable 
               rigsList={rigsList}
               renderRigItem={(rig) => (
                 <MemoizedRigItem

@@ -1,0 +1,1 @@
+export { Rigs } from './ui/rigs.page'

@@ -1,11 +1,11 @@
 import clsx from "clsx"
 import _ from "lodash"
-import React, { ReactNode, Suspense } from "react" 
+import React, { ReactNode } from "react" 
 import { Rig as Type } from "../model/types"
 import styles from './styles/rigsList.module.scss'
 import { UiBorderBox } from "@/shared/ui/ui-border-box"
 
-function RigsList({
+function RigsListTable({
   className,
   rigsList,
   renderRigItem
@@ -35,18 +35,12 @@ function RigsList({
             {label}
           </span>
         ))}
-      </div> 
-      <Suspense fallback={isLoading()}>
+      </div>
         <UiBorderBox className={styles['table-items']} withPadding>
           {_.map(rigsList, (rig) => renderRigItem?.(rig))}
         </UiBorderBox>
-      </Suspense>
     </div>
   )
 }
 
-export const MemoizedRigsList = React.memo(RigsList);
-
-function isLoading() {
-  return <h2>Loading...</h2>
-}
+export const MemoizedRigsListTable = React.memo(RigsListTable);
