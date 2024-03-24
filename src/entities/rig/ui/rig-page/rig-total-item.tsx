@@ -1,23 +1,32 @@
-import { UiBorderBox } from "@/shared/ui/ui-border-box";
+import { useStateObject } from '@/shared/lib/utils/state-object';
 import styles from './styles/rigTotalItem.module.scss';
-import clsx from "clsx";
-import { UiBgContainer } from "@/shared/ui/ui-bg-container";
+import { RigTotal } from "../../model/types";
+import { ReactNode } from "react";
+import clsx from 'clsx';
+
 
 export function RigTotalItem({
-  className
+  className,
+  rig,
+  withFeatures = false,
+  renderItemPanel,
+  renderItemInfo
 } : {
   className?: string;
-  
+  rig?: RigTotal;
+  withFeatures?: boolean;
+  renderItemPanel?: (rig?: RigTotal, setIsOpen?: (isOpen: boolean) => void) => ReactNode;
+  renderItemInfo?: (rig?: RigTotal) => ReactNode;
 }) {
-  return (
-    <UiBorderBox className={clsx(
-        className,
-        styles['rig-total-item']
-      )}
-    >
-      <UiBgContainer color="opaque">
+  const isOpen = useStateObject(!withFeatures);
 
-      </UiBgContainer>
-    </UiBorderBox>
+  return (
+    <div className={clsx(
+      className,
+      styles['rig-total-item']
+    )}>
+      {renderItemPanel?.(rig, isOpen.setValue)}
+      {isOpen && renderItemInfo?.(rig)}
+    </div>
   )
 }

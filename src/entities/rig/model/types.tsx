@@ -91,6 +91,7 @@ export const Rig = z.object({
 export type Rig = z.infer<typeof Rig>
 
 export const RigTotalGpusCount = z.object({
+  total: z.number({invalid_type_error: 'Total must be a number'}),
   nvidia: RigNvidiaCount,
   amd: RigAmdCount,
   intel: RigIntelCount
@@ -98,6 +99,7 @@ export const RigTotalGpusCount = z.object({
 export type RigTotalGpusCount = z.infer<typeof RigTotalGpusCount>
 
 export const RigTotalCpusCount = z.object({
+  total: z.number({invalid_type_error: 'Total must be a number'}),
   nvidia: RigNvidiaCount,
   amd: RigAmdCount,
   intel: RigIntelCount
@@ -135,3 +137,4 @@ export const RigTotal = z.object({
   info: RigTotalInfo,
   flightSheetsList: RigFlightSheetsList.array()
 })
+export type RigTotal = z.infer<typeof RigTotal>
