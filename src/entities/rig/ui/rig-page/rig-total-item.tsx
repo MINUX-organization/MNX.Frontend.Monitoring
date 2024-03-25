@@ -29,7 +29,7 @@ export function RigTotalItem({
       styles['rig-total-item']
     )}>
       {renderItemPanel?.(rig, isOpen.setValue)}
-      {isOpen && renderItemInfo?.(rig)}
+      {isOpen.value && renderItemInfo?.(rig)}
     </div>
   )
 }

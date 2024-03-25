@@ -42,8 +42,8 @@ export function RigTotalItemInfo({
       styles['rig-total-item-info']
     )}>
       <UiBgContainer color="opaque" className={styles['container']}>
-        {_.map(fields, (column) => (
-          <div key={column[0].label} className={styles['column']}>
+        {_.map(fields, (column, index) => (
+          <div key={column[index].label} className={styles['column']}>
             {_.map(column, (field) => (
               <div key={field.label} className={styles['field']}>
                 <span className={styles['label']}>{field.label}</span>
@@ -52,6 +52,16 @@ export function RigTotalItemInfo({
             ))}
           </div>
         ))}
+        <div className={styles['flight-sheets-list']}>
+          <span className={styles['title']}>Flight Sheets</span>
+          {_.map(rig.flightSheetsList, (flightSheet) => (
+            <div key={flightSheet.name} className={styles['flight-sheet']}>
+              <span className={styles['name']}>{flightSheet.name}</span>
+              <span className={styles['sep']}>-</span>
+              <span className={styles['value']}>{flightSheet.coinsList.join(', ')}</span>
+            </div>
+          ))}
+        </div>
       </UiBgContainer>
     </UiBorderBox>
   )

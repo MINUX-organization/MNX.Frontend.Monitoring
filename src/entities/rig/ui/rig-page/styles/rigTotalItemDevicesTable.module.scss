@@ -2,8 +2,7 @@
   display: flex;
   gap: 0.375rem;
   .table {
-    display: grid;
-    grid-template-columns: repeat(4, auto);
+    display: flex;
     gap: .25rem;
     
     .table-item {

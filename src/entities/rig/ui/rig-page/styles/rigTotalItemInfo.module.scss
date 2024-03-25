@@ -5,16 +5,50 @@
   .container {
     display: grid;
     grid-template-columns: repeat(3, 1fr) minmax(auto, 360px);
+    gap: 1rem;
 
     .column {
       display: flex;
       flex-direction: column;
+      gap: var(--gap-field);
 
       .field {
         display: flex;
         justify-content: space-between;
+        gap: var(--gap-field);
 
         .label {
+          color: var(--color-font-gray);
+        }
+      }
+    }
+
+    .flight-sheets-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+
+      .title {
+        background-color: var(--color-bg-lighter);
+        color: var(--color-font-gray);
+        text-align: center;
+      }
+
+      .flight-sheet {
+        display: grid;
+        padding: 0 var(--gap-field);
+        grid-template-columns: 1fr 0.35rem 1fr;
+
+        .naem {
+          text-align: start;
+        }
+
+        .sep {
+          text-align: center;
+        }
+
+        .value  {
+          text-align: end;
           color: var(--color-font-gray);
         }
       }

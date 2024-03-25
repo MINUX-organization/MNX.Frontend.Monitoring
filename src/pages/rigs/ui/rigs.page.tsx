@@ -1,6 +1,6 @@
 import { UiSelect } from '@/shared/ui/ui-select';
 import styles from './rigs.page.module.scss';
-import { RigTotal, RigTotalItem, RigTotalItemPanel } from '@/entities/rig';
+import { RigTotal, RigTotalItem, RigTotalItemInfo, RigTotalItemPanel } from '@/entities/rig';
 import { OnOpen } from '@/features/rig/on-open';
 import { Settings } from '@/features/rig/settings';
 
@@ -78,6 +78,7 @@ export function Rigs() {
             renderOnOpen={(setIsOpen) => <OnOpen setIsOpen={setIsOpen}/>}
             renderSetting={(index) => <Settings index={index} />}
           />} 
+        renderItemInfo={(rig) => <RigTotalItemInfo rig={rig} />}
       />
     </div>
   )
