@@ -1,6 +1,7 @@
 import { UiSelect } from '@/shared/ui/ui-select';
 import styles from './rigs.page.module.scss';
-import { RigTotalItem, RigTotalItemDevicesTable, RigTotalItemPanel } from '@/entities/rig';
+import { RigTotalItem, RigTotalItemPanel } from '@/entities/rig';
+import { OnOpen } from '@/features/rig/on-open';
 
 export function Rigs() {
   const options = [
@@ -20,9 +21,13 @@ export function Rigs() {
       />
       <RigTotalItem 
         className={styles['rig-total-item']}
-        withFeatures
-        renderItemPanel={(rig, setIsOpen) => <RigTotalItemPanel rig={rig} setIsOpen={setIsOpen}/>}
-        
+        withFeatures={true}
+        renderItemPanel={(rig, setIsOpen) => 
+          <RigTotalItemPanel 
+            rig={rig} 
+            setIsOpen={setIsOpen}
+            renderOnOpen={(setIsOpen) => <OnOpen setIsOpen={setIsOpen}/>}
+          />} 
       />
     </div>
   )
