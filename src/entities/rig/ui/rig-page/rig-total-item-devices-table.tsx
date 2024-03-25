@@ -5,23 +5,23 @@ import styles from './styles/rigTotalItemDevicesTable.module.scss';
 export function RigTotalItemDevicesTable({
   rig
 } : {
-  rig?: RigTotal
+  rig: RigTotal
 }) {
   const gpusLabelsList = [
-    {label: 'GPU', value: rig?.totalGpusCount.total ?? 'N/A'},
-    {label: 'NVD', value: rig?.totalGpusCount.nvidia ?? 'N/A', color: 'green'},
-    {label: 'AMD', value: rig?.totalGpusCount.amd ?? 'N/A', color: 'red'},
-    {label: 'INT', value: rig?.totalGpusCount.intel ?? 'N/A', color: 'blue'},
+    {label: 'GPU', value: rig.totalGpusCount.total},
+    {label: 'NVD', value: rig.totalGpusCount.nvidia, color: 'green'},
+    {label: 'AMD', value: rig.totalGpusCount.amd, color: 'red'},
+    {label: 'INT', value: rig.totalGpusCount.intel, color: 'blue'},
   ];
 
   const cpusLabelsList = [
-    {label: 'CPU', value: rig?.totalCpusCount.total ?? 'N/A'},
-    {label: 'AMD', value: rig?.totalCpusCount.amd ?? 'N/A', color: 'red'},
-    {label: 'INT', value: rig?.totalCpusCount.intel ?? 'N/A', color: 'blue'},
+    {label: 'CPU', value: rig.totalCpusCount.total},
+    {label: 'AMD', value: rig.totalCpusCount.amd, color: 'red'},
+    {label: 'INT', value: rig.totalCpusCount.intel, color: 'blue'},
   ];
 
   const hddsLabelsList = [
-    {label: 'HDD', value: rig?.totalHddsCount ?? 'N/A'},
+    {label: 'HDD', value: rig.totalHddsCount},
   ];
 
   return (

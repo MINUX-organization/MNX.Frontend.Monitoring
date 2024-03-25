@@ -5,5 +5,19 @@
   .container {
     display: grid;
     grid-template-columns: repeat(3, 1fr) minmax(auto, 360px);
+
+    .column {
+      display: flex;
+      flex-direction: column;
+
+      .field {
+        display: flex;
+        justify-content: space-between;
+
+        .label {
+          color: var(--color-font-gray);
+        }
+      }
+    }
   }
 }
