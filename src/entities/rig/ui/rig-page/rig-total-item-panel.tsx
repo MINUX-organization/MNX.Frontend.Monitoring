@@ -7,6 +7,7 @@ import { Circle } from 'lucide-react';
 import { match } from 'ts-pattern';
 import { UiBgContainer } from '@/shared/ui/ui-bg-container';
 import { RigTotalItemDevicesTable } from './rig-total-item-devices-table';
+import { UiActiveState } from '@/shared/ui/ui-active-state';
 
 const green = '#43C09B';
 const red = '#FC4E4E';
@@ -26,10 +27,6 @@ export function RigTotalItemPanel({
   renderSetting?: (index: number) => ReactNode;
   renderOnOpen?: (setIsOpen?: Dispatch<React.SetStateAction<boolean>>) => ReactNode;
 }) {
-  const isActiveIcon = match(rig?.isActive)
-    .with(true, () => <Circle fill={green} color={green} size={15}/>)
-    .otherwise(() => <Circle fill={red} color={red} size={15}/>)
-
   return (
     <UiBorderBox className={clsx(
         className,
@@ -37,10 +34,12 @@ export function RigTotalItemPanel({
       )}
     >
     <UiBgContainer className={styles['grid']} color="opaque">
-      {isActiveIcon}
       <span className={styles['index']}>
-        <span className={styles['blue']}>ID</span>&nbsp;
-        {rig.index}
+        <UiActiveState isActive={rig.isActive} />
+        <span>
+          <span className={styles['blue']}>ID</span>&nbsp;
+          {rig.index}
+        </span>
       </span>
       <span className={styles['name']}>{rig.name}</span>
       {renderEdit?.()}

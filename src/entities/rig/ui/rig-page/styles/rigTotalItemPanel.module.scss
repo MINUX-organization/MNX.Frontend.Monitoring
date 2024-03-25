@@ -9,6 +9,12 @@
     align-items: center;
     gap: .5rem;
 
+    .index {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
     .name {
       font-size: var(--font-size-20px);
     }
