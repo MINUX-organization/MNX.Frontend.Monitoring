@@ -6,20 +6,20 @@ import clsx from 'clsx';
 
 
 export function RigTotalItem({
-  className,
   rig,
-  withFeatures = false,
+  className,
+  withFeatures,
   renderItemPanel,
   renderItemInfo
 } : {
+  rig: RigTotal;
   className?: string;
-  rig?: RigTotal;
   withFeatures?: boolean;
   renderItemPanel?: (
-    rig?: RigTotal, 
-    setIsOpen?: Dispatch<SetStateAction<boolean>>
+    rig: RigTotal, 
+    setIsOpen: Dispatch<SetStateAction<boolean>>
   ) => ReactNode;
-  renderItemInfo?: (rig?: RigTotal) => ReactNode;
+  renderItemInfo?: (rig: RigTotal) => ReactNode;
 }) {
   const isOpen = useStateObject(!withFeatures);
 

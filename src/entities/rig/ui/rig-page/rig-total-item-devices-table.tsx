@@ -17,7 +17,7 @@ export function RigTotalItemDevicesTable({
   const cpusLabelsList = [
     {label: 'CPU', value: rig?.totalCpusCount.total ?? 'N/A'},
     {label: 'AMD', value: rig?.totalCpusCount.amd ?? 'N/A', color: 'red'},
-    {label: 'NVD', value: rig?.totalCpusCount.nvidia ?? 'N/A', color: 'green'},
+    {label: 'INT', value: rig?.totalCpusCount.intel ?? 'N/A', color: 'blue'},
   ];
 
   const hddsLabelsList = [

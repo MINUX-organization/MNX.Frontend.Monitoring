@@ -11,6 +11,8 @@ export function OnOpen({
   const onOpen = () => setIsOpen && setIsOpen((prev) => !prev)
 
   return (
-    <ChevronDown width={30} className={className} onClick={onOpen} />
+    <button className={className}>
+      <ChevronDown size={30} onClick={onOpen} />
+    </button>
   )
 }

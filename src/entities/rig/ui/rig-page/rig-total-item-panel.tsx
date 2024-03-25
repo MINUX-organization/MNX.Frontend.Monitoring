@@ -20,10 +20,10 @@ export function RigTotalItemPanel({
   renderOnOpen
 } : {
   className?: string;
-  rig?: RigTotal
-  setIsOpen?: Dispatch<React.SetStateAction<boolean>>;
+  rig: RigTotal
+  setIsOpen: Dispatch<React.SetStateAction<boolean>>;
   renderEdit?: () => ReactNode;
-  renderSetting?: () => ReactNode;
+  renderSetting?: (index: number) => ReactNode;
   renderOnOpen?: (setIsOpen?: Dispatch<React.SetStateAction<boolean>>) => ReactNode;
 }) {
   const isActiveIcon = match(rig?.isActive)
@@ -38,20 +38,20 @@ export function RigTotalItemPanel({
     >
     <UiBgContainer className={styles['grid']} color="opaque">
       {isActiveIcon}
-      <span className={styles['id']}>
+      <span className={styles['index']}>
         <span className={styles['blue']}>ID</span>&nbsp;
-        {rig?.id ?? 'N/A'}
+        {rig.index}
       </span>
-      <span className={styles['name']}>{rig?.name ?? 'N/A'}</span>
+      <span className={styles['name']}>{rig.name}</span>
       {renderEdit?.()}
       <RigTotalItemDevicesTable rig={rig} />
       <span>
-        {rig?.totalWatt.value ?? 'N/A'}&nbsp;
-        <span className={styles['blue']}>{rig?.totalWatt.measureUnit}</span>
+        {rig.totalWatt.value}&nbsp;
+        <span className={styles['blue']}>{rig.totalWatt.measureUnit}</span>
       </span>
       {setIsOpen && 
         <div className={styles['features']}>
-          {renderSetting?.()}
+          {renderSetting?.(rig.index)}
           {renderOnOpen?.(setIsOpen)}
         </div>}
     </UiBgContainer>

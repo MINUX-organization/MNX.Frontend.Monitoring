@@ -1,0 +1,9 @@
+.rig-total-item-info {
+  height: auto;
+  border-top: none;
+
+  .container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr) minmax(auto, 360px);
+  }
+}
