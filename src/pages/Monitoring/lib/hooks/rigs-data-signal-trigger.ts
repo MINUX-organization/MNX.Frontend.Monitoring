@@ -1,4 +1,4 @@
-import { Rig as Type } from "@/entities/rig";
+import { Rig } from "@/entities/rig";
 import { WebsocketContext } from "@/shared/lib/providers/websocket-provider";
 import { useStateObject } from "@/shared/lib/utils/state-object";
 import { TriggerRigData, TriggerRigDataStatic } from "../../model/types";
@@ -21,12 +21,12 @@ import { updateRigProperty } from '../utils/update-rig-property'
 import { BACKEND_TRIGGERS } from "@/shared/constants/backend-triggers";
 
 export function useRigsDataSignalTrigger() {
-  const rigsList = useStateObject<Type[]>();
+  const rigsList = useStateObject<Rig[]>();
   
   WebsocketContext.useSignalREffect(
     BACKEND_TRIGGERS.RECEIVED_RIGS_INFORMATION,
     (data: unknown) => {
-      ZodSaveParse(data, Type.array(), (checkedData) => {
+      ZodSaveParse(data, Rig.array(), (checkedData) => {
         rigsList.setValue(checkedData) 
       })
     },
@@ -36,7 +36,7 @@ export function useRigsDataSignalTrigger() {
   WebsocketContext.useSignalREffect(
     BACKEND_TRIGGERS.RECEIVED_RIGS_STATE,
     (data: unknown) => {
-      ZodSaveParse(data, Type.array(), (checkedData) => { 
+      ZodSaveParse(data, Rig.array(), (checkedData) => { 
         rigsList.setValue(_.merge(rigsList.value, checkedData))
       })
     },
@@ -135,7 +135,7 @@ export function useRigsDataSignalTrigger() {
   WebsocketContext.useSignalREffect(
     BACKEND_TRIGGERS.RECEIVED_RIGS_DYNAMIC_DATA,
     (data: TriggerRigData) => {
-      ZodSaveParse(data, Type.array(), (checkedData) => { 
+      ZodSaveParse(data, Rig.array(), (checkedData) => { 
         rigsList.setValue(_.merge(rigsList.value, checkedData))
       })
     },

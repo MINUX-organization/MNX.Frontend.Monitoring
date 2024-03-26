@@ -54,7 +54,7 @@ export function RigTotalItemInfo({
         ))}
         <div className={styles['flight-sheets-list']}>
           <span className={styles['title']}>Flight Sheets</span>
-          {_.map(rig.flightSheetsList, (flightSheet) => (
+          {_.map(rig.flightSheets, (flightSheet) => (
             <div key={flightSheet.name} className={styles['flight-sheet']}>
               <span className={styles['name']}>{flightSheet.name}</span>
               <span className={styles['sep']}>-</span>

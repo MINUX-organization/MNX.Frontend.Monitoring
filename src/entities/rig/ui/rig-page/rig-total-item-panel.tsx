@@ -3,14 +3,10 @@ import styles from './styles/rigTotalItemPanel.module.scss'
 import { UiBorderBox } from '@/shared/ui/ui-border-box'
 import { RigTotal } from '../../model/types';
 import { Dispatch, ReactNode } from 'react';
-import { Circle } from 'lucide-react';
-import { match } from 'ts-pattern';
 import { UiBgContainer } from '@/shared/ui/ui-bg-container';
 import { RigTotalItemDevicesTable } from './rig-total-item-devices-table';
 import { UiActiveState } from '@/shared/ui/ui-active-state';
-
-const green = '#43C09B';
-const red = '#FC4E4E';
+import { UiWiFiState } from '@/shared/ui/ui-wifi-state';
 
 export function RigTotalItemPanel({
   className,
@@ -24,7 +20,7 @@ export function RigTotalItemPanel({
   rig: RigTotal
   setIsOpen: Dispatch<React.SetStateAction<boolean>>;
   renderEdit?: () => ReactNode;
-  renderSetting?: (index: number) => ReactNode;
+  renderSetting?: (id: string) => ReactNode;
   renderOnOpen?: (setIsOpen?: Dispatch<React.SetStateAction<boolean>>) => ReactNode;
 }) {
   return (
@@ -41,16 +37,19 @@ export function RigTotalItemPanel({
           {rig.index}
         </span>
       </span>
-      <span className={styles['name']}>{rig.name}</span>
-      {renderEdit?.()}
+      <div className={styles['name']}>
+        {rig.name}
+        {renderEdit?.()}
+      </div>
+      <UiWiFiState className={styles['wifi']} onlineState={rig.onlineState} />
       <RigTotalItemDevicesTable rig={rig} />
       <span>
-        {rig.totalWatt.value}&nbsp;
-        <span className={styles['blue']}>{rig.totalWatt.measureUnit}</span>
+        {rig.power.value}&nbsp;
+        <span className={styles['blue']}>{rig.power.measureUnit}</span>
       </span>
       {setIsOpen && 
         <div className={styles['features']}>
-          {renderSetting?.(rig.index)}
+          {renderSetting?.(rig.id)}
           {renderOnOpen?.(setIsOpen)}
         </div>}
     </UiBgContainer>

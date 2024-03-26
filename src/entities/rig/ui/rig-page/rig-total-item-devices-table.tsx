@@ -9,20 +9,20 @@ export function RigTotalItemDevicesTable({
   rig: RigTotal
 }) {
   const gpusLabelsList = [
-    {label: 'GPU', value: rig.totalGpusCount.total, color: 'white'},
-    {label: 'NVD', value: rig.totalGpusCount.nvidia, color: 'green'},
-    {label: 'AMD', value: rig.totalGpusCount.amd, color: 'red'},
-    {label: 'INT', value: rig.totalGpusCount.intel, color: 'blue'},
+    {label: 'GPU', value: rig.gpusCount.total, color: 'white'},
+    {label: 'NVD', value: rig.gpusCount.nvidia, color: 'green'},
+    {label: 'AMD', value: rig.gpusCount.amd, color: 'red'},
+    {label: 'INT', value: rig.gpusCount.intel, color: 'blue'},
   ];
 
   const cpusLabelsList = [
-    {label: 'CPU', value: rig.totalCpusCount.total, color: 'white'},
-    {label: 'AMD', value: rig.totalCpusCount.amd, color: 'red'},
-    {label: 'INT', value: rig.totalCpusCount.intel, color: 'blue'},
+    {label: 'CPU', value: rig.cpusCount.total, color: 'white'},
+    {label: 'AMD', value: rig.cpusCount.amd, color: 'red'},
+    {label: 'INT', value: rig.cpusCount.intel, color: 'blue'},
   ];
 
   const hddsLabelsList = [
-    {label: 'HDD', value: rig.totalHddsCount, color: 'white'},
+    {label: 'HDD', value: rig.hddsCount, color: 'white'},
   ];
 
   const fieldsList = [

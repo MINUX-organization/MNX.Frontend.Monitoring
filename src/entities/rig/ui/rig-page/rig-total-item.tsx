@@ -19,7 +19,7 @@ export function RigTotalItem({
     rig: RigTotal, 
     setIsOpen: Dispatch<SetStateAction<boolean>>
   ) => ReactNode;
-  renderItemInfo?: (rig: RigTotal) => ReactNode;
+  renderItemInfo?: (rig?: RigTotal) => ReactNode;
 }) {
   const isOpen = useStateObject(!withFeatures);
 

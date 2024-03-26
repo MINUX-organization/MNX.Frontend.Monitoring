@@ -5,13 +5,13 @@ import { Link } from "react-router-dom"
 
 export function Settings({ 
   className,
-  index
+  id
 } : { 
   className?: string;
-  index: number;
+  id: string;
 }) {
   return (
-    <Link to={index.toString()} className={clsx(
+    <Link to={id} className={clsx(
       className,
       styles['settings']
     )}>

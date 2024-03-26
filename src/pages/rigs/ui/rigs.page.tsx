@@ -43,12 +43,12 @@ const mockRigTotal: RigTotal = {
   index: 1,
   isActive: true,
   onlineState: '2',
-  totalGpusCount: mockRigTotalGpusCount,
-  totalCpusCount: mockRigTotalCpusCount,
-  totalHddsCount: 2,
-  totalWatt: { value: 1500, measureUnit: 'W' },
+  gpusCount: mockRigTotalGpusCount,
+  cpusCount: mockRigTotalCpusCount,
+  hddsCount: 2,
+  power: { value: 1500, measureUnit: 'W' },
   info: mockRigTotalInfo,
-  flightSheetsList: [mockRigFlightSheetsList],
+  flightSheets: [mockRigFlightSheetsList],
 };
 
 export function Rigs() {
@@ -76,9 +76,9 @@ export function Rigs() {
             rig={rig} 
             setIsOpen={setIsOpen}
             renderOnOpen={(setIsOpen) => <OnOpen setIsOpen={setIsOpen}/>}
-            renderSetting={(index) => <Settings index={index} />}
+            renderSetting={(id) => <Settings id={id} />}
           />} 
-        renderItemInfo={(rig) => <RigTotalItemInfo rig={rig} />}
+        renderItemInfo={(rig) => rig && <RigTotalItemInfo rig={rig} />}
       />
     </div>
   )

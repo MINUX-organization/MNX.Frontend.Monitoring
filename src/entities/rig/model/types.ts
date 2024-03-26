@@ -118,11 +118,11 @@ export const RigTotalInfo = z.object({
 })
 export type RigTotalInfo = z.infer<typeof RigTotalInfo>
 
-export const RigFlightSheetsList = z.object({
+export const RigFlightSheet = z.object({
   name: z.string({invalid_type_error: 'Name must be a string'}),
   coinsList: z.array(z.string({invalid_type_error: 'Coin must be a string'})) 
 })
-export type RigFlightSheetsList = z.infer<typeof RigFlightSheetsList>
+export type RigFlightSheet = z.infer<typeof RigFlightSheet>
 
 export const RigTotal = z.object({
   id: RigId,
@@ -130,11 +130,11 @@ export const RigTotal = z.object({
   index: z.number({invalid_type_error: 'Index must be a number'}),
   isActive: RigIsActive,
   onlineState: RigOnlineState,
-  totalGpusCount: RigTotalGpusCount,
-  totalCpusCount: RigTotalCpusCount,
-  totalHddsCount: z.number({invalid_type_error: 'TotalHddsCount must be a number'}),
-  totalWatt: MeasureUnit,
+  gpusCount: RigTotalGpusCount,
+  cpusCount: RigTotalCpusCount,
+  hddsCount: z.number({invalid_type_error: 'TotalHddsCount must be a number'}),
+  power: MeasureUnit,
   info: RigTotalInfo,
-  flightSheetsList: RigFlightSheetsList.array()
+  flightSheets: RigFlightSheet.array()
 })
 export type RigTotal = z.infer<typeof RigTotal>

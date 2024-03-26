@@ -8,7 +8,7 @@ export function UiActiveState({
   isActive
 } : {
   className?: string;
-  isActive: boolean;
+  isActive?: boolean;
 }) {
   const isActiveIcon = match(isActive)
     .with(true, () => <Circle className={clsx(className, styles['green'])} size={15}/>)
