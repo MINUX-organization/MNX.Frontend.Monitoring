@@ -1,6 +1,7 @@
-export { MemoizedRigsList } from './ui/rigs-list'
-export { MemoizedRigItem } from './ui/rig-item'
-export {
-  Rig,
-
-} from './model/types'
+export { MemoizedRigsListTable } from './ui/rig-monitoring/rigs-list-table'
+export { MemoizedRigItem } from './ui/rig-monitoring/rig-item'
+export { RigTotalItem } from './ui/rig-page/rig-total-item'
+export { RigTotalItemPanel } from './ui/rig-page/rig-total-item-panel'
+export { RigTotalItemInfo } from './ui/rig-page/rig-total-item-info'
+export { Rig } from './model/types'
+export { RigTotal } from './model/types'

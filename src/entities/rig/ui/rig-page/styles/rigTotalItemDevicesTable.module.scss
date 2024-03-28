@@ -1,0 +1,39 @@
+.total-devices {
+  display: flex;
+  gap: 0.375rem;
+  .table {
+    display: flex;
+    gap: .25rem;
+    
+    .table-item {
+      width: 3rem;
+      display: flex;
+      text-align: center;
+      justify-content: space-between;
+      flex-direction: column;
+
+      .label {
+        color: var(--color-font-gray);
+        background-color: var(--color-bg-lighter);
+      }
+    }
+  }
+
+  .line {
+    width: 1px;
+    height: 2.625rem;
+    background-color: var(--color-font-gray);
+  }
+}
+
+.red {
+  color: var(--color-negative);
+}
+
+.green {
+  color: var(--color-positive);
+}
+
+.blue {
+  color: var(--color-measure);
+}

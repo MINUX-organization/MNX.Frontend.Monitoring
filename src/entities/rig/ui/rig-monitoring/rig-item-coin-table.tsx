@@ -1,16 +1,16 @@
 import { UiBgContainer } from "@/shared/ui/ui-bg-container";
-import { RigFlightSheetInfo } from "../model/types";
-import styles from './styles/rigItemFlightSheetTable.module.scss';
+import { RigCoinInfo } from "../../model/types";
+import styles from './styles/rigCoinTable.module.scss';
 import _ from "lodash";
 import clsx from "clsx";
 
-export function RigItemFlightSheetTable({
+export function RigCoinTable({
   className, 
   flightSheets,
   labels,
 }: {
   className?: string;
-  flightSheets?: RigFlightSheetInfo[];
+  flightSheets?: RigCoinInfo[];
   labels?: string[];
 }) {
   return ( 

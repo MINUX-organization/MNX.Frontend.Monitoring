@@ -34,14 +34,14 @@ export type RigAverageTemperature = z.infer<typeof RigAverageTemperature>;
 export const RigPower = MeasureUnit
 export type RigPower = z.infer<typeof RigPower>
 
-export const RigFlightSheetInfo = z.object({
+export const RigCoinInfo = z.object({
   coin: z.string({invalid_type_error: 'Coin must be a string'}),
   flightSheet: z.string({invalid_type_error: 'FlightSheet must be a string'}),
   miner: z.string({invalid_type_error: 'Miner must be a string'}),
   hashrate: MeasureUnit,
   shares: RigShares
 })
-export type RigFlightSheetInfo = z.infer<typeof RigFlightSheetInfo>
+export type RigCoinInfo = z.infer<typeof RigCoinInfo>
 
 export const RigLocalIp = z.string({invalid_type_error: 'RigLocalIp must be a string'});
 export type RigLocalIp = z.infer<typeof RigLocalIp>;
@@ -58,6 +58,16 @@ export type RigAmdCount = z.infer<typeof RigAmdCount>;
 export const RigIntelCount = z.number({invalid_type_error: 'RigIntelCount must be a number'});
 export type RigIntelCount = z.infer<typeof RigIntelCount>;
 
+export type RigInfo = {
+  miningUpTime: string;
+  bootedUpTime: string;
+  localIp: string;
+  minuxVersion: string;
+  nvidiaCount: number;
+  amdCount: number;
+  intelCount: number;
+}
+
 export const Rig = z.object({
   id: RigId,
   name: RigName.optional(),
@@ -69,7 +79,7 @@ export const Rig = z.object({
   averageTemperature: RigAverageTemperature.optional(),
   fanSpeed: z.number({invalid_type_error: 'Fan must be a string'}).optional(),
   power: RigPower.optional(),
-  flightSheetInfo: RigFlightSheetInfo.array().optional(),
+  coinInfo: RigCoinInfo.array().optional(),
   miningUpTime: z.string({invalid_type_error: 'MiningUpTime must be a string'}).optional(),
   bootedUpTime: z.string({invalid_type_error: 'BootedUpTime must be a string'}).optional(),
   localIp: RigLocalIp.optional(),
@@ -80,12 +90,51 @@ export const Rig = z.object({
 }).nullable();
 export type Rig = z.infer<typeof Rig>
 
-export type RigInfo = {
-  miningUpTime: string;
-  bootedUpTime: string;
-  localIp: string;
-  minuxVersion: string;
-  nvidiaCount: number;
-  amdCount: number;
-  intelCount: number;
-}
+export const RigTotalGpusCount = z.object({
+  total: z.number({invalid_type_error: 'Total must be a number'}),
+  nvidia: RigNvidiaCount,
+  amd: RigAmdCount,
+  intel: RigIntelCount
+})
+export type RigTotalGpusCount = z.infer<typeof RigTotalGpusCount>
+
+export const RigTotalCpusCount = z.object({
+  total: z.number({invalid_type_error: 'Total must be a number'}),
+  amd: RigAmdCount,
+  intel: RigIntelCount
+})
+export type RigTotalCpusCount = z.infer<typeof RigTotalCpusCount>
+
+export const RigTotalInfo = z.object({
+  amdVer: z.string({invalid_type_error: 'AmdVer must be a string'}),
+  nvidiaVer: z.string({invalid_type_error: 'NvidiaVer must be a string'}),
+  openClVer: z.string({invalid_type_error: 'OpenClVer must be a string'}),
+  cudaVer: z.string({invalid_type_error: 'CudaVer must be a string'}),
+  linuxVer: z.string({invalid_type_error: 'LinuxVer must be a string'}),
+  minuxVer: z.string({invalid_type_error: 'MinuxVer must be a string'}),
+  mac: z.string({invalid_type_error: 'Mac must be a string'}),
+  globalIp: z.string({invalid_type_error: 'GlobalIp must be a string'}),
+  localIp: z.string({invalid_type_error: 'LocalIp must be a string'}),
+})
+export type RigTotalInfo = z.infer<typeof RigTotalInfo>
+
+export const RigFlightSheet = z.object({
+  name: z.string({invalid_type_error: 'Name must be a string'}),
+  coinsList: z.array(z.string({invalid_type_error: 'Coin must be a string'})) 
+})
+export type RigFlightSheet = z.infer<typeof RigFlightSheet>
+
+export const RigTotal = z.object({
+  id: RigId,
+  name: RigName,
+  index: z.number({invalid_type_error: 'Index must be a number'}),
+  isActive: RigIsActive,
+  onlineState: RigOnlineState,
+  gpusCount: RigTotalGpusCount,
+  cpusCount: RigTotalCpusCount,
+  hddsCount: z.number({invalid_type_error: 'TotalHddsCount must be a number'}),
+  power: MeasureUnit,
+  info: RigTotalInfo,
+  flightSheets: RigFlightSheet.array()
+})
+export type RigTotal = z.infer<typeof RigTotal>

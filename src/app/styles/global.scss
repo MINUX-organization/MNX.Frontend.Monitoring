@@ -1,12 +1,13 @@
 :root {
   --color-bg: #20202A;
+  --color-bg-lighter: #202430;
   --color-container-opaque: #242834;
   --color-container-opaque-black: #1C202B;
   --color-cotainer-transparent: #00000020;
   --color-border-square: #1a1a22;
   --color-font-gray: #ffffff80;
   --color-border: #3C9EA5;
-  
+
   --color-measure: #3C9EA5;
   --color-positive: #43C09B;
   --color-negative: #FC4E4E;
@@ -25,6 +26,7 @@
   --border: solid 1px var(--color-border);
 
   --padding-grid: 0.825rem;
+  --gap-field: 0.25rem;
   --gap-content: 0.375rem;
   --gap-widget: 1.25rem;
 }
@@ -84,7 +86,7 @@ a {
   font-family: "GillSansMT";
   src: local("GillSansMT"),
    url("../../shared/assets/fonts/Gill-Sans-MT.ttf") format("truetype");
-  font-weight: normal;
+  font-weight: 400;
   font-display: fallback;
 }
 
@@ -92,7 +94,7 @@ a {
   font-family: "FaunaPro";
   src: local("FaunaPro"),
    url("../../shared/assets/fonts/FaunaPro-Regular.ttf") format("truetype");
-  font-weight: normal;
+  font-weight: 400;
   font-display: fallback;
 }
 

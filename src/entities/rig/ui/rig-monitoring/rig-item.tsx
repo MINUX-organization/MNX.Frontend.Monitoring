@@ -1,9 +1,9 @@
 import clsx from "clsx"
 import styles from './styles/rigItem.module.scss'
-import { Rig as Type, RigInfo } from "../model/types"
+import { Rig as Type, RigInfo } from "../../model/types"
 import { RigItemPanel } from "./rig-item-panel";
 import { useStateObject } from "@/shared/lib/utils/state-object"; 
-import { RigItemFlightSheetTable } from "./rig-item-flight-sheet-table";
+import { RigCoinTable } from "./rig-item-coin-table";
 import { FeaturesProps, RigItemDropdown } from "./rig-item-dropdown";
 import { RigItemInfo } from "./rig-item-info";
 import React from "react";
@@ -44,7 +44,7 @@ function RigItem({
       <RigItemDropdown
         isOpen={isOpen.value}
         rigFlightSheetRender={() => 
-          <RigItemFlightSheetTable flightSheets={rig?.flightSheetInfo} labels={labels}/>}
+          <RigCoinTable flightSheets={rig?.coinInfo} labels={labels}/>}
         rigInfoRender={() => <RigItemInfo rigInfo={rigInfo}/>}
         renderRigStartStopMining={renderRigStartStopMining}
         renderRigPowerOff={renderRigPowerOff}

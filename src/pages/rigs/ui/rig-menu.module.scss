@@ -1,0 +1,21 @@
+.rig-menu {
+  background-color: var(--color-container-opaque);
+  border: var(--border);
+
+  .link {
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    padding-left: 1rem;
+  }
+}
+
+.inactive-link {
+  &:hover {
+    background-color: var(--color-hover-link-bg);
+  }
+}
+
+.active-link {
+  background-color: var(--color-active-link-bg);
+}

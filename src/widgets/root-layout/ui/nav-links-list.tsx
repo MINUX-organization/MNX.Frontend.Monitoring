@@ -12,7 +12,7 @@ export function NavLinksList({
   const linkClassName = ({ isActive }: { isActive?: boolean }) =>
     clsx(
       !(isActive) && styles['inactive-link'],
-      isActive && styles['active-link']
+      isActive && styles['active-link'],
   );
   return (
     <div className={clsx(

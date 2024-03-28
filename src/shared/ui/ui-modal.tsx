@@ -3,6 +3,7 @@ import { Fragment, ReactNode } from "react";
 import styles from './styles/uiModal.module.scss';
 import { UiBorderBox } from "./ui-border-box";
 import { UiBgContainer } from "./ui-bg-container";
+import clsx from "clsx";
 
 export function UiModal({
   className,
@@ -24,16 +25,16 @@ export function UiModal({
       appear 
       show={isOpen} 
       as={Fragment}
-      enter={styles['animation-enter']}
-      enterFrom={styles['animation-enter-from ']}
-      enterTo={styles['animation-enter-to']}
       leave={styles['animation-leave']}
       leaveFrom={styles['animation-leave-from']}
       leaveTo={styles['animation-leave-to']}
     >
       <Dialog 
         as='div' 
-        className={styles['modal']}
+        className={clsx(
+          styles['modal'],
+          isOpen && styles['open']
+        )}
         onClose={onClose}
       > 
         <div className={styles['background']}/>
