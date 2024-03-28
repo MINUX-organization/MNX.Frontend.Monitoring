@@ -28,12 +28,6 @@
       flex-direction: column;
       gap: 0.25rem;
 
-      .title {
-        background-color: var(--color-bg-lighter);
-        color: var(--color-font-gray);
-        text-align: center;
-      }
-
       .flight-sheet {
         display: grid;
         padding: 0 var(--gap-field);

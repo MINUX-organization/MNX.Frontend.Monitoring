@@ -24,7 +24,7 @@
   @include container();
 
   &:hover {
-    background: linear-gradient(rgba(0, 0, 0, 0), var(--color-hover-link-bg));
+    background: linear-gradient(rgba(0, 0, 0, 0), var(--color-hover-link-bg-gradient));
     padding-top: 1px;
     border-bottom: var(--border);
   }
@@ -37,13 +37,14 @@
   }
   
   &.alt:hover {
+    filter: drop-shadow(0 0 .5rem var(--color-hover-link-bg));
     background: var(--color-hover-link-bg);
   }
 }
 
 .active-link {
   @include container();
-  background: linear-gradient(rgba(0, 0, 0, 0), var(--color-active-link-bg));
+  background: linear-gradient(rgba(0, 0, 0, 0), var(--color-active-link-bg-gradient));
   border-bottom: solid 1px var(--color-active-link-text);
   color: var(--color-active-link-text);
   padding-top: 1px;
@@ -51,6 +52,7 @@
   &.alt {
     background: var(--color-active-link-bg);
     border: solid 1px var(--color-active-link-text);
+    filter: drop-shadow(0 0 .5rem var(--color-active-link-bg));
     border-top: none;
   }
 

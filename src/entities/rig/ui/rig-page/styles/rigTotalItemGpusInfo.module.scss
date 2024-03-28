@@ -1,0 +1,39 @@
+@mixin flex() {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-field);
+}
+
+.rig-gpus-info {
+  display: grid;
+  gap: 1.875rem;
+  grid-template-columns: auto 1fr repeat(2, minmax(13.75rem, auto));
+
+  .gpu {
+    @include flex();
+    justify-content: space-between;
+    align-items: center;
+
+    .gpu-info {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      gap: var(--gap-field);
+    }
+
+    .name {
+      font-size: var(--font-size-18px);
+    }
+  }
+
+  .column {
+    @include flex();
+
+    .item {
+      display: flex;
+      justify-content: space-between;
+      gap: var(--gap-field);
+    }
+  }
+}
+

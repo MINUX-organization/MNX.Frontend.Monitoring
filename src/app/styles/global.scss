@@ -1,4 +1,9 @@
 :root {
+  --color-blue: #3C9EA5;
+  --color-red: #FC4E4E;
+  --color-green: #43C09B;
+  --color-orange: #EC790F;
+
   --color-bg: #20202A;
   --color-bg-lighter: #202430;
   --color-container-opaque: #242834;
@@ -6,16 +11,21 @@
   --color-cotainer-transparent: #00000020;
   --color-border-square: #1a1a22;
   --color-font-gray: #ffffff80;
-  --color-border: #3C9EA5;
+  --color-border: var(--color-blue);
 
-  --color-measure: #3C9EA5;
-  --color-positive: #43C09B;
-  --color-negative: #FC4E4E;
+  --color-measure: var(--color-blue);
+  --color-positive: var(--color-green);
+  --color-negative: var(--color-red);
 
-  --color-active-link-text: #ec790f;
-  --color-active-link-bg: #694a26;
-  --color-hover-link-bg: #2e777c;
-  --color-active-button: #3C9EA5;
+  --color-active-link-text: var(--color-orange);
+  --color-active-link-bg: color-mix(in srgb, var(--color-orange) 100%, black 40%);
+  --color-active-link-bg-gradient: color-mix(in srgb, var(--color-orange) 50%, black 70%);
+  --color-active-button: var(--color-blue);
+  
+  --color-hover-link-bg: color-mix(in srgb, var(--color-blue) 100%, black 40%);
+  --color-hover-link-bg-gradient: color-mix(in srgb, var(--color-blue) 70%, black 70%);
+
+
 
   --font-size-96px: 6rem;
   --font-size-22px: 1.375rem;

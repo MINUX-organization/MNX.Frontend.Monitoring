@@ -47,7 +47,6 @@ export function RigTotalItemPanel({
         <span>
           {rig.power.value}&nbsp;
           <span className={styles['blue']}>{rig.power.measureUnit}</span>
-
         </span>
       </div>
       {setIsOpen && 

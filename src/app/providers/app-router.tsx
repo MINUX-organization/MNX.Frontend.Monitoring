@@ -13,7 +13,7 @@ import { Pools } from "@/pages/pools";
 import PrivateRoute from "../guards/private-route";
 import { Login } from "@/pages/login";
 import { Rigs } from "@/pages/rigs";
-import { Rig } from "@/pages/rig";
+import { Rig, RigGpusInfo } from "@/pages/rig";
 
 const router = createBrowserRouter([
   {
@@ -50,7 +50,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: 'gpus',
-            element: <PrivateRoute children={<Gpus />}/>,
+            element: <PrivateRoute children={<RigGpusInfo />}/>,
           }
         ]
       },
