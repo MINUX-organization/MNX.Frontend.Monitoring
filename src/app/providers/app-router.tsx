@@ -12,7 +12,8 @@ import { Wallets } from "@/pages/wallets";
 import { Pools } from "@/pages/pools";
 import PrivateRoute from "../guards/private-route";
 import { Login } from "@/pages/login";
-import { Rig, Rigs } from "@/pages/rigs";
+import { Rigs } from "@/pages/rigs";
+import { Rig } from "@/pages/rig";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +47,12 @@ const router = createBrowserRouter([
       {
         path: ROUTER_PATHS.RIG,
         element: <PrivateRoute children={<Rig />}/>,
+        children: [
+          {
+            path: 'gpus',
+            element: <PrivateRoute children={<Gpus />}/>,
+          }
+        ]
       },
       {
         path: ROUTER_PATHS.CRYPTOS,

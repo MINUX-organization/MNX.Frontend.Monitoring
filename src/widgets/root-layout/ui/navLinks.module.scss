@@ -44,13 +44,13 @@
 .active-link {
   @include container();
   background: linear-gradient(rgba(0, 0, 0, 0), var(--color-active-link-bg));
-  border-bottom: solid 1px var(--color-active-link);
-  color: var(--color-active-link);
+  border-bottom: solid 1px var(--color-active-link-text);
+  color: var(--color-active-link-text);
   padding-top: 1px;
 
   &.alt {
     background: var(--color-active-link-bg);
-    border: solid 1px var(--color-active-link);
+    border: solid 1px var(--color-active-link-text);
     border-top: none;
   }
 

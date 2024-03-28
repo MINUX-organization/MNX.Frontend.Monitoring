@@ -1,11 +1,11 @@
 import { RigTotalItem, RigTotalItemPanel } from "@/entities/rig";
 import { Outlet, useParams } from "react-router"
-import { mockRigTotal } from "../mocks/mock-rig-total";
+import { mockRigTotal } from "../../rigs/mocks/mock-rig-total";
 import styles from './rig.page.module.scss'
 import { RigMenu } from "./rig-menu";
 
 export function Rig() {
-  const { id } = useParams();
+  const { rigId } = useParams();
   
   return (
     <div className={styles['rig-page']}>
