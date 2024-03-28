@@ -12,7 +12,7 @@ import { Wallets } from "@/pages/wallets";
 import { Pools } from "@/pages/pools";
 import PrivateRoute from "../guards/private-route";
 import { Login } from "@/pages/login";
-import { Rigs } from "@/pages/rigs";
+import { Rig, Rigs } from "@/pages/rigs";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +42,10 @@ const router = createBrowserRouter([
       {
         path: ROUTER_PATHS.RIGS,
         element: <PrivateRoute children={<Rigs />}/>
+      },
+      {
+        path: ROUTER_PATHS.RIG,
+        element: <PrivateRoute children={<Rig />}/>,
       },
       {
         path: ROUTER_PATHS.CRYPTOS,

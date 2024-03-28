@@ -18,7 +18,7 @@ export function RigTotalItemPanel({
 } : {
   className?: string;
   rig: RigTotal
-  setIsOpen: Dispatch<React.SetStateAction<boolean>>;
+  setIsOpen?: Dispatch<React.SetStateAction<boolean>>;
   renderEdit?: () => ReactNode;
   renderSetting?: (id: string) => ReactNode;
   renderOnOpen?: (setIsOpen?: Dispatch<React.SetStateAction<boolean>>) => ReactNode;
@@ -41,12 +41,15 @@ export function RigTotalItemPanel({
         {rig.name}
         {renderEdit?.()}
       </div>
-      <UiWiFiState className={styles['wifi']} onlineState={rig.onlineState} />
       <RigTotalItemDevicesTable rig={rig} />
-      <span>
-        {rig.power.value}&nbsp;
-        <span className={styles['blue']}>{rig.power.measureUnit}</span>
-      </span>
+      <div className={styles['states']}>
+        <UiWiFiState className={styles['wifi']} onlineState={rig.onlineState} />
+        <span>
+          {rig.power.value}&nbsp;
+          <span className={styles['blue']}>{rig.power.measureUnit}</span>
+
+        </span>
+      </div>
       {setIsOpen && 
         <div className={styles['features']}>
           {renderSetting?.(rig.id)}

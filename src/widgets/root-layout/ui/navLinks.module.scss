@@ -5,7 +5,6 @@
   align-self: flex-end;
   height: 3.125rem;
   font-size: var(--font-size-22px);
-
   gap: 0.3125rem;
 }
 
@@ -23,12 +22,16 @@
 
 .inactive-link {
   @include container();
+
   &:hover {
-    background: linear-gradient(rgba(0, 0, 0, 0), var(--color-hover-link-bg))
+    background: linear-gradient(rgba(0, 0, 0, 0), var(--color-hover-link-bg));
+    padding-top: 1px;
+    border-bottom: var(--border);
   }
 
   &.alt {
     border: var(--border);
+    padding-top: 0px;
     border-top: none;
     background-color: var(--color-bg);
   }
