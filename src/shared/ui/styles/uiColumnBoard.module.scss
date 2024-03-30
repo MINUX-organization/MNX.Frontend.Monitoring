@@ -8,6 +8,11 @@
     padding: 0 var(--gap-field);
     grid-template-columns: 1fr 0.35rem 1fr;
 
+    &.flex {
+      display: flex;
+      justify-content: space-between;
+    }
+
     .label {
       text-align: start;
       color: var(--color-font-gray);
@@ -19,7 +24,7 @@
 
     .value  {
       text-align: end;
-      
     }
   }
 }
+

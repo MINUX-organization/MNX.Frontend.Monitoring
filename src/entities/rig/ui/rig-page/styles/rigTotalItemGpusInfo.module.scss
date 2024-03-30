@@ -7,7 +7,7 @@
 .rig-gpus-info {
   display: grid;
   gap: 1.875rem;
-  grid-template-columns: auto 1fr repeat(2, minmax(13.75rem, auto));
+  grid-template-columns: auto repeat(3, 1fr);
 
   .gpu {
     @include flex();

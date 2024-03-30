@@ -58,7 +58,7 @@ export function RigTotalItemGpusInfo({
         </div>
       </div>
       {_.map(tableFieldsList, ({label, data}) => (
-        <UiColumnBoard key={label} title={label} data={data} />
+        <UiColumnBoard key={label} title={label} data={data} isFlex />
       ))}
     </div>
   )

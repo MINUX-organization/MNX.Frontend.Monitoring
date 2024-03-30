@@ -12,18 +12,27 @@ export function UiColumnBoard({
   className,
   title,
   data,
+  isFlex,
   sep
 } : {
   className?: string;
   title: string;
+  isFlex?: boolean;
   sep?: string;
   data: Field[];
 }) {
   return (
-    <div className={clsx(className, styles['column-board'])}> 
+    <div className={clsx(
+        className,
+        styles['column-board']
+      )}
+    > 
       <UiTextTitleWrapper text={title} />
       {_.map(data, (d) => (
-        <div key={d.label} className={styles['item']}>
+        <div key={d.label} className={clsx(
+          styles['item'],
+          isFlex && styles['flex']
+        )}>
           <span className={styles['label']}>{d.label}</span>
           <span className={styles['sep']}>{sep}</span>
           <span className={styles['value']}>{d.value}</span>

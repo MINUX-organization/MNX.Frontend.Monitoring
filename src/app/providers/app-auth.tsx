@@ -1,5 +1,5 @@
 import { useSessionRepository } from "@/entities/session";
-import { AuthContext } from "@/shared/lib/providers/auth-context";
+import { AuthContext } from "@/shared/lib/context/auth-context";
 import { useStateObject } from "@/shared/lib/utils/state-object";
 import React from "react";
 
