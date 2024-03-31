@@ -7,7 +7,7 @@ import { PoolSearch } from '@/features/pool/search';
 import { UiDomainsList } from '@/shared/ui/ui-domains-list';
 import { EditPool } from '@/features/pool/edit';
 
-export function Pools() {
+export function PoolsPage() {
   const { getPoolsList, isLoading } = usePoolRepository();
 
   const titleLabels = ['Domain', 'Port', 'Coin'];

@@ -10,7 +10,7 @@ import { getRigGpusListApi } from "@/shared/api/get/getRigGpusList";
 import { ZodSaveParse } from "@/shared/lib/utils/zod-save-parse";
 import { match } from "ts-pattern";
 
-export function RigGpusInfo() {
+export function RigGpusInfoPage() {
   const { rigId } = useParams();
   const { data } = useQuery(['rigGpusInfo', rigId], () => getRigGpusListApi(rigId))
   

@@ -7,7 +7,7 @@ import { WalletSearch } from '@/features/wallet/search';
 import { UiDomainsList } from '@/shared/ui/ui-domains-list';
 import { EditWallet } from '@/features/wallet/edit';
 
-export function Wallets() {
+export function WalletsPage() {
   const { getWalletsList, isLoading } = useWalletRepository();
 
   const titleLabels = ['Wallet Name', 'Address', 'Coin'];

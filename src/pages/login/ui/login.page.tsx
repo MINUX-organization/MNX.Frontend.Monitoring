@@ -2,9 +2,9 @@ import { LoginForm } from '@/features/login/form'
 import styles from './login.module.scss'
 import { useEffect } from 'react'
 import { useSessionRepository } from '@/entities/session'
-import { useLocation, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 
-export function Login() {
+export function LoginPage() {
   const { getSession } = useSessionRepository();
   const navigate = useNavigate();
   const session = getSession();

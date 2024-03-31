@@ -1,6 +1,6 @@
 
 
-export function Gpus() {
+export function GpusPage() {
   
   return ( 
       <div>

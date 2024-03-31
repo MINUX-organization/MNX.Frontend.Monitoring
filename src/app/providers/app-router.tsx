@@ -5,20 +5,20 @@ import {
 } from "react-router-dom";
 import { RootLayout } from "@/widgets/root-layout";
 import { ROUTER_PATHS } from "@/shared/constants/routes";
-import { Monitoring } from "@/pages/monitoring";
-import { Gpus } from "@/pages/devices/GPUs";
-import { Cryptos } from "@/pages/cryptos";
-import { Wallets } from "@/pages/wallets";
-import { Pools } from "@/pages/pools";
+import { MonitoringPage } from "@/pages/monitoring";
+import { GpusPage } from "@/pages/devices/GPUs";
+import { CryptosPage } from "@/pages/cryptos";
+import { WalletsPage } from "@/pages/wallets";
+import { PoolsPage } from "@/pages/pools";
 import PrivateRoute from "../guards/private-route";
-import { Login } from "@/pages/login";
-import { Rigs } from "@/pages/rigs";
-import { Rig, RigCpusInfo, RigGpusInfo } from "@/pages/rig";
+import { LoginPage } from "@/pages/login";
+import { RigsPage } from "@/pages/rigs";
+import { RigPage, RigCpusInfoPage, RigGpusInfoPage, RigMotherboardInfoPage } from "@/pages/rig";
 
 const router = createBrowserRouter([
   {
     path: ROUTER_PATHS.LOGIN,
-    element: <Login/>,
+    element: <LoginPage/>,
   },
   {
     path: ROUTER_PATHS.HOME,
@@ -34,19 +34,19 @@ const router = createBrowserRouter([
       },
       {
         path: ROUTER_PATHS.MONITORING,
-        element: <PrivateRoute children={<Monitoring />}/>
+        element: <PrivateRoute children={<MonitoringPage />}/>
       },
       {
         path: ROUTER_PATHS.GPUS,
-        element: <PrivateRoute children={<Gpus />}/>
+        element: <PrivateRoute children={<GpusPage />}/>
       },
       {
         path: ROUTER_PATHS.RIGS,
-        element: <PrivateRoute children={<Rigs />}/>
+        element: <PrivateRoute children={<RigsPage />}/>
       },
       {
         path: ROUTER_PATHS.RIG,
-        element: <PrivateRoute children={<Rig />}/>,
+        element: <PrivateRoute children={<RigPage />}/>,
         children: [
           {
             path: '',
@@ -54,25 +54,29 @@ const router = createBrowserRouter([
           },
           {
             path: ROUTER_PATHS.RIG_GPUS,
-            element: <PrivateRoute children={<RigGpusInfo />}/>,
+            element: <PrivateRoute children={<RigGpusInfoPage />}/>,
           },
           {
             path: ROUTER_PATHS.RIG_CPUS,
-            element: <PrivateRoute children={<RigCpusInfo />}/>,
-          }
+            element: <PrivateRoute children={<RigCpusInfoPage />}/>,
+          },
+          {
+            path: ROUTER_PATHS.RIG_MOTHERBOARD,
+            element: <PrivateRoute children={<RigMotherboardInfoPage />}/>,
+          },
         ]
       },
       {
         path: ROUTER_PATHS.CRYPTOS,
-        element: <PrivateRoute children={<Cryptos />}/>
+        element: <PrivateRoute children={<CryptosPage />}/>
       },
       {
         path: ROUTER_PATHS.WALLETS,
-        element: <PrivateRoute children={<Wallets />}/>
+        element: <PrivateRoute children={<WalletsPage />}/>
       },
       {
         path: ROUTER_PATHS.POOLS,
-        element: <PrivateRoute children={<Pools />}/>
+        element: <PrivateRoute children={<PoolsPage />}/>
       },
     ],
   },
