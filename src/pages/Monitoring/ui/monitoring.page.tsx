@@ -19,7 +19,7 @@ import { useChartDataSignalTrigger } from "../lib/hooks/chart-data-signal-trigge
 import { useRigsDataSignalTrigger } from "../lib/hooks/rigs-data-signal-trigger";
 import { BACKEND_HUBS } from "@/shared/constants/backend-urls";
 
-export function Monitoring() {
+export function MonitoringPage() {
   const {
     totalPower: {value: totalPower},
     totalRigsCount: {value: totalRigsCount},

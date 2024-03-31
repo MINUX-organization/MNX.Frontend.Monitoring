@@ -5,7 +5,7 @@ import { OnOpen } from '@/features/rig/on-open';
 import { Settings } from '@/features/rig/settings';
 import { mockRigTotal } from '../mocks/mock-rig-total';
 
-export function Rigs() {
+export function RigsPage() {
   const options = [
     'ID',
     'Name',

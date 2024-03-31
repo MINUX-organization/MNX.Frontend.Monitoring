@@ -1,0 +1,18 @@
+.rig-motherboard-info {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1.875rem;
+
+  .motherboard {
+    display: flex;
+    flex-direction: column;
+
+    .motherboard-name {
+      font-size: var(--font-size-18px);
+    }
+
+    .motherboard-image {
+      margin-top: .75rem;
+    }
+  }
+}

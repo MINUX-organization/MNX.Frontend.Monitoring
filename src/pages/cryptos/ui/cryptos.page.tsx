@@ -6,7 +6,7 @@ import { CryptoSort } from "@/features/crypto/sort";
 import { CryptoSearch } from "@/features/crypto/search";
 import { UiDomainsList } from "@/shared/ui/ui-domains-list";
 
-export function Cryptos() {
+export function CryptosPage() {
   const { getCryptosList, isLoading } = useCryptoRepository();
 
   const titleLabels = ['Name', 'Full Name', 'Algorithm'];

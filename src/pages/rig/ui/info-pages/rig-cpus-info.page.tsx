@@ -10,7 +10,7 @@ import { match } from "ts-pattern";
 import _ from "lodash";
 import React from "react";
 
-export function RigCpusInfo() {
+export function RigCpusInfoPage() {
   const { rigId } = useParams();
   const { data } = useQuery(['rigCpusInfo', rigId], () => getRigCpusListApi(rigId));
   

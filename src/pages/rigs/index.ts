@@ -1,1 +1,1 @@
-export { Rigs } from './ui/rigs.page'
+export { RigsPage } from './ui/rigs.page'
