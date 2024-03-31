@@ -1,5 +1,5 @@
 :root {
-  --color-blue: #3C9EA5;
+  --color-blue: #3c9ea5;
   --color-red: #FC4E4E;
   --color-green: #43C09B;
   --color-orange: #EC790F;
@@ -12,6 +12,7 @@
   --color-border-square: #1a1a22;
   --color-font-gray: #ffffff80;
   --color-border: var(--color-blue);
+  --color-border-op-50: color-mix(in srgb, var(--color-border) 100%, black 50%);;
 
   --color-measure: var(--color-blue);
   --color-positive: var(--color-green);
@@ -24,8 +25,6 @@
   
   --color-hover-link-bg: color-mix(in srgb, var(--color-blue) 100%, black 40%);
   --color-hover-link-bg-gradient: color-mix(in srgb, var(--color-blue) 70%, black 70%);
-
-
 
   --font-size-96px: 6rem;
   --font-size-22px: 1.375rem;

@@ -6,7 +6,7 @@ import { UiBorderBox } from "@/shared/ui/ui-border-box";
 import { useQuery } from "react-query";
 import { useParams } from "react-router";
 import { match } from "ts-pattern";
-import styles from './rigMotherboardInfo.module.scss'
+import styles from './rigMotherboardInfo.page.module.scss'
 
 export function RigMotherboardInfoPage() {
   const { rigId } = useParams();
