@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "zGAQs2efB4TRtw8YOmBp2cQOgZUoANJ6DKb4QTtz7LwSQXUkgHLrKbEuPe2HxJBAwaDSTLADvAr1wOZHd3wJ1Q==",
+  "dgSpecHash": "fFh2vgWP4CZDrTPj+qMZaap+R+M7kUqjxtlqEGft+dOsGksNSUvI7TvdE4hUJVdIKVj/6hk1S9TrJQkw3a81bw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\sabir\\Desktop\\MNX.Frontend.Monitoring\\test\\MNX.Backend.Test\\MNX.Backend.Test.csproj",
+  "projectFilePath": "C:\\Users\\sabir\\Desktop\\projects\\MNX.Frontend.Monitoring\\test\\MNX.Backend.Test\\MNX.Backend.Test.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\sabir\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
     "C:\\Users\\sabir\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",

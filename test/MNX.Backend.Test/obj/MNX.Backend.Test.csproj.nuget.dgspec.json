@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\sabir\\Desktop\\MNX.Frontend.Monitoring\\test\\MNX.Backend.Test\\MNX.Backend.Test.csproj": {}
+    "C:\\Users\\sabir\\Desktop\\projects\\MNX.Frontend.Monitoring\\test\\MNX.Backend.Test\\MNX.Backend.Test.csproj": {}
   },
   "projects": {
-    "C:\\Users\\sabir\\Desktop\\MNX.Frontend.Monitoring\\test\\MNX.Backend.Test\\MNX.Backend.Test.csproj": {
+    "C:\\Users\\sabir\\Desktop\\projects\\MNX.Frontend.Monitoring\\test\\MNX.Backend.Test\\MNX.Backend.Test.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\sabir\\Desktop\\MNX.Frontend.Monitoring\\test\\MNX.Backend.Test\\MNX.Backend.Test.csproj",
+        "projectUniqueName": "C:\\Users\\sabir\\Desktop\\projects\\MNX.Frontend.Monitoring\\test\\MNX.Backend.Test\\MNX.Backend.Test.csproj",
         "projectName": "MNX.Backend.Test",
-        "projectPath": "C:\\Users\\sabir\\Desktop\\MNX.Frontend.Monitoring\\test\\MNX.Backend.Test\\MNX.Backend.Test.csproj",
+        "projectPath": "C:\\Users\\sabir\\Desktop\\projects\\MNX.Frontend.Monitoring\\test\\MNX.Backend.Test\\MNX.Backend.Test.csproj",
         "packagesPath": "C:\\Users\\sabir\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\sabir\\Desktop\\MNX.Frontend.Monitoring\\test\\MNX.Backend.Test\\obj\\",
+        "outputPath": "C:\\Users\\sabir\\Desktop\\projects\\MNX.Frontend.Monitoring\\test\\MNX.Backend.Test\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

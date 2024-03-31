@@ -7,7 +7,7 @@
 .rig-gpus-info {
   display: grid;
   gap: 1.875rem;
-  grid-template-columns: auto repeat(3, 1fr);
+  grid-template-columns: 12.5rem repeat(3, 1fr);
 
   .gpu {
     @include flex();
@@ -15,25 +15,16 @@
     align-items: center;
 
     .gpu-info {
-      display: flex;
+      @include flex();
       align-items: center;
-      flex-direction: column;
-      gap: var(--gap-field);
     }
 
-    .name {
+    .gpu-name {
       font-size: var(--font-size-18px);
-    }
-  }
-
-  .column {
-    @include flex();
-
-    .item {
-      display: flex;
-      justify-content: space-between;
-      gap: var(--gap-field);
     }
   }
 }
 
+.blue {
+  color: var(--color-blue);
+}
