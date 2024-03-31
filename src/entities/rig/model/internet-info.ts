@@ -10,3 +10,4 @@ export const RigInternetInfo = z.object({
   ip: z.string({invalid_type_error: 'Ip must be a string'}),
   isOnline: z.boolean()
 })
+export type RigInternetInfo = z.infer<typeof RigInternetInfo>

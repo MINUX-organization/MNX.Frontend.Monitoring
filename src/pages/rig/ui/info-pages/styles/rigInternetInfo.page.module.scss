@@ -2,6 +2,12 @@
   border-top: none;
 
   .container {
+    display: flex;
+    min-height: 4.375rem;
     padding: 1rem;
   }
+}
+
+.no-data {
+  margin: auto;
 }

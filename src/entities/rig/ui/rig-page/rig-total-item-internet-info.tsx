@@ -1,10 +1,13 @@
 import clsx from 'clsx';
 import styles from './styles/rigTotalItemInternetInfo.module.scss';
+import { RigInternetInfo } from '../..';
 
 export function RigTotalItemInternetInfo({
-  className
+  className,
+  rigInternet
 } : {
   className?: string
+  rigInternet: RigInternetInfo
 }) {
   return (
     <div className={clsx(

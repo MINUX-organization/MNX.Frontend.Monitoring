@@ -9,10 +9,11 @@ import { useQuery } from "react-query";
 import { getRigGpusListApi } from "@/shared/api/get/getRigGpusList";
 import { ZodSaveParse } from "@/shared/lib/utils/zod-save-parse";
 import { match } from "ts-pattern";
+import { UiSpinner } from "@/shared/ui/ui-spinner";
 
 export function RigGpusInfoPage() {
   const { rigId } = useParams();
-  const { data } = useQuery(['rigGpusInfo', rigId], () => getRigGpusListApi(rigId))
+  const { data, isLoading } = useQuery(['rigGpusInfo', rigId], () => getRigGpusListApi(rigId))
   
   const validatedData = ZodSaveParse(data, RigGpuInfo.array())
 
@@ -20,7 +21,10 @@ export function RigGpusInfoPage() {
     <UiBorderBox className={styles['rig-gpus-info']}>
       <UiBgContainer color="opaque" className={styles['flex']}>
         {match(validatedData)
-          .with(undefined, () => <div className={styles['no-data']}>N/A</div>)
+          .with(undefined, () => 
+            <div className={styles['no-data']}>
+              {isLoading ? <UiSpinner /> : 'N/A'}
+            </div>)
           .otherwise((validatedData) => (
             _.map(validatedData, (rigGpuInfo, index) => (
               <React.Fragment key={rigGpuInfo.index}>

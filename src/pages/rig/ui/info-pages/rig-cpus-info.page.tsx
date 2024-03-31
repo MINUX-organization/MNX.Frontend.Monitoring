@@ -9,10 +9,11 @@ import styles from './styles/rigCpusInfo.page.module.scss'
 import { match } from "ts-pattern";
 import _ from "lodash";
 import React from "react";
+import { UiSpinner } from "@/shared/ui/ui-spinner";
 
 export function RigCpusInfoPage() {
   const { rigId } = useParams();
-  const { data } = useQuery(['rigCpusInfo', rigId], () => getRigCpusListApi(rigId));
+  const { data, isLoading } = useQuery(['rigCpusInfo', rigId], () => getRigCpusListApi(rigId));
   
   const validatedData = ZodSaveParse(data, RigCpuInfo.array());
 
@@ -20,7 +21,10 @@ export function RigCpusInfoPage() {
     <UiBorderBox className={styles['rig-cpus-info']}>
       <UiBgContainer color="opaque" className={styles['flex']}>
         {match(validatedData)
-          .with(undefined, () => <div className={styles['no-data']}>N/A</div>)
+          .with(undefined, () => 
+            <div className={styles['no-data']}>
+              {isLoading ? <UiSpinner /> : 'N/A'}
+            </div>)
           .otherwise((validatedData) => (
             _.map(validatedData, (rigCpuInfo, index) => (
               <React.Fragment key={rigCpuInfo.serialNumber}>
