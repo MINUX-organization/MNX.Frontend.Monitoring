@@ -47,8 +47,11 @@ const router = createBrowserRouter([
       {
         path: ROUTER_PATHS.RIG,
         element: <PrivateRoute children={<Rig />}/>,
-
         children: [
+          {
+            path: '',
+            loader: () => redirect(ROUTER_PATHS.RIG_GPUS),
+          },
           {
             path: ROUTER_PATHS.RIG_GPUS,
             element: <PrivateRoute children={<RigGpusInfo />}/>,

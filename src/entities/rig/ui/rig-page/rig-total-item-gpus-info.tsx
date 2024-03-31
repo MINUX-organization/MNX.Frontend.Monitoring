@@ -44,7 +44,7 @@ export function RigTotalItemGpusInfo({
       styles['rig-gpus-info']
     )}>
       <div className={styles['gpu']}>
-        <span className={styles['name']}>{rigGpuInfo.name}</span>
+        <span className={styles['gpu-name']}>{rigGpuInfo.name}</span>
         <img width={140} src={gpuImage} alt="gpu_image" />
         <div className={styles['gpu-info']}>
           <span>

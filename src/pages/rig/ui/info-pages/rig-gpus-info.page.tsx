@@ -6,13 +6,14 @@ import { RigGpuInfo, RigTotalItemGpusInfo } from "@/entities/rig";
 import _ from "lodash";
 import React from "react";
 import { useQuery } from "react-query";
-import { getRigGpusApi } from "@/shared/api/get/getRigGpus";
+import { getRigGpusListApi } from "@/shared/api/get/getRigGpusList";
 import { ZodSaveParse } from "@/shared/lib/utils/zod-save-parse";
 import { match } from "ts-pattern";
 
 export function RigGpusInfo() {
   const { rigId } = useParams();
-  const { data } = useQuery(['rigGpusInfo', rigId], () => getRigGpusApi(rigId))
+  const { data } = useQuery(['rigGpusInfo', rigId], () => getRigGpusListApi(rigId))
+  
   const validatedData = ZodSaveParse(data, RigGpuInfo.array())
 
   return (
