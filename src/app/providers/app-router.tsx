@@ -13,7 +13,7 @@ import { PoolsPage } from "@/pages/pools";
 import PrivateRoute from "../guards/private-route";
 import { LoginPage } from "@/pages/login";
 import { RigsPage } from "@/pages/rigs";
-import { RigPage, RigCpusInfoPage, RigGpusInfoPage, RigMotherboardInfoPage, RigHddsInfoPage } from "@/pages/rig";
+import { RigPage, RigCpusInfoPage, RigGpusInfoPage, RigMotherboardInfoPage, RigHddsInfoPage, RigInternetInfoPage } from "@/pages/rig";
 
 const router = createBrowserRouter([
   {
@@ -67,6 +67,10 @@ const router = createBrowserRouter([
           {
             path: ROUTER_PATHS.RIG_HDDS,
             element: <PrivateRoute children={<RigHddsInfoPage />}/>,
+          },
+          {
+            path: ROUTER_PATHS.RIG_INTERNET,
+            element: <PrivateRoute children={<RigInternetInfoPage />}/>,
           },
         ]
       },

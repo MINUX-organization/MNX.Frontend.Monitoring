@@ -1,7 +1,7 @@
 import { RigHddInfo, RigTotalItemHddInfo } from "@/entities/rig";
 import { UiBgContainer } from "@/shared/ui/ui-bg-container";
 import { UiBorderBox } from "@/shared/ui/ui-border-box"; 
-import styles from './rigHddsInfo.page.module.scss';
+import styles from './styles/rigHddsInfo.page.module.scss';
 import _ from "lodash";
 import { match } from "ts-pattern";
 import { useParams } from "react-router";

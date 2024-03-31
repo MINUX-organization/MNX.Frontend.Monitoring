@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import styles from './rigGpusInfo.page.module.scss';
+import styles from './styles/rigGpusInfo.page.module.scss';
 import { UiBorderBox } from "@/shared/ui/ui-border-box";
 import { UiBgContainer } from "@/shared/ui/ui-bg-container";
 import { RigGpuInfo, RigTotalItemGpusInfo } from "@/entities/rig";

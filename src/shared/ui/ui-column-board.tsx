@@ -16,7 +16,7 @@ export function UiColumnBoard({
   sep
 } : {
   className?: string;
-  title: string;
+  title?: string;
   isFlex?: boolean;
   sep?: string;
   data: Field[];
@@ -27,7 +27,7 @@ export function UiColumnBoard({
         styles['column-board']
       )}
     > 
-      <UiTextTitleWrapper text={title} />
+      {title && <UiTextTitleWrapper text={title} />}
       {_.map(data, (d) => (
         <div key={d.label} className={clsx(
           styles['item'],

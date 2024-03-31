@@ -1,8 +1,8 @@
-import _ from "lodash";
 import { RigHddInfo } from "../..";
 import hddImage from '@/shared/assets/images/hdd.svg'
 import styles from './styles/rigTotalItemHddInfo.module.scss'
 import clsx from "clsx";
+import { UiColumnBoard } from "@/shared/ui/ui-column-board";
 
 export function RigTotalItemHddInfo({
   className,
@@ -25,12 +25,7 @@ export function RigTotalItemHddInfo({
         <span className={styles['hdd-name']}>{rigHdd.name}</span>
         <img width={50} src={hddImage} alt="hdd"/>
         <div className={styles['hdd-item']}>
-          {_.map(fieldsList, (field) => (
-              <div className={styles['hdd-item-flex']} key={field?.value}>
-                <span className={styles['key']}>{field?.label}</span>
-                <span>{field?.value}</span>
-              </div>
-          ))}
+          <UiColumnBoard data={fieldsList} />
         </div>
       </div>
     </div>

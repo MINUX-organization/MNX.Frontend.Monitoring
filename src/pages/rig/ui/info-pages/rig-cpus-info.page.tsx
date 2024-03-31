@@ -5,7 +5,7 @@ import { UiBgContainer } from "@/shared/ui/ui-bg-container";
 import { UiBorderBox } from "@/shared/ui/ui-border-box";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
-import styles from './rigCpusInfo.page.module.scss'
+import styles from './styles/rigCpusInfo.page.module.scss'
 import { match } from "ts-pattern";
 import _ from "lodash";
 import React from "react";
