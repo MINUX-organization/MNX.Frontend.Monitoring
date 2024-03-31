@@ -17,7 +17,7 @@ export function RigTotalItemPanel({
   renderOnOpen
 } : {
   className?: string;
-  rig: RigTotal
+  rig: RigTotal;
   setIsOpen?: Dispatch<React.SetStateAction<boolean>>;
   renderEdit?: () => ReactNode;
   renderSetting?: (id: string) => ReactNode;

@@ -8,8 +8,8 @@ export function RigTotalItemMotherboardInfo({
   className,
   rigMotherboard
 } : {
-  className?: string
-  rigMotherboard: RigMotherboardInfo
+  className?: string;
+  rigMotherboard: RigMotherboardInfo;
 }) {
   const informationFieldsList = [
     {label: 'Serial Number', value: rigMotherboard.serialNumber},

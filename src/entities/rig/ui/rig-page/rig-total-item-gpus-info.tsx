@@ -11,7 +11,7 @@ export function RigTotalItemGpusInfo({
   rigGpuInfo
 } : {
   className?: string;
-  rigGpuInfo: RigGpuInfo
+  rigGpuInfo: RigGpuInfo;
 }) {
   const parametersFieldsList = _.map(rigGpuInfo.parameters, (value, key) => {
     return {label: fromKeyToWord(key), value: value}

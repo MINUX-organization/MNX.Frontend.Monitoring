@@ -11,7 +11,7 @@ export function RigTotalItemCpusInfo({
   rigCpuInfo
 } : {
   className?: string;
-  rigCpuInfo: RigCpuInfo
+  rigCpuInfo: RigCpuInfo;
 }) {
   const color = rigCpuInfo.name.toLowerCase().includes('intel') ? 'blue' 
     : rigCpuInfo.name.toLowerCase().includes('amd') ? 'red' : 'white';

@@ -10,8 +10,8 @@ export function RigTotalItemInfo({
   rig,
   className
 } : {
-  rig: RigTotal,
-  className?: string
+  rig: RigTotal;
+  className?: string;
 }) {
   const firstColumn = [
     {label: 'AMD ver.', value: rig.info.amdVer},

@@ -9,7 +9,7 @@ export function RigTotalItemHddInfo({
   rigHdd
 } : {
   className?: string;
-  rigHdd: RigHddInfo
+  rigHdd: RigHddInfo;
 }) {
   const fieldsList = [
     {label: 'Serial Number', value: rigHdd.serialNumber},

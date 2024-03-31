@@ -7,7 +7,7 @@ import { UiTextTitleWrapper } from '@/shared/ui/ui-text-title-wrapper';
 export function RigTotalItemDevicesTable({
   rig
 } : {
-  rig: RigTotal
+  rig: RigTotal;
 }) {
   const gpusLabelsList = [
     {text: 'GPU', value: rig.gpusCount.total, color: 'white'},
