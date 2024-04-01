@@ -17,7 +17,7 @@ export function RigTotalItemPanel({
   renderOnOpen
 } : {
   className?: string;
-  rig: RigTotal
+  rig: RigTotal;
   setIsOpen?: Dispatch<React.SetStateAction<boolean>>;
   renderEdit?: () => ReactNode;
   renderSetting?: (id: string) => ReactNode;
@@ -47,7 +47,6 @@ export function RigTotalItemPanel({
         <span>
           {rig.power.value}&nbsp;
           <span className={styles['blue']}>{rig.power.measureUnit}</span>
-
         </span>
       </div>
       {setIsOpen && 

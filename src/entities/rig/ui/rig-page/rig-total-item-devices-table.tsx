@@ -2,27 +2,28 @@ import _ from 'lodash';
 import { RigTotal } from '../../model/types';
 import styles from './styles/rigTotalItemDevicesTable.module.scss';
 import React from 'react';
+import { UiTextTitleWrapper } from '@/shared/ui/ui-text-title-wrapper';
 
 export function RigTotalItemDevicesTable({
   rig
 } : {
-  rig: RigTotal
+  rig: RigTotal;
 }) {
   const gpusLabelsList = [
-    {label: 'GPU', value: rig.gpusCount.total, color: 'white'},
-    {label: 'NVD', value: rig.gpusCount.nvidia, color: 'green'},
-    {label: 'AMD', value: rig.gpusCount.amd, color: 'red'},
-    {label: 'INT', value: rig.gpusCount.intel, color: 'blue'},
+    {text: 'GPU', value: rig.gpusCount.total, color: 'white'},
+    {text: 'NVD', value: rig.gpusCount.nvidia, color: 'green'},
+    {text: 'AMD', value: rig.gpusCount.amd, color: 'red'},
+    {text: 'INT', value: rig.gpusCount.intel, color: 'blue'},
   ];
 
   const cpusLabelsList = [
-    {label: 'CPU', value: rig.cpusCount.total, color: 'white'},
-    {label: 'AMD', value: rig.cpusCount.amd, color: 'red'},
-    {label: 'INT', value: rig.cpusCount.intel, color: 'blue'},
+    {text: 'CPU', value: rig.cpusCount.total, color: 'white'},
+    {text: 'AMD', value: rig.cpusCount.amd, color: 'red'},
+    {text: 'INT', value: rig.cpusCount.intel, color: 'blue'},
   ];
 
   const hddsLabelsList = [
-    {label: 'HDD', value: rig.hddsCount, color: 'white'},
+    {text: 'HDD', value: rig.hddsCount, color: 'white'},
   ];
 
   const fieldsList = [
@@ -37,8 +38,8 @@ export function RigTotalItemDevicesTable({
       <React.Fragment key={index}>
         <div className={styles['table']}>
           {_.map(labelsList, (label) => (
-            <div className={styles['table-item']} key={label.label}>
-              <span className={styles['label']}>{label.label}</span> 
+            <div className={styles['table-item']} key={label.text}>
+              <UiTextTitleWrapper text={label.text}/>
               <span className={styles[`${label.color}`]}>{label.value}</span>
             </div>
           ))}

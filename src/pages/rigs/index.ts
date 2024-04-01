@@ -1,2 +1,1 @@
-export { Rigs } from './ui/rigs.page'
-export { Rig } from './ui/rig.page'
+export { RigsPage } from './ui/rigs.page'

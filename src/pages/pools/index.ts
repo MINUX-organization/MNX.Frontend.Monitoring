@@ -1,1 +1,1 @@
-export { Pools } from './ui/pools.page'
+export { PoolsPage } from './ui/pools.page'

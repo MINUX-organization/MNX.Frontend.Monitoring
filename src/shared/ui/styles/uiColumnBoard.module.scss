@@ -1,0 +1,30 @@
+.column-board {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-field);
+
+  .item {
+    display: grid;
+    padding: 0 var(--gap-content);
+    grid-template-columns: 1fr 0.35rem 1fr;
+
+    &.flex {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .label {
+      text-align: start;
+      color: var(--color-font-gray);
+    }
+
+    .sep {
+      text-align: center;
+    }
+
+    .value  {
+      text-align: end;
+    }
+  }
+}
+

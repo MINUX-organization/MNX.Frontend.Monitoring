@@ -1,6 +1,6 @@
 import { BACKEND_TRIGGERS } from "@/shared/constants/backend-triggers";
 import { ChartData } from "@/shared/lib/charts/line-chart";
-import { WebsocketContext } from "@/shared/lib/providers/websocket-provider";
+import { WebsocketContext } from "@/widgets/providers/websocket-provider";
 import { useStateObject } from "@/shared/lib/utils/state-object";
 import { ZodSaveParse } from "@/shared/lib/utils/zod-save-parse";
 import _ from "lodash";

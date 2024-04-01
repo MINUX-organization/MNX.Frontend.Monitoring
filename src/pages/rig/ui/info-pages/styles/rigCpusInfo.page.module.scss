@@ -1,0 +1,22 @@
+.rig-cpus-info {
+  border-top: none;
+  
+  .flex {
+    display: flex;
+    min-height: 4.375rem;
+    flex-direction: column;
+    padding: 1rem;
+
+    .divider {
+      height: 1px;
+      margin: 1rem 0;
+      opacity: .5;
+      width: 100%;
+      background-color: var(--color-border);
+    }
+  }
+}
+
+.no-data {
+  margin: auto;
+}

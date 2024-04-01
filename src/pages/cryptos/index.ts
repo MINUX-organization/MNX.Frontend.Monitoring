@@ -1,1 +1,1 @@
-export { Cryptos } from './ui/cryptos.page'
+export { CryptosPage } from './ui/cryptos.page'

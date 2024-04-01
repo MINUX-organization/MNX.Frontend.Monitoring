@@ -1,1 +1,1 @@
-export { Wallets } from './ui/wallets.page'
+export { WalletsPage } from './ui/wallets.page'

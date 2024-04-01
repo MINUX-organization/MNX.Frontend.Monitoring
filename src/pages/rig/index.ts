@@ -1,0 +1,6 @@
+export { RigPage } from './ui/rig.page'
+export { RigGpusInfoPage } from './ui/info-pages/rig-gpus-info.page'
+export { RigCpusInfoPage } from './ui/info-pages/rig-cpus-info.page'
+export { RigMotherboardInfoPage } from './ui/info-pages/rig-motherboard-info.page'
+export { RigHddsInfoPage } from './ui/info-pages/rig-hdds-info.page'
+export { RigInternetInfoPage } from './ui/info-pages/rig-internet-info.page'

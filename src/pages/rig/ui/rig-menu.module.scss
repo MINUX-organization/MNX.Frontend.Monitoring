@@ -6,7 +6,7 @@
     height: 2rem;
     display: flex;
     align-items: center;
-    padding-left: 1rem;
+    padding: 0 1rem;
   }
 }
 
@@ -17,5 +17,5 @@
 }
 
 .active-link {
-  background-color: var(--color-active-link-bg);
+  color: var(--color-active-link-text);
 }

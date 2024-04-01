@@ -1,0 +1,30 @@
+@mixin flex() {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-field);
+}
+
+.rig-gpus-info {
+  display: grid;
+  gap: 1.875rem;
+  grid-template-columns: 12.5rem repeat(3, 1fr);
+
+  .gpu {
+    @include flex();
+    justify-content: space-between;
+    align-items: center;
+
+    .gpu-info {
+      @include flex();
+      align-items: center;
+    }
+
+    .gpu-name {
+      font-size: var(--font-size-18px);
+    }
+  }
+}
+
+.blue {
+  color: var(--color-blue);
+}

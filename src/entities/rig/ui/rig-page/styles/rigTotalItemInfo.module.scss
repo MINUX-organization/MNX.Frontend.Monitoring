@@ -5,6 +5,7 @@
   .container {
     display: grid;
     grid-template-columns: repeat(3, 1fr) minmax(auto, 360px);
+    padding: 1rem;
     gap: 1rem;
 
     .column {
@@ -27,12 +28,6 @@
       display: flex;
       flex-direction: column;
       gap: 0.25rem;
-
-      .title {
-        background-color: var(--color-bg-lighter);
-        color: var(--color-font-gray);
-        text-align: center;
-      }
 
       .flight-sheet {
         display: grid;

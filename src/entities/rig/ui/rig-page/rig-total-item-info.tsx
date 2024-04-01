@@ -4,13 +4,14 @@ import styles from './styles/rigTotalItemInfo.module.scss';
 import clsx from "clsx";
 import { UiBgContainer } from "@/shared/ui/ui-bg-container";
 import _ from "lodash";
+import { UiColumnBoard } from "@/shared/ui/ui-column-board";
 
 export function RigTotalItemInfo({
   rig,
   className
 } : {
-  rig: RigTotal,
-  className?: string
+  rig: RigTotal;
+  className?: string;
 }) {
   const firstColumn = [
     {label: 'AMD ver.', value: rig.info.amdVer},
@@ -29,6 +30,10 @@ export function RigTotalItemInfo({
     {label: 'Local IP', value: rig.info.localIp},
     {label: 'Global IP', value: rig.info.globalIp},
   ]
+
+  const fieldsFlightSheetsList = _.map(rig.flightSheets, (flightSheet) => {
+    return {label: flightSheet.name, value: flightSheet.coinsList.join(', ')}
+  }) 
 
   const fields = [
     firstColumn,
@@ -52,16 +57,7 @@ export function RigTotalItemInfo({
             ))}
           </div>
         ))}
-        <div className={styles['flight-sheets-list']}>
-          <span className={styles['title']}>Flight Sheets</span>
-          {_.map(rig.flightSheets, (flightSheet) => (
-            <div key={flightSheet.name} className={styles['flight-sheet']}>
-              <span className={styles['name']}>{flightSheet.name}</span>
-              <span className={styles['sep']}>-</span>
-              <span className={styles['value']}>{flightSheet.coinsList.join(', ')}</span>
-            </div>
-          ))}
-        </div>
+        <UiColumnBoard title="Flight Sheets" sep="-" data={fieldsFlightSheetsList} />
       </UiBgContainer>
     </UiBorderBox>
   )

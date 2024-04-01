@@ -1,0 +1,35 @@
+@mixin flex() {
+  display: flex;
+  flex-direction: column;
+}
+
+.hdd-info { 
+  display: flex;
+  justify-content: center;
+
+  .hdd-info-item {
+    @include flex();
+    width: 18.75rem;
+    align-items: center;
+    gap: .75rem;
+
+    .hdd-name {
+      font-size: var(--font-size-18px);
+    }
+    
+    .hdd-item {
+      @include flex();
+      align-self: normal;
+      gap: var(--gap-field);
+      
+      .hdd-item-flex {
+        display: flex;
+        justify-content: space-between;
+  
+        .key {
+          color: var(--color-font-gray);
+        }
+      }
+    }
+  }
+}
