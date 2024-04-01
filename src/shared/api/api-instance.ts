@@ -21,10 +21,38 @@ export function apiInstance(customApiConfig?: AxiosRequestConfig): AxiosInstance
     
     if (token) {
       const parsedToken = JSON.parse(token)
-      config.headers.Authorization = `Bearer ${parsedToken.access_token}`
+      config.headers.Authorization = `Bearer ${parsedToken.accessToken}`
     }
   
     return config
+  })
+
+  instance.interceptors.response.use(response => response, async (error) => {
+    const originalRequest = error.config;
+    
+    if (error.response.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+
+      const token = localStorage.getItem('session')
+
+      if (token) {
+        const parsedToken = JSON.parse(token)
+        try {
+          const response = await axios.post(
+            `${BACKEND_URL}/auth/refreshTokens`, 
+            {refreshToken: parsedToken.refresh_token}
+          )
+
+          localStorage.setItem('session', JSON.stringify(response.data))
+
+          return instance(originalRequest);
+        } catch(error) {
+          localStorage.removeItem('session')
+        }
+      }
+    }
+
+    Promise.reject(error)
   })
 
   return instance;

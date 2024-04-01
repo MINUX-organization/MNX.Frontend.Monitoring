@@ -6,7 +6,7 @@ import React from "react";
 const AuthProvider = ({ children } : { children?: React.ReactNode }) => {
   const { getSession } = useSessionRepository();
   const session = getSession();
-
+  
   const { value: isAuthenticated, setValue: setIsAuthenticated } = useStateObject(
     Boolean(session)
   );

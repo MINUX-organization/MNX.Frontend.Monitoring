@@ -5,7 +5,6 @@ import clsx from "clsx";
 import { UiButton } from "@/shared/ui/ui-button";
 import { Session, useSessionRepository } from "@/entities/session";
 import { useLocation, useNavigate } from "react-router";
-import { useEffect } from "react";
 import { useAuth } from "@/shared/lib/hooks/auth";
 
 export type FormInput = {
@@ -29,14 +28,13 @@ export function LoginForm({
       password: ""
     },
   })
-
+  
   const onSubmit: SubmitHandler<FormInput> = (data) => {
     /// fetch auth
     const session: Session = {
-      access_token: 'string',
-      refresh_token: 'string',
-      access_expires_in: 'string',
-      refresh_expires_in: 'string'
+      accessToken: 'string',
+      refreshToken: 'string',
+      refreshExpiration: 'string'
     }
 
     saveSession(session);
