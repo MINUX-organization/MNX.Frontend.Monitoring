@@ -5,7 +5,7 @@ import _ from "lodash";
 
 type Field = {
   label: string;
-  value: string | number;
+  value: string | number | boolean | JSX.Element; 
 } 
 
 export function UiColumnBoard({
