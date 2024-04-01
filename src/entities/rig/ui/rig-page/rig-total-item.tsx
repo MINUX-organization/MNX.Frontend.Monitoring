@@ -11,7 +11,6 @@ export function RigTotalItem({
   withFeatures,
   renderItemPanel,
   renderItemInfo,
-  renderBackButton
 } : {
   rig: RigTotal;
   className?: string;
@@ -21,7 +20,6 @@ export function RigTotalItem({
     setIsOpen: Dispatch<SetStateAction<boolean>>
   ) => ReactNode;
   renderItemInfo?: (rig?: RigTotal) => ReactNode;
-  renderBackButton?: () => ReactNode;
 }) {
   const isOpen = useStateObject(!withFeatures);
 
@@ -29,16 +27,9 @@ export function RigTotalItem({
     <div className={clsx(
       className,
       styles['rig-total-item']
-    )}>
-      {renderBackButton && 
-        <div className={styles['rig-total-item-header']}>
-          {renderBackButton?.()}
-        </div>
-      }
-      <div className={styles['rig-total-item-body']}>
-        {renderItemPanel?.(rig, isOpen.setValue)} 
-        {isOpen.value && renderItemInfo?.(rig)} 
-      </div>
+    )}> 
+      {renderItemPanel?.(rig, isOpen.setValue)} 
+      {isOpen.value && renderItemInfo?.(rig)} 
     </div>
   )
 }

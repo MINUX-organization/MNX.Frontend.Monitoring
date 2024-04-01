@@ -9,10 +9,23 @@ export function apiInstance(customApiConfig?: AxiosRequestConfig): AxiosInstance
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Content-Type': 'application/json',
-      // Authorization: `Bearer ${token}`,
     },
     ...customApiConfig
   };
   
-  return axios.create(apiConfig);
+  const instance = axios.create(apiConfig);
+
+  // Add access token to every request
+  instance.interceptors.request.use(config => {
+    const token = localStorage.getItem('session')
+    
+    if (token) {
+      const parsedToken = JSON.parse(token)
+      config.headers.Authorization = `Bearer ${parsedToken.access_token}`
+    }
+  
+    return config
+  })
+
+  return instance;
 }

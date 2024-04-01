@@ -2,15 +2,5 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: .75rem;
-
-  .rig-total-item-header {
-    display: flex;
-  }
-
-  .rig-total-item-body {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
+  height: 100%;
 }
