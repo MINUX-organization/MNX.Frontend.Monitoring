@@ -1,4 +1,16 @@
 .rig-total-item {
   width: 100%;
-  min-height: 4.625rem;
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+
+  .rig-total-item-header {
+    display: flex;
+  }
+
+  .rig-total-item-body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
 }

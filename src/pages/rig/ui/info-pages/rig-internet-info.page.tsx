@@ -10,17 +10,6 @@ import { match } from 'ts-pattern'
 import { RigTotalItemInternetInfo } from '@/entities/rig'
 import { UiSpinner } from '@/shared/ui/ui-spinner'
 
-const mock = {
-  name: 'string',
-  model: 'string',
-  brand: 'string',
-  busInfo: 'string',
-  logicalName: 'string',
-  serialNumber: 'string',
-  ip: 'string',
-  isOnline: true,
-}
-
 export function RigInternetInfoPage() {
   const { rigId } = useParams()
   const { data, isLoading } = useQuery(['rigInternetInfo', rigId], () => getRigInternetApi(rigId ?? ''))
@@ -30,13 +19,12 @@ export function RigInternetInfoPage() {
   return (
     <UiBorderBox className={styles['rig-internet-info']}>
       <UiBgContainer className={styles['container']} color='opaque'>
-        <RigTotalItemInternetInfo rigInternet={mock} />
-        {/* {match(validatedData)
+        {match(validatedData)
           .with(undefined, () => 
             <div className={styles['no-data']}>
               {isLoading ? <UiSpinner /> : 'N/A'}
             </div>)
-          .otherwise((validatedData) => <RigTotalItemInternetInfo rigInternet={validatedData} />)} */}
+          .otherwise((validatedData) => <RigTotalItemInternetInfo rigInternet={validatedData} />)}
       </UiBgContainer>
     </UiBorderBox>
   )
