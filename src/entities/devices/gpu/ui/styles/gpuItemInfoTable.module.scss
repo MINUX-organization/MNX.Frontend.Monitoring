@@ -1,0 +1,19 @@
+.gpu-info-table {
+  display: grid;
+  grid-template-columns: repeat(3, 3rem);
+  gap: 1rem;
+
+  .gpu-info-table {
+    display: flex;
+    flex-direction: column;
+    
+  }
+}
+
+.blue {
+  color: var(--color-measure);
+}
+
+.red {
+  color: var(--color-negative);
+}

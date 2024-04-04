@@ -12,7 +12,13 @@ export function StartStopMiningButton({
   rigIsOnline?: boolean;
 }) {
   const text = rigIsActive ? 'STOP MINING' : 'START MINING'
+
   const color = rigIsActive ? 'red' : 'blue' 
+
+  const onClick = () => {
+    WebsocketContext.invoke('StartStopMining', rigId)
+  }
+
   return (
     <UiButton 
     className={className}

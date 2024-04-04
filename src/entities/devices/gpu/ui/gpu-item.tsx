@@ -1,7 +1,7 @@
 import { UiBorderBox } from "@/shared/ui/ui-border-box";
 import { DeviceGpu } from "../model/types";
 import { UiBgContainer } from "@/shared/ui/ui-bg-container";
-import styles from './gpuItem.module.scss';
+import styles from './styles/gpuItem.module.scss';
 import clsx from "clsx";
 import { UiActiveState } from "@/shared/ui/ui-active-state";
 
@@ -34,6 +34,7 @@ export function GpuItem({
             <span className={styles['device-name']}>{deviceGpu.name}</span>
             <span className={styles['blue']}>{deviceGpu.rigName}</span>
           </div>
+          
         </UiBgContainer>
       </UiBorderBox>
 

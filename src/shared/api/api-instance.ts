@@ -1,5 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { BACKEND_URL } from '../constants/backend-urls';
+import { refreshAccessTokenApi } from './auth/refresh-access-token';
 
 export function apiInstance(customApiConfig?: AxiosRequestConfig): AxiosInstance {
   const apiConfig: AxiosRequestConfig = {
@@ -38,12 +39,9 @@ export function apiInstance(customApiConfig?: AxiosRequestConfig): AxiosInstance
       if (token) {
         const parsedToken = JSON.parse(token)
         try {
-          const response = await axios.post(
-            `${BACKEND_URL}/auth/refreshTokens`, 
-            {refreshToken: parsedToken.refresh_token}
-          )
+          const response: string = await refreshAccessTokenApi(parsedToken.refreshToken)
 
-          localStorage.setItem('session', JSON.stringify(response.data))
+          localStorage.setItem('session', JSON.stringify(response))
 
           return instance(originalRequest);
         } catch(error) {

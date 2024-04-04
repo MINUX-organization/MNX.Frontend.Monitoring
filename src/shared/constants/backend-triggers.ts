@@ -5,5 +5,6 @@ export const BACKEND_TRIGGERS = {
   RECEIVED_RIGS_INFORMATION: 'ReceivedRigsInformation',
   RECEIVED_RIGS_STATE: 'ReceivedRigsState',
   RECEIVED_RIG_STATE_CHANGE: 'ReceivedRigStateChange',
-  RECEIVED_RIGS_DYNAMIC_DATA: 'ReceivedRigsDynamicData'
+  RECEIVED_RIGS_DYNAMIC_DATA: 'ReceivedRigsDynamicData',
+  SEND_START_MINING: 'SendStartMiningCommand',
 }

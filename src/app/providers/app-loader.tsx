@@ -2,7 +2,7 @@
 // import { useSession } from "@/entities/session";
 // import { useUsers } from "@/entities/user";
 // import { UiPageSpinner } from "@/shared/ui/ui-page-spinner";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode } from "react";
 
 export function AppLoader({ children }: { children?: ReactNode }) {
   // const loadUser = useUser((s) => s.loadUser);

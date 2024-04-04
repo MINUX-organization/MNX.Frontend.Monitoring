@@ -3,9 +3,10 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import styles from './loginForm.module.scss';
 import clsx from "clsx";
 import { UiButton } from "@/shared/ui/ui-button";
-import { Session, useSessionRepository } from "@/entities/session";
+import { useSessionRepository } from "@/entities/session";
 import { useLocation, useNavigate } from "react-router";
 import { useAuth } from "@/shared/lib/hooks/auth";
+import { loginApi } from "@/shared/api/auth/login";
 
 export type FormInput = {
   login: string;
@@ -22,6 +23,7 @@ export function LoginForm({
   const location = useLocation();
   
   const { saveSession } = useSessionRepository();
+
   const { control, handleSubmit } = useForm<FormInput>({
     defaultValues: {
       login: "",
@@ -29,13 +31,8 @@ export function LoginForm({
     },
   })
   
-  const onSubmit: SubmitHandler<FormInput> = (data) => {
-    /// fetch auth
-    const session: Session = {
-      accessToken: 'string',
-      refreshToken: 'string',
-      refreshExpiration: 'string'
-    }
+  const onSubmit: SubmitHandler<FormInput> = async (data) => {
+    const session = import.meta.env.PROD ? await loginApi(data.login, data.password) : data
 
     saveSession(session);
     setIsAuthenticated(true);
