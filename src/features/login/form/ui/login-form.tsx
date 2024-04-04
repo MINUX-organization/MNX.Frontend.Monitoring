@@ -5,7 +5,6 @@ import clsx from "clsx";
 import { UiButton } from "@/shared/ui/ui-button";
 import { useSessionRepository } from "@/entities/session";
 import { useLocation, useNavigate } from "react-router";
-import { useAuth } from "@/shared/lib/hooks/auth";
 import { loginApi } from "@/shared/api/auth/login";
 
 export type FormInput = {
@@ -18,7 +17,6 @@ export function LoginForm({
 } : {
   className?: string;
 }) {
-  const { setIsAuthenticated } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   
@@ -32,10 +30,13 @@ export function LoginForm({
   })
   
   const onSubmit: SubmitHandler<FormInput> = async (data) => {
-    const session = import.meta.env.PROD ? await loginApi(data.login, data.password) : data
+    const session = import.meta.env.PROD ? await loginApi(data.login, data.password) : {
+      accessToken: 'string',
+      refreshToken: 'string',
+      refreshExpiration: new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toUTCString(),
+    }
 
     saveSession(session);
-    setIsAuthenticated(true);
     
     const { from } = location.state || { from: "/" };
     navigate(from);

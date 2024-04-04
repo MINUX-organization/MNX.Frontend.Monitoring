@@ -15,8 +15,7 @@ export function apiInstance(customApiConfig?: AxiosRequestConfig): AxiosInstance
   };
   
   const instance = axios.create(apiConfig);
-
-  // Add access token to every request
+  
   instance.interceptors.request.use(config => {
     const token = localStorage.getItem('session')
     
@@ -28,30 +27,42 @@ export function apiInstance(customApiConfig?: AxiosRequestConfig): AxiosInstance
     return config
   })
 
-  instance.interceptors.response.use(response => response, async (error) => {
+  instance.interceptors.response.use(response => response, async error => {
     const originalRequest = error.config;
-    
-    if (error.response.status === 401 && !originalRequest._retry) {
+
+    if (
+      error.response?.status === 401 &&
+      !originalRequest._retry
+    ) {
       originalRequest._retry = true;
 
-      const token = localStorage.getItem('session')
+      const token = localStorage.getItem('session');
 
       if (token) {
-        const parsedToken = JSON.parse(token)
-        try {
-          const response: string = await refreshAccessTokenApi(parsedToken.refreshToken)
+        const parsedToken = JSON.parse(token);
 
-          localStorage.setItem('session', JSON.stringify(response))
+        if (new Date(parsedToken.refreshExpiration).getTime() < Date.now()) {
+          localStorage.removeItem('session');
+          window.location.reload();
+        }
+
+        try {
+          const response = await refreshAccessTokenApi(
+            parsedToken.refreshToken
+          );
+
+          localStorage.setItem('session', JSON.stringify(response));
 
           return instance(originalRequest);
-        } catch(error) {
-          localStorage.removeItem('session')
+        } catch {
+          localStorage.removeItem('session');
+          window.location.reload();
         }
       }
     }
 
-    Promise.reject(error)
-  })
+    return Promise.reject(error);
+  });
 
   return instance;
 }
