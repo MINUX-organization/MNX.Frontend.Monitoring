@@ -1,0 +1,26 @@
+@mixin flex() {
+  display: flex;
+  flex-direction: column;
+}
+
+gpu-item-wrapper {
+  @include flex();
+
+  .gpu-item {
+    display: flex;
+    align-items: center;
+    
+    .gpu-item-container {
+      padding: 2rem;
+
+      .gpu-item-id {
+        @include flex();
+
+      }
+    }
+  }
+}
+
+.blue {
+  color: var(--color-blue);
+}

@@ -1,10 +1,1 @@
-
-
-export function GpusPage() {
-  
-  return ( 
-      <div>
-        rggr
-      </div> 
-  )
-}
+export { GpusPage } from './ui/gpus.page'
