@@ -7,4 +7,7 @@ export const BACKEND_TRIGGERS = {
   RECEIVED_RIG_STATE_CHANGE: 'ReceivedRigStateChange',
   RECEIVED_RIGS_DYNAMIC_DATA: 'ReceivedRigsDynamicData',
   SEND_START_MINING: 'SendStartMiningCommand',
+  SEND_STOP_MINING: 'SendStopMiningCommand',
+  SEND_REBOOT_RIG: 'SendRebootRigCommand',
+  SEND_POWER_OFF_RIG: 'SendRigPowerOffCommand',
 }

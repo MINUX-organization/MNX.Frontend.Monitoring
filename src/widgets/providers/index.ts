@@ -1,1 +1,1 @@
-export { WebsocketContext, WebsocketContextProvider } from "./websocket-provider"
+export { WebsocketContextProvider } from "./websocket-provider"
