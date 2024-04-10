@@ -1,0 +1,13 @@
+.gpu-item {
+  display: flex;
+  align-items: center;
+  
+  .gpu-item-container {
+    padding: 2rem;
+
+    .gpu-item-id {
+      @include flex();
+
+    }
+  }
+}

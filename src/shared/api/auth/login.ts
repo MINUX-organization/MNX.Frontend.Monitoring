@@ -1,5 +1,5 @@
-import { BACKEND_APIS, BACKEND_URL } from "@/shared/constants/backend-urls";
-import axios from "axios";
+import { BACKEND_APIS } from "@/shared/constants/backend-urls";
+import { apiInstance } from "./_api-instance";
 
 interface Response {
   accessToken: string;
@@ -8,4 +8,4 @@ interface Response {
 }
 
 export const loginApi = async (login: string, password: string) => 
-  (await axios.post(`${BACKEND_URL}${BACKEND_APIS.LOGIN}`, {login, password})).data as Response;
+  (await apiInstance().post(BACKEND_APIS.LOGIN, {login, password})).data as Response;

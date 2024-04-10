@@ -3,7 +3,7 @@ import { z } from "zod";
 
 export const Coin = z.object({
   coin: z.string({invalid_type_error: 'Coin must be a string'}),
-  hashRate: MeasureUnit,
+  hashrate: MeasureUnit,
   shares: z.object({
     accepted: z.number({invalid_type_error: 'Accepted must be a number'}),
     rejected: z.number({invalid_type_error: 'Rejected must be a number'})
@@ -16,9 +16,10 @@ export const DeviceGpuDynamic = z.object({
   id: z.string({invalid_type_error: 'Id must be a string'}),
   index: z.number({invalid_type_error: 'Index must be a number'}).optional(),
   isActive: z.boolean({invalid_type_error: 'IsActive must be a boolean'}).optional(),
-  temperature: z.number({invalid_type_error: 'Temperature must be a number'}).optional(),
+  memTemperature: z.number({invalid_type_error: 'Temperature must be a number'}).optional(),
+  coreTemperature: z.number({invalid_type_error: 'Temperature must be a number'}).optional(),
   fanSpeed: z.number({invalid_type_error: 'FanSpeed must be a number'}).optional(),
-  power: MeasureUnit.optional(),
+  power: z.number({invalid_type_error: 'Power must be a number'}).optional(),
   coins: Coin.array().optional()
 })
 export type DeviceGpuDynamic = z.infer<typeof DeviceGpuDynamic>

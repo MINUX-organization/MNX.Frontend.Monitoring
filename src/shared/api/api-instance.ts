@@ -1,10 +1,10 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
-import { BACKEND_URL } from '../constants/backend-urls';
+import { BACKEND_MONITORING_URL } from '../constants/backend-urls';
 import { refreshAccessTokenApi } from './auth/refresh-access-token';
 
 export function apiInstance(customApiConfig?: AxiosRequestConfig): AxiosInstance {
   const apiConfig: AxiosRequestConfig = {
-    baseURL: `${BACKEND_URL}/api`,
+    baseURL: BACKEND_MONITORING_URL,
     timeout: 5000,
     withCredentials: false,
     headers: {
