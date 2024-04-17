@@ -1,12 +1,17 @@
 .gpu-panel-table {
   display: grid;
-  grid-template-columns: repeat(3, 3rem);
+  grid-template-columns: repeat(4, 3rem);
   gap: 1rem;
 
   .gpu-panel-table-item {
     display: flex;
+    align-items: center;
     flex-direction: column;
-    
+    gap: var(--gap-content);
+
+    .text {
+      width: 100%;
+    }
   }
 }
 

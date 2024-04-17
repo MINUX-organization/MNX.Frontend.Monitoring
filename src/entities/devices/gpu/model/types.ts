@@ -8,7 +8,7 @@ export const Coin = z.object({
     accepted: z.number({invalid_type_error: 'Accepted must be a number'}),
     rejected: z.number({invalid_type_error: 'Rejected must be a number'})
   }),
-  performance: z.number({invalid_type_error: 'Performance must be a number'}).optional()
+  performance: z.number({invalid_type_error: 'Performance must be a number'})
 })
 export type Coin = z.infer<typeof Coin>
 
@@ -35,7 +35,7 @@ export const DeviceGpuInfo = z.object({
   coreClock: MeasureUnit,
   memoryClock: MeasureUnit,
   criticalTemperature: z.number({invalid_type_error: 'CriticalTemperature must be a number'}),
-  powerLimit: MeasureUnit,
+  powerLimit: z.number({invalid_type_error: 'PowerLimit must be a number'}),
   manufacture: z.string({invalid_type_error: 'Manufacture must be a string'}),
   driver: z.string({invalid_type_error: 'Driver must be a string'}),
   cuda: z.string({invalid_type_error: 'Cuda must be a string'}),

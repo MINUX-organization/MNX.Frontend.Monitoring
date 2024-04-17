@@ -1,13 +1,35 @@
-.gpu-item {
+@mixin flex-column() {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+}
+
+.gpu-item {
+  width: 100%;
   
   .gpu-item-container {
-    padding: 2rem;
+    display: flex;
+    min-height: 8rem;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 2rem;
 
     .gpu-item-id {
-      @include flex();
+      @include flex-column();
+      gap: var(--gap-content);
+    }
 
+    .gpu-item-name {
+      @include flex-column();
+      gap: 0.15rem;
+
+      .device-name {
+        font-size: var(--font-size-20px);
+      }
     }
   }
+}
+
+.blue {
+  color: var(--color-measure);
 }

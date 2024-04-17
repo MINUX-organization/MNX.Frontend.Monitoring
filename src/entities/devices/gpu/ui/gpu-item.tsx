@@ -4,7 +4,9 @@ import clsx from "clsx";
 
 export function GpuItem({
   className,
-  deviceGpu
+  deviceGpu,
+  renderItemPanel,
+  renderItemInfo
 } : {
   className?: string;
   deviceGpu: DeviceGpu;
@@ -16,8 +18,8 @@ export function GpuItem({
       className,
       styles['gpu-item-wrapper']
     )}>
-
-
+      {renderItemPanel(deviceGpu)}
+      {renderItemInfo(deviceGpu)}
     </div>
   )
 }

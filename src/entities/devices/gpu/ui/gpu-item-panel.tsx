@@ -1,10 +1,11 @@
 import { UiBorderBox } from '@/shared/ui/ui-border-box'
-import styles from './styles/gpuItemInfoPanelPanel.module.scss'
+import styles from './styles/gpuItemPanel.module.scss'
 import { UiBgContainer } from '@/shared/ui/ui-bg-container'
 import clsx from 'clsx'
 import { DeviceGpu } from '../model/types';
 import { UiActiveState } from '@/shared/ui/ui-active-state';
 import { GpuItemPanelTable } from './gpu-item-panel-table';
+import { GpuItemPanelGrid } from './gpu-item-panel-grid';
 
 export function GpuItemPanel({
   className,
@@ -26,7 +27,7 @@ export function GpuItemPanel({
           {deviceGpu.id}
         </span>
         <span>
-          <span className={styles['blue']}>BUS</span>
+          <span className={styles['blue']}>BUS</span>&nbsp;
           {deviceGpu.bus}
         </span>
       </div>
@@ -35,6 +36,7 @@ export function GpuItemPanel({
         <span className={styles['blue']}>{deviceGpu.rigName}</span>
       </div>
       <GpuItemPanelTable deviceGpu={deviceGpu}/>
+      <GpuItemPanelGrid coinsList={deviceGpu.coins}/>
     </UiBgContainer>
   </UiBorderBox>
   )

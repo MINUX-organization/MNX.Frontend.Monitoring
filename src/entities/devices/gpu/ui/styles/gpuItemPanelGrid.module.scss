@@ -1,27 +1,51 @@
+@mixin subgrid() {
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: 1 / 6;
+  justify-content: center;
+  align-items: center;
+}
+
 .gpu-panel-grid {
   display: grid;
-  grid-template-columns: minmax(auto, 2.5rem) repeat(4, 1fr);
+  grid-template-columns: minmax(auto, 3rem) 1fr 3.5rem 1fr;
+  gap: var(--gap-content);
   grid-auto-flow: row;
 
   .gpu-panel-grid-title {
-    display: grid;
-    grid-template-columns: subgrid;
+    @include subgrid();
     justify-content: center;
     align-items: center;
+    background-color: var(--color-bg-lighter);
+    padding: 0 var(--gap-content);
 
-    .title {
-      background-color: var(--color-bg-lighter);
+    .text {
+      text-align: center;
+      color: var(--color-font-gray);
+    }
 
-      .span {
-        grid-column: span 3 / 5;
-      }
+    .span {
+      grid-column: 3 / 5; 
     }
   }
 
   .gpu-panel-grid-items {
-    display: grid;
-    grid-template-columns: subgrid;
-    justify-content: center;
-    align-items: center;
+    @include subgrid();
+    text-align: center;
+    padding: 0 var(--gap-content);
+    
+    .shares-accepted {
+      color: var(--color-positive);
+      text-align: center;
+    }
+
+    .shares-rejected {
+      color: var(--color-negative);
+      text-align: center;
+    }
   }
+}
+
+.blue {
+  color: var(--color-measure);
 }
