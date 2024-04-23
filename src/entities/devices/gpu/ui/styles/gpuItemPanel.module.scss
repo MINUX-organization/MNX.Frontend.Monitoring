@@ -17,6 +17,10 @@
     .gpu-item-id {
       @include flex-column();
       gap: var(--gap-content);
+
+      .text {
+        font-size: var(--font-size-18px)
+      }
     }
 
     .gpu-item-name {
@@ -27,6 +31,11 @@
         font-size: var(--font-size-20px);
       }
     }
+  }
+
+  .features {
+    display: flex;
+    gap: 1rem;
   }
 }
 

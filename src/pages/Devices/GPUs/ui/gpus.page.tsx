@@ -2,7 +2,9 @@ import { GpuItem, GpuItemInfo } from '@/entities/devices/gpu'
 import styles from './gpus.page.module.scss'
 import { GpuItemPanel } from '@/entities/devices/gpu'
 import _ from 'lodash'
-import { DeviceGpu } from '@/entities/devices/gpu/model/types'
+import { DeviceGpu } from '@/entities/devices/gpu'
+import { OnOpen } from '@/features/devices/gpu/on-open'
+import { Settings } from '@/features/devices/gpu/settings'
 
 const mockDeviceGpu: DeviceGpu[] = [
   {
@@ -25,7 +27,10 @@ const mockDeviceGpu: DeviceGpu[] = [
     powerLimit: 250,
     manufacture: "NVIDIA",
     driver: "470.63.01",
-    cuda: "11.4",
+    parallelComputingTechnology: {
+      name: "CUDA",
+      version: "2.0.0"
+    },
     vendor: "NVIDIA",
     memorySize: {
       value: 10,
@@ -87,7 +92,13 @@ export function GpusPage() {
         {mockDeviceGpu && _.map(mockDeviceGpu, (gpu) => 
           <GpuItem 
             deviceGpu={gpu} 
-            renderItemPanel={(gpu) => <GpuItemPanel deviceGpu={gpu}/>}
+            renderItemPanel={(gpu, isOpen) => 
+              <GpuItemPanel 
+                deviceGpu={gpu} 
+                isOpen={isOpen} 
+                renderOnOpen={(isOpen) => <OnOpen isOpen={isOpen}/>}
+                renderSetting={(id) => <Settings gpuId={id} />} 
+              />}
             renderItemInfo={(gpu) => <GpuItemInfo deviceGpu={gpu}/>}
           />)} 
       </div>

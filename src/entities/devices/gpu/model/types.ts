@@ -1,4 +1,5 @@
 import { MeasureUnit } from "@/shared/types/measure-unit";
+import { ParallelComputingTechnology } from "@/shared/types/parallel-computing-technology";
 import { z } from "zod";
 
 export const Coin = z.object({
@@ -38,7 +39,7 @@ export const DeviceGpuInfo = z.object({
   powerLimit: z.number({invalid_type_error: 'PowerLimit must be a number'}),
   manufacture: z.string({invalid_type_error: 'Manufacture must be a string'}),
   driver: z.string({invalid_type_error: 'Driver must be a string'}),
-  cuda: z.string({invalid_type_error: 'Cuda must be a string'}),
+  parallelComputingTechnology: ParallelComputingTechnology,
   vendor: z.string({invalid_type_error: 'Vendor must be a string'}),
   memorySize: MeasureUnit,
   memoryVendor: z.string({invalid_type_error: 'MemoryVendor must be a string'}),
