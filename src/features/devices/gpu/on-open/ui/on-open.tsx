@@ -17,9 +17,11 @@ export function OnOpen({
       className,
       styles['on-open']
     )}>
-      <ChevronDown className={clsx(
-        isOpen?.value && styles['invert']
-      )} size={30} onClick={onOpen} />
+      <ChevronDown 
+        className={clsx(isOpen?.value && styles['invert'])} 
+        size={30} 
+        onClick={onOpen} 
+      />
     </button>
   )
 }

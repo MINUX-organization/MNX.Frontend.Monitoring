@@ -1,6 +1,6 @@
-import { GpuItem } from '@/entities/devices/gpu/ui/gpu-item'
+import { GpuItem, GpuItemInfo } from '@/entities/devices/gpu'
 import styles from './gpus.page.module.scss'
-import { GpuItemPanel } from '@/entities/devices/gpu/ui/gpu-item-panel'
+import { GpuItemPanel } from '@/entities/devices/gpu'
 import _ from 'lodash'
 import { DeviceGpu } from '@/entities/devices/gpu/model/types'
 
@@ -88,7 +88,7 @@ export function GpusPage() {
           <GpuItem 
             deviceGpu={gpu} 
             renderItemPanel={(gpu) => <GpuItemPanel deviceGpu={gpu}/>}
-            renderItemInfo={(gpu) => <></>}
+            renderItemInfo={(gpu) => <GpuItemInfo deviceGpu={gpu}/>}
           />)} 
       </div>
     </div>

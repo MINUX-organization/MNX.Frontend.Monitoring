@@ -23,7 +23,7 @@ export function GpuItemPanel({
       {deviceGpu?.isActive && <UiActiveState isActive={deviceGpu.isActive} />}
       <div className={styles['gpu-item-id']}>
         <span>
-          <span className={styles['blue']}>ID</span>&nbsp;
+          <span className={styles['blue']}>Index</span>&nbsp;
           {deviceGpu.id}
         </span>
         <span>
@@ -37,6 +37,9 @@ export function GpuItemPanel({
       </div>
       <GpuItemPanelTable deviceGpu={deviceGpu}/>
       <GpuItemPanelGrid coinsList={deviceGpu.coins}/>
+      <div className={styles['features']}>
+        
+      </div>
     </UiBgContainer>
   </UiBorderBox>
   )
