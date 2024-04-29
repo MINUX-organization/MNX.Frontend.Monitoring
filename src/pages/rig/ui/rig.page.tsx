@@ -1,5 +1,5 @@
 import { RigTotal, RigTotalItem, RigTotalItemPanel } from "@/entities/rig";
-import { Outlet, useParams } from "react-router"
+import { Outlet } from "react-router"
 import styles from './rig.page.module.scss'
 import { RigMenu } from "./rig-menu";
 import { BackButton } from "@/features/rig/navigation-back";
@@ -7,7 +7,7 @@ import { match } from "ts-pattern";
 import clsx from "clsx";
 
 export function RigPage() {
-  const { rigId } = useParams();
+  // const { rigId } = useParams();
   
   const rig: RigTotal | undefined = undefined
 

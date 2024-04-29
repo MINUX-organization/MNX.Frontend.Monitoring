@@ -9,8 +9,8 @@ export function UiTextTitleWrapper({
   text: string;
 }) {
   return (
-    <span className={clsx(className, styles['text-title-wrapper'])}>
+    <div className={clsx(className, styles['text-title-wrapper'])}>
       {text}
-    </span>
+    </div>
   )
 }

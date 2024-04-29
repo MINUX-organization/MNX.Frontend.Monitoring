@@ -1,5 +1,5 @@
 import { Rig } from "@/entities/rig";
-import { WebsocketContext } from "@/widgets/providers/websocket-provider";
+import { WebsocketContext } from "@/shared/lib/context/websocket-context";
 import { useStateObject } from "@/shared/lib/utils/state-object";
 import { TriggerRigData, TriggerRigDataStatic } from "../../model/types";
 import { ZodSaveParse } from "@/shared/lib/utils/zod-save-parse";

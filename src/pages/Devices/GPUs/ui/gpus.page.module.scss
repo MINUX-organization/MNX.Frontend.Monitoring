@@ -1,0 +1,11 @@
+.gpus-page {
+  width: 100%;
+  display: flex;
+  gap: 1rem;
+
+  .gpus-flex-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+}

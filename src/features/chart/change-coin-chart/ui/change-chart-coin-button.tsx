@@ -1,5 +1,5 @@
 import { UiButton } from "@/shared/ui/ui-button";
-import { WebsocketContext } from "@/widgets/providers/websocket-provider";
+import { WebsocketContext } from "@/shared/lib/context/websocket-context";
 import { StateObject } from "@/shared/lib/utils/state-object";
 import styles from './changeChartCoinButton.module.scss';
 import clsx from "clsx";

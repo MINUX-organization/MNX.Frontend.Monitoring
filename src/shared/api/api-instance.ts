@@ -1,9 +1,10 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
-import { BACKEND_URL } from '../constants/backend-urls';
+import { BACKEND_MONITORING_URL } from '../constants/backend-urls';
+import { refreshAccessTokenApi } from './auth/refresh-access-token';
 
 export function apiInstance(customApiConfig?: AxiosRequestConfig): AxiosInstance {
   const apiConfig: AxiosRequestConfig = {
-    baseURL: `${BACKEND_URL}/api`,
+    baseURL: BACKEND_MONITORING_URL,
     timeout: 5000,
     withCredentials: false,
     headers: {
@@ -14,8 +15,7 @@ export function apiInstance(customApiConfig?: AxiosRequestConfig): AxiosInstance
   };
   
   const instance = axios.create(apiConfig);
-
-  // Add access token to every request
+  
   instance.interceptors.request.use(config => {
     const token = localStorage.getItem('session')
     
@@ -27,33 +27,42 @@ export function apiInstance(customApiConfig?: AxiosRequestConfig): AxiosInstance
     return config
   })
 
-  instance.interceptors.response.use(response => response, async (error) => {
+  instance.interceptors.response.use(response => response, async error => {
     const originalRequest = error.config;
-    
-    if (error.response.status === 401 && !originalRequest._retry) {
+
+    if (
+      error.response?.status === 401 &&
+      !originalRequest._retry
+    ) {
       originalRequest._retry = true;
 
-      const token = localStorage.getItem('session')
+      const token = localStorage.getItem('session');
 
       if (token) {
-        const parsedToken = JSON.parse(token)
-        try {
-          const response = await axios.post(
-            `${BACKEND_URL}/auth/refreshTokens`, 
-            {refreshToken: parsedToken.refresh_token}
-          )
+        const parsedToken = JSON.parse(token);
 
-          localStorage.setItem('session', JSON.stringify(response.data))
+        if (new Date(parsedToken.refreshExpiration).getTime() < Date.now()) {
+          localStorage.removeItem('session');
+          window.location.reload();
+        }
+
+        try {
+          const response = await refreshAccessTokenApi(
+            parsedToken.refreshToken
+          );
+
+          localStorage.setItem('session', JSON.stringify(response));
 
           return instance(originalRequest);
-        } catch(error) {
-          localStorage.removeItem('session')
+        } catch {
+          localStorage.removeItem('session');
+          window.location.reload();
         }
       }
     }
 
-    Promise.reject(error)
-  })
+    return Promise.reject(error);
+  });
 
   return instance;
 }

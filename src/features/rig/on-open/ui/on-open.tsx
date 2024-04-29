@@ -1,23 +1,25 @@
 import clsx from "clsx";
 import styles from './onOpen.module.scss';
 import { ChevronDown } from "lucide-react";
-import { Dispatch } from "react";
+import { StateObject } from "@/shared/lib/utils/state-object";
 
 export function OnOpen({ 
   className,
-  setIsOpen
+  isOpen
 } : {
   className?: string;
-  setIsOpen?: Dispatch<React.SetStateAction<boolean>>;
+  isOpen?: StateObject<boolean>;
 }) {
-  const onOpen = () => setIsOpen && setIsOpen((prev) => !prev)
+  const onOpen = () => isOpen && isOpen.setValue((prev) => !prev)
 
   return (
     <button className={clsx(
       className,
       styles['on-open']
     )}>
-      <ChevronDown size={30} onClick={onOpen} />
+      <ChevronDown className={clsx(
+        isOpen?.value && styles['invert']
+      )} size={30} onClick={onOpen} />
     </button>
   )
 }
