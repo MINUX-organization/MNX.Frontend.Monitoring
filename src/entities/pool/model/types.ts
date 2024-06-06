@@ -8,9 +8,5 @@ export const Pool = z.object({
 })
 export type Pool = z.infer<typeof Pool>
 
-export const PostPool = z.object({
-  domain: z.string({invalid_type_error: 'Domain must be a string'}),
-  port: z.number({invalid_type_error: 'Address must be a number'}),
-  cryptocurrencyId: z.string({invalid_type_error: 'CryptocurrencyId must be a string'})
-})
+export const PostPool = Pool.omit({id: true})
 export type PostPool = z.infer<typeof PostPool>
