@@ -1,8 +1,6 @@
+import { WebsocketContext } from "@/shared/lib/context/websocket-context";
 import { HttpTransportType } from "@microsoft/signalr";
 import { ReactNode } from "react";
-import { createSignalRContext } from "react-signalr/signalr";
-
-export const WebsocketContext = createSignalRContext()
 
 export function WebsocketContextProvider({
   url,

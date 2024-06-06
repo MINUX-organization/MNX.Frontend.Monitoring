@@ -1,11 +1,11 @@
-import { UiSelect } from '@/shared/ui/ui-select';
-import styles from './rigs.page.module.scss';
 import { RigTotal, RigTotalItem, RigTotalItemInfo, RigTotalItemPanel } from '@/entities/rig';
-import { OnOpen } from '@/features/rig/on-open';
+import { ZodSaveParse } from '@/shared/lib/utils/zod-save-parse';
 import { Settings } from '@/features/rig/settings';
+import { UiSelect } from '@/shared/ui/ui-select';
+import { OnOpen } from '@/features/rig/on-open';
+import styles from './rigs.page.module.scss';
 import { match } from 'ts-pattern';
 import _ from 'lodash';
-import { ZodSaveParse } from '@/shared/lib/utils/zod-save-parse';
 
 export function RigsPage() {
   const options = [
@@ -36,11 +36,11 @@ export function RigsPage() {
               className={styles['rig-total-item']}
               rig={rig}
               withFeatures={true}
-              renderItemPanel={(rig, setIsOpen) => 
+              renderItemPanel={(rig, isOpen) => 
                 <RigTotalItemPanel 
                   rig={rig} 
-                  setIsOpen={setIsOpen}
-                  renderOnOpen={(setIsOpen) => <OnOpen setIsOpen={setIsOpen}/>}
+                  isOpen={isOpen}
+                  renderOnOpen={(isOpen) => <OnOpen isOpen={isOpen}/>}
                   renderSetting={(id) => <Settings id={id} />}
                 />} 
               renderItemInfo={(rig) => rig && <RigTotalItemInfo rig={rig} />}

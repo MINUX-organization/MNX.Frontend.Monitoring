@@ -1,7 +1,7 @@
-import { useStateObject } from '@/shared/lib/utils/state-object';
+import { StateObject, useStateObject } from '@/shared/lib/utils/state-object';
 import styles from './styles/rigTotalItem.module.scss';
 import { RigTotal } from "../../model/types";
-import { Dispatch, ReactNode, SetStateAction } from "react";
+import { ReactNode } from "react";
 import clsx from 'clsx';
 
 
@@ -17,7 +17,7 @@ export function RigTotalItem({
   withFeatures?: boolean;
   renderItemPanel?: (
     rig: RigTotal, 
-    setIsOpen: Dispatch<SetStateAction<boolean>>
+    setIsOpen: StateObject<boolean>
   ) => ReactNode;
   renderItemInfo?: (rig?: RigTotal) => ReactNode;
 }) {
@@ -28,7 +28,7 @@ export function RigTotalItem({
       className,
       styles['rig-total-item']
     )}> 
-      {renderItemPanel?.(rig, isOpen.setValue)} 
+      {renderItemPanel?.(rig, isOpen)} 
       {isOpen.value && renderItemInfo?.(rig)} 
     </div>
   )

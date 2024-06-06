@@ -1,5 +1,5 @@
 import { SharesCount, TotalCoinValue, TotalCpusCount, TotalGpusCount, TotalPower, TotalRigsCount } from "@/entities/total";
-import { WebsocketContext } from "@/widgets/providers/websocket-provider"; 
+import { WebsocketContext } from "@/shared/lib/context/websocket-context"; 
 import { match } from 'ts-pattern';
 import { ZodSaveParse } from "@/shared/lib/utils/zod-save-parse";
 import { useStateObject } from "@/shared/lib/utils/state-object";

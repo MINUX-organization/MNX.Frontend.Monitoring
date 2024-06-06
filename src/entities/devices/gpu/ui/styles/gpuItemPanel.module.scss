@@ -1,0 +1,44 @@
+@mixin flex-column() {
+  display: flex;
+  flex-direction: column;
+}
+
+.gpu-item {
+  width: 100%;
+  
+  .gpu-item-container {
+    display: flex;
+    min-height: 8rem;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 2rem;
+
+    .gpu-item-id {
+      @include flex-column();
+      gap: var(--gap-content);
+
+      .text {
+        font-size: var(--font-size-18px)
+      }
+    }
+
+    .gpu-item-name {
+      @include flex-column();
+      gap: 0.15rem;
+
+      .device-name {
+        font-size: var(--font-size-20px);
+      }
+    }
+  }
+
+  .features {
+    display: flex;
+    gap: 1rem;
+  }
+}
+
+.blue {
+  color: var(--color-measure);
+}

@@ -2,26 +2,27 @@ import clsx from 'clsx'
 import styles from './styles/rigTotalItemPanel.module.scss'
 import { UiBorderBox } from '@/shared/ui/ui-border-box'
 import { RigTotal } from '../../model/types';
-import { Dispatch, ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { UiBgContainer } from '@/shared/ui/ui-bg-container';
 import { RigTotalItemDevicesTable } from './rig-total-item-devices-table';
 import { UiActiveState } from '@/shared/ui/ui-active-state';
 import { UiWiFiState } from '@/shared/ui/ui-wifi-state';
+import { StateObject } from '@/shared/lib/utils/state-object';
 
 export function RigTotalItemPanel({
   className,
   rig,
-  setIsOpen,
+  isOpen,
   renderEdit,
   renderSetting,
   renderOnOpen
 } : {
   className?: string;
   rig: RigTotal;
-  setIsOpen?: Dispatch<React.SetStateAction<boolean>>;
+  isOpen?: StateObject<boolean>;
   renderEdit?: () => ReactNode;
   renderSetting?: (id: string) => ReactNode;
-  renderOnOpen?: (setIsOpen?: Dispatch<React.SetStateAction<boolean>>) => ReactNode;
+  renderOnOpen?: (isOpen?: StateObject<boolean>) => ReactNode;
 }) {
   return (
     <UiBorderBox className={clsx(
@@ -49,10 +50,10 @@ export function RigTotalItemPanel({
           <span className={styles['blue']}>{rig.power.measureUnit}</span>
         </span>
       </div>
-      {setIsOpen && 
+      {isOpen?.value && 
         <div className={styles['features']}>
           {renderSetting?.(rig.id)}
-          {renderOnOpen?.(setIsOpen)}
+          {renderOnOpen?.(isOpen)}
         </div>}
     </UiBgContainer>
   </UiBorderBox>
