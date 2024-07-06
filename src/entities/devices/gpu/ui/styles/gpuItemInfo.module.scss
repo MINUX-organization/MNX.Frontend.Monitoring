@@ -13,6 +13,10 @@
       align-items: center;
       gap: .5rem;
 
+      .label {
+        color: var(--color-font-gray);
+      }
+
       .item {
         display: flex;
         flex-direction: column;

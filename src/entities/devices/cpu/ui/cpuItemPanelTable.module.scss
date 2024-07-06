@@ -1,9 +1,9 @@
-.gpu-panel-table {
+.cpu-panel-table {
   display: grid;
   grid-template-columns: repeat(4, minmax(3rem, 1fr));
   gap: 1rem;
 
-  .gpu-panel-table-item {
+  .cpu-panel-table-item {
     display: flex;
     align-items: center;
     flex-direction: column;

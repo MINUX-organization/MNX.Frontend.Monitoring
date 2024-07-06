@@ -6,14 +6,14 @@
   align-items: center;
 }
 
-.gpu-panel-grid {
+.cpu-panel-grid {
   display: grid;
   grid-template-columns: minmax(auto, 3rem) 1fr minmax(auto, 3rem) minmax(auto, 3rem) 1fr;
   gap: var(--gap-content);
   grid-auto-flow: row;
 
-  .gpu-panel-grid-title {
-    @include subgrid(); 
+  .cpu-panel-grid-title {
+    @include subgrid();
     background-color: var(--color-bg-lighter);
     padding: 0 var(--gap-content);
 
@@ -27,7 +27,7 @@
     }
   }
 
-  .gpu-panel-grid-items {
+  .cpu-panel-grid-items {
     @include subgrid();
     text-align: center;
     padding: 0 var(--gap-content);

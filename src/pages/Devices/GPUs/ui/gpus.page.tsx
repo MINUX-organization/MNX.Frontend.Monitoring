@@ -42,7 +42,7 @@ const mockDeviceGpu: DeviceGpu[] = [
     isActive: true,
     memTemperature: 75,
     coreTemperature: 65,
-    fanSpeed: 70,
+    fan: 70,
     power: 230,
     coins: [
       {
@@ -89,6 +89,7 @@ export function GpusPage() {
   return (
     <div className={styles['gpus-page']}>
       <div className={styles['gpus-flex-container']}>
+        <span className={styles['title']}>GPUs</span>
         {mockDeviceGpu && _.map(mockDeviceGpu, (gpu) => 
           <GpuItem 
             deviceGpu={gpu} 

@@ -24,7 +24,7 @@ export function RigItemPanel({
     onlineState, 
     internetSpeed,
     averageTemperature, 
-    fanSpeed, 
+    fan, 
     power
   } = {...rig}
 
@@ -65,8 +65,8 @@ export function RigItemPanel({
           {averageTemperature && '°C'}
         </span>
         <span className={styles['item-7']}>
-          {fanSpeed ?? 'N/A'}
-          {fanSpeed && '%'}
+          {fan ?? 'N/A'}
+          {fan && '%'}
         </span>
         <div className={styles['item-8']}>
           <span>{power?.value ?? 'N/A'}</span>

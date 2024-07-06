@@ -14,6 +14,7 @@ import PrivateRoute from "../guards/private-route";
 import { LoginPage } from "@/pages/login";
 import { RigsPage } from "@/pages/rigs";
 import { RigPage, RigCpusInfoPage, RigGpusInfoPage, RigMotherboardInfoPage, RigHddsInfoPage, RigInternetInfoPage } from "@/pages/rig";
+import { CpusPage } from "@/pages/devices/CPUs";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
       {
         path: ROUTER_PATHS.GPUS,
         element: <PrivateRoute children={<GpusPage />}/>
+      },
+      {
+        path: ROUTER_PATHS.CPUS,
+        element: <PrivateRoute children={<CpusPage />}/>,
       },
       {
         path: ROUTER_PATHS.RIGS,
