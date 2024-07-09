@@ -28,7 +28,7 @@ export function GpuItemPanel({
       className
     )}>
       <UiBgContainer className={styles['gpu-item-container']} color="opaque">
-        {deviceGpu?.isActive && <UiActiveState isActive={deviceGpu.isActive} />}
+        {<UiActiveState isActive={deviceGpu.isActive} />}
         <div className={styles['gpu-item-id']}>
           <span>
             <span className={clsx(

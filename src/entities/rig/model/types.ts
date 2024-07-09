@@ -77,7 +77,7 @@ export const Rig = z.object({
   onlineState: RigOnlineState.optional(),
   internetSpeed: RigInternetSpeed.optional(),
   averageTemperature: RigAverageTemperature.optional(),
-  fanSpeed: z.number({invalid_type_error: 'Fan must be a string'}).optional(),
+  fan: z.number({invalid_type_error: 'Fan must be a string'}).optional(),
   power: RigPower.optional(),
   coinInfo: RigCoinInfo.array().optional(),
   miningUpTime: z.string({invalid_type_error: 'MiningUpTime must be a string'}).optional(),

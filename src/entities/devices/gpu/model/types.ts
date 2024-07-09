@@ -19,7 +19,7 @@ export const DeviceGpuDynamic = z.object({
   isActive: z.boolean({invalid_type_error: 'IsActive must be a boolean'}).optional(),
   memTemperature: z.number({invalid_type_error: 'Temperature must be a number'}).optional(),
   coreTemperature: z.number({invalid_type_error: 'Temperature must be a number'}).optional(),
-  fanSpeed: z.number({invalid_type_error: 'FanSpeed must be a number'}).optional(),
+  fan: z.number({invalid_type_error: 'Fan must be a number'}).optional(),
   power: z.number({invalid_type_error: 'Power must be a number'}).optional(),
   coins: Coin.array().optional()
 })

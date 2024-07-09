@@ -17,10 +17,14 @@ export function GpuItemPanelTable({
       )}
     >
       <div className={styles['gpu-panel-table-item']}>
-        <UiTextTitleWrapper className={styles['text']}  text="MEM" />
+        <UiTextTitleWrapper className={styles['text']} text="MEM" />
         <span>
-          {deviceGpu.memTemperature}&nbsp;
-          <span>°C</span>
+          <span className={clsx(
+              deviceGpu?.coreTemperature && deviceGpu.coreTemperature > 80 && styles['red']
+            )}>
+              {deviceGpu.memTemperature}&nbsp;
+          </span>
+            <span>°C</span>
         </span>
       </div>
       <div className={styles['gpu-panel-table-item']}>
@@ -37,7 +41,7 @@ export function GpuItemPanelTable({
       <div className={styles['gpu-panel-table-item']}>
         <UiTextTitleWrapper className={styles['text']}  text="FAN" />
         <span>
-          {deviceGpu.fanSpeed}&nbsp;
+          {deviceGpu.fan}&nbsp;
           <span>%</span>
         </span>
       </div>

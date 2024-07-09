@@ -45,11 +45,11 @@ export function GpuItemInfo({
         <UiColumnBoard data={thirdColumn} />
         <div className={styles['gpu-info']}>
           <div className={styles['item']}>
-            <span>MINER</span>
+            <span className={styles['label']}>MINER</span>
             <span>{deviceGpu.minerName}</span>
           </div>
           <div className={styles['item']}>
-            <span>FLIGHT SHEET</span>
+            <span className={styles['label']}>FLIGHT SHEET</span>
             <span>{deviceGpu.flightSheet}</span>
           </div>
         </div>
