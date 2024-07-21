@@ -1,6 +1,0 @@
-@MNX.Backend.Test_HostAddress = http://localhost:5090
-
-GET {{MNX.Backend.Test_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

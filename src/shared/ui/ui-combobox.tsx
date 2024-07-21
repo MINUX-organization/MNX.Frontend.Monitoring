@@ -22,9 +22,9 @@ export function UiComboBox<T>({
   placeholder?: string;
   color?: 'opaque' | 'opaqueBlack' | 'transparent';
   options?: T[];
-  selectedOption?: string;
+  selectedOption?: T;
   getOptionLabel: (option: T) => string;
-  selectedOnChange?: (option?: string) => void;
+  selectedOnChange?: (option?: T) => void;
 }) {
   const query = useStateObject('')
 
@@ -69,7 +69,7 @@ export function UiComboBox<T>({
             <Combobox.Option 
               className={styles['option']}
               key={getOptionLabel?.(option)} 
-              value={getOptionLabel?.(option)}
+              value={option}
             >
               {getOptionLabel?.(option)}
             </Combobox.Option>

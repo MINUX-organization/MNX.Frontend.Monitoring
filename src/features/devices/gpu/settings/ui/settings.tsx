@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import styles from './settings.module.scss'
 import { SettingsIcon } from "lucide-react";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 
 export function Settings({ 
   className,

@@ -92,6 +92,7 @@ export function GpusPage() {
         <span className={styles['title']}>GPUs</span>
         {mockDeviceGpu && _.map(mockDeviceGpu, (gpu) => 
           <GpuItem 
+            key={gpu.id}
             deviceGpu={gpu} 
             renderItemPanel={(gpu, isOpen) => 
               <GpuItemPanel 
