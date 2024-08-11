@@ -1,0 +1,18 @@
+.presets-list {
+  width: 40.625rem;
+
+  .title {
+    margin-top: 1rem;
+    margin-bottom: 0.625rem;
+  }
+
+  .presets-list-items {
+    overflow: auto;
+  }
+}
+
+.centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

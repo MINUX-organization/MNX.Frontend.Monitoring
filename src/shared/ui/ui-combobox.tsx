@@ -14,6 +14,7 @@ export function UiComboBox<T>({
   color,
   placeholder,
   getOptionLabel,
+  isDisabled,
   selectedOption,
   selectedOnChange
 } : {
@@ -23,6 +24,7 @@ export function UiComboBox<T>({
   color?: 'opaque' | 'opaqueBlack' | 'transparent';
   options?: T[];
   selectedOption?: T;
+  isDisabled?: boolean;
   getOptionLabel: (option: T) => string;
   selectedOnChange?: (option?: T) => void;
 }) {
@@ -38,7 +40,7 @@ export function UiComboBox<T>({
   return (
     <div className={clsx(className, styles['combobox'])}>
       {title && <label>{title}</label>}
-      <Combobox value={selectedOption} onChange={selectedOnChange}>
+      <Combobox disabled={isDisabled} value={selectedOption} onChange={selectedOnChange}>
         <div>
         <UiBorderBox className={styles['select']}>
           <UiBgContainer className={styles['select-container']} color={color ?? 'opaque'}>

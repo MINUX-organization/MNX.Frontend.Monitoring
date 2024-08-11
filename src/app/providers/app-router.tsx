@@ -15,6 +15,7 @@ import { LoginPage } from "@/pages/login";
 import { RigsPage } from "@/pages/rigs";
 import { RigPage, RigCpusInfoPage, RigGpusInfoPage, RigMotherboardInfoPage, RigHddsInfoPage, RigInternetInfoPage } from "@/pages/rig";
 import { CpusPage } from "@/pages/devices/CPUs";
+import { PresetModal } from "@/widgets/preset-modal";
 
 const router = createBrowserRouter([
   {
@@ -39,7 +40,13 @@ const router = createBrowserRouter([
       },
       {
         path: ROUTER_PATHS.GPUS,
-        element: <PrivateRoute children={<GpusPage />}/>
+        element: <PrivateRoute children={<GpusPage />}/>,
+        children: [
+          {
+            path: ROUTER_PATHS.GPU,
+            element: <PrivateRoute children={<PresetModal />}/>,
+          }
+        ]
       },
       {
         path: ROUTER_PATHS.CPUS,

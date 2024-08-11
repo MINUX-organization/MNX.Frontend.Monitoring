@@ -5,8 +5,8 @@
 
   .item {
     display: grid;
-    padding: 0 var(--gap-content);
-    grid-template-columns: 1fr 0.35rem 1fr;
+    // padding: 0 var(--gap-content);
+    grid-template-columns: auto 0.35rem 1fr;
 
     &.flex {
       display: flex;
@@ -24,6 +24,10 @@
 
     .value  {
       text-align: end;
+
+      .measure {
+        color: var(--color-blue);
+      }
     }
   }
 }

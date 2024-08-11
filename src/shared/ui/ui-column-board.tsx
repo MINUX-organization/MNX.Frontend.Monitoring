@@ -5,7 +5,8 @@ import _ from "lodash";
 
 type Field = {
   label: string;
-  value: string | number | boolean | JSX.Element; 
+  value: string | number | boolean | JSX.Element;
+  measureUnit?: string;
 } 
 
 export function UiColumnBoard({
@@ -35,7 +36,9 @@ export function UiColumnBoard({
         )}>
           <span className={styles['label']}>{d.label}</span>
           <span className={styles['sep']}>{sep}</span>
-          <span className={styles['value']}>{d.value}</span>
+          <span className={styles['value']}>{d.value}&nbsp;
+            <span className={styles['measure']}>{d.measureUnit}</span>
+          </span>
         </div>
       ))}
     </div>

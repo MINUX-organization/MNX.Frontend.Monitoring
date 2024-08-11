@@ -1,3 +1,25 @@
 .preset-item {
-  
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+
+  .preset-panel {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+
+    .gpu-name {
+      color: var(--color-font-gray);
+    }
+  }
+
+  .preset-board {
+    display: grid;
+    grid-template-columns: 1fr .9fr .65fr;
+    gap: 1rem;
+  }
+}
+
+.blue {
+  color: var(--color-measure);
 }
