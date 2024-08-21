@@ -17,5 +17,6 @@ export const BACKEND_APIS = {
   ALHORITHM: '/algorithms/available',
   POOL: '/pools',
   WALLET: '/wallets',
-  RIGS: '/rigs'
+  RIGS: '/rigs',
+  PRESETS: '/presets'
 }

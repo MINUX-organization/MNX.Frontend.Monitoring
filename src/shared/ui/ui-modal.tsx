@@ -12,6 +12,7 @@ export function UiModal({
   renderTitle,
   renderDescription,
   renderContent,
+  children
 } : {
   className?: string;
   isOpen: boolean;
@@ -19,6 +20,7 @@ export function UiModal({
   renderTitle?: () => ReactNode;
   renderDescription?: () => ReactNode;
   renderContent?: () => ReactNode;
+  children?: ReactNode;
 }) {
   return (
     <Transition 
@@ -40,6 +42,10 @@ export function UiModal({
         <div className={styles['background']}/>
         <div className={styles['content']}>
           <div className={styles['centered']}>
+          {children ? 
+            <Dialog.Panel>
+              {children}
+            </Dialog.Panel> :
             <UiBorderBox className={className}>
               <UiBgContainer color="opaque" className={styles['content-box']}>
                 <Dialog.Panel>
@@ -53,6 +59,7 @@ export function UiModal({
                 </Dialog.Panel>
               </UiBgContainer>
             </UiBorderBox>
+          }
           </div>
         </div>
       </Dialog>

@@ -5,6 +5,7 @@ import _ from 'lodash'
 import { DeviceGpu } from '@/entities/devices/gpu'
 import { OnOpen } from '@/features/devices/gpu/on-open'
 import { Settings } from '@/features/devices/gpu/settings'
+import { Outlet } from 'react-router'
 
 const mockDeviceGpu: DeviceGpu[] = [
   {
@@ -104,6 +105,7 @@ export function GpusPage() {
             renderItemInfo={(gpu) => <GpuItemInfo deviceGpu={gpu}/>}
           />)} 
       </div>
+      <Outlet />
     </div>
   )
 }

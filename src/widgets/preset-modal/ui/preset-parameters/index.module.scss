@@ -1,0 +1,29 @@
+.preset-parameters {
+  width: 38rem;
+
+  .preset-parameters-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    
+      .preset-header {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: .5rem;
+    
+        .preset-header-item {
+          &:nth-child(2) {
+            text-align: center;
+          }
+        }
+      }
+  }
+}
+
+.blue {
+  color: var(--color-measure);
+}
+
+.gray {
+  color: var(--color-font-gray);
+}

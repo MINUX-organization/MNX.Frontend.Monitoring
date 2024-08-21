@@ -18,4 +18,5 @@ export const Preset = z.object({
   coreVoltage: MeasureUnit,
   coreVoltageOffset: MeasureUnit
 })
+
 export type Preset = z.infer<typeof Preset>

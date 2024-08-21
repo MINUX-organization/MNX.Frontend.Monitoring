@@ -1,0 +1,12 @@
+.title {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0.625rem;
+
+  .line {
+    height: 1px;
+    display: flex;
+    align-self: center;
+    border-bottom: var(--border);
+  }
+}

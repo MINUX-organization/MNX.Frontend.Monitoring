@@ -5,6 +5,7 @@ export const ROUTER_PATHS = {
   DEVICES: 'devices',
   CPUS: "/devices/cpus",
   GPUS: "/devices/gpus",
+  GPU: ":gpuId",
   RIGS: 'rigs',
   RIG: 'rigs/:rigId',
   RIG_GPUS: 'gpus',
