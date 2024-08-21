@@ -16,7 +16,7 @@ export function PresetsList({
   gpuId?: string;
 }
 ) {
-  const { getPresetsList, isLoading } = usePresetRepository();
+  const { isLoading } = usePresetRepository();
   const mockPreset = [{
     id: 'preset-123',
     name: 'My Preset',

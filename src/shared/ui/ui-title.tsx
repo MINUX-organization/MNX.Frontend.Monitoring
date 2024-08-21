@@ -6,7 +6,7 @@ export function UiTitle({
   label,
 } : {
   className?: string;
-  label: string;
+  label?: string;
 }) {
   return (
     <div className={clsx(

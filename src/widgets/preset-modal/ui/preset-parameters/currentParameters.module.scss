@@ -1,0 +1,12 @@
+.current-parameters {
+  .parameters {
+    margin-top: 0.625rem;
+    
+    display: flex;
+    justify-content: space-around;
+
+    .column {
+      width: 15rem;
+    }
+  }
+}

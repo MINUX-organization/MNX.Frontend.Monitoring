@@ -15,6 +15,7 @@
 
   .preset-board {
     display: grid;
+    font-size: var(--font-size-14px);
     grid-template-columns: 1fr .9fr .65fr;
     gap: 1rem;
   }

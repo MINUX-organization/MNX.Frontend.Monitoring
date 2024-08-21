@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router";
 import { PresetsList } from "./presets-list";
 
 import styles from './presetModal.module.scss';
-import { PresetParameters } from "./preset-parameters";
+import PresetParameters from "./preset-parameters";
 
 export function PresetModal() {
   const { isOpen, onOpen } = useModal();
