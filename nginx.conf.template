@@ -1,0 +1,28 @@
+user nginx;
+worker_processes auto;
+error_log /var/log/nginx/error.log;
+pid /run/nginx.pid;
+
+events { 
+    worker_connections 1024; 
+}
+
+http {
+    include /etc/nginx/mime.types;
+
+    server {
+        listen ${VITE_FRONTEND_PORT};
+
+        server_name 0.0.0.0;
+
+        location / {
+            root /usr/share/nginx/html;
+            index index.html index.htm;
+            try_files $uri $uri/ /index.html;
+        }
+
+        location /api/ {
+            proxy_pass http://${VITE_BACKEND_DNS}:${VITE_BACKEND_PORT};
+        }
+    }
+}
