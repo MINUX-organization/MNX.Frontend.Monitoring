@@ -13,16 +13,20 @@ http {
     server {
         listen ${VITE_FRONTEND_PORT};
 
-        server_name 0.0.0.0;
+        server_name 77.37.200.167;
+
+        root /usr/share/nginx/html;
+        index index.html;
 
         location / {
-            root /usr/share/nginx/html;
-            index index.html index.htm;
             try_files $uri $uri/ /index.html;
         }
 
         location /api/ {
             proxy_pass http://${VITE_BACKEND_DNS}:${VITE_BACKEND_PORT};
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         }
     }
 }

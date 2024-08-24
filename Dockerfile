@@ -18,4 +18,4 @@ COPY --from=builder /app/dist /usr/share/nginx/html
 
 EXPOSE $VITE_FRONTEND_PORT
 
-CMD ["sh", "-c", "envsubst < /etc/nginx/templates/nginx.conf.template > /etc/nginx/nginx.conf && nginx -t && nginx -g 'daemon off;'"]
+CMD ["sh", "-c", "envsubst '${VITE_FRONTEND_PORT}, ${VITE_BACKEND_PORT}, ${VITE_BACKEND_DNS}' < /etc/nginx/templates/nginx.conf.template > /etc/nginx/nginx.conf && nginx -t && nginx -g 'daemon off;'"]
