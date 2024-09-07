@@ -11,7 +11,7 @@ export const BACKEND_HUBS = {
 } as const
 
 export const BACKEND_APIS = {
-  LOGIN: '/auth/login',
+  LOGIN: '/auth/login/user',
   REFRESH_ACCESS_TOKEN: '/auth/refreshTokens',
   CRYPTOCURRENCY: '/cryptocurrencies',
   ALHORITHM: '/algorithms/available',
