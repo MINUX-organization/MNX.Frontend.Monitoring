@@ -27,5 +27,5 @@ docker build \
   --build-arg VITE_BACKEND_MONITORING='monitoring' \
   -t web-monitoring-frontend-app .
 
-docker run -d --name web-monitoring-frontend -p 3000:3000 web-monitoring-frontend-app
+docker run -d --name web-monitoring-frontend -p 3000:3000 -e VITE_FRONTEND_PORT=3000 web-monitoring-frontend-app
 ```
