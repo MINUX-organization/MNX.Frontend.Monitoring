@@ -19,7 +19,13 @@ npm run build
 ## CI / CD
 
 ```bash
-docker build -t web-monitoring-frontend-app .
+docker build \
+  --build-arg VITE_FRONTEND_PORT=1111 \
+  --build-arg VITE_BACKEND_PORT=1111 \
+  --build-arg VITE_BACKEND_DNS='localhost' \
+  --build-arg VITE_BACKEND_SECURITY='security' \
+  --build-arg VITE_BACKEND_MONITORING='monitoring' \
+  -t web-monitoring-frontend-app .
 
-docker run -d --name web-monitoring-frontend -p 3000:3000 -e VITE_FRONTEND_PORT=3000 -e VITE_BACKEND_PORT=1111 -e VITE_BACKEND_DNS=localhost web-monitoring-frontend-app
+docker run -d --name web-monitoring-frontend -p 3000:3000 web-monitoring-frontend-app
 ```

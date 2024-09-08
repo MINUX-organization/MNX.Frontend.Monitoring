@@ -1,6 +1,12 @@
 # Stage 1: Build the frontend application
 FROM node:18-alpine AS builder
 
+ARG VITE_FRONTEND_PORT
+ARG VITE_BACKEND_PORT
+ARG VITE_BACKEND_DNS
+ARG VITE_BACKEND_SECURITY
+ARG VITE_BACKEND_MONITORING
+
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci
