@@ -1,3 +1,11 @@
-.spinner {
-  color: var(--color-border);
+.spinner-wrapper {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+
+  .spinner {
+    color: var(--color-border);
+  }
 }
