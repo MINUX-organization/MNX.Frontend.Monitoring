@@ -20,7 +20,6 @@ npm run build
 
 ```bash
 docker build \
-  --build-arg VITE_FRONTEND_PORT=1111 \
   --build-arg VITE_BACKEND_PORT=1111 \
   --build-arg VITE_BACKEND_DNS='localhost' \
   --build-arg VITE_BACKEND_SECURITY='security' \
