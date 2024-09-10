@@ -1,7 +1,7 @@
-const BACKEND_URL = import.meta.env.BACKEND_URL;
-const BACKEND_MONITORING = import.meta.env.BACKEND_MONITORING;
-const BACKEND_MANAGEMENT = import.meta.env.BACKEND_MANAGEMENT;
-const BACKEND_SECURITY = import.meta.env.BACKEND_SECURITY;
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+const BACKEND_MONITORING = import.meta.env.VITE_BACKEND_MONITORING;
+const BACKEND_MANAGEMENT = import.meta.env.VITE_BACKEND_MANAGEMENT;
+const BACKEND_SECURITY = import.meta.env.VITE_BACKEND_SECURITY;
 
 export const BACKEND_BASE_URL = `http://${BACKEND_URL}`;
 

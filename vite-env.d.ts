@@ -2,10 +2,10 @@
 
 export interface ImportMetaEnv {
   VITE_FRONTEND_PORT: number;
-  BACKEND_URL: 'string';
-  BACKEND_MONITORING_URL: 'string';
-  BACKEND_MANAGEMENT_URL: 'string';
-  BACKEND_SECURITY_URL: 'string';
+  VITE_BACKEND_URL: 'string';
+  VITE_BACKEND_MONITORING_URL: 'string';
+  VITE_BACKEND_MANAGEMENT_URL: 'string';
+  VITE_BACKEND_SECURITY_URL: 'string';
 }
 
 export interface ImportMeta {
