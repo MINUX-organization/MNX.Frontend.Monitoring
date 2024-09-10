@@ -1,5 +1,5 @@
 import { BACKEND_APIS } from "@/shared/constants/backend-urls";
-import { apiInstance } from "./_api-instance";
+import { apiInstance } from "../api-instance";
 
 interface Response {
   accessToken: string;
