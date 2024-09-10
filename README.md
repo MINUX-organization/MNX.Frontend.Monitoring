@@ -20,10 +20,11 @@ npm run build
 
 ```bash
 docker build \
-  --build-arg VITE_BACKEND_URL='localhost' \
-  --build-arg VITE_BACKEND_SECURITY='monitoring_center_security' \
-  --build-arg VITE_BACKEND_MONITORING='monitoring_center_monitoring' \
+  --build-arg BACKEND_URL='localhost' \
+  --build-arg BACKEND_SECURITY='security' \
+  --build-arg BACKEND_MONITORING='monitoring_center_monitoring' \
+  --build-arg BACKEND_MANAGEMENT='authorization' \
   -t web-monitoring-frontend-app .
 
-docker run -d --name web-monitoring-frontend -p 3100:3100 -e VITE_FRONTEND_PORT=3100 web-monitoring-frontend-app
+docker run -d --name web-monitoring-frontend -p 3100:3100 -e FRONTEND_PORT=3100 web-monitoring-frontend-app
 ```
