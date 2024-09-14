@@ -14,7 +14,7 @@ type UiSelectProps<T> = {
   selectedOption?: T;
   className?: string;
   placeholder?: string;
-  selectedOnChange?: (option?: T) => void; 
+  selectedOnChange?: (option: T) => void; 
   getOptionLabel?: (option?: T) => string | undefined;
   renderSelectedOption?: (selectedOption?: T) => ReactNode;
 }
@@ -39,7 +39,7 @@ export function UiSelect<T>({
       {title && <label>{title}</label>}
       <Listbox {...props} as='div' value={selectedOption || '' as T} onChange={selectedOnChange}>
         <Listbox.Button className={styles['button']}>
-          <UiBorderBox>
+          <UiBorderBox className={styles['select-container-wrapper']}>
             <UiBgContainer className={styles['select-container']} color={color ?? 'opaque'}>
               {selectedOption === '' || selectedOption === undefined ? (
                 <span className={styles['text-gray']}>{placeholder ?? 'Select an option'}</span>

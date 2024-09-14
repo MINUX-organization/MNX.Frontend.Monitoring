@@ -8,9 +8,13 @@
   
   .button {
     text-align: left;
-    min-height: 2rem;
     width: 100%;
   }
+}
+
+.select-container-wrapper {
+  height: 2rem;
+  min-height: 2rem;
 }
 
 .options {
