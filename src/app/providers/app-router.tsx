@@ -5,26 +5,41 @@ import {
 } from "react-router-dom";
 import { RootLayout } from "@/widgets/root-layout";
 import { ROUTER_PATHS } from "@/shared/constants/routes";
-import { MonitoringPage } from "@/pages/monitoring";
-import { GpusPage } from "@/pages/devices/GPUs";
-import { CryptosPage } from "@/pages/cryptos";
-import { WalletsPage } from "@/pages/wallets";
-import { PoolsPage } from "@/pages/pools";
 import PrivateRoute from "../guards/private-route";
+import React from "react";
+import { UiSpinner } from "@/shared/ui/ui-spinner";
 import { LoginPage } from "@/pages/login";
-import { RigsPage } from "@/pages/rigs";
-import { RigPage, RigCpusInfoPage, RigGpusInfoPage, RigMotherboardInfoPage, RigHddsInfoPage, RigInternetInfoPage } from "@/pages/rig";
-import { CpusPage } from "@/pages/devices/CPUs";
-import { PresetModal } from "@/widgets/preset-modal";
+
+// Динамический импорт страниц
+const MonitoringPage = React.lazy(() => import("@/pages/monitoring").then(module => ({ default: module.MonitoringPage })));
+const GpusPage = React.lazy(() => import("@/pages/devices/GPUs").then(module => ({ default: module.GpusPage })));
+const CryptosPage = React.lazy(() => import("@/pages/cryptos").then(module => ({ default: module.CryptosPage })));
+const WalletsPage = React.lazy(() => import("@/pages/wallets").then(module => ({ default: module.WalletsPage })));
+const PoolsPage = React.lazy(() => import("@/pages/pools").then(module => ({ default: module.PoolsPage })));
+const RigsPage = React.lazy(() => import("@/pages/rigs").then(module => ({ default: module.RigsPage })));
+const RigPage = React.lazy(() => import("@/pages/rig").then(module => ({ default: module.RigPage })));
+const RigCpusInfoPage = React.lazy(() => import("@/pages/rig").then(module => ({ default: module.RigCpusInfoPage })));
+const RigGpusInfoPage = React.lazy(() => import("@/pages/rig").then(module => ({ default: module.RigGpusInfoPage })));
+const RigMotherboardInfoPage = React.lazy(() => import("@/pages/rig").then(module => ({ default: module.RigMotherboardInfoPage })));
+const RigHddsInfoPage = React.lazy(() => import("@/pages/rig").then(module => ({ default: module.RigHddsInfoPage })));
+const RigInternetInfoPage = React.lazy(() => import("@/pages/rig").then(module => ({ default: module.RigInternetInfoPage })));
+const CpusPage = React.lazy(() => import("@/pages/devices/CPUs").then(module => ({ default: module.CpusPage })));
+const PresetModal = React.lazy(() => import("@/widgets/preset-modal").then(module => ({ default: module.PresetModal })));
 
 const router = createBrowserRouter([
   {
     path: ROUTER_PATHS.LOGIN,
-    element: <LoginPage/>,
+    element: (
+        <LoginPage />
+    ),
   },
   {
     path: ROUTER_PATHS.HOME,
-    element: <RootLayout/>,
+    element: (
+      <PrivateRoute>
+        <RootLayout />
+      </PrivateRoute>
+    ),
     children: [
       {
         path: '',
@@ -36,29 +51,53 @@ const router = createBrowserRouter([
       },
       {
         path: ROUTER_PATHS.MONITORING,
-        element: <PrivateRoute children={<MonitoringPage />}/>
+        element: (
+            <React.Suspense fallback={<UiSpinner />}>
+              <MonitoringPage />
+            </React.Suspense>
+        ),
       },
       {
         path: ROUTER_PATHS.GPUS,
-        element: <PrivateRoute children={<GpusPage />}/>,
+        element: (
+            <React.Suspense fallback={<UiSpinner />}>
+              <GpusPage />
+            </React.Suspense>
+        ),
         children: [
           {
             path: ROUTER_PATHS.GPU,
-            element: <PrivateRoute children={<PresetModal />}/>,
-          }
-        ]
+            element: (
+                <React.Suspense fallback={<UiSpinner />}>
+                  <PresetModal />
+                </React.Suspense>
+            ),
+          },
+        ],
       },
       {
         path: ROUTER_PATHS.CPUS,
-        element: <PrivateRoute children={<CpusPage />}/>,
+        element: (
+            <React.Suspense fallback={<UiSpinner />}>
+              <CpusPage />
+            </React.Suspense>
+        ),
       },
       {
         path: ROUTER_PATHS.RIGS,
-        element: <PrivateRoute children={<RigsPage />}/>
+        element: (
+            <React.Suspense fallback={<UiSpinner />}>
+              <RigsPage />
+            </React.Suspense>
+        ),
       },
       {
         path: ROUTER_PATHS.RIG,
-        element: <PrivateRoute children={<RigPage />}/>,
+        element: (
+            <React.Suspense fallback={<UiSpinner />}>
+              <RigPage />
+            </React.Suspense>
+        ),
         children: [
           {
             path: '',
@@ -66,37 +105,69 @@ const router = createBrowserRouter([
           },
           {
             path: ROUTER_PATHS.RIG_GPUS,
-            element: <PrivateRoute children={<RigGpusInfoPage />}/>,
+            element: (
+                <React.Suspense fallback={<UiSpinner />}>
+                  <RigGpusInfoPage />
+                </React.Suspense>
+            ),
           },
           {
             path: ROUTER_PATHS.RIG_CPUS,
-            element: <PrivateRoute children={<RigCpusInfoPage />}/>,
+            element: (
+                <React.Suspense fallback={<UiSpinner />}>
+                  <RigCpusInfoPage />
+                </React.Suspense>
+            ),
           },
           {
             path: ROUTER_PATHS.RIG_MOTHERBOARD,
-            element: <PrivateRoute children={<RigMotherboardInfoPage />}/>,
+            element: (
+                <React.Suspense fallback={<UiSpinner />}>
+                  <RigMotherboardInfoPage />
+                </React.Suspense>
+            ),
           },
           {
             path: ROUTER_PATHS.RIG_HDDS,
-            element: <PrivateRoute children={<RigHddsInfoPage />}/>,
+            element: (
+                <React.Suspense fallback={<UiSpinner />}>
+                  <RigHddsInfoPage />
+                </React.Suspense>
+            ),
           },
           {
             path: ROUTER_PATHS.RIG_INTERNET,
-            element: <PrivateRoute children={<RigInternetInfoPage />}/>,
+            element: (
+                <React.Suspense fallback={<UiSpinner />}>
+                  <RigInternetInfoPage />
+                </React.Suspense>
+            ),
           },
-        ]
+        ],
       },
       {
         path: ROUTER_PATHS.CRYPTOS,
-        element: <PrivateRoute children={<CryptosPage />}/>
+        element: (
+            <React.Suspense fallback={<UiSpinner />}>
+              <CryptosPage />
+            </React.Suspense>
+        ),
       },
       {
         path: ROUTER_PATHS.WALLETS,
-        element: <PrivateRoute children={<WalletsPage />}/>
+        element: (
+            <React.Suspense fallback={<UiSpinner />}>
+              <WalletsPage />
+            </React.Suspense>
+        ),
       },
       {
         path: ROUTER_PATHS.POOLS,
-        element: <PrivateRoute children={<PoolsPage />}/>
+        element: (
+            <React.Suspense fallback={<UiSpinner />}>
+              <PoolsPage />
+            </React.Suspense>
+        ),
       },
     ],
   },

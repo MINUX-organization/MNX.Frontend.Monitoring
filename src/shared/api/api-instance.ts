@@ -1,10 +1,10 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
-import { BACKEND_MONITORING_URL } from '../constants/backend-urls';
+import { BACKEND_BASE_URL } from '../constants/backend-urls';
 import { refreshAccessTokenApi } from './auth/refresh-access-token';
 
-export function apiInstance(customApiConfig?: AxiosRequestConfig): AxiosInstance {
+export function apiInstance(url?: string, customApiConfig?: AxiosRequestConfig): AxiosInstance {
   const apiConfig: AxiosRequestConfig = {
-    baseURL: BACKEND_MONITORING_URL,
+    baseURL: `${BACKEND_BASE_URL}${url ?? ''}`,
     timeout: 5000,
     withCredentials: false,
     headers: {
@@ -15,7 +15,7 @@ export function apiInstance(customApiConfig?: AxiosRequestConfig): AxiosInstance
   };
   
   const instance = axios.create(apiConfig);
-  
+
   instance.interceptors.request.use(config => {
     const token = localStorage.getItem('session')
     

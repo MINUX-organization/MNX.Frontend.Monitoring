@@ -13,7 +13,7 @@ http {
     server {
         listen ${VITE_FRONTEND_PORT};
 
-        server_name 77.37.200.167;
+        server_name localhost;
 
         root /usr/share/nginx/html;
         index index.html;
