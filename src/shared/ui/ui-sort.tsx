@@ -35,7 +35,8 @@ export function UiSort<T>({
   const sortBy = useStateObject<keyof T | undefined>(initialSortBy);
   const direction = useStateObject<'asc' | 'desc'>(initialDirection || 'asc');
   
-  const handleSort = useCallback((option?: SortOption<T>) => {
+  const handleSort = useCallback((option?: SortOption<T>) => {  
+    selectedOption.setValue(option);
     if (!data) return;
 
     const newSortBy = option?.value || sortBy.value; 
@@ -46,7 +47,6 @@ export function UiSort<T>({
     if (!option) return;
 
     sortBy.setValue(newSortBy);
-    selectedOption.setValue(option);
   }, [data, sortBy, direction.value, onSort, selectedOption]);
 
   useEffect(() => {

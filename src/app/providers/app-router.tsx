@@ -9,13 +9,13 @@ import PrivateRoute from "../guards/private-route";
 import React from "react";
 import { UiSpinner } from "@/shared/ui/ui-spinner";
 import { LoginPage } from "@/pages/login";
+import _ from "lodash";
+import { CryptosPage } from "@/pages/cryptos";
+import { WalletsPage } from "@/pages/wallets";
+import { PoolsPage } from "@/pages/pools";
 
-// Динамический импорт страниц
 const MonitoringPage = React.lazy(() => import("@/pages/monitoring").then(module => ({ default: module.MonitoringPage })));
 const GpusPage = React.lazy(() => import("@/pages/devices/GPUs").then(module => ({ default: module.GpusPage })));
-const CryptosPage = React.lazy(() => import("@/pages/cryptos").then(module => ({ default: module.CryptosPage })));
-const WalletsPage = React.lazy(() => import("@/pages/wallets").then(module => ({ default: module.WalletsPage })));
-const PoolsPage = React.lazy(() => import("@/pages/pools").then(module => ({ default: module.PoolsPage })));
 const RigsPage = React.lazy(() => import("@/pages/rigs").then(module => ({ default: module.RigsPage })));
 const RigPage = React.lazy(() => import("@/pages/rig").then(module => ({ default: module.RigPage })));
 const RigCpusInfoPage = React.lazy(() => import("@/pages/rig").then(module => ({ default: module.RigCpusInfoPage })));
@@ -23,6 +23,7 @@ const RigGpusInfoPage = React.lazy(() => import("@/pages/rig").then(module => ({
 const RigMotherboardInfoPage = React.lazy(() => import("@/pages/rig").then(module => ({ default: module.RigMotherboardInfoPage })));
 const RigHddsInfoPage = React.lazy(() => import("@/pages/rig").then(module => ({ default: module.RigHddsInfoPage })));
 const RigInternetInfoPage = React.lazy(() => import("@/pages/rig").then(module => ({ default: module.RigInternetInfoPage })));
+const FlightSheetsPage = React.lazy(() => import("@/pages/flightsheets").then(module => ({ default: module.FlightSheetsPage })));
 const CpusPage = React.lazy(() => import("@/pages/devices/CPUs").then(module => ({ default: module.CpusPage })));
 const PresetModal = React.lazy(() => import("@/widgets/preset-modal").then(module => ({ default: module.PresetModal })));
 
@@ -146,27 +147,29 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: ROUTER_PATHS.CRYPTOS,
+        path: ROUTER_PATHS.FLIGHT_SHEETS,
         element: (
             <React.Suspense fallback={<UiSpinner />}>
-              <CryptosPage />
+              <FlightSheetsPage />
             </React.Suspense>
+        ),
+      },
+      {
+        path: ROUTER_PATHS.CRYPTOS,
+        element: (
+              <CryptosPage />
         ),
       },
       {
         path: ROUTER_PATHS.WALLETS,
         element: (
-            <React.Suspense fallback={<UiSpinner />}>
               <WalletsPage />
-            </React.Suspense>
         ),
       },
       {
         path: ROUTER_PATHS.POOLS,
         element: (
-            <React.Suspense fallback={<UiSpinner />}>
               <PoolsPage />
-            </React.Suspense>
         ),
       },
     ],
