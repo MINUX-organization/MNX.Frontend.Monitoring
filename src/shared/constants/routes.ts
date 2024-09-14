@@ -14,7 +14,7 @@ export const ROUTER_PATHS = {
   RIG_INTERNET: 'internet',
   RIG_HDDS: 'hdds',
   STATISTIC: 'statistic',
-  FLIGHT_SHEETS: 'flight sheets',
+  FLIGHT_SHEETS: 'flight-sheets',
   PRESETS: 'presets',
   CRYPTOS: 'cryptos',
   WALLETS: 'wallets',
