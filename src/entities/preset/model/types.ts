@@ -1,9 +1,7 @@
 import { MeasureUnit } from "@/shared/types/measure-unit";
 import { z } from "zod";
 
-export const Preset = z.object({
-  id: z.string({invalid_type_error: 'Id must be a string'}),
-  name: z.string({invalid_type_error: 'Name must be a string'}),
+export const Overclocking = z.object({
   memoryVendor: z.string({invalid_type_error: 'MemoryVendor must be a string'}),
   memoryType: z.string({invalid_type_error: 'MemoryType must be a string'}),
   powerLimit: MeasureUnit,
@@ -17,6 +15,13 @@ export const Preset = z.object({
   coreClockOffset: MeasureUnit,
   coreVoltage: MeasureUnit,
   coreVoltageOffset: MeasureUnit
+})
+
+export const Preset = z.object({
+  id: z.string({invalid_type_error: 'Id must be a string'}),
+  name: z.string({invalid_type_error: 'Name must be a string'}),
+  gpuName: z.string({invalid_type_error: 'GpuName must be a string'}),
+  overclocking: Overclocking
 })
 
 export type Preset = z.infer<typeof Preset>

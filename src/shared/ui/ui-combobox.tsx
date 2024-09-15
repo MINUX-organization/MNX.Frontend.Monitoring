@@ -6,6 +6,7 @@ import _ from "lodash";
 import { UiBorderBox } from "./ui-border-box";
 import { UiBgContainer } from "./ui-bg-container";
 import { ChevronDown } from "lucide-react";
+import { ReactNode } from "react";
 
 export function UiComboBox<T>({
   className,
@@ -16,7 +17,7 @@ export function UiComboBox<T>({
   getOptionLabel,
   isDisabled,
   selectedOption,
-  selectedOnChange
+  selectedOnChange,
 } : {
   className?: string;
   title?: string;
@@ -36,7 +37,7 @@ export function UiComboBox<T>({
       : _.filter(options, (option) => {
           return getOptionLabel(option).toLowerCase().includes(query.value.toLowerCase())
         })
-
+  console.log(selectedOption)
   return (
     <div className={clsx(className, styles['combobox'])}>
       {title && <label>{title}</label>}
@@ -47,7 +48,8 @@ export function UiComboBox<T>({
             <Combobox.Input 
               className={styles['input']}
               placeholder={placeholder} 
-              onChange={(event) => query.setValue(event.target.value)} 
+              onChange={(event) => query.setValue(event.target.value)}
+              
             /> 
             <Combobox.Button className={styles['button']}>
               <ChevronDown className={styles['chevron']} size={20}/>
@@ -71,7 +73,7 @@ export function UiComboBox<T>({
             <Combobox.Option 
               className={styles['option']}
               key={getOptionLabel?.(option)} 
-              value={option}
+              value={getOptionLabel?.(option)}
             >
               {getOptionLabel?.(option)}
             </Combobox.Option>

@@ -1,20 +1,17 @@
-import { UiBgContainer } from "@/shared/ui/ui-bg-container";
 import { UiBorderBox } from "@/shared/ui/ui-border-box";
 import { Preset } from "../model/types";
-import styles from './presetItem.module.scss';
-import React from "react";
-import { UiColumnBoard } from "@/shared/ui/ui-column-board";
+import clsx from "clsx";
+import { UiBgContainer } from "@/shared/ui/ui-bg-container";
+import styles from './presetSlice.module.scss';
 
-export function PresetItem({
+export function PresetSlice({
   className,
   preset,
-  renderApply,
   renderEdit,
   renderDelete,
 } : {
   className?: string;
   preset: Preset;
-  renderApply?: (presetId: string) => React.ReactNode;
   renderEdit?: (presetId: string) => React.ReactNode;
   renderDelete?: (presetId: string) => React.ReactNode;
 }) {
@@ -39,27 +36,10 @@ export function PresetItem({
   ]
 
   return (
-    <UiBorderBox className={className}>
-      <UiBgContainer className={styles["preset-item"]} color="transparent">
-        <div className={styles["preset-panel"]}>
-          <span>
-            {preset.id}
-            <span className={styles["gpu-name"]}> -&nbsp;{preset.name}</span>
-          </span>
-          <div className={styles["preset-panel-buttons"]}>
-            {renderApply?.(preset.id)}
-            {renderEdit?.(preset.id)}
-            {renderDelete?.(preset.id)}
-          </div>
-        </div>
-        <span className={styles["blue"]}>{preset.overclocking.memoryVendor}&nbsp;{preset.overclocking.memoryType}</span>
+    <UiBorderBox withPadding className={clsx(className, styles['preset-slice'])}>
+      <UiBgContainer color="opaque">
         
-        <div className={styles["preset-board"]}>
-          <UiColumnBoard data={firstField} />
-          <UiColumnBoard data={secondField} />
-          <UiColumnBoard data={thirdField} />
-        </div>
       </UiBgContainer>
     </UiBorderBox>
-  )
+  );
 }

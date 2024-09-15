@@ -76,7 +76,7 @@ export function WalletForm({
               render={({ field: {onChange} }) => 
                 <UiComboBox
                   title="Coin"
-                  options={cryptosList}
+                  options={cryptosList ?? []}
                   selectedOption={selectedCrypto}
                   selectedOnChange={onChange}
                   getOptionLabel={(option) => option.fullName}
