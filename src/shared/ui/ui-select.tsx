@@ -37,7 +37,7 @@ export function UiSelect<T>({
         styles['select'],
       )}>
       {title && <label>{title}</label>}
-      <Listbox {...props} as='div' value={selectedOption || '' as T} onChange={selectedOnChange}>
+      <Listbox className={styles['listbox']} {...props} as='div' value={selectedOption || '' as T} onChange={selectedOnChange}>
         <Listbox.Button className={styles['button']}>
           <UiBorderBox className={styles['select-container-wrapper']}>
             <UiBgContainer className={styles['select-container']} color={color ?? 'opaque'}>

@@ -1,11 +1,9 @@
-import { UiBgContainer } from "@/shared/ui/ui-bg-container";
-import { UiBorderBox } from "@/shared/ui/ui-border-box";
-import { Preset } from "../model/types";
-import styles from './presetItem.module.scss';
-import React from "react";
 import { UiColumnBoard } from "@/shared/ui/ui-column-board";
+import { Preset } from "../model/types";
+import clsx from "clsx";
+import styles from './presetSliceItem.module.scss';
 
-export function PresetItem({
+export function PresetSliceItem({
   className,
   preset,
   renderApply,
@@ -19,7 +17,8 @@ export function PresetItem({
   renderDelete?: (presetId: string) => React.ReactNode;
 }) {
   const measureUnit = "Mhz";
-
+  const isFeatures: boolean = renderApply != undefined|| renderEdit != undefined || renderDelete != undefined;
+  
   const firstField = [
     {label: 'Memory Clock Lock', value: preset.overclocking.memoryClockLock, measureUnit: measureUnit},
     {label: 'Memory Clock Offset', value: preset.overclocking.memoryClockOffset, measureUnit: measureUnit},
@@ -36,32 +35,23 @@ export function PresetItem({
 
   const thirdField = [
     {label: 'Power Limit', value: preset.overclocking.powerLimit, measureUnit: measureUnit},
-    {label: 'Fan Speed', value: preset.overclocking.fanSpeed, measureUnit: "%"},
-    {label: 'Critical Temp', value: preset.overclocking.criticalTemperature, measureUnit: "°C"},
+    {label: 'Fan Speed', value: preset.overclocking.fanSpeed, measureUnit: '%'},
+    {label: 'Critical Temp', value: preset.overclocking.criticalTemperature, measureUnit: '°C'},
   ]
 
   return (
-    <UiBorderBox className={className}>
-      <UiBgContainer className={styles["preset-item"]} color="transparent">
-        <div className={styles["preset-panel"]}>
-          <span>
-            {preset.id}
-            <span className={styles["gpu-name"]}> -&nbsp;{preset.name}</span>
-          </span>
-          <div className={styles["preset-panel-buttons"]}>
-            {renderApply?.(preset.id)}
-            {renderEdit?.(preset.id)}
-            {renderDelete?.(preset.id)}
-          </div>
+    <div className={clsx(className, styles["preset-slice-item"])}>
+      <span className={styles["name"]}>{preset.name}</span>
+      <UiColumnBoard data={firstField} />
+      <UiColumnBoard data={secondField} />
+      <UiColumnBoard data={thirdField} />
+      {isFeatures && (
+        <div className={styles["features"]}>
+          {renderApply?.(preset.id)}
+          {renderEdit?.(preset.id)}
+          {renderDelete?.(preset.id)}
         </div>
-        <span className={styles["blue"]}>{preset.overclocking.memoryVendor}&nbsp;{preset.overclocking.memoryType}</span>
-        
-        <div className={styles["preset-board"]}>
-          <UiColumnBoard data={firstField} />
-          <UiColumnBoard data={secondField} />
-          <UiColumnBoard data={thirdField} />
-        </div>
-      </UiBgContainer>
-    </UiBorderBox>
+      )}
+    </div>
   )
 }

@@ -6,19 +6,22 @@ import { BACKEND_APIS } from "@/shared/constants/backend-urls";
 type Response = {
   id: string;
   name: string;
-  memoryVendor: string;
-  memoryType: string;
-  powerLimit: MeasureUnit;
-  fanSpeed: number;
-  criticalTemperature: number;
-  memoryClockLock: MeasureUnit;
-  memoryClockOffset: MeasureUnit;
-  memoryVoltage: MeasureUnit;
-  memoryVoltageOffset: MeasureUnit;
-  coreClockLock: MeasureUnit;
-  coreClockOffset: MeasureUnit;
-  coreVoltage: MeasureUnit;
-  coreVoltageOffset: MeasureUnit;
+  gpuName: string;
+  overclocking: {
+    memoryVendor: string;
+    memoryType: string;
+    powerLimit: number;
+    fanSpeed: number;
+    criticalTemperature: number;
+    memoryClockLock: number;
+    memoryClockOffset: number;
+    memoryVoltage: number;
+    memoryVoltageOffset: number;
+    coreClockLock: number;
+    coreClockOffset: number;
+    coreVoltage: number;
+    coreVoltageOffset: number;
+  }
 }
 
 type Request = {

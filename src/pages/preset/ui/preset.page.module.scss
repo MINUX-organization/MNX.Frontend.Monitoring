@@ -1,0 +1,18 @@
+.preset-page {
+  display: flex;
+  flex-direction: column;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    height: 2.375rem;
+
+    .button {
+      width: 9.375rem;
+    }
+
+    .search {
+      width: 16.75rem;
+    }
+  }
+}

@@ -60,7 +60,7 @@ export function UiButton({
               }[color],
             )}
           >
-            {children}
+            <span className={styles['text']}>{children}</span>
           </div>
         )
         .otherwise(() => children)

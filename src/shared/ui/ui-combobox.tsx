@@ -37,7 +37,7 @@ export function UiComboBox<T>({
       : _.filter(options, (option) => {
           return getOptionLabel(option).toLowerCase().includes(query.value.toLowerCase())
         })
-  console.log(selectedOption)
+
   return (
     <div className={clsx(className, styles['combobox'])}>
       {title && <label>{title}</label>}
