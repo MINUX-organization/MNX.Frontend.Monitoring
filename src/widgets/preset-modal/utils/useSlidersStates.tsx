@@ -3,89 +3,116 @@ import { Preset } from "@/entities/preset"
 import _ from "lodash"
 import { useSliderParameters } from "./useSliderParameters"
 import { SliderParameter } from "@/shared/types/slider-types";
+import { useStateObject } from "@/shared/lib/utils/state-object";
 
-export function useSliderStates(gpuRestriction: GpuRestrictions, preset: Preset): SliderParameter {
+export function useSliderStates(gpuRestriction: GpuRestrictions, preset: Preset): 
+SliderParameter & { reset: () => void } {
+  const forceReset = useStateObject(false);
+  
+  const reset = () => forceReset.setValue((prev) => !prev);
+  
   const coreClockLockParameters = useSliderParameters({
+    presetId: preset.id,
     label: 'Core Clock Lock',
     min: gpuRestriction.clock.core.lock.minimal,
     max: gpuRestriction.clock.core.lock.maximal,
     value: preset.overclocking.coreClockLock,
-    measureUnit: 'Mhz'
+    measureUnit: 'Mhz',
+    forceReset: forceReset.value
   });
 
   const memoryClockLockParameters = useSliderParameters({
+    presetId: preset.id,
     label: 'Memory Clock Lock',
     min: gpuRestriction.clock.memory.lock.minimal,
     max: gpuRestriction.clock.memory.lock.maximal,
     value: preset.overclocking.memoryClockLock,
-    measureUnit: 'Mhz'
+    measureUnit: 'Mhz',
+    forceReset: forceReset.value
   });
 
   const coreVoltageLockParameters = useSliderParameters({
+    presetId: preset.id,
     label: 'Core Voltage Lock',
     min: gpuRestriction.voltage.core.lock.minimal,
     max: gpuRestriction.voltage.core.lock.maximal,
     value: preset.overclocking.coreVoltage,
-    measureUnit: 'mV'
+    measureUnit: 'mV',
+    forceReset: forceReset.value
   });
 
   const memoryVoltageLockParameters = useSliderParameters({
+    presetId: preset.id,
     label: 'Memory Voltage Lock',
     min: gpuRestriction.voltage.memory.lock.minimal,
     max: gpuRestriction.voltage.memory.lock.maximal,
     value: preset.overclocking.memoryVoltage,
-    measureUnit: 'mV'
+    measureUnit: 'mV',
+    forceReset: forceReset.value
   });
 
   const coreVoltageOffsetParameters = useSliderParameters({
+    presetId: preset.id,
     label: 'Core Voltage Offset',
     min: gpuRestriction.voltage.core.offset.minimal,
     max: gpuRestriction.voltage.core.offset.maximal,
     value: preset.overclocking.coreVoltageOffset,
-    measureUnit: 'mV'
+    measureUnit: 'mV',
+    forceReset: forceReset.value
   });
 
   const memoryVoltageOffsetParameters = useSliderParameters({
+    presetId: preset.id,
     label: 'Memory Voltage Offset',
     min: gpuRestriction.voltage.memory.offset.minimal,
     max: gpuRestriction.voltage.memory.offset.maximal,
     value: preset.overclocking.memoryVoltageOffset,
-    measureUnit: 'mV'
+    measureUnit: 'mV',
+    forceReset: forceReset.value
   });
 
   const coreClockOffsetParameters = useSliderParameters({
+    presetId: preset.id,
     label: 'Core Clock Offset',
     min: gpuRestriction.clock.core.offset.minimal,
     max: gpuRestriction.clock.core.offset.maximal,
     value: preset.overclocking.coreClockOffset,
-    measureUnit: 'Mhz'
+    measureUnit: 'Mhz',
+    forceReset: forceReset.value
   });
 
   const memoryClockOffsetParameters = useSliderParameters({
+    presetId: preset.id,
     label: 'Memory Clock Offset',
     min: gpuRestriction.clock.memory.offset.minimal,
     max: gpuRestriction.clock.memory.offset.maximal,
     value: preset.overclocking.memoryClockOffset,
-    measureUnit: 'Mhz'
+    measureUnit: 'Mhz',
+    forceReset: forceReset.value
   });
 
   const fanSpeedParameters = useSliderParameters({
+    presetId: preset.id,
     label: 'Fan Speed',
     min: gpuRestriction.fanSpeed.minimal,
     max: gpuRestriction.fanSpeed.maximal,
     value: preset.overclocking.fanSpeed,
-    measureUnit: '%'
+    measureUnit: '%',
+    forceReset: forceReset.value
   }); 
 
   const powerLimitParameters = useSliderParameters({
+    presetId: preset.id,
     label: 'Power Limit',
     min: gpuRestriction.power.minimal,
     max: gpuRestriction.power.maximal,
     value: preset.overclocking.powerLimit,
-    measureUnit: 'Watt'
+    measureUnit: 'Watt',
+    forceReset: forceReset.value
   })
 
   return {
+    reset,
     clocking: [
       coreClockLockParameters,
       memoryClockLockParameters,

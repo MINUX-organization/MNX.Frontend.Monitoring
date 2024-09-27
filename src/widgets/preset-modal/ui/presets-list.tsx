@@ -33,8 +33,8 @@ export function PresetsList({
         <PresetForm label='Save as preset' gpuId={gpuId} />
         <UiTitle className={styles['title']} label='List of presets' />
         <div className={styles['presets-list-items']}>
-          {match(false)
-          .with(true, () => (
+          {match(isLoading)
+          .with(isLoading, () => (
             <UiSpinner className={styles['centered']}/>
           ))
           .otherwise(() => {

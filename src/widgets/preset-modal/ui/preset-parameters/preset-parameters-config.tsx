@@ -117,7 +117,7 @@ export function PresetParametersConfig({
   if (!preset) return <></>;
   // if (!data) return <></>;
 
-  const states = useSliderStates(gpuRestrictionsMock, preset);
+  const { reset, ...states } = useSliderStates(gpuRestrictionsMock, preset);
   const depth = _.flatten(_.map(states, (item) => _.map(item, (item) => item.value)));
 
   const debouncedSetValue = useRef(_.debounce((newValue) => {
@@ -136,7 +136,7 @@ export function PresetParametersConfig({
         <SliderParameters data={states.other} label="Other" />
         <UiButton 
           className={styles['reset-button']} 
-          onClick={() => {}}
+          onClick={reset}
           color='red'
           withBorder
         >
