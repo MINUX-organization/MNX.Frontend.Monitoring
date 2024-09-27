@@ -1,4 +1,4 @@
-import { getCardsNameList } from "@/shared/api/get/getCardsNameList";
+import { getCardsNameList } from "@/shared/api/get/getGpusNameList";
 import { UiComboBox } from "@/shared/ui/ui-combobox";
 import { UiInput } from "@/shared/ui/ui-input";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
@@ -8,6 +8,9 @@ import styles from './presetForm.module.scss';
 import { UiButton } from "@/shared/ui/ui-button";
 import clsx from "clsx";
 import { usePresetRepository } from "@/entities/preset";
+import { toPreset } from "../utils/to-preset";
+import { useContext } from "react";
+import { PresetModalContext } from "@/widgets/preset-modal/ui/preset-modal";
 
 export type FormInput = {
   presetName: string;
@@ -24,6 +27,7 @@ export function PresetForm({
   className?: string; 
 }) {
   const { addPreset } = usePresetRepository()
+  const presetContext = useContext(PresetModalContext);
 
   const { control, handleSubmit, watch, reset } = useForm<FormInput>({
     defaultValues: {
@@ -37,8 +41,8 @@ export function PresetForm({
   const selectedCard = watch('cardName')
 
   const onSubmit: SubmitHandler<FormInput> = (data) => {
-    addPreset(data);
-
+    const preset = toPreset(data.presetName, data.cardName, presetContext.value);
+    console.log(preset)
     reset();
   };
   

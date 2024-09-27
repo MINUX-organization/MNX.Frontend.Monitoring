@@ -36,7 +36,6 @@ export function PresetSliceItem({
   const thirdField = [
     {label: 'Power Limit', value: preset.overclocking.powerLimit, measureUnit: measureUnit},
     {label: 'Fan Speed', value: preset.overclocking.fanSpeed, measureUnit: '%'},
-    {label: 'Critical Temp', value: preset.overclocking.criticalTemperature, measureUnit: '°C'},
   ]
 
   return (

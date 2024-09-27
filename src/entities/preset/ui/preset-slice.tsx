@@ -6,7 +6,7 @@ import styles from './presetSlice.module.scss';
 import { StateObject, useStateObject } from "@/shared/lib/utils/state-object";
 import _ from "lodash";
 import { PresetSliceItem } from "./preset-slice-item";
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { UiResizableBox } from "@/shared/ui/ui-resizable-box";
 
 export function PresetSlice({
@@ -30,7 +30,7 @@ export function PresetSlice({
     <UiBorderBox withPadding className={clsx(className, styles['preset-slice'])}>
       <UiBgContainer className={styles['preset-slice-container']} color="opaque">
         <div className={styles['header']}>
-          <span className={styles['title']}>{preset.gpuName}</span>
+          <span className={styles['title']}>{preset.name}</span>
           {renderOnOpen?.(isOpen)}
         </div>
         <UiResizableBox 

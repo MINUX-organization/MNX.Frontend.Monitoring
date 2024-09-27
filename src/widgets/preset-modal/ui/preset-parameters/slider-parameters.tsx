@@ -1,12 +1,9 @@
 import { UiTitle } from "@/shared/ui/ui-title";
 import styles from './sliderParameters.module.scss';
-import { SliderProps, UiSlider } from "@/shared/ui/ui-slider";
+import { UiSlider } from "@/shared/ui/ui-slider";
 import clsx from "clsx";
 import _ from "lodash";
-
-type Data = {
-  label: string;
-} & SliderProps;
+import { Data } from "@/shared/types/slider-types";
 
 export function SliderParameters({
   className,
@@ -22,7 +19,19 @@ export function SliderParameters({
       <UiTitle label={label} />
       <div className={styles['parameters']}>
         {_.map(data, (item) => (
-          <UiSlider key={item.label} {...item} />
+          <div key={item.label} className={styles['parameter']}>
+            <span className={styles['label']}>{item.label}</span>
+            <UiSlider {...item} />
+            <div className={styles['box']}>
+              <div className={styles['value']}>
+                <span className={styles['value-text']}>
+                  {item.value && item.value > 0 ? '+' : ''}
+                  {item.value}
+                </span>
+              </div>
+              <span className={styles['unit']}>{item.measureUnit}</span>
+            </div>
+          </div>
         ))}
       </div>
     </div>

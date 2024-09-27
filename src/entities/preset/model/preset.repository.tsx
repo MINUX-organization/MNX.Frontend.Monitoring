@@ -6,11 +6,52 @@ import { Preset } from "./types";
 import { addPresetApi } from "@/shared/api/post/addPreset";
 import { deletePresetApi } from "@/shared/api/delete/deletePreset";
 
+const presetsListMock: Preset[] = [
+  {
+    id: "1",
+    name: "Preset 1",
+    gpuName: "NVIDIA GeForce RTX 3080",
+    overclocking: {
+      coreClockLock: 1500,
+      coreClockOffset: 100,
+      memoryClockLock: 1000,
+      memoryClockOffset: 100,
+      memoryVendor: "Samsung",
+      memoryType: "GDDR6X",
+      coreVoltage: 1000,
+      coreVoltageOffset: 100,
+      memoryVoltage: 1000,
+      memoryVoltageOffset: 100,
+      powerLimit: 100,
+      fanSpeed: 50,
+    }
+  },
+  {
+    id: "2",
+    name: "Preset 2",
+    gpuName: "NVIDIA GeForce RTX 3080",
+    overclocking: {
+      coreClockLock: 1600,
+      coreClockOffset: 100,
+      memoryClockLock: 1100,
+      memoryClockOffset: 100,
+      memoryVendor: "Samsung",
+      memoryType: "GDDR6X",
+      coreVoltage: 1100,
+      coreVoltageOffset: 100,
+      memoryVoltage: 1100,
+      memoryVoltageOffset: 100,
+      powerLimit: 100,
+      fanSpeed: 60,
+    }
+  }
+]
+
 export function usePresetRepository() {
   const queryClient = useQueryClient();
   const { data, ...presetQuery } = useQuery(['presetsList'], getPresetsListApi);
 
-  const PresetsList = ZodSaveParse(data, Preset.array().optional());
+  const PresetsList = import.meta.env.PROD ? ZodSaveParse(data, Preset.array().optional()) : presetsListMock;
   
   const addPresetMutation = useMutation({
     mutationFn: (Preset: { cardName: string, presetName: string }) => addPresetApi(Preset),

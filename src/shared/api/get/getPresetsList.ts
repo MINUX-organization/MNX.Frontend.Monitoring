@@ -7,19 +7,18 @@ type Response = {
   name: string;
   memoryVendor: string;
   memoryType: string;
-  powerLimit: MeasureUnit;
+  powerLimit: number;
   fanSpeed: number;
   criticalTemperature: number;
-  memoryClockLock: MeasureUnit;
-  memoryClockOffset: MeasureUnit;
-  memoryVoltage: MeasureUnit;
-  memoryVoltageOffset: MeasureUnit;
-  coreClockLock: MeasureUnit;
-  coreClockOffset: MeasureUnit;
-  coreVoltage: MeasureUnit;
-  coreVoltageOffset: MeasureUnit;
+  memoryClockLock: number;
+  memoryClockOffset: number;
+  memoryVoltage: number;
+  memoryVoltageOffset: number;
+  coreClockLock: number;
+  coreClockOffset: number;
+  coreVoltage: number;
+  coreVoltageOffset: number;
 }
 
-// todo: change type
-export const getPresetsListApi = async () =>
+export const getPresetsListApi = async () => 
   (await apiInstance().get(BACKEND_APIS.PRESETS)).data as Response[];

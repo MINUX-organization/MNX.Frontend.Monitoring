@@ -1,5 +1,5 @@
 .presets-list {
-  width: 38rem;
+  width: 40rem;
 
   .title {
     margin-top: 1rem;
@@ -8,6 +8,9 @@
 
   .presets-list-items {
     overflow: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
   }
 }
 

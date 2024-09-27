@@ -51,3 +51,41 @@ export type DeviceGpuInfo = z.infer<typeof DeviceGpuInfo>
 
 export const DeviceGpu = DeviceGpuInfo.merge(DeviceGpuDynamic)
 export type DeviceGpu = z.infer<typeof DeviceGpu>
+
+export const Restrictions = z.object({
+  minimal: z.number({invalid_type_error: 'Minimal must be a number'}),
+  maximal: z.number({invalid_type_error: 'Maximal must be a number'}),
+  isWritable: z.boolean({invalid_type_error: 'IsWritable must be a boolean'}),
+  default: z.number({invalid_type_error: 'Default must be a number'})
+})
+
+export const GpuRestrictions = z.object({
+  power: Restrictions,
+  fanSpeed: Restrictions,
+  temperature: z.object({
+    core: Restrictions,
+    memory: Restrictions
+  }),
+  voltage: z.object({
+    core: z.object({
+      lock: Restrictions,
+      offset: Restrictions
+    }),
+    memory: z.object({
+      lock: Restrictions,
+      offset: Restrictions
+    })
+  }),
+  clock: z.object({
+    core: z.object({
+      lock: Restrictions,
+      offset: Restrictions
+    }),
+    memory: z.object({
+      lock: Restrictions,
+      offset: Restrictions
+    })
+  })
+})
+
+export type GpuRestrictions = z.infer<typeof GpuRestrictions>

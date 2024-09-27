@@ -3,12 +3,16 @@ import { Check } from "lucide-react"
 import styles from './apply-preset-button.module.scss'
 
 export function ApplyPresetButton({
-  className
+  className,
+  presetId,
+  isIcon,
 } : {
-  className?: string
+  className?: string;
+  presetId?: string;
+  isIcon?: boolean;
 }) {
   return (
-    <button className={clsx(styles['apply-preset-button'], className)}>
+    <button className={clsx(!isIcon && styles['apply-preset-button'], className)}>
       <Check width={30} />
     </button>
   )

@@ -1,4 +1,42 @@
 .slider-parameters {
   width: 100%;
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .parameters {
+    display: flex;
+    margin-top: 1rem;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    .parameter {
+      display: grid;
+      align-items: center;
+      grid-template-columns: 7rem 1fr 7rem;
+      gap: 1rem;
+
+      .label {
+        text-align: end;
+      }
+
+      .box {
+        display: grid;
+        grid-template-columns: 4rem auto;
+        align-items: center;
+        gap: .5rem;
+
+        .value {
+          height: 2rem;
+          display: flex;
+          align-items: center;
+          justify-content: end;
+          border: var(--border);
+
+          .value-text {
+            padding: .25rem;
+          }
+        }
+      }
+    }
+  }
 }

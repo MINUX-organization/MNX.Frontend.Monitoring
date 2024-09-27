@@ -24,7 +24,7 @@ export function CryptoForm({
     defaultValues: {
       shortName: '',
       fullName: '',
-      algorithm: ''
+      algorithm: {}
     }
   })
   const selectedAlgorithm = watch('algorithm');
@@ -65,10 +65,10 @@ export function CryptoForm({
               render={({ field: {onChange} }) => 
                 <UiComboBox
                   title="Algorithm"
-                  options={algorithms ?? ["111", "333333"]}
+                  options={algorithms ?? []}
                   selectedOption={selectedAlgorithm}
                   selectedOnChange={onChange}
-                  getOptionLabel={(option) => option?.toString() || ''}
+                  getOptionLabel={(option) => option?.name || ''}
                   placeholder="Select an algorithm"
                 />
               }

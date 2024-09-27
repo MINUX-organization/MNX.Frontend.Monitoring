@@ -20,5 +20,6 @@ export const ROUTER_PATHS = {
   WALLETS: 'wallets',
   POOLS: 'pools',
   PROFILE: 'profile',
-  FEEDBACK: 'feedback'
+  FEEDBACK: 'feedback',
+  CONFIG: 'config',
 } as const;

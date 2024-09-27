@@ -6,7 +6,6 @@ import _ from "lodash";
 import { UiBorderBox } from "./ui-border-box";
 import { UiBgContainer } from "./ui-bg-container";
 import { ChevronDown } from "lucide-react";
-import { ReactNode } from "react";
 
 export function UiComboBox<T>({
   className,
@@ -68,7 +67,7 @@ export function UiComboBox<T>({
             <span className={clsx(styles['no-options'], styles['text-gray'])}>
               There are no options...
             </span>
-          } 
+          }
           {_.map(filteredOptions, (option) => (
             <Combobox.Option 
               className={styles['option']}

@@ -5,10 +5,12 @@ import { usePresetRepository } from "@/entities/preset";
 
 export function DeletePresetButton({
   className,
-  presetId
+  presetId,
+  isIcon,
 } : {
   className?: string;
   presetId: string;
+  isIcon?: boolean;
 }) {
   const { deletePreset } = usePresetRepository()
   
@@ -18,7 +20,7 @@ export function DeletePresetButton({
 
   return (
     <button 
-      className={clsx(styles['delete-preset-button'], className)}
+      className={clsx(!isIcon && styles['delete-preset-button'], className)}
       onClick={handler}  
     >
       <Trash2 width={30} />

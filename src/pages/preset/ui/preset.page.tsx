@@ -8,11 +8,12 @@ import _ from 'lodash';
 import { ApplyPresetButton } from '@/features/preset/apply/ui/apply-preset-button';
 import { EditPresetButton } from '@/features/preset/edit';
 import { DeletePresetButton } from '@/features/preset/delete/ui/delete-preset-button';
+import { Outlet } from 'react-router';
 
 const PresetMock: PresetGroupedList[] = [{
-  gpuName: 'NVIDIA GeForce RTX 3080',
+  name: 'NVIDIA GeForce RTX 3080',
   presetsList: [{
-    id: 'preset-123',
+    id: '1',
     name: 'My Preset',
     gpuName: 'NVIDIA GeForce RTX 3080',
     overclocking: {
@@ -43,13 +44,14 @@ export function PresetPage() {
       {_.map(PresetMock, (item) => (  
         <PresetSlice 
           preset={item}
-          key={item.gpuName}
+          key={item.name}
           renderOnOpen={(isOpen) => <OnOpen isOpen={isOpen}/>}
           renderApply={(id) => <ApplyPresetButton />}
-          renderEdit={(id) => <EditPresetButton />}
-          renderDelete={(id) => <DeletePresetButton />}
+          renderEdit={(id) => <EditPresetButton presetId={id} isNavigate/>}
+          renderDelete={(id) => <DeletePresetButton presetId={id}/>}
         />
       ))}
+      <Outlet />
     </div>
   )
 }

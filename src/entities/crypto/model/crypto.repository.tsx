@@ -11,7 +11,15 @@ export function useCryptoRepository() {
   const cryptosList = ZodSaveParse(data, Crypto.array().optional());
   
   const addCryptoMutation = useMutation({
-    mutationFn: (crypto: PostCrypto) => addCryptocurrencyApi(crypto),
+    mutationFn: (crypto: PostCrypto) => {
+      const cryptoMap = {
+        shortName: crypto.shortName,
+        fullName: crypto.fullName,
+        algorithmId: crypto.algorithm.id
+      } 
+      
+      return addCryptocurrencyApi(cryptoMap)
+    },
     onSuccess: (data) => {
       queryClient.setQueryData(
         ['cryptosList'], _.concat(cryptosList, data))
