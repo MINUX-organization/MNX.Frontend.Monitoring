@@ -9,13 +9,14 @@ export function useSliderParameters({
   max,
   label,
   measureUnit,
+  default: defaultValue,
   presetId,
   forceReset,
-} : Omit<SliderProps, 'onChange'> & { label: string, presetId: string, forceReset?: boolean }): Data {
-  const sliderValue = useStateObject<number>(value);
+} : Omit<SliderProps, 'onChange'> & { label: string, presetId?: string, forceReset?: boolean }): Data {
+  const sliderValue = useStateObject<number | undefined>(value);
 
   useEffect(() => {
-    sliderValue.setValue(value);
+    sliderValue.setValue(value ?? defaultValue);
   }, [presetId, forceReset]);
 
   return {
@@ -26,6 +27,7 @@ export function useSliderParameters({
     value: sliderValue.value,
     min,
     max,
-    measureUnit
+    measureUnit,
+    default: defaultValue
   }
 }

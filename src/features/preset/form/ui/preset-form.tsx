@@ -11,6 +11,7 @@ import { usePresetRepository } from "@/entities/preset";
 import { toPreset } from "../utils/to-preset";
 import { useEffect } from "react";
 import { usePresetStateStore } from "@/widgets/preset-modal/model";
+import { useNavigate } from "react-router";
 
 export type FormInput = {
   presetName: string;
@@ -26,29 +27,49 @@ export function PresetForm({
   label?: string;
   className?: string;
 }) {
-  const { addPreset } = usePresetRepository()
-  const { setGpuName, selectedPreset, selectedGpuName, slidersParameters } = usePresetStateStore();
+  const { addPreset, editPreset } = usePresetRepository()
+  const { setGpuName, selectedPreset, selectedGpuName, slidersParameters, setPreset } = usePresetStateStore();
   const { data: cardsNameList } = useQuery(['cardsNameList'], () => getCardsNameList());
+  const navigate = useNavigate();
 
-  const { control, handleSubmit, watch, reset } = useForm<FormInput>({
+  const { control, handleSubmit, watch, reset, setValue} = useForm<FormInput>({
     defaultValues: {
-      presetName: selectedPreset?.name ?? '',
-      cardName: selectedGpuName ?? '',
-    }
+      presetName: '',
+      cardName: '',
+    },
   })
   const selectedCard = watch('cardName')
+
+  const resetQuery = () => navigate('');
+
+  useEffect(() => {
+    setValue('cardName', selectedGpuName ?? '')
+    setValue('presetName', selectedPreset?.name ?? '')
+  }, [selectedPreset])
+
+  useEffect(() => {
+    setGpuName(selectedCard)
+  }, [selectedCard])
+
+  const onCancel = () => {
+    setGpuName(undefined);
+    setPreset(undefined);
+    resetQuery();
+  }
 
   const onSubmit: SubmitHandler<FormInput> = (data) => {
     if (!slidersParameters) return
 
     const preset = toPreset(data.presetName, data.cardName, slidersParameters);
+    console.log(preset)
+    if (selectedPreset) {
+      editPreset(selectedPreset.id, preset);
+      onCancel()
+    }
+    else addPreset(preset);
 
     reset();
   };
-
-  useEffect(() => {
-    setGpuName(selectedCard)
-  }, [selectedCard])
   
   return (
     <div className={clsx(className, styles['preset-form-wrapper'])}>
@@ -60,6 +81,7 @@ export function PresetForm({
       >
         <UiInput
           control={control}
+          rules={{ required: true }}
           label="Preset name"
           name="presetName"
           placeholder="Enter preset name"
@@ -85,7 +107,8 @@ export function PresetForm({
         {selectedPreset && <UiButton
           className={styles['button']}
           color="red"
-          withBorder  
+          withBorder
+          onClick={onCancel}
         >
           Cancel
         </UiButton>}

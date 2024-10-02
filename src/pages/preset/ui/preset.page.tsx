@@ -30,7 +30,43 @@ const PresetMock: PresetGroupedList[] = [{
       coreVoltage: 1.2,
       coreVoltageOffset: 0.05,
     }
-  }]
+  },
+  {
+    id: '2',
+    name: 'My Preset',
+    gpuName: 'NVIDIA GeForce RTX 3080',
+    overclocking: {
+      powerLimit: 150,
+      fanSpeed: 1200,
+      memoryClockLock: 3200,
+      memoryClockOffset: 100,
+      memoryVoltage: 1.35,
+      memoryVoltageOffset: 0.05,
+      coreClockLock: 3.2,
+      coreClockOffset: 100,
+      coreVoltage: 1.2,
+      coreVoltageOffset: 0.05,
+    }
+  }],
+}, {
+  name: 'NVIDIA GeForce RTX 3090',
+  presets: [{
+    id: '3',
+    name: 'My Preset',
+    gpuName: 'NVIDIA GeForce RTX 3090',
+    overclocking: {
+      powerLimit: 150,
+      fanSpeed: 1200,
+      memoryClockLock: 3200,
+      memoryClockOffset: 100,
+      memoryVoltage: 1.35,
+      memoryVoltageOffset: 0.05,
+      coreClockLock: 3.2,
+      coreClockOffset: 100,
+      coreVoltage: 1.2,
+      coreVoltageOffset: 0.05,
+    }
+  }],
 }]
 
 export function PresetPage() {

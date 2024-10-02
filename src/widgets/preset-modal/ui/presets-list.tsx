@@ -38,7 +38,7 @@ export function PresetsList({
             <UiSpinner className={styles['centered']}/>
           ))
           .otherwise(() => {
-            const findedPresetsList = _.filter(getPresetsList(), (preset) => _.startsWith(preset.gpuName, selectedGpuName))
+            const findedPresetsList = _.filter(getPresetsList(), (preset) => _.startsWith(preset.gpuName, selectedGpuName ?? ''))
 
             if (_.isEmpty(findedPresetsList)) return <span className={styles['centered']}>N/A</span>;
 
@@ -49,7 +49,7 @@ export function PresetsList({
                 className={clsx(selectedPreset != undefined && !isSelectedPreset && styles['disabled'])}
                 key={preset.id} 
                 preset={preset}
-                renderApply={(id) => <ApplyPresetButton presetId={id} isIcon/>}
+                renderApply={(id) => gpuId && <ApplyPresetButton presetId={id} isIcon/>}
                 renderEdit={(id) => <EditPresetButton presetId={id} isIcon isActive={isSelectedPreset}/>}
                 renderDelete={(id) => <DeletePresetButton presetId={id} isIcon/>}
               />

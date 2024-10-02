@@ -108,7 +108,7 @@ export function PresetParametersConfig({
   selectedPreset
 } : {
   className?: string;
-  selectedPreset: Preset;
+  selectedPreset?: Preset;
 }) {
   const { setSlidersParameters } = usePresetStateStore();
 

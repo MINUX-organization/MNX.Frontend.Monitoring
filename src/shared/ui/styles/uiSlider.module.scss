@@ -1,12 +1,12 @@
 .ui-slider {
   position: relative;
+  font-size: var(--font-size-14px);
 
   .values{
     width: 100%;
     display: flex;
     position: absolute;
     top: -260%;
-    font-size: var(--font-size-14px);
     justify-content: space-between;
   }
 }
@@ -36,7 +36,7 @@
 
 
 .thumb {
-  position: absolute;
+  position: relative;
   top: -50%;
   width: 1rem;
   height: 1rem;
@@ -56,5 +56,12 @@
 
   &:focus {
     outline: none;
+  }
+
+  .thumb-value {
+    position: absolute;
+    top: 200%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 }

@@ -22,7 +22,7 @@ export function PresetModal() {
   const { isOpen, onOpen } = useModal();
   const { getPresetsList } = usePresetRepository();
   const { data: gpusList } = useGpusListQuery();
-  const { setPreset, setGpuName, selectedPreset } = usePresetStateStore();
+  const { setPreset, setGpuName, selectedPreset, selectedGpuName } = usePresetStateStore();
   const location = useLocation();
   const navigate = useNavigate();
   
@@ -51,7 +51,8 @@ export function PresetModal() {
     <UiModal isOpen={isOpen.value} onClose={() => navigate('..')}>
       <div className={styles['preset-modal']}>
           <RenderParameters 
-            className={styles['parameters']} 
+            className={styles['parameters']}
+            selectedGpuName={selectedGpuName}
             selectedPreset={selectedPreset} 
             presetId={presetId} 
             gpuId={gpuId}
@@ -69,17 +70,19 @@ const RenderParameters = ({
   gpuId,
   presetId,
   className,
-  selectedPreset
+  selectedPreset,
+  selectedGpuName
 } : {
   gpuId?: string;
   presetId?: string;
   className?: string;
   selectedPreset?: Preset;
+  selectedGpuName?: string;
 }) => {
-  
   if (gpuId) return <PresetParametersGpu className={className} gpuId={gpuId}/>
 
-  if (presetId && selectedPreset) return <PresetParametersConfig className={className} selectedPreset={selectedPreset}/>
+  if ((presetId && selectedPreset) || !_.isEmpty(selectedGpuName)) 
+    return <PresetParametersConfig className={className} selectedPreset={selectedPreset}/>
 
   return <></>
 }

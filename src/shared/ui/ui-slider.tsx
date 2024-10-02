@@ -3,10 +3,11 @@ import ReactSlider from "react-slider";
 import styles from './styles/uiSlider.module.scss'
 
 export type SliderProps = {
-  value: number;
+  value?: number;
   onChange: (value: number) => void;
   min: number;
   max: number;
+  default: number
   measureUnit: string
 }
 
@@ -16,6 +17,7 @@ export function UiSlider({
   onChange,
   min,
   max,
+  default: defaultValue,
 } : {
   className?: string;
 } & Partial<SliderProps> ) {
@@ -27,7 +29,15 @@ export function UiSlider({
       </div>
       <ReactSlider
         className={styles['slider']}
-        thumbClassName={styles['thumb']}
+        renderThumb={({key, ...props}) => (
+          <div
+            key={key}
+            {...props}
+            className={styles['thumb']}
+          >
+            <div className={styles['thumb-value']}>{(value && value > 0 ? '+' : '') + `${value}`}</div>
+          </div>
+        )}
         renderTrack={({key, ...props}, state) => (
           <div
             key={key}
@@ -41,6 +51,7 @@ export function UiSlider({
         min={min}
         max={max}
         value={value}
+        defaultValue={defaultValue}
         onChange={onChange}
       />
     </div>
