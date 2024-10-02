@@ -1,9 +1,9 @@
+import { UiColumnBoard } from "@/shared/ui/ui-column-board";
 import { UiBgContainer } from "@/shared/ui/ui-bg-container";
 import { UiBorderBox } from "@/shared/ui/ui-border-box";
 import { Preset } from "../model/types";
 import styles from './presetItem.module.scss';
 import React from "react";
-import { UiColumnBoard } from "@/shared/ui/ui-column-board";
 
 export function PresetItem({
   className,
@@ -53,8 +53,6 @@ export function PresetItem({
             {renderDelete?.(preset.id)}
           </div>
         </div>
-        <span className={styles["blue"]}>{preset.overclocking.memoryVendor}&nbsp;{preset.overclocking.memoryType}</span>
-        
         <div className={styles["preset-board"]}>
           <UiColumnBoard data={firstField} />
           <UiColumnBoard data={secondField} />

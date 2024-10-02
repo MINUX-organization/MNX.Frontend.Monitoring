@@ -22,6 +22,7 @@ export const BACKEND_APIS = {
   WALLET: `${BACKEND_MANAGEMENT_URL}/wallets`,
   RIGS: `${BACKEND_MANAGEMENT_URL}/rigs`,
   PRESETS: `${BACKEND_MANAGEMENT_URL}/presets`,
+  GPUS: `${BACKEND_MONITORING_URL}/devices/gpus`,
   GPUS_RESTRICTIONS: (gpuName: string) => `${BACKEND_MONITORING_URL}/devices/gpus/${gpuName}/restrictions`,
   GPUS_UNIQUE_NAMES: `${BACKEND_MONITORING_URL}/devices/gpus/unigue_names`,
 }

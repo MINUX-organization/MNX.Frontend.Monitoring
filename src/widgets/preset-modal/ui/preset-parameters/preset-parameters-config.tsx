@@ -2,7 +2,7 @@ import { UiBorderBox } from '@/shared/ui/ui-border-box';
 import styles from './presetParametersConfig.module.scss';
 import { UiBgContainer } from '@/shared/ui/ui-bg-container';
 import { SliderParameters } from './slider-parameters';
-import { usePresetRepository } from '@/entities/preset';
+import { Preset, usePresetRepository } from '@/entities/preset';
 import { getGpuRestrictions } from '@/shared/api/get/getGpuRestrictions';
 import _ from 'lodash';
 import { useQuery } from 'react-query';
@@ -12,6 +12,7 @@ import React, { ReactNode, useContext, useEffect, useRef } from 'react';
 import { PresetModalContext } from '../preset-modal';
 import clsx from 'clsx';
 import { UiButton } from '@/shared/ui/ui-button';
+import { usePresetStateStore } from '../../model';
 
 const gpuRestrictionsMock: GpuRestrictions = {
   power: {
@@ -103,25 +104,23 @@ const gpuRestrictionsMock: GpuRestrictions = {
 }
 
 export function PresetParametersConfig({
-  presetId,
-  className
+  className,
+  selectedPreset
 } : {
-  presetId?: string;
   className?: string;
+  selectedPreset: Preset;
 }) {
-  const { getPresetsList } = usePresetRepository();
-  const { setValue } = useContext(PresetModalContext);
-  const preset = _.find(getPresetsList(), ['id', presetId]);
-  const { data } = useQuery(['gpuRestrictions'], () => getGpuRestrictions(preset?.gpuName ?? ''));
+  const { setSlidersParameters } = usePresetStateStore();
 
-  if (!preset) return <></>;
+  const { data } = useQuery(['gpuRestrictions'], () => getGpuRestrictions(selectedPreset?.gpuName ?? ''));
+
   // if (!data) return <></>;
 
-  const { reset, ...states } = useSliderStates(gpuRestrictionsMock, preset);
+  const { reset, ...states } = useSliderStates(gpuRestrictionsMock, selectedPreset);
   const depth = _.flatten(_.map(states, (item) => _.map(item, (item) => item.value)));
 
   const debouncedSetValue = useRef(_.debounce((newValue) => {
-    setValue(newValue);
+    setSlidersParameters(newValue);
   }, 500)).current;
   
   useEffect(() => {

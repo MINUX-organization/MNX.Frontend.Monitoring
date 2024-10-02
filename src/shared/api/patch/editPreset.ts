@@ -1,8 +1,7 @@
-import { apiInstance } from "../api-instance";
 import { BACKEND_APIS } from "@/shared/constants/backend-urls";
+import { apiInstance } from "../api-instance";
 
-type Response = {
-  id: string;
+type Request = {
   name: string;
   gpuName: string;
   overclocking: {
@@ -19,5 +18,5 @@ type Response = {
   }
 }
 
-export const getPresetsListApi: () => Promise<Response[]> = async () => 
-  (await apiInstance().get(BACKEND_APIS.PRESETS)).data as Response[];
+export const editPresetApi = async (id: string, data: Request) => 
+  (await apiInstance().put(`${BACKEND_APIS.PRESETS}/${id}`, data)).data;

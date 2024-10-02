@@ -42,9 +42,12 @@ export function UiComboBox<T>({
       {title && <label>{title}</label>}
       <Combobox disabled={isDisabled} value={selectedOption} onChange={selectedOnChange}>
         <div>
-        <UiBorderBox className={styles['select']}>
+        <UiBorderBox className={clsx(
+            styles['select'],
+            isDisabled && styles['disabled']
+          )}>
           <UiBgContainer className={styles['select-container']} color={color ?? 'opaque'}>
-            <Combobox.Input 
+            <Combobox.Input
               className={styles['input']}
               placeholder={placeholder} 
               onChange={(event) => query.setValue(event.target.value)}

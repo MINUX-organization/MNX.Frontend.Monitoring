@@ -40,7 +40,7 @@ export function PresetSlice({
           }
           trigger={isOpen.value}
         >
-          {_.map(preset.presetsList, (preset) =>
+          {_.map(preset.presets, (preset) =>
             <React.Fragment key={preset.id}>
               <div className={styles['line']}>&#8203;</div>
               <PresetSliceItem 

@@ -16,11 +16,9 @@ export function UiSlider({
   onChange,
   min,
   max,
-  measureUnit
 } : {
   className?: string;
 } & Partial<SliderProps> ) {
-
   return (
     <div className={clsx(className, styles['ui-slider'])}>
       <div className={styles['values']}>

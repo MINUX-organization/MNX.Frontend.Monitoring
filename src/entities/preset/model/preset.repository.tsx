@@ -2,9 +2,10 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import { ZodSaveParse } from "@/shared/lib/utils/zod-save-parse";
 import _ from "lodash";
 import { getPresetsListApi } from "@/shared/api/get/getPresetsList";
-import { Preset } from "./types";
+import { PostPresetOverclocking, Preset } from "./types";
 import { addPresetApi } from "@/shared/api/post/addPreset";
 import { deletePresetApi } from "@/shared/api/delete/deletePreset";
+import { editPresetApi } from "@/shared/api/patch/editPreset";
 
 const presetsListMock: Preset[] = [
   {
@@ -16,8 +17,6 @@ const presetsListMock: Preset[] = [
       coreClockOffset: 100,
       memoryClockLock: 1000,
       memoryClockOffset: 100,
-      memoryVendor: "Samsung",
-      memoryType: "GDDR6X",
       coreVoltage: 1000,
       coreVoltageOffset: 100,
       memoryVoltage: 1000,
@@ -35,8 +34,6 @@ const presetsListMock: Preset[] = [
       coreClockOffset: 100,
       memoryClockLock: 1100,
       memoryClockOffset: 100,
-      memoryVendor: "Samsung",
-      memoryType: "GDDR6X",
       coreVoltage: 1100,
       coreVoltageOffset: 100,
       memoryVoltage: 1100,
@@ -54,12 +51,22 @@ export function usePresetRepository() {
   const PresetsList = import.meta.env.PROD ? ZodSaveParse(data, Preset.array().optional()) : presetsListMock;
   
   const addPresetMutation = useMutation({
-    mutationFn: (Preset: { cardName: string, presetName: string }) => addPresetApi(Preset),
+    mutationFn: (Preset: PostPresetOverclocking) => addPresetApi(Preset),
     onSuccess: (data) => {
       queryClient.setQueryData(
         ['presetsList'], _.concat(PresetsList, data))
     }
   });
+
+  const editPresetMutation = useMutation({
+    mutationFn: (value: {id: string, preset: PostPresetOverclocking}) => editPresetApi(value.id, value.preset),
+    onSuccess: (data) => {
+      queryClient.setQueryData(
+        ['presetsList'],
+        _.map(PresetsList, (pool) => pool.id === data.id ? data : pool)
+      )
+    }
+  })
 
   const deletePresetMutation = useMutation({
     mutationFn: (id: string) => deletePresetApi(id),
@@ -71,8 +78,12 @@ export function usePresetRepository() {
     }
   });
   
-  const addPreset = (Preset: { cardName: string, presetName: string }) => {
-    addPresetMutation.mutate(Preset);
+  const addPreset = (preset: PostPresetOverclocking) => {
+    addPresetMutation.mutate(preset);
+  }
+
+  const editPreset = (id: string, preset: PostPresetOverclocking) => {
+    editPresetMutation.mutate({id, preset});
   }
 
   const deletePreset = (id: string) => {
@@ -88,6 +99,7 @@ export function usePresetRepository() {
     
   return {
     addPreset,
+    editPreset,
     deletePreset,
     getPresetsList,
     setPresetsList,

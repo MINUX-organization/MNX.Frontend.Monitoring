@@ -9,19 +9,18 @@ import { ApplyPresetButton } from '@/features/preset/apply/ui/apply-preset-butto
 import { EditPresetButton } from '@/features/preset/edit';
 import { DeletePresetButton } from '@/features/preset/delete/ui/delete-preset-button';
 import { Outlet } from 'react-router';
+import { getPresetsListByGpuNameApi } from '@/shared/api/get/getPresetsListByGpuName';
+import { useQuery } from 'react-query';
 
 const PresetMock: PresetGroupedList[] = [{
   name: 'NVIDIA GeForce RTX 3080',
-  presetsList: [{
+  presets: [{
     id: '1',
     name: 'My Preset',
     gpuName: 'NVIDIA GeForce RTX 3080',
     overclocking: {
-      memoryVendor: 'Corsair',
-      memoryType: 'DDR4',
       powerLimit: 150,
       fanSpeed: 1200,
-      criticalTemperature: 80,
       memoryClockLock: 3200,
       memoryClockOffset: 100,
       memoryVoltage: 1.35,
@@ -35,6 +34,8 @@ const PresetMock: PresetGroupedList[] = [{
 }]
 
 export function PresetPage() {
+  const { data } = useQuery(['presetsListByGpuName'], getPresetsListByGpuNameApi);
+
   return (
     <div className={styles['preset-page']}>
       <div className={styles['header']}>

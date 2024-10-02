@@ -9,8 +9,8 @@ import { UiButton } from "@/shared/ui/ui-button";
 import clsx from "clsx";
 import { usePresetRepository } from "@/entities/preset";
 import { toPreset } from "../utils/to-preset";
-import { useContext } from "react";
-import { PresetModalContext } from "@/widgets/preset-modal/ui/preset-modal";
+import { useEffect } from "react";
+import { usePresetStateStore } from "@/widgets/preset-modal/model";
 
 export type FormInput = {
   presetName: string;
@@ -24,27 +24,31 @@ export function PresetForm({
 } : {
   gpuId?: string;
   label?: string;
-  className?: string; 
+  className?: string;
 }) {
   const { addPreset } = usePresetRepository()
-  const presetContext = useContext(PresetModalContext);
+  const { setGpuName, selectedPreset, selectedGpuName, slidersParameters } = usePresetStateStore();
+  const { data: cardsNameList } = useQuery(['cardsNameList'], () => getCardsNameList());
 
   const { control, handleSubmit, watch, reset } = useForm<FormInput>({
     defaultValues: {
-      presetName: '',
-      cardName: '',
+      presetName: selectedPreset?.name ?? '',
+      cardName: selectedGpuName ?? '',
     }
   })
-
-  const { data: cardsNameList } = useQuery(['cardsNameList'], () => getCardsNameList());
-
   const selectedCard = watch('cardName')
 
   const onSubmit: SubmitHandler<FormInput> = (data) => {
-    const preset = toPreset(data.presetName, data.cardName, presetContext.value);
-    console.log(preset)
+    if (!slidersParameters) return
+
+    const preset = toPreset(data.presetName, data.cardName, slidersParameters);
+
     reset();
   };
+
+  useEffect(() => {
+    setGpuName(selectedCard)
+  }, [selectedCard])
   
   return (
     <div className={clsx(className, styles['preset-form-wrapper'])}>
@@ -66,26 +70,36 @@ export function PresetForm({
           rules={{ required: true }}
           render={({ field: {onChange} }) => 
             <UiComboBox
-              title="Card Name"
-              options={cardsNameList}
+              title="Card name"
+              options={cardsNameList ?? ['NVIDIA GeForce RTX 3080', 'NVIDIA GeForce RTX 3090']}
               selectedOption={selectedCard}
-              selectedOnChange={onChange}
+              selectedOnChange={(option) => onChange(option)}
               getOptionLabel={(option) => option}
               placeholder="Select a card"
-              isDisabled={Boolean(gpuId)}
+              isDisabled={Boolean(selectedPreset || gpuId)}
             />
           }
         />
       </form>
-      <UiButton
-        className={styles['button-submit']}
-        type="submit" 
-        form="preset-form" 
-        color="blue" 
-        withBorder
-      >
-        Save
-      </UiButton>
+      <div className={styles['buttons']}>
+        {selectedPreset && <UiButton
+          className={styles['button']}
+          color="red"
+          withBorder  
+        >
+          Cancel
+        </UiButton>}
+
+        <UiButton
+          className={styles['button']}
+          type="submit" 
+          form="preset-form" 
+          color="blue" 
+          withBorder
+        >
+          {selectedPreset ? 'Edit' : 'Save'}
+        </UiButton>
+      </div>
     </div>
   )
 }

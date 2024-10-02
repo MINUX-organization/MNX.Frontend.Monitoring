@@ -1,15 +1,17 @@
 import { useModal } from "@/shared/lib/hooks/modal";
 import { UiModal } from "@/shared/ui/ui-modal";
-import { createContext, useContext, useEffect } from "react";
+import { createContext, useCallback, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { PresetsList } from "./presets-list";
 
 import styles from './presetModal.module.scss';
 import { PresetParametersGpu } from "./preset-parameters/preset-parameters-gpu";
-import { usePresetRepository } from "@/entities/preset";
+import { Preset, usePresetRepository } from "@/entities/preset";
 import { PresetParametersConfig } from "./preset-parameters";
-import { useStateObject } from "@/shared/lib/utils/state-object";
 import { SliderParameter } from "@/shared/types/slider-types";
+import _ from "lodash";
+import { usePresetStateStore } from "../model";
+import { useGpusListQuery } from "@/entities/devices/gpu";
 
 export const PresetModalContext = createContext({
   value: {} as SliderParameter,
@@ -19,14 +21,27 @@ export const PresetModalContext = createContext({
 export function PresetModal() {
   const { isOpen, onOpen } = useModal();
   const { getPresetsList } = usePresetRepository();
+  const { data: gpusList } = useGpusListQuery();
+  const { setPreset, setGpuName, selectedPreset } = usePresetStateStore();
   const location = useLocation();
   const navigate = useNavigate();
-
-  const preset = useStateObject<SliderParameter>();
   
   const queryParams  = new URLSearchParams(location.search)
   const gpuId = queryParams.get('gpuId') ?? undefined;
   const presetId = queryParams.get('presetId') ?? undefined;
+  
+  const getSelectedPreset = useCallback(() => 
+    _.find(getPresetsList(), ['id', presetId]), [getPresetsList(), presetId]);
+
+  const getSelectedGpuName = useCallback(() => 
+    _.find(gpusList, ['id', gpuId])?.name, [gpuId]);
+
+  useEffect(() => {
+    setPreset(getSelectedPreset());
+
+    if (gpuId) setGpuName(getSelectedGpuName())
+    else setGpuName(getSelectedPreset()?.gpuName);
+  }, [getSelectedPreset, gpuId]);
 
   useEffect(() => {
     onOpen();
@@ -35,15 +50,16 @@ export function PresetModal() {
   return (
     <UiModal isOpen={isOpen.value} onClose={() => navigate('..')}>
       <div className={styles['preset-modal']}>
-        <PresetModalContext.Provider value={{ value: preset.value, setValue: preset.setValue}}>
-          <RenderParameters className={styles['parameters']} presetId={presetId} gpuId={gpuId}/>
+          <RenderParameters 
+            className={styles['parameters']} 
+            selectedPreset={selectedPreset} 
+            presetId={presetId} 
+            gpuId={gpuId}
+          />
           <PresetsList
             className={styles['parameters']}
-            presetsList={getPresetsList()}
-            gpuId={gpuId} 
-            selectedPresetId={presetId}
+            gpuId={gpuId}
           />
-        </PresetModalContext.Provider>
       </div>
     </UiModal>
   )
@@ -53,14 +69,17 @@ const RenderParameters = ({
   gpuId,
   presetId,
   className,
+  selectedPreset
 } : {
   gpuId?: string;
   presetId?: string;
   className?: string;
+  selectedPreset?: Preset;
 }) => {
+  
   if (gpuId) return <PresetParametersGpu className={className} gpuId={gpuId}/>
 
-  if (presetId) return <PresetParametersConfig className={className} presetId={presetId}/>
-  
+  if (presetId && selectedPreset) return <PresetParametersConfig className={className} selectedPreset={selectedPreset}/>
+
   return <></>
 }
