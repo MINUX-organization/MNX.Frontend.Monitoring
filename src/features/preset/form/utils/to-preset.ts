@@ -5,7 +5,7 @@ import _ from "lodash";
 export function toPreset(name: string, gpuName: string, presetSlider: SliderParameter): PostPresetOverclocking {
   const overclocking: unknown = _.reduce(presetSlider, (acc: { [key: string]: number }, values) => {
     _.forEach(values, (value) => {
-        acc[_.camelCase(value.label)] = value.value;
+        acc[_.camelCase(value.label)] = value.value ?? value.default;
     });
     return acc;
   }, {});

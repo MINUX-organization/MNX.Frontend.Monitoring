@@ -16,7 +16,7 @@ export function CryptoItem({
     <div className={clsx(className, styles['crypto-item'])}>
       <span>{crypto?.shortName}</span>
       <span>{crypto?.fullName}</span>
-      <span>{crypto?.algorithm}</span>
+      <span>{crypto?.algorithm.name}</span>
       <span className={styles['icon']}>{renderDeleteButton?.(crypto)}</span>
     </div>
   );

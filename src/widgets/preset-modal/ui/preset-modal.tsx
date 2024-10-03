@@ -13,6 +13,8 @@ import _ from "lodash";
 import { usePresetStateStore } from "../model";
 import { useGpusListQuery } from "@/entities/devices/gpu";
 import { State } from "../model/preset-state.store";
+import { getGpuRestrictions } from "@/shared/api/get/getGpuRestrictions";
+import { useQuery } from "react-query";
 
 export const PresetModalContext = createContext({
   value: {} as SliderParameter,
@@ -86,10 +88,18 @@ const RenderParameters = ({
   selectedPreset?: Preset;
   selectedGpuName?: string;
 }) => {
+  const { data: gpuRestrictions } = useQuery(['gpuRestrictions'], () => getGpuRestrictions(selectedGpuName ?? ''));
+  
+  const haseData = presetId && selectedPreset && gpuRestrictions;
+  const haseGpuData = gpuId && gpuRestrictions;
+
   if (gpuId) return <PresetParametersGpu className={className} gpuId={gpuId}/>
 
-  if ((presetId && selectedPreset) || !_.isEmpty(selectedGpuName)) 
-    return <PresetParametersConfig className={className} selectedPreset={selectedPreset}/>
+  if (haseData || haseGpuData)
+    return <PresetParametersConfig 
+      className={className} 
+      gpuRestrictions={gpuRestrictions} 
+      selectedPreset={selectedPreset}/>
 
   return <></>
 }

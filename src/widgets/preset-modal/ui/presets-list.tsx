@@ -4,7 +4,7 @@ import { PresetForm } from '@/features/preset/form';
 import { UiTitle } from '@/shared/ui/ui-title';
 import { PresetItem, usePresetRepository } from '@/entities/preset';
 import styles from './presetsList.module.scss'
-import _, { set } from 'lodash';
+import _ from 'lodash';
 import { match } from 'ts-pattern';
 import { UiSpinner } from '@/shared/ui/ui-spinner';
 import { ApplyPresetButton } from '@/features/preset/apply';
@@ -43,7 +43,7 @@ export function PresetsList({
         <PresetForm label={label} gpuId={gpuId}/>
         <UiTitle className={styles['title']} label='List of presets' />
         <div className={styles['presets-list-items']}>
-          {match(false)
+          {match(isLoading)
           .with(true, () => (
             <UiSpinner className={styles['centered']}/>
           ))

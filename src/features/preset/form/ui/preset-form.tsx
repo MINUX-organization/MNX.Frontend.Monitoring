@@ -11,7 +11,6 @@ import { usePresetRepository } from "@/entities/preset";
 import { toPreset } from "../utils/to-preset";
 import { useEffect } from "react";
 import { usePresetStateStore } from "@/widgets/preset-modal/model";
-import { useNavigate } from "react-router";
 import { State } from "@/widgets/preset-modal";
 import _ from "lodash";
 

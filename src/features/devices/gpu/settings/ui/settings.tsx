@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import styles from './settings.module.scss'
 import { SettingsIcon } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export function Settings({ 
   className,

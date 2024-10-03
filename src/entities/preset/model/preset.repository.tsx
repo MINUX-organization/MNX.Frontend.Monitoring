@@ -6,6 +6,7 @@ import { PostPresetOverclocking, Preset } from "./types";
 import { addPresetApi } from "@/shared/api/post/addPreset";
 import { deletePresetApi } from "@/shared/api/delete/deletePreset";
 import { editPresetApi } from "@/shared/api/patch/editPreset";
+import { PRODUCTION_MODE } from "@/shared/constants/production-mode";
 
 const presetsListMock: Preset[] = [
   {
@@ -46,9 +47,9 @@ const presetsListMock: Preset[] = [
 
 export function usePresetRepository() {
   const queryClient = useQueryClient();
-  const { data, ...presetQuery } = useQuery(['presetsList'], getPresetsListApi);
+  const { data, isLoading, ...presetQuery } = useQuery(['presetsList'], getPresetsListApi);
 
-  const PresetsList = import.meta.env.PROD ? ZodSaveParse(data, Preset.array().optional()) : presetsListMock;
+  const PresetsList = PRODUCTION_MODE ? ZodSaveParse(data, Preset.array().optional()) : presetsListMock;
   
   const addPresetMutation = useMutation({
     mutationFn: (Preset: PostPresetOverclocking) => addPresetApi(Preset),
@@ -96,13 +97,14 @@ export function usePresetRepository() {
     if (!PresetsList) return;
     queryClient.setQueryData(['presetsList'], PresetsList);
   }
-    
+  
   return {
     addPreset,
     editPreset,
     deletePreset,
     getPresetsList,
     setPresetsList,
+    isLoading: isLoading && PRODUCTION_MODE,
     ...presetQuery
   }
 }
