@@ -13,7 +13,7 @@ import { LoginPage } from "@/pages/login";
 import { CryptosPage } from "@/pages/cryptos";
 import { WalletsPage } from "@/pages/wallets";
 import { PoolsPage } from "@/pages/pools";
-import { PresetPage } from "@/pages/preset";
+import { PresetPage, SelectDevicePage } from "@/pages/preset";
 import { PresetModal } from "@/widgets/preset-modal";
 
 const MonitoringPage = React.lazy(() => import("@/pages/monitoring").then(module => ({ default: module.MonitoringPage })));
@@ -166,6 +166,12 @@ const router = createBrowserRouter([
             ),
           },
         ],
+      },
+      {
+        path: ROUTER_PATHS.SELECT_DEVICE,
+        element: (
+            <SelectDevicePage />
+        ),
       },
       {
         path: ROUTER_PATHS.CRYPTOS,

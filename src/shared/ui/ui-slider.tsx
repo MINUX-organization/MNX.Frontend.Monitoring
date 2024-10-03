@@ -18,9 +18,10 @@ export function UiSlider({
   min,
   max,
   default: defaultValue,
+  isDisabled,
 } : {
   className?: string;
-} & Partial<SliderProps> ) {
+} & Partial<SliderProps> & { isDisabled?: boolean } ) {
   return (
     <div className={clsx(className, styles['ui-slider'])}>
       <div className={styles['values']}>
@@ -28,6 +29,7 @@ export function UiSlider({
         <span>{max}</span>
       </div>
       <ReactSlider
+        disabled={isDisabled}
         className={styles['slider']}
         renderThumb={({key, ...props}) => (
           <div

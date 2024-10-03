@@ -9,19 +9,21 @@ export function SliderParameters({
   className,
   label,
   data,
+  isDisabled
 } : {
   className?: string;
   label?: string;
   data?: Data[];
+  isDisabled?: boolean;
 }) {
   return (
-    <div className={clsx(className, styles['slider-parameters'])}>
+    <div className={clsx(className, styles['slider-parameters'], isDisabled && styles['disabled'],)}>
       <UiTitle label={label} />
       <div className={styles['parameters']}>
         {_.map(data, (item) => (
           <div key={item.label} className={styles['parameter']}>
             <span className={styles['label']}>{item.label}</span>
-            <UiSlider {...item} />
+            <UiSlider {...item} isDisabled={isDisabled}/>
             <div className={styles['box']}>
               <div className={styles['value']}>
                 <span className={styles['value-text']}>

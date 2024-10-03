@@ -11,12 +11,14 @@ export function PresetItem({
   renderApply,
   renderEdit,
   renderDelete,
+  onClick,
 } : {
   className?: string;
   preset: Preset;
   renderApply?: (presetId: string) => React.ReactNode;
   renderEdit?: (presetId: string) => React.ReactNode;
   renderDelete?: (presetId: string) => React.ReactNode;
+  onClick?: (event?: React.MouseEvent) => void;
 }) {
   const measureUnit = "Mhz";
 
@@ -40,7 +42,7 @@ export function PresetItem({
   ]
 
   return (
-    <UiBorderBox className={className}>
+    <UiBorderBox onClick={onClick} className={className}>
       <UiBgContainer className={styles["preset-item"]} color="transparent">
         <div className={styles["preset-panel"]}>
           <span>

@@ -83,7 +83,7 @@ export function PresetPage() {
           preset={item}
           key={item.name}
           renderOnOpen={(isOpen) => <OnOpen isOpen={isOpen}/>}
-          renderApply={(id) => <ApplyPresetButton />}
+          renderApply={(id) => <ApplyPresetButton presetId={id}/>}
           renderEdit={(id) => <EditPresetButton presetId={id} isNavigate/>}
           renderDelete={(id) => <DeletePresetButton presetId={id}/>}
         />

@@ -22,4 +22,5 @@ export const ROUTER_PATHS = {
   PROFILE: 'profile',
   FEEDBACK: 'feedback',
   CONFIG: 'config',
+  SELECT_DEVICE: 'presets/:presetId',
 } as const;

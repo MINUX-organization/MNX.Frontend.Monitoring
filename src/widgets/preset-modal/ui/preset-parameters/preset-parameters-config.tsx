@@ -13,6 +13,7 @@ import { PresetModalContext } from '../preset-modal';
 import clsx from 'clsx';
 import { UiButton } from '@/shared/ui/ui-button';
 import { usePresetStateStore } from '../../model';
+import { State } from '../../model/preset-state.store';
 
 const gpuRestrictionsMock: GpuRestrictions = {
   power: {
@@ -105,12 +106,12 @@ const gpuRestrictionsMock: GpuRestrictions = {
 
 export function PresetParametersConfig({
   className,
-  selectedPreset
+  selectedPreset,
 } : {
   className?: string;
   selectedPreset?: Preset;
 }) {
-  const { setSlidersParameters } = usePresetStateStore();
+  const { setSlidersParameters, modalState } = usePresetStateStore();
 
   const { data } = useQuery(['gpuRestrictions'], () => getGpuRestrictions(selectedPreset?.gpuName ?? ''));
 
@@ -127,20 +128,22 @@ export function PresetParametersConfig({
     debouncedSetValue(states);
   }, [...depth, debouncedSetValue]);
 
+  const isDisabled = modalState === State.Idle;
+
   return (
-    <UiBorderBox className={styles['preset-parameters-config']}>
+    <UiBorderBox className={clsx(styles['preset-parameters-config'])}>
       <UiBgContainer className={clsx(className, styles['preset-parameters-container'])} color="opaque">
-        <SliderParameters data={states.clocking} className={styles['slider-parameters']} label="Clocking" />
-        <SliderParameters data={states.voltage} label="Voltage" />
-        <SliderParameters data={states.other} label="Other" />
-        <UiButton 
+        <SliderParameters isDisabled={isDisabled} data={states.clocking} className={styles['slider-parameters']} label="Clocking" />
+        <SliderParameters isDisabled={isDisabled} data={states.voltage} label="Voltage" />
+        <SliderParameters isDisabled={isDisabled} data={states.other} label="Other" />
+        {modalState !== State.Idle && <UiButton 
           className={styles['reset-button']} 
           onClick={reset}
           color='red'
           withBorder
         >
           Reset
-        </UiButton>
+        </UiButton>}
       </UiBgContainer>
     </UiBorderBox>
   )

@@ -9,16 +9,20 @@ export function EditPresetButton({
   isIcon,
   isActive,
   isNavigate,
+  onClick
 } : {
   className?: string;
   presetId: string;
   isIcon?: boolean;
   isActive?: boolean;
   isNavigate?: boolean;
+  onClick?: (e: React.MouseEvent) => void
 }) {
   const navigate = useNavigate();
 
-  const handle = () => {
+  const handle = (e: React.MouseEvent) => {
+    onClick?.(e)
+
     if (isNavigate) {
       navigate(`config?presetId=${presetId}`)
       return;

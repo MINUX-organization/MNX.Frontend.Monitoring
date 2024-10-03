@@ -22,7 +22,7 @@ export function UiInput<T extends FieldValues>({
   return (
     <div className={clsx(className, styles['input'])} {...props}>
       <label>{label}</label>
-      <UiBorderBox className={styles['input-container']}>
+      <UiBorderBox className={clsx(styles['input-container'], props.disabled && styles['disabled'])}>
         <UiBgContainer className={styles['padding-flex']} color={color ?? 'opaque'}>
           <input {...field} type={props.type} className={styles['padding-input']} placeholder={placeholder}/>
         </UiBgContainer>

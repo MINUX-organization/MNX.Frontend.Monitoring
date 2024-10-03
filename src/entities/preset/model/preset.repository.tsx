@@ -54,7 +54,7 @@ export function usePresetRepository() {
     mutationFn: (Preset: PostPresetOverclocking) => addPresetApi(Preset),
     onSuccess: (data) => {
       queryClient.setQueryData(
-        ['presetsList'], _.concat(PresetsList, data))
+        ['presetsList'], _.concat(data, PresetsList))
     }
   });
 
@@ -63,7 +63,7 @@ export function usePresetRepository() {
     onSuccess: (data) => {
       queryClient.setQueryData(
         ['presetsList'],
-        _.map(PresetsList, (pool) => pool.id === data.id ? data : pool)
+        _.map(PresetsList, (preset) => preset.id === data.id ? data : preset)
       )
     }
   })

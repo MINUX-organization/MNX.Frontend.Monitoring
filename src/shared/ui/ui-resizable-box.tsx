@@ -22,7 +22,10 @@ export function UiResizableBox({
   }, [trigger]);
 
   return (
-    <div className={clsx(className, styles['resizable-box'])} ref={contentRef} style={{ height: height.value }}>
+    <div
+      className={clsx(className, styles['resizable-box'])} 
+      ref={contentRef} 
+      style={{ height: height.value }}>
       {children}
     </div>
   )

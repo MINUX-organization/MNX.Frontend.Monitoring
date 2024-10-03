@@ -23,3 +23,12 @@
 .disabled {
   opacity: 0.5;
 }
+
+.selected {
+  transition: box-shadow 0.2s ease;
+  box-shadow: inset 0 0 10px var(--color-blue);
+}
+
+.preset-item {
+  cursor: pointer;
+}

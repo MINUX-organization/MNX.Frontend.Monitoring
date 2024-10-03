@@ -12,6 +12,7 @@ import { SliderParameter } from "@/shared/types/slider-types";
 import _ from "lodash";
 import { usePresetStateStore } from "../model";
 import { useGpusListQuery } from "@/entities/devices/gpu";
+import { State } from "../model/preset-state.store";
 
 export const PresetModalContext = createContext({
   value: {} as SliderParameter,
@@ -22,7 +23,7 @@ export function PresetModal() {
   const { isOpen, onOpen } = useModal();
   const { getPresetsList } = usePresetRepository();
   const { data: gpusList } = useGpusListQuery();
-  const { setPreset, setGpuName, selectedPreset, selectedGpuName } = usePresetStateStore();
+  const { setPreset, setGpuName, selectedPreset, selectedGpuName, setModalState } = usePresetStateStore();
   const location = useLocation();
   const navigate = useNavigate();
   
@@ -41,7 +42,13 @@ export function PresetModal() {
 
     if (gpuId) setGpuName(getSelectedGpuName())
     else setGpuName(getSelectedPreset()?.gpuName);
+
+    if (!presetId && !gpuId) setModalState(State.Creating); 
   }, [getSelectedPreset, gpuId]);
+
+  useEffect(() => {
+    if (presetId) setModalState(State.Editing);
+  }, [])
 
   useEffect(() => {
     onOpen();

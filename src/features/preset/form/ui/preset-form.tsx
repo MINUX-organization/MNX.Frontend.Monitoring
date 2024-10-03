@@ -12,6 +12,8 @@ import { toPreset } from "../utils/to-preset";
 import { useEffect } from "react";
 import { usePresetStateStore } from "@/widgets/preset-modal/model";
 import { useNavigate } from "react-router";
+import { State } from "@/widgets/preset-modal";
+import _ from "lodash";
 
 export type FormInput = {
   presetName: string;
@@ -27,20 +29,24 @@ export function PresetForm({
   label?: string;
   className?: string;
 }) {
-  const { addPreset, editPreset } = usePresetRepository()
-  const { setGpuName, selectedPreset, selectedGpuName, slidersParameters, setPreset } = usePresetStateStore();
+  const { addPreset, editPreset, getPresetsList } = usePresetRepository()
+  const { 
+    setGpuName, 
+    selectedPreset, 
+    selectedGpuName, 
+    slidersParameters, 
+    setPreset,
+    setModalState,
+    modalState } = usePresetStateStore();
   const { data: cardsNameList } = useQuery(['cardsNameList'], () => getCardsNameList());
-  const navigate = useNavigate();
 
-  const { control, handleSubmit, watch, reset, setValue} = useForm<FormInput>({
+  const { control, handleSubmit, reset, watch, setValue} = useForm<FormInput>({
     defaultValues: {
       presetName: '',
       cardName: '',
     },
   })
   const selectedCard = watch('cardName')
-
-  const resetQuery = () => navigate('');
 
   useEffect(() => {
     setValue('cardName', selectedGpuName ?? '')
@@ -51,24 +57,23 @@ export function PresetForm({
     setGpuName(selectedCard)
   }, [selectedCard])
 
-  const onCancel = () => {
-    setGpuName(undefined);
-    setPreset(undefined);
-    resetQuery();
-  }
-
   const onSubmit: SubmitHandler<FormInput> = (data) => {
     if (!slidersParameters) return
 
     const preset = toPreset(data.presetName, data.cardName, slidersParameters);
-    console.log(preset)
-    if (selectedPreset) {
-      editPreset(selectedPreset.id, preset);
-      onCancel()
-    }
-    else addPreset(preset);
 
-    reset();
+    if (modalState === State.Editing && selectedPreset) {
+      editPreset(selectedPreset.id, preset);
+      setModalState(State.Idle)
+    }
+
+    if (modalState === State.Creating) {
+      /// TODO: maybe logic error
+      addPreset(preset)
+      setPreset(_.find(getPresetsList(), ['name', data.presetName]))
+      setModalState(State.Creating)
+      reset();
+    };
   };
   
   return (
@@ -82,6 +87,7 @@ export function PresetForm({
         <UiInput
           control={control}
           rules={{ required: true }}
+          disabled={modalState === State.Idle}
           label="Preset name"
           name="presetName"
           placeholder="Enter preset name"
@@ -103,17 +109,16 @@ export function PresetForm({
           }
         />
       </form>
-      <div className={styles['buttons']}>
-        {selectedPreset && <UiButton
+      {<div className={styles['buttons']}>
+        {modalState === State.Editing && <UiButton
           className={styles['button']}
           color="red"
           withBorder
-          onClick={onCancel}
+          onClick={() => setModalState(State.Idle)}
         >
           Cancel
         </UiButton>}
-
-        <UiButton
+        {modalState !== State.Idle && <UiButton
           className={styles['button']}
           type="submit" 
           form="preset-form" 
@@ -121,8 +126,8 @@ export function PresetForm({
           withBorder
         >
           {selectedPreset ? 'Edit' : 'Save'}
-        </UiButton>
-      </div>
+        </UiButton>}
+      </div>}
     </div>
   )
 }
