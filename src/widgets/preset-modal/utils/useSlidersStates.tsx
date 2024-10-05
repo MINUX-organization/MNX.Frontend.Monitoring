@@ -35,7 +35,7 @@ SliderParameter & { reset: () => void } {
 
   const coreVoltageLockParameters = useSliderParameters({
     presetId: preset?.id,
-    label: 'Core Voltage Lock',
+    label: 'Core Voltage',
     min: gpuRestriction.voltage.core.lock.minimal,
     max: gpuRestriction.voltage.core.lock.maximal,
     value: preset?.overclocking.coreVoltage,
@@ -46,7 +46,7 @@ SliderParameter & { reset: () => void } {
 
   const memoryVoltageLockParameters = useSliderParameters({
     presetId: preset?.id,
-    label: 'Memory Voltage Lock',
+    label: 'Memory Voltage',
     min: gpuRestriction.voltage.memory.lock.minimal,
     max: gpuRestriction.voltage.memory.lock.maximal,
     value: preset?.overclocking.memoryVoltage,

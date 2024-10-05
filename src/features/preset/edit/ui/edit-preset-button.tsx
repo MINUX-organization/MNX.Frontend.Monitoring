@@ -21,6 +21,8 @@ export function EditPresetButton({
   const navigate = useNavigate();
 
   const handle = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    
     onClick?.(e)
 
     if (isNavigate) {

@@ -7,6 +7,7 @@ import { addPresetApi } from "@/shared/api/post/addPreset";
 import { deletePresetApi } from "@/shared/api/delete/deletePreset";
 import { editPresetApi } from "@/shared/api/patch/editPreset";
 import { PRODUCTION_MODE } from "@/shared/constants/production-mode";
+import { IS_SUCCESS_STATUS } from "@/shared/api/api-instance";
 
 const presetsListMock: Preset[] = [
   {
@@ -74,21 +75,27 @@ export function usePresetRepository() {
     onSuccess: (_data, variables) => {
       queryClient.setQueryData(
         ['presetsList'],
-         _.filter(PresetsList, (Preset) => Preset.id !== variables)
+        _.filter(PresetsList, (Preset) => Preset.id !== variables)
       )
-    }
+    },
   });
   
-  const addPreset = (preset: PostPresetOverclocking) => {
-    addPresetMutation.mutate(preset);
+  const addPreset = async (preset: PostPresetOverclocking) => {
+    const status = await addPresetMutation.mutateAsync(preset);
+
+    return {isSuccess: IS_SUCCESS_STATUS(status), data: status}; 
   }
 
-  const editPreset = (id: string, preset: PostPresetOverclocking) => {
-    editPresetMutation.mutate({id, preset});
+  const editPreset = async (id: string, preset: PostPresetOverclocking) => {
+    const status = await editPresetMutation.mutateAsync({id, preset});
+
+    return IS_SUCCESS_STATUS(status);
   }
 
-  const deletePreset = (id: string) => {
-    deletePresetMutation.mutate(id);
+  const deletePreset = async (id: string) => {
+    const status = (await deletePresetMutation.mutateAsync(id)).status;
+
+    return IS_SUCCESS_STATUS(status);  
   }
 
   const getPresetsList = () => PresetsList;

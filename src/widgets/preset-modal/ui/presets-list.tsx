@@ -67,15 +67,12 @@ export function PresetsList({
                 renderApply={(id) => gpuId && <ApplyPresetButton presetId={id} isIcon/>}
                 renderEdit={(id) => 
                   <EditPresetButton
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setModalState(State.Editing)
-                    }}
+                    onClick={() => setModalState(State.Editing)}
                     presetId={id} 
                     isIcon 
                     isActive={isSelectedPreset && modalState === State.Editing}
                   />}
-                renderDelete={(id) => <DeletePresetButton presetId={id} isIcon/>}
+                renderDelete={(id) => <DeletePresetButton presetId={id} preset={preset} isIcon/>}
               />
             })
           })}

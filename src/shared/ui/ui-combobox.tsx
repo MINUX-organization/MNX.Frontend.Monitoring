@@ -6,7 +6,6 @@ import _ from "lodash";
 import { UiBorderBox } from "./ui-border-box";
 import { UiBgContainer } from "./ui-bg-container";
 import { ChevronDown } from "lucide-react";
-import { useEffect } from "react";
 
 export function UiComboBox<T>({
   className,
@@ -29,11 +28,7 @@ export function UiComboBox<T>({
   getOptionLabel: (option: T) => string;
   selectedOnChange?: (option?: T) => void;
 }) {
-  const query = useStateObject<string>(selectedOption?.toString() ?? '');
-
-  useEffect(() => {
-    query.setValue(selectedOption?.toString() ?? '')
-  }, [selectedOption])
+  const query = useStateObject<string>('');
 
   const filteredOptions =
     query.value === ''
@@ -61,8 +56,8 @@ export function UiComboBox<T>({
             <Combobox.Input
               className={styles['input']}
               placeholder={placeholder}
-              displayValue={(option) => getOptionLabel?.(option as T)}
               onChange={(event) => query.setValue(event.target.value)}
+              displayValue={(value) => getOptionLabel(value as T)}
               onBlur={() => query.setValue('')}
             /> 
             <Combobox.Button className={styles['button']}>
@@ -78,16 +73,15 @@ export function UiComboBox<T>({
             'transparent': styles['transparent']
           }[color ?? "opaque"]
         )}>
-          {!filteredOptions || filteredOptions.length === 0 && query.value !== '' && 
+          {((filteredOptions?.length === 0) && !_.isEmpty(query.value)) || options?.length === 0 ? 
             <span className={clsx(styles['no-options'], styles['text-gray'])}>
               There are no options...
             </span>
-          }
-          {_.map(filteredOptions, (option) => (
+          : _.map(filteredOptions, (option) => (
             <Combobox.Option
               className={styles['option']}
-              key={getOptionLabel?.(option)} 
-              value={getOptionLabel?.(option)}
+              key={getOptionLabel?.(option)}
+              value={option}
             >
               {getOptionLabel?.(option)}
             </Combobox.Option>

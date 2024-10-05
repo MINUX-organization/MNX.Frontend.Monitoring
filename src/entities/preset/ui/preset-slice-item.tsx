@@ -14,7 +14,7 @@ export function PresetSliceItem({
   preset: Preset;
   renderApply?: (presetId: string) => React.ReactNode;
   renderEdit?: (presetId: string) => React.ReactNode;
-  renderDelete?: (presetId: string) => React.ReactNode;
+  renderDelete?: (presetId: string, preset?: Preset) => React.ReactNode;
 }) {
   const measureUnit = "Mhz";
   const isFeatures: boolean = renderApply != undefined|| renderEdit != undefined || renderDelete != undefined;
@@ -48,7 +48,7 @@ export function PresetSliceItem({
         <div className={styles["features"]}>
           {renderApply?.(preset.id)}
           {renderEdit?.(preset.id)}
-          {renderDelete?.(preset.id)}
+          {renderDelete?.(preset.id, preset)}
         </div>
       )}
     </div>

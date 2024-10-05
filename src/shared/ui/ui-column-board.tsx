@@ -36,7 +36,7 @@ export function UiColumnBoard({
         )}>
           <span className={styles['label']}>{d.label}</span>
           <span className={styles['sep']}>{sep}</span>
-          {d.value ? <span className={styles['value']}>{d.value}&nbsp;
+          {d.value || d.value === 0 ? <span className={styles['value']}>{d.value}&nbsp;
             <span className={styles['measure']}>{d.measureUnit}</span>
           </span> : <span className={styles['value']}>N/A</span>}
         </div>

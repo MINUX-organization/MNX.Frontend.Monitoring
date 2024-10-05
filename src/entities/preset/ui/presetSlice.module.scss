@@ -7,6 +7,16 @@
     .header {
       display: flex;
       justify-content: space-between;
+
+      transition: margin-bottom 0.5s ease;
+    
+      &.hidden {
+        margin-bottom: 0;
+      }
+  
+      &.visible {
+        margin-bottom: 1rem;
+      }
   
       .title {
         line-height: 1.875rem;
@@ -14,20 +24,11 @@
       }
     }
 
-    .preset-board {
+    .preset-board-container {
       display: flex;
-      flex-direction: column;
       gap: 0.625rem;
-
-      transition: height 0.5s ease, margin-top 0.5s ease;
-      
-      &.hidden {
-        margin-top: 0;
-      }
-  
-      &.visible {
-        margin-top: 1rem;
-      }
+      height: auto;
+      flex-direction: column;
     }
   }
 }

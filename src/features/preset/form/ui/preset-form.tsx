@@ -7,7 +7,7 @@ import { useQuery } from "react-query";
 import styles from './presetForm.module.scss';
 import { UiButton } from "@/shared/ui/ui-button";
 import clsx from "clsx";
-import { usePresetRepository } from "@/entities/preset";
+import { usePresetByGpuNameRepository, usePresetRepository } from "@/entities/preset";
 import { toPreset } from "../utils/to-preset";
 import { useEffect } from "react";
 import { usePresetStateStore } from "@/widgets/preset-modal/model";
@@ -28,7 +28,10 @@ export function PresetForm({
   label?: string;
   className?: string;
 }) {
-  const { addPreset, editPreset, getPresetsList } = usePresetRepository()
+  const { addPreset, editPreset } = usePresetRepository()
+  const { addPresetToList } = usePresetByGpuNameRepository();
+  const { editPresetInList } = usePresetByGpuNameRepository();
+
   const { 
     setGpuName, 
     selectedPreset, 
@@ -37,9 +40,10 @@ export function PresetForm({
     setPreset,
     setModalState,
     modalState } = usePresetStateStore();
+
   const { data: cardsNameList } = useQuery(['cardsNameList'], () => getCardsNameList());
 
-  const { control, handleSubmit, reset, watch, setValue} = useForm<FormInput>({
+  const { control, handleSubmit, watch, setValue} = useForm<FormInput>({
     defaultValues: {
       presetName: '',
       cardName: '',
@@ -56,22 +60,28 @@ export function PresetForm({
     setGpuName(selectedCard)
   }, [selectedCard])
 
-  const onSubmit: SubmitHandler<FormInput> = (data) => {
+  const onSubmit: SubmitHandler<FormInput> = async (data) => {
     if (!slidersParameters) return
 
     const preset = toPreset(data.presetName, data.cardName, slidersParameters);
 
     if (modalState === State.Editing && selectedPreset) {
-      editPreset(selectedPreset.id, preset);
+      const isSuccess = await editPreset(selectedPreset.id, preset);
+
+      if (!isSuccess) return;
+
+      editPresetInList(selectedPreset.id, preset)
       setModalState(State.Idle)
     }
 
     if (modalState === State.Creating) {
-      /// TODO: maybe logic error
-      addPreset(preset)
-      setPreset(_.find(getPresetsList(), ['name', data.presetName]))
-      setModalState(State.Creating)
-      reset();
+      const { isSuccess, data } = await addPreset(preset)
+
+      if (!isSuccess) return;
+
+      setPreset(data)
+      addPresetToList(data)
+      setModalState(State.Idle)
     };
   };
   
@@ -98,9 +108,9 @@ export function PresetForm({
           render={({ field: {onChange} }) => 
             <UiComboBox
               title="Card name"
-              options={cardsNameList ?? ['NVIDIA GeForce RTX 3080', 'NVIDIA GeForce RTX 3090']}
+              options={cardsNameList ?? []}
               selectedOption={selectedCard}
-              selectedOnChange={(option) => onChange(option)}
+              selectedOnChange={onChange}
               getOptionLabel={(option) => option}
               placeholder="Select a card"
               isDisabled={Boolean(selectedPreset || gpuId)}

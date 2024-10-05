@@ -47,7 +47,7 @@ body {
   font-size: var(--font-size-root);
   background: var(--color-bg);
   height: 100svh;
-  color: white;
+  color: white !important;
   box-sizing: border-box;
   font-family: 'GillSansMT';
 }
@@ -84,6 +84,38 @@ input {
 a {
   color: white;
   text-decoration: none;
+}
+
+input:-internal-autofill-selected,
+input:-internal-autofill-selected:hover,
+input:-internal-autofill-selected:focus,
+select:-internal-autofill-selected,
+select:-internal-autofill-selected:hover,
+select:-internal-autofill-selected:focus,
+textarea:-internal-autofill-selected,
+textarea:-internal-autofill-selected:hover,
+textarea:-internal-autofill-selected:focus,
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover, 
+select:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:autofill,
+select:autofill:hover,
+select:autofill:focus,
+input:autofill,
+input:autofill:hover,
+input:autofill:focus
+{
+  -webkit-text-fill-color: white !important;
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+  background-color: transparent !important;
+  transition: background-color 5000000s ease-in-out 0s;
+  color: white !important;
 }
 
 ::-webkit-input-placeholder {

@@ -1,32 +1,53 @@
-import { ReactNode, useEffect, useRef } from "react";
-import { useStateObject } from "../lib/utils/state-object";
-import clsx from "clsx";
-import styles from './styles/uiResizableBox.module.scss';
+import { ReactNode, RefAttributes, useEffect, useRef, useState } from "react";
+// import clsx from "clsx";
+// import styles from './styles/uiResizableBox.module.scss';
+import AnimateHeight, { Height } from "react-animate-height";
 
 export function UiResizableBox({
-  className,
   children,
-  trigger
+  trigger,
+  ...props
 } : {
   className?: string;
   children?: ReactNode;
   trigger: boolean;
-}) {
-  const height = useStateObject<string | number>(0);
-  const contentRef = useRef<HTMLDivElement>(null);
+  // valueTriger?: Array<object>;
+} & RefAttributes<HTMLDivElement>) {
+  const [height, setHeight] = useState<Height>(0);
+  const contentDiv = useRef<HTMLDivElement | null>(null);
   
   useEffect(() => {
-    if (contentRef.current) {
-      height.setValue(trigger ? contentRef.current.scrollHeight : 0);
+    const element = contentDiv.current as HTMLDivElement;
+
+    if (!trigger) { 
+      setHeight(0); 
+      return; 
     }
+
+    const resizeObserver = new ResizeObserver(() => {
+
+      setHeight(element.clientHeight);
+    });
+
+    resizeObserver.observe(element);
+
+    return () => resizeObserver.disconnect();
   }, [trigger]);
 
+  // useEffect(() => {
+  //   trigger ? setHeight('auto') : setHeight(0);
+  // }, [trigger]);
+
   return (
-    <div
-      className={clsx(className, styles['resizable-box'])} 
-      ref={contentRef} 
-      style={{ height: height.value }}>
+    <AnimateHeight
+      {...props}
+      height={height}
+      contentClassName="auto-content"
+      contentRef={contentDiv}
+      duration={500}
+      disableDisplayNone
+    >
       {children}
-    </div>
-  )
+    </AnimateHeight>
+  );
 }

@@ -1,5 +1,5 @@
 import { UiBorderBox } from "@/shared/ui/ui-border-box";
-import { PresetGroupedList } from "../model/types";
+import { Preset, PresetGroupedList } from "../model/types";
 import clsx from "clsx";
 import { UiBgContainer } from "@/shared/ui/ui-bg-container";
 import styles from './presetSlice.module.scss';
@@ -22,34 +22,35 @@ export function PresetSlice({
   renderOnOpen?: (isOpen: StateObject<boolean>) => React.ReactNode;
   renderApply?: (presetId: string) => React.ReactNode;
   renderEdit?: (presetId: string) => React.ReactNode;
-  renderDelete?: (presetId: string) => React.ReactNode;
+  renderDelete?: (presetId: string, preset?: Preset) => React.ReactNode;
 }) {
   const isOpen = useStateObject(false);
 
   return (
     <UiBorderBox withPadding className={clsx(className, styles['preset-slice'])}>
       <UiBgContainer className={styles['preset-slice-container']} color="opaque">
-        <div className={styles['header']}>
-          <span className={styles['title']}>{preset.name}</span>
+        <div className={clsx(
+          styles['header'],
+          isOpen.value ? styles['visible'] : styles['hidden'])
+        }>
+          <span className={styles['title']}>
+            {preset.name}
+          </span>
           {renderOnOpen?.(isOpen)}
         </div>
-        <UiResizableBox 
-          className={clsx(
-            styles['preset-board'], 
-            isOpen.value ? styles['visible'] : styles['hidden'])
-          }
-          trigger={isOpen.value}
-        >
-          {_.map(preset.presets, (preset) =>
-            <React.Fragment key={preset.id}>
-              <div className={styles['line']}>&#8203;</div>
-              <PresetSliceItem 
-                preset={preset}
-                renderApply={renderApply}
-                renderEdit={renderEdit}
-                renderDelete={renderDelete}
-              />
-            </React.Fragment>)}
+        <UiResizableBox trigger={isOpen.value}>
+          <div className={styles['preset-board-container']}>
+            {_.map(preset.presets, (preset) =>
+              <React.Fragment key={preset.id}>
+                <div className={styles['line']}>&#8203;</div>
+                <PresetSliceItem 
+                  preset={preset}
+                  renderApply={renderApply}
+                  renderEdit={renderEdit}
+                  renderDelete={renderDelete}
+                />
+              </React.Fragment>)}
+          </div>
         </UiResizableBox>
       </UiBgContainer>
     </UiBorderBox>

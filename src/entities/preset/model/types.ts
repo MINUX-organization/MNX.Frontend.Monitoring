@@ -1,16 +1,16 @@
 import { z } from "zod";
 
 export const Overclocking = z.object({
-  powerLimit: z.number({invalid_type_error: 'PowerLimit must be a number'}).positive({message: 'PowerLimit must be positive'}),
+  powerLimit: z.number({invalid_type_error: 'PowerLimit must be a number'}),
   fanSpeed: z.number({invalid_type_error: 'FanSpeed must be a number'}),
-  memoryClockLock: z.number({invalid_type_error: 'MemoryClockLock must be a number'}).positive({message: 'MemoryClockLock must be positive'}),
-  memoryClockOffset: z.number({invalid_type_error: 'MemoryClockOffset must be a number'}).positive({message: 'MemoryClockOffset must be positive'}),
-  memoryVoltage: z.number({invalid_type_error: 'MemoryVoltage must be a number'}).positive({message: 'MemoryVoltage must be positive'}),
-  memoryVoltageOffset: z.number({invalid_type_error: 'MemoryVoltageOffset must be a number'}).positive({message: 'MemoryVoltageOffset must be positive'}),
-  coreClockLock: z.number({invalid_type_error: 'CoreClockLock must be a number'}).positive({message: 'CoreClockLock must be positive'}),
-  coreClockOffset: z.number({invalid_type_error: 'CoreClockOffset must be a number'}).positive({message: 'CoreClockOffset must be positive'}),
-  coreVoltage: z.number({invalid_type_error: 'CoreVoltage must be a number'}).positive({message: 'CoreVoltage must be positive'}),
-  coreVoltageOffset: z.number({invalid_type_error: 'CoreVoltageOffset must be a number'}).positive({message: 'CoreVoltageOffset must be positive'}),
+  memoryClockLock: z.number({invalid_type_error: 'MemoryClockLock must be a number'}),
+  memoryClockOffset: z.number({invalid_type_error: 'MemoryClockOffset must be a number'}),
+  memoryVoltage: z.number({invalid_type_error: 'MemoryVoltage must be a number'}),
+  memoryVoltageOffset: z.number({invalid_type_error: 'MemoryVoltageOffset must be a number'}),
+  coreClockLock: z.number({invalid_type_error: 'CoreClockLock must be a number'}),
+  coreClockOffset: z.number({invalid_type_error: 'CoreClockOffset must be a number'}),
+  coreVoltage: z.number({invalid_type_error: 'CoreVoltage must be a number'}),
+  coreVoltageOffset: z.number({invalid_type_error: 'CoreVoltageOffset must be a number'}),
 })
 export type Overclocking = z.infer<typeof Overclocking>
 
