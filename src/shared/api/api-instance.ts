@@ -2,6 +2,18 @@ import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { BACKEND_BASE_URL } from '../constants/backend-urls';
 import { refreshAccessTokenApi } from './auth/refresh-access-token';
 
+export const IS_SUCCESS_STATUS = (status: number | any): boolean => {
+  if (typeof(status) === 'number') {
+    return status >= 200 && status < 300
+  }
+
+  if (typeof(status) !== 'undefined') {
+    return true
+  }
+
+  return false;
+}
+
 export function apiInstance(url?: string, customApiConfig?: AxiosRequestConfig): AxiosInstance {
   const apiConfig: AxiosRequestConfig = {
     baseURL: `${BACKEND_BASE_URL}${url ?? ''}`,
@@ -40,11 +52,6 @@ export function apiInstance(url?: string, customApiConfig?: AxiosRequestConfig):
 
       if (token) {
         const parsedToken = JSON.parse(token);
-
-        if (new Date(parsedToken.refreshExpiration).getTime() < Date.now()) {
-          localStorage.removeItem('session');
-          window.location.reload();
-        }
 
         try {
           const response = await refreshAccessTokenApi(

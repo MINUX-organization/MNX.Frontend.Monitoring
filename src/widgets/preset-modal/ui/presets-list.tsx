@@ -7,37 +7,40 @@ import styles from './presetsList.module.scss'
 import _ from 'lodash';
 import { match } from 'ts-pattern';
 import { UiSpinner } from '@/shared/ui/ui-spinner';
-
-
+import { ApplyPresetButton } from '@/features/preset/apply';
+import { EditPresetButton } from '@/features/preset/edit';
+import { DeletePresetButton } from '@/features/preset/delete';
+import clsx from 'clsx';
+import { usePresetStateStore } from '../model';
+import { State } from '../model/preset-state.store';
+import { useNavigate } from 'react-router';
 
 export function PresetsList({
-  gpuId
+  gpuId,
+  className
 } : {
+  className?: string;
   gpuId?: string;
 }
 ) {
-  const { isLoading } = usePresetRepository();
-  const mockPreset = [{
-    id: 'preset-123',
-    name: 'My Preset',
-    memoryVendor: 'Corsair',
-    memoryType: 'DDR4',
-    powerLimit: { value: 150, measureUnit: 'W' },
-    fanSpeed: 1200,
-    criticalTemperature: 80,
-    memoryClockLock: { value: 3200, measureUnit: 'MHz' },
-    memoryClockOffset: { value: 100, measureUnit: 'MHz' },
-    memoryVoltage: { value: 1.35, measureUnit: 'V' },
-    memoryVoltageOffset: { value: 0.05, measureUnit: 'V' },
-    coreClockLock: { value: 3.2, measureUnit: 'GHz' },
-    coreClockOffset: { value: 100, measureUnit: 'MHz' },
-    coreVoltage: { value: 1.2, measureUnit: 'V' },
-    coreVoltageOffset: { value: 0.05, measureUnit: 'V' },
-  }];
+  const { selectedGpuName, selectedPreset, modalState, setModalState } = usePresetStateStore();
+
+  const { getPresetsList, isLoading } = usePresetRepository();
+
+  const navigate = useNavigate();
+
+  const label = selectedPreset ? 'Edit preset' : 'Save as preset';
+
+  const handle = (id: string) => {
+    navigate(`?presetId=${id}`)
+    
+    setModalState(State.Idle);
+  }
+
   return (
     <UiBorderBox className={styles['presets-list']}>
-      <UiBgContainer className='' color='opaque'>
-        <PresetForm label='Save as preset' gpuId={gpuId} />
+      <UiBgContainer className={clsx(className, styles['presets-list-container'])} color='opaque'>
+        <PresetForm label={label} gpuId={gpuId}/>
         <UiTitle className={styles['title']} label='List of presets' />
         <div className={styles['presets-list-items']}>
           {match(isLoading)
@@ -45,11 +48,33 @@ export function PresetsList({
             <UiSpinner className={styles['centered']}/>
           ))
           .otherwise(() => {
-            // if (_.isEmpty(getPresetsList())) return <span className={styles['centered']}>N/A</span>;
+            const filteredPresetsList = _.filter(getPresetsList(), (preset) => _.startsWith(preset.gpuName, selectedGpuName ?? ''))
 
-            return _.map(mockPreset, (preset) => (
-              <PresetItem key={preset.id} preset={preset} />
-            ))
+            if (_.isEmpty(filteredPresetsList)) return <span className={styles['centered']}>N/A</span>;
+
+            return _.map(filteredPresetsList, (preset) => {
+              const isSelectedPreset = selectedPreset?.id === preset.id;
+
+              return <PresetItem
+                className={clsx(
+                  styles['preset-item'],
+                  selectedPreset != undefined && !isSelectedPreset && modalState === State.Editing && styles['disabled'],
+                  selectedPreset != undefined && isSelectedPreset && styles['selected']
+                )}
+                onClick={() => handle(preset.id)}
+                key={preset.id} 
+                preset={preset}
+                renderApply={(id) => gpuId && <ApplyPresetButton presetId={id} isIcon/>}
+                renderEdit={(id) => 
+                  <EditPresetButton
+                    onClick={() => setModalState(State.Editing)}
+                    presetId={id} 
+                    isIcon 
+                    isActive={isSelectedPreset && modalState === State.Editing}
+                  />}
+                renderDelete={(id) => <DeletePresetButton presetId={id} preset={preset} isIcon/>}
+              />
+            })
           })}
         </div>
       </UiBgContainer>

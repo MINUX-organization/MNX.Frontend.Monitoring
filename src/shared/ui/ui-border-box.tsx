@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import styles from './styles/uiBorderBox.module.scss' 
-import { ReactNode } from "react";
+import { HTMLProps, ReactNode } from "react";
 
 type Corners = {
   topRight: boolean;
@@ -13,13 +13,17 @@ type UiBorderBoxProps = {
   className?: string;
   children?: ReactNode;
   withPadding?: boolean
-} & Partial<Corners>
+} & Partial<Corners> & HTMLProps<HTMLDivElement>
 
 export function UiBorderBox({
   className,
   children,
   withPadding,
-  ...corners
+  topLeft,
+  topRight,
+  bottomLeft,
+  bottomRight,
+  ...props
  } : UiBorderBoxProps
  ) {
   return (
@@ -27,11 +31,13 @@ export function UiBorderBox({
       className,
       styles['border-box'],
       withPadding && styles['padding'],
-    )}>
-      {corners.topLeft && <div className={styles['topLeft']}></div>}
-      {corners.bottomLeft && <div className={styles['bottomLeft']}></div>}
-      {corners.topRight && <div className={styles['topRight']}></div>}
-      {corners.bottomRight && <div className={styles['bottomRight']}></div>}
+    )}
+      {...props}
+    >
+      {topLeft && <div className={styles['topLeft']}></div>}
+      {bottomLeft && <div className={styles['bottomLeft']}></div>}
+      {topRight && <div className={styles['topRight']}></div>}
+      {bottomRight && <div className={styles['bottomRight']}></div>}
       {children}
     </section>
   )

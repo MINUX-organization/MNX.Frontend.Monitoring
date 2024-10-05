@@ -1,9 +1,9 @@
+import { UiColumnBoard } from "@/shared/ui/ui-column-board";
 import { UiBgContainer } from "@/shared/ui/ui-bg-container";
 import { UiBorderBox } from "@/shared/ui/ui-border-box";
 import { Preset } from "../model/types";
 import styles from './presetItem.module.scss';
 import React from "react";
-import { UiColumnBoard } from "@/shared/ui/ui-column-board";
 
 export function PresetItem({
   className,
@@ -11,35 +11,38 @@ export function PresetItem({
   renderApply,
   renderEdit,
   renderDelete,
+  onClick,
 } : {
   className?: string;
   preset: Preset;
   renderApply?: (presetId: string) => React.ReactNode;
   renderEdit?: (presetId: string) => React.ReactNode;
   renderDelete?: (presetId: string) => React.ReactNode;
+  onClick?: (event?: React.MouseEvent) => void;
 }) {
+  const measureUnit = "Mhz";
+
   const firstField = [
-    {label: 'Memory Clock Lock', value: preset.memoryClockLock.value, measureUnit: preset.memoryClockLock.measureUnit},
-    {label: 'Memory Clock Offset', value: preset.memoryClockOffset.value, measureUnit: preset.memoryClockOffset.measureUnit},
-    {label: 'Memory Voltage', value: preset.memoryVoltage.value, measureUnit: preset.memoryVoltage.measureUnit},
-    {label: 'Memory Voltage Offset', value: preset.memoryVoltageOffset.value, measureUnit: preset.memoryVoltageOffset.measureUnit},
+    {label: 'Memory Clock Lock', value: preset.overclocking.memoryClockLock, measureUnit: measureUnit},
+    {label: 'Memory Clock Offset', value: preset.overclocking.memoryClockOffset, measureUnit: measureUnit},
+    {label: 'Memory Voltage', value: preset.overclocking.memoryVoltage, measureUnit: measureUnit},
+    {label: 'Memory Voltage Offset', value: preset.overclocking.memoryVoltageOffset, measureUnit: measureUnit},
   ]
 
   const secondField = [
-    {label: 'Core Clock Lock', value: preset.coreClockLock.value, measureUnit: preset.coreClockLock.measureUnit},
-    {label: 'Core Clock Offset', value: preset.coreClockOffset.value, measureUnit: preset.coreClockOffset.measureUnit},
-    {label: 'Core Voltage', value: preset.coreVoltage.value, measureUnit: preset.coreVoltage.measureUnit},
-    {label: 'Core Voltage Offset', value: preset.coreVoltageOffset.value, measureUnit: preset.coreVoltageOffset.measureUnit},
+    {label: 'Core Clock Lock', value: preset.overclocking.coreClockLock, measureUnit: measureUnit},
+    {label: 'Core Clock Offset', value: preset.overclocking.coreClockOffset, measureUnit: measureUnit},
+    {label: 'Core Voltage', value: preset.overclocking.coreVoltage, measureUnit: measureUnit},
+    {label: 'Core Voltage Offset', value: preset.overclocking.coreVoltageOffset, measureUnit: measureUnit},
   ]
 
   const thirdField = [
-    {label: 'Power Limit', value: preset.powerLimit.value, measureUnit: preset.powerLimit.measureUnit},
-    {label: 'Fan Speed', value: preset.fanSpeed},
-    {label: 'Critical Temp', value: preset.criticalTemperature},
+    {label: 'Power Limit', value: preset.overclocking.powerLimit, measureUnit: 'W'},
+    {label: 'Fan Speed', value: preset.overclocking.fanSpeed, measureUnit: "%"},
   ]
 
   return (
-    <UiBorderBox className={className}>
+    <UiBorderBox onClick={onClick} className={className}>
       <UiBgContainer className={styles["preset-item"]} color="transparent">
         <div className={styles["preset-panel"]}>
           <span>
@@ -52,8 +55,6 @@ export function PresetItem({
             {renderDelete?.(preset.id)}
           </div>
         </div>
-        <span className={styles["blue"]}>{preset.memoryVendor}&nbsp;{preset.memoryType}</span>
-        
         <div className={styles["preset-board"]}>
           <UiColumnBoard data={firstField} />
           <UiColumnBoard data={secondField} />

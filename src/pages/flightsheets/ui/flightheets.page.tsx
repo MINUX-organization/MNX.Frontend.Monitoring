@@ -3,7 +3,7 @@ import { FlightSheetsList } from './flight-sheetsList'
 import styles from './flightSheets.page.module.scss'
 import { UiSelect } from '@/shared/ui/ui-select'
 import { useStateObject } from '@/shared/lib/utils/state-object'
-import CreateFlightSheetButton from '@/features/flightsheet/create'
+import { CreateFlightSheetButton } from '@/features/flightsheet/create'
 
 export function FlightSheetsPage() {
   let obj = useStateObject("");

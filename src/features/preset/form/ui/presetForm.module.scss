@@ -16,10 +16,16 @@
   }
 }
 
-.button-submit {
-  width: 8.125rem;
-  height: 2.3125rem;
-
+.buttons {
   align-self: center;
+  display: flex;
+  gap: 0.625rem;
+
+  .button {
+    width: 8.125rem;
+    height: 2.3125rem;
+  
+    align-self: center;
+  }
 }
 

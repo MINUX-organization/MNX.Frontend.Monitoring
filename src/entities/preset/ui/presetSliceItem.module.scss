@@ -1,0 +1,16 @@
+.preset-slice-item {
+  display: flex;
+  justify-content: space-around;
+  gap: 1rem;
+
+  .name {
+    font-size: var(--font-size-20px);
+    align-self: center;
+  }
+
+  .features {
+    display: flex;
+    gap: 0.625rem;
+    align-self: center;
+  }
+}

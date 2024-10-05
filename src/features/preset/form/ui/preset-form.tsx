@@ -1,4 +1,4 @@
-import { getCardsNameList } from "@/shared/api/get/getCardsNameList";
+import { getCardsNameList } from "@/shared/api/get/getGpusNameList";
 import { UiComboBox } from "@/shared/ui/ui-combobox";
 import { UiInput } from "@/shared/ui/ui-input";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
@@ -7,7 +7,12 @@ import { useQuery } from "react-query";
 import styles from './presetForm.module.scss';
 import { UiButton } from "@/shared/ui/ui-button";
 import clsx from "clsx";
-import { usePresetRepository } from "@/entities/preset";
+import { usePresetByGpuNameRepository, usePresetRepository } from "@/entities/preset";
+import { toPreset } from "../utils/to-preset";
+import { useEffect } from "react";
+import { usePresetStateStore } from "@/widgets/preset-modal/model";
+import { State } from "@/widgets/preset-modal";
+import _ from "lodash";
 
 export type FormInput = {
   presetName: string;
@@ -21,25 +26,63 @@ export function PresetForm({
 } : {
   gpuId?: string;
   label?: string;
-  className?: string; 
+  className?: string;
 }) {
-  const { addPreset } = usePresetRepository()
+  const { addPreset, editPreset } = usePresetRepository()
+  const { addPresetToList } = usePresetByGpuNameRepository();
+  const { editPresetInList } = usePresetByGpuNameRepository();
 
-  const { control, handleSubmit, watch, reset } = useForm<FormInput>({
-    defaultValues: {
-      presetName: '',
-      cardName: '',
-    }
-  })
+  const { 
+    setGpuName, 
+    selectedPreset, 
+    selectedGpuName, 
+    slidersParameters, 
+    setPreset,
+    setModalState,
+    modalState } = usePresetStateStore();
 
   const { data: cardsNameList } = useQuery(['cardsNameList'], () => getCardsNameList());
 
+  const { control, handleSubmit, watch, setValue} = useForm<FormInput>({
+    defaultValues: {
+      presetName: '',
+      cardName: '',
+    },
+  })
   const selectedCard = watch('cardName')
 
-  const onSubmit: SubmitHandler<FormInput> = (data) => {
-    addPreset(data);
+  useEffect(() => {
+    setValue('cardName', selectedGpuName ?? '')
+    setValue('presetName', selectedPreset?.name ?? '')
+  }, [selectedPreset])
 
-    reset();
+  useEffect(() => {
+    setGpuName(selectedCard)
+  }, [selectedCard])
+
+  const onSubmit: SubmitHandler<FormInput> = async (data) => {
+    if (!slidersParameters) return
+
+    const preset = toPreset(data.presetName, data.cardName, slidersParameters);
+
+    if (modalState === State.Editing && selectedPreset) {
+      const isSuccess = await editPreset(selectedPreset.id, preset);
+
+      if (!isSuccess) return;
+
+      editPresetInList(selectedPreset.id, preset)
+      setModalState(State.Idle)
+    }
+
+    if (modalState === State.Creating) {
+      const { isSuccess, data } = await addPreset(preset)
+
+      if (!isSuccess) return;
+
+      setPreset(data)
+      addPresetToList(data)
+      setModalState(State.Idle)
+    };
   };
   
   return (
@@ -52,6 +95,8 @@ export function PresetForm({
       >
         <UiInput
           control={control}
+          rules={{ required: true }}
+          disabled={modalState === State.Idle}
           label="Preset name"
           name="presetName"
           placeholder="Enter preset name"
@@ -62,26 +107,36 @@ export function PresetForm({
           rules={{ required: true }}
           render={({ field: {onChange} }) => 
             <UiComboBox
-              title="Card Name"
-              options={cardsNameList}
+              title="Card name"
+              options={cardsNameList ?? []}
               selectedOption={selectedCard}
               selectedOnChange={onChange}
               getOptionLabel={(option) => option}
               placeholder="Select a card"
-              isDisabled={Boolean(gpuId)}
+              isDisabled={Boolean(selectedPreset || gpuId)}
             />
           }
         />
       </form>
-      <UiButton
-        className={styles['button-submit']}
-        type="submit" 
-        form="preset-form" 
-        color="blue" 
-        withBorder
-      >
-        Save
-      </UiButton>
+      {<div className={styles['buttons']}>
+        {modalState === State.Editing && <UiButton
+          className={styles['button']}
+          color="red"
+          withBorder
+          onClick={() => setModalState(State.Idle)}
+        >
+          Cancel
+        </UiButton>}
+        {modalState !== State.Idle && <UiButton
+          className={styles['button']}
+          type="submit" 
+          form="preset-form" 
+          color="blue" 
+          withBorder
+        >
+          {selectedPreset ? 'Edit' : 'Save'}
+        </UiButton>}
+      </div>}
     </div>
   )
 }

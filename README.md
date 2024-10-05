@@ -20,7 +20,7 @@ npm run build
 
 ```bash
 docker build \
-  --build-arg VITE_BACKEND_URL='localhost' \
+  --build-arg VITE_BACKEND_URL='http://localhost' \
   --build-arg VITE_BACKEND_SECURITY='security' \
   --build-arg VITE_BACKEND_MONITORING='monitoring_center_monitoring' \
   --build-arg VITE_BACKEND_MANAGEMENT='monitoring_center_management' \

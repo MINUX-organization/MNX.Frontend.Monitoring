@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import styles from './settings.module.scss'
 import { SettingsIcon } from "lucide-react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export function Settings({ 
   className,
@@ -10,12 +10,18 @@ export function Settings({
   className?: string;
   gpuId: string;
 }) {
+  const navigate = useNavigate();
+
+  const handle = () => {
+    navigate(`overclock?gpuId=${gpuId}`)
+  }
+
   return (
-    <Link to={gpuId} className={clsx(
+    <button onClick={handle} className={clsx(
       className,
       styles['settings']
     )}>
       <SettingsIcon size={30}/>
-    </Link>
+    </button>
   )
 }

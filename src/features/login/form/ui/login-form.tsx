@@ -6,6 +6,7 @@ import { UiButton } from "@/shared/ui/ui-button";
 import { useSessionRepository } from "@/entities/session";
 import { useLocation, useNavigate } from "react-router";
 import { loginApi } from "@/shared/api/auth/login";
+import { PRODUCTION_MODE } from "@/shared/constants/production-mode";
 
 export type FormInput = {
   login: string;
@@ -30,7 +31,7 @@ export function LoginForm({
   })
   
   const onSubmit: SubmitHandler<FormInput> = async (data) => {
-    const session = import.meta.env.PROD ? await loginApi(data.login, data.password) : {
+    const session = PRODUCTION_MODE ? await loginApi(data.login, data.password) : {
       accessToken: 'string',
       refreshToken: 'string',
       refreshExpiration: new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toUTCString(),

@@ -16,7 +16,7 @@ export function UiComboBox<T>({
   getOptionLabel,
   isDisabled,
   selectedOption,
-  selectedOnChange
+  selectedOnChange,
 } : {
   className?: string;
   title?: string;
@@ -28,26 +28,37 @@ export function UiComboBox<T>({
   getOptionLabel: (option: T) => string;
   selectedOnChange?: (option?: T) => void;
 }) {
-  const query = useStateObject('')
+  const query = useStateObject<string>('');
 
   const filteredOptions =
     query.value === ''
       ? options
       : _.filter(options, (option) => {
-          return getOptionLabel(option).toLowerCase().includes(query.value.toLowerCase())
+          return getOptionLabel(option)
+            .toLowerCase()
+            .includes(query.value.toLowerCase())
         })
 
   return (
     <div className={clsx(className, styles['combobox'])}>
       {title && <label>{title}</label>}
-      <Combobox disabled={isDisabled} value={selectedOption} onChange={selectedOnChange}>
+      <Combobox 
+        disabled={isDisabled} 
+        value={selectedOption}
+        onChange={(option) => selectedOnChange?.(option)}
+      >
         <div>
-        <UiBorderBox className={styles['select']}>
+        <UiBorderBox className={clsx(
+            styles['select'],
+            isDisabled && styles['disabled']
+          )}>
           <UiBgContainer className={styles['select-container']} color={color ?? 'opaque'}>
-            <Combobox.Input 
+            <Combobox.Input
               className={styles['input']}
-              placeholder={placeholder} 
-              onChange={(event) => query.setValue(event.target.value)} 
+              placeholder={placeholder}
+              onChange={(event) => query.setValue(event.target.value)}
+              displayValue={(value) => getOptionLabel(value as T)}
+              onBlur={() => query.setValue('')}
             /> 
             <Combobox.Button className={styles['button']}>
               <ChevronDown className={styles['chevron']} size={20}/>
@@ -62,15 +73,14 @@ export function UiComboBox<T>({
             'transparent': styles['transparent']
           }[color ?? "opaque"]
         )}>
-          {!filteredOptions || filteredOptions.length === 0 && 
+          {((filteredOptions?.length === 0) && !_.isEmpty(query.value)) || options?.length === 0 ? 
             <span className={clsx(styles['no-options'], styles['text-gray'])}>
               There are no options...
             </span>
-          } 
-          {_.map(filteredOptions, (option) => (
-            <Combobox.Option 
+          : _.map(filteredOptions, (option) => (
+            <Combobox.Option
               className={styles['option']}
-              key={getOptionLabel?.(option)} 
+              key={getOptionLabel?.(option)}
               value={option}
             >
               {getOptionLabel?.(option)}

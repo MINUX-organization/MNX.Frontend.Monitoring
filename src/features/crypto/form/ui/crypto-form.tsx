@@ -24,7 +24,7 @@ export function CryptoForm({
     defaultValues: {
       shortName: '',
       fullName: '',
-      algorithm: ''
+      algorithm: {}
     }
   })
   const selectedAlgorithm = watch('algorithm');
@@ -68,7 +68,7 @@ export function CryptoForm({
                   options={algorithms ?? []}
                   selectedOption={selectedAlgorithm}
                   selectedOnChange={onChange}
-                  getOptionLabel={(option) => option?.toString() || ''}
+                  getOptionLabel={(option) => option?.name || ''}
                   placeholder="Select an algorithm"
                 />
               }

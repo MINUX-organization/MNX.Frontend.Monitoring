@@ -8,6 +8,11 @@
     justify-content: space-between;
     gap: 1rem;
 
+    .preset-panel-buttons {
+      display: flex;
+      gap: .2rem;
+    }
+
     .gpu-name {
       color: var(--color-font-gray);
     }

@@ -3,16 +3,18 @@ import {
   createBrowserRouter,
   redirect,
 } from "react-router-dom";
+import _ from "lodash";
+import React from "react";
+import PrivateRoute from "../guards/private-route";
 import { RootLayout } from "@/widgets/root-layout";
 import { ROUTER_PATHS } from "@/shared/constants/routes";
-import PrivateRoute from "../guards/private-route";
-import React from "react";
 import { UiSpinner } from "@/shared/ui/ui-spinner";
 import { LoginPage } from "@/pages/login";
-import _ from "lodash";
 import { CryptosPage } from "@/pages/cryptos";
 import { WalletsPage } from "@/pages/wallets";
 import { PoolsPage } from "@/pages/pools";
+import { PresetPage, SelectDevicePage } from "@/pages/preset";
+import { PresetModal } from "@/widgets/preset-modal";
 
 const MonitoringPage = React.lazy(() => import("@/pages/monitoring").then(module => ({ default: module.MonitoringPage })));
 const GpusPage = React.lazy(() => import("@/pages/devices/GPUs").then(module => ({ default: module.GpusPage })));
@@ -25,7 +27,6 @@ const RigHddsInfoPage = React.lazy(() => import("@/pages/rig").then(module => ({
 const RigInternetInfoPage = React.lazy(() => import("@/pages/rig").then(module => ({ default: module.RigInternetInfoPage })));
 const FlightSheetsPage = React.lazy(() => import("@/pages/flightsheets").then(module => ({ default: module.FlightSheetsPage })));
 const CpusPage = React.lazy(() => import("@/pages/devices/CPUs").then(module => ({ default: module.CpusPage })));
-const PresetModal = React.lazy(() => import("@/widgets/preset-modal").then(module => ({ default: module.PresetModal })));
 
 const router = createBrowserRouter([
   {
@@ -69,9 +70,7 @@ const router = createBrowserRouter([
           {
             path: ROUTER_PATHS.GPU,
             element: (
-                <React.Suspense fallback={<UiSpinner />}>
                   <PresetModal />
-                </React.Suspense>
             ),
           },
         ],
@@ -152,6 +151,26 @@ const router = createBrowserRouter([
             <React.Suspense fallback={<UiSpinner />}>
               <FlightSheetsPage />
             </React.Suspense>
+        ),
+      },
+      {
+        path: ROUTER_PATHS.PRESETS,
+        element: (
+              <PresetPage />
+        ),
+        children: [
+          {
+            path: ROUTER_PATHS.CONFIG,
+            element: (
+                <PresetModal />
+            ),
+          },
+        ],
+      },
+      {
+        path: ROUTER_PATHS.SELECT_DEVICE,
+        element: (
+            <SelectDevicePage />
         ),
       },
       {
