@@ -17,7 +17,7 @@ export function DeletePresetButton({
   preset?: Preset;
   isIcon?: boolean;
 }) {
-  const { deletePreset, getPresetsList } = usePresetRepository()
+  const { deletePreset } = usePresetRepository()
   const { deletePresetFromList } = usePresetByGpuNameRepository();
   const { setPreset, setGpuName, selectedPreset } = usePresetStateStore()
   const navigation = useNavigate()
