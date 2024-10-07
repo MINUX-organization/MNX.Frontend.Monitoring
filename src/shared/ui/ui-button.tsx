@@ -4,7 +4,7 @@ import styles from './styles/uiButton.module.scss'
 import { match } from "ts-pattern";
 
 type UiButtonVariant = {
-  color: "transparent" | "opaque" | "red" | "blue" | "none";
+  color: "transparent" | "opaque" | "red" | "blue" | "green" | "none";
   isActive?: boolean;
   withBorder?: boolean;
   isClickable?: boolean;
@@ -32,6 +32,7 @@ export function UiButton({
           opaque: styles['opaque'],
           red: styles['red'],
           blue: styles['blue'],
+          green: styles['green'],
           none: styles['none']
         }[color],
         isActive && styles['active'],
@@ -41,7 +42,8 @@ export function UiButton({
           opaque: styles['outline-opaque'],
           red: styles['outline-red'],
           blue: styles['outline-blue'],
-          none: styles['outline-none']
+          green: styles['outline-green'],
+          none: styles['outline-none'],
         }[color],
       )}
     >
@@ -56,7 +58,8 @@ export function UiButton({
                 opaque: styles['opaque'],
                 red: styles['red'],
                 blue: styles['blue'],
-                none: styles['none']
+                green: styles['green'],
+                none: styles['none'],
               }[color],
             )}
           >

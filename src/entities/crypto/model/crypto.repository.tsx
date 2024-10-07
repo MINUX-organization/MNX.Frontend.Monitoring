@@ -36,7 +36,7 @@ export function useCryptoRepository() {
     }
   });
   
-  const addCrypto = (crypto: Crypto) => {
+  const addCrypto = (crypto: PostCrypto) => {
     addCryptoMutation.mutate(crypto);
   }
 

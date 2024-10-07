@@ -2,8 +2,8 @@ import { PoolItem, usePoolRepository } from '@/entities/pool';
 import styles from './pools.page.module.scss';
 import { DeletePool } from '@/features/pool/delete';
 import { PoolForm } from '@/features/pool/form';
-import { PoolSort } from '@/features/pool/sort';
-import { PoolSearch } from '@/features/pool/search';
+// import { PoolSort } from '@/features/pool/sort';
+// import { PoolSearch } from '@/features/pool/search';
 import { UiDomainsList } from '@/shared/ui/ui-domains-list';
 import { EditPool } from '@/features/pool/edit';
 
@@ -28,8 +28,8 @@ export function PoolsPage() {
             renderDeleteButton={(pool) => <DeletePool poolId={pool?.id}/>}
           />
         }
-        renderSort={() => <PoolSort />}
-        renderSearch={() => <PoolSearch />}
+        // renderSort={() => <PoolSort />}
+        // renderSearch={() => <PoolSearch />}
       />
     </div>
   )

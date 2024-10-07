@@ -45,7 +45,7 @@ export function DeletePresetButton({
       className={clsx(!isIcon && styles['delete-preset-button'], className)}
       onClick={handler}  
     >
-      <Trash2 width={30} />
+      <Trash2 size={20} />
     </button>
   )
 }

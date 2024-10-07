@@ -4,13 +4,27 @@
   gap: 1rem;
 
   .name {
+    flex: 1;
+    text-overflow: ellipsis;
+    overflow: hidden;
     font-size: var(--font-size-20px);
+    text-align: center;
     align-self: center;
   }
 
-  .features {
+  .board {
+    flex: 3;
     display: flex;
+    
+    gap: 2.5rem;
+  }
+
+  .features {
+    flex: 0.5;
+    display: flex;
+    flex-wrap: wrap;
     gap: 0.625rem;
     align-self: center;
+    justify-content: center;
   }
 }

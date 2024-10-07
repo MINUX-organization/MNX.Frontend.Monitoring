@@ -1,0 +1,73 @@
+.flight-sheet-item-container {
+  display: flex;
+  min-height: 7rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  gap: 1rem;
+  
+  .name {
+    width: 100%;
+    min-width: 10rem;
+    max-width: 15rem;
+    flex: 1;
+    text-wrap: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: var(--font-size-20px);
+
+    .icon {
+      margin-right: .625rem;
+    }
+  }
+
+  .config-grid {
+    display: grid;
+    
+    font-size: var(--font-size-14px);
+    grid-template-columns: repeat(3, minmax(8rem, 10rem));
+    row-gap: .35rem;
+    column-gap: 2rem;
+    align-items: center;
+
+    .field {
+      display: flex;
+      gap: .5rem;
+    
+      .label {
+        text-wrap: nowrap;
+        color: var(--color-measure);
+      }
+
+      .value {
+        text-wrap: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+
+  .miner-support {
+    font-size: var(--font-size-14px);
+    display: flex;
+    align-self: flex-start;
+    flex-direction: column;
+    gap: .35rem;
+  }
+
+  .features {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.625rem;
+    align-self: center;
+  }
+}
+
+.blue {
+  color: var(--color-measure);
+}
+
+.gray {
+  color: var(--color-font-gray);
+}

@@ -58,6 +58,7 @@ export function apiInstance(url?: string, customApiConfig?: AxiosRequestConfig):
             parsedToken.refreshToken
           );
 
+          localStorage.removeItem('session');
           localStorage.setItem('session', JSON.stringify(response));
 
           return instance(originalRequest);

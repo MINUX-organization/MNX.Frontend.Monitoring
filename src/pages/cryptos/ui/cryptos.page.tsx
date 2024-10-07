@@ -2,8 +2,8 @@ import { CryptoItem, useCryptoRepository } from "@/entities/crypto";
 import styles from "./cryptos.page.module.scss";
 import { CryptoForm } from "@/features/crypto/form";
 import { DeleteCrypto } from "@/features/crypto/delete";
-import { CryptoSort } from "@/features/crypto/sort";
-import { CryptoSearch } from "@/features/crypto/search";
+// import { CryptoSort } from "@/features/crypto/sort";
+// import { CryptoSearch } from "@/features/crypto/search";
 import { UiDomainsList } from "@/shared/ui/ui-domains-list";
 
 export function CryptosPage() {
@@ -26,8 +26,8 @@ export function CryptosPage() {
             renderDeleteButton={(crypto) => <DeleteCrypto cryptoId={crypto?.id}/>}
           />
         }
-        renderSort={() => <CryptoSort />}
-        renderSearch={() => <CryptoSearch />}
+        // renderSort={() => <CryptoSort />}
+        // renderSearch={() => <CryptoSearch />}
       />
     </div>
   )

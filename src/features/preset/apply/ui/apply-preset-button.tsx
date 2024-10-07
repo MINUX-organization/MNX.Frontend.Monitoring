@@ -22,7 +22,7 @@ export function ApplyPresetButton({
 
   return (
     <button onClick={handle} className={clsx(!isIcon && styles['apply-preset-button'], className)}>
-      <Check width={30} />
+      <Check size={22} />
     </button>
   )
 }

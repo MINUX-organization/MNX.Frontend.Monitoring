@@ -7,13 +7,13 @@ import { UiButton } from "@/shared/ui/ui-button";
 import { UiComboBox } from "@/shared/ui/ui-combobox";
 import { useWalletRepository } from "@/entities/wallet";
 import clsx from "clsx";
-import { useCryptoRepository } from "@/entities/crypto";
+import { Crypto, useCryptoRepository } from "@/entities/crypto";
 import { mapWallet } from "@/shared/lib/utils/map-wallet";
 
 export type FormInput = {
   name: string;
-  cryptocurrency: string;
   address: string;
+  cryptocurrency: Crypto;
 };
 
 export function WalletForm({
@@ -28,8 +28,8 @@ export function WalletForm({
   const { control, handleSubmit, watch, reset } = useForm<FormInput>({
     defaultValues: {
       name: '',
-      cryptocurrency: '',
-      address: ''
+      address: '',
+      cryptocurrency: {},
     }
   })
   const selectedCrypto = watch('cryptocurrency')

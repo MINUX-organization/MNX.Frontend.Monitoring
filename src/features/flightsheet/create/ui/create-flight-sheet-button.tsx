@@ -1,9 +1,12 @@
 import { UiButton } from "@/shared/ui/ui-button";
 
-export function CreateFlightSheetButton() {
-
+export function CreateFlightSheetButton({
+  className
+} : {
+  className?: string
+}) {
   return (
-    <UiButton color="blue" withBorder>
+    <UiButton className={className} color="blue" withBorder>
       <span>Create Flight Sheet</span>
     </UiButton>
   )

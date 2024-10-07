@@ -1,4 +1,4 @@
-import { useCryptoRepository } from "@/entities/crypto";
+import { Crypto, useCryptoRepository } from "@/entities/crypto";
 import { Wallet, useWalletRepository } from "@/entities/wallet";
 import clsx from "clsx";
 import styles from './editWalletForm.module.scss';
@@ -7,11 +7,12 @@ import { UiInput } from "@/shared/ui/ui-input";
 import { UiComboBox } from "@/shared/ui/ui-combobox";
 import { mapWallet } from "@/shared/lib/utils/map-wallet";
 import { UiButton } from "@/shared/ui/ui-button";
+import _ from "lodash";
 
 export type FormInput = {
   name: string;
-  cryptocurrency: string;
   address: string;
+  cryptocurrency: Crypto;
 };
 
 export function EditWalletForm({
@@ -32,7 +33,7 @@ export function EditWalletForm({
   const { control, handleSubmit, watch } = useForm<FormInput>({
     defaultValues: {
       name: wallet?.name,
-      cryptocurrency: wallet?.cryptocurrency,
+      cryptocurrency: _.find(cryptosList, ['fullName', wallet?.cryptocurrency]),
       address: wallet?.address
     }
   })
@@ -78,9 +79,10 @@ export function EditWalletForm({
           rules={{ required: true }}
           render={({ field: {onChange} }) => 
             <UiComboBox
+              isDisabled
               title="Coin"
               color="opaqueBlack"
-              options={cryptosList}
+              options={cryptosList ?? []}
               selectedOption={selectedCrypto}
               selectedOnChange={onChange}
               getOptionLabel={(option) => option.fullName}

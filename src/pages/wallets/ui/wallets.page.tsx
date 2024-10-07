@@ -2,8 +2,8 @@ import { WalletItem, useWalletRepository } from '@/entities/wallet';
 import styles from './wallets.page.module.scss';
 import { DeleteWallet } from '@/features/wallet/delete';
 import { WalletForm } from '@/features/wallet/form';
-import { WalletSort } from '@/features/wallet/sort';
-import { WalletSearch } from '@/features/wallet/search';
+// import { WalletSort } from '@/features/wallet/sort';
+// import { WalletSearch } from '@/features/wallet/search';
 import { UiDomainsList } from '@/shared/ui/ui-domains-list';
 import { EditWallet } from '@/features/wallet/edit';
 
@@ -28,8 +28,8 @@ export function WalletsPage() {
             renderDeleteButton={(wallet) => <DeleteWallet walletId={wallet?.id}/>}
           />
         }
-        renderSort={() => <WalletSort />}
-        renderSearch={() => <WalletSearch />}
+        // renderSort={() => <WalletSort />}
+        // renderSearch={() => <WalletSearch />}
       />
     </div>
   )

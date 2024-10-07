@@ -1,7 +1,7 @@
 import { UiBgContainer } from "@/shared/ui/ui-bg-container";
 import { UiBorderBox } from "@/shared/ui/ui-border-box";
 import { useForm, Controller, SubmitHandler } from "react-hook-form"
-import { Crypto, useCryptoRepository } from "@/entities/crypto";
+import { useCryptoRepository } from "@/entities/crypto";
 import { UiInput } from "@/shared/ui/ui-input";
 import styles from './cryptoForm.module.scss';
 import { useQuery } from "react-query";
@@ -9,8 +9,13 @@ import { getAvailableAlgorithmsApi } from "@/shared/api";
 import { UiButton } from "@/shared/ui/ui-button";
 import { UiComboBox } from "@/shared/ui/ui-combobox";
 import clsx from "clsx";
+import { Algorithm } from "@/entities/crypto/model/types";
 
-type FormInput = Crypto;
+type FormInput = {
+  shortName: string
+  fullName: string
+  algorithm: Algorithm;
+};
 
 export function CryptoForm({
   className
