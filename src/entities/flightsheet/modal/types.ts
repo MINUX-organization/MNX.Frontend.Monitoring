@@ -17,6 +17,7 @@ export const Config = z.object({
     cryptocurrency: z.string({invalid_type_error: 'Cryptocurrency must be a string'})
   }),
   poolPassword: z.string({invalid_type_error: 'PoolPassword must be a string'}),
+  coin: z.string({invalid_type_error: 'Coin must be a string'}).optional(),
   wallet: z.object({
     id: z.string({invalid_type_error: 'Id must be a string'}),
     name: z.string({invalid_type_error: 'Name must be a string'}),
@@ -26,15 +27,23 @@ export const Config = z.object({
 })
 export type Config = z.infer<typeof Config>;
 
+export const Miner = z.object({
+  id: z.string({invalid_type_error: 'Id must be a string'}),
+  name: z.string({invalid_type_error: 'Name must be a string'}),
+  version: z.string({invalid_type_error: 'Version must be a string'}),
+  devicesType: z.string({invalid_type_error: 'DevicesType must be a string'}),
+  miningMode: z.string({invalid_type_error: 'MiningMode must be a string'}),
+})
+export type Miner = z.infer<typeof Miner>;
+
 export const Target = z.object({
   id: z.string({invalid_type_error: 'Id must be a string'}),
   $type: z.enum(["CPU", "GPU"], {invalid_type_error: 'Type must be a string'}),
   configs: Config.array(),
   additionalArguments: z.string().optional(),
-  minerId: z.string({invalid_type_error: 'MinerId must be a string'}),
-  minerName: z.string({invalid_type_error: 'MinerName must be a string'}),
+  miner: Miner,
   hugePage: z.number({invalid_type_error: 'HugePage must be a number'}).optional(),
-  configFile: z.string({invalid_type_error: 'ConfigFile must be a string'}),
+  configFile: z.string({invalid_type_error: 'ConfigFile must be a string'}).optional(),
 })
 export type Target = z.infer<typeof Target>;
 

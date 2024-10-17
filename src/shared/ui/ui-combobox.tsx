@@ -42,7 +42,7 @@ export function UiComboBox<T>({
   return (
     <div className={clsx(className, styles['combobox'])}>
       {title && <label>{title}</label>}
-      <Combobox 
+      <Combobox
         disabled={isDisabled} 
         value={selectedOption}
         onChange={(option) => selectedOnChange?.(option)}

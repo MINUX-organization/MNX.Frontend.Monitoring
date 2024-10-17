@@ -18,7 +18,7 @@ export function UiInput<T extends FieldValues>({
   placeholder,
   ...props
 } : UiInputProps<T>) {
-  const { field } = useController(props)
+  const { field } = useController(props);
   return (
     <div className={clsx(className, styles['input'])} {...props}>
       <label>{label}</label>

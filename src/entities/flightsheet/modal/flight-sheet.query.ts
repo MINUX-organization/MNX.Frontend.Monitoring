@@ -62,8 +62,13 @@ export const MockFlightsheet: Flightsheet[] = [{
       }
     ],
     additionalArguments: 'additionalArguments',
-    minerId: 'minerId',
-    minerName: 'minerName',
+    miner: {
+      id: '1',
+      name: 'minerName',
+      version: '1.0.0',
+      devicesType: 'AmdCpu, AmdGpu, NvidiaGpu',
+      miningMode: 'Dual'
+    },
     configFile: 'configFile'
   },
   {
@@ -87,8 +92,13 @@ export const MockFlightsheet: Flightsheet[] = [{
       }
     ],
     additionalArguments: 'additionalArguments',
-    minerId: 'minerId',
-    minerName: 'mi111nerName',
+    miner: {
+      id: '2',
+      name: 'xxxxx',
+      version: '1.0.0',
+      devicesType: 'AmdCpu',
+      miningMode: 'Single'
+    },
     hugePage: 2048,
     configFile: 'configFile'
   }]

@@ -2,7 +2,7 @@ import { UiActiveState } from "@/shared/ui/ui-active-state";
 import { UiBgContainer } from "@/shared/ui/ui-bg-container";
 import { UiBorderBox } from "@/shared/ui/ui-border-box";
 import styles from './flightSheetItem.module.scss';
-import { Config, Flightsheet } from "../modal/types";
+import { Config, Flightsheet, Miner } from "../modal/types";
 import clsx from "clsx";
 import _ from "lodash";
 import React from "react";
@@ -26,8 +26,8 @@ export function FlightSheetItem({
   const isOpen = useStateObject(false);
 
   const features = renderApply || renderEdit || renderDelete;
-  const gpuMiner = _.find(flightSheet?.target, (target) => target.$type === 'GPU')?.minerName;
-  const cpuMiner = _.find(flightSheet?.target, (target) => target.$type === 'CPU')?.minerName;
+  const gpuMiner = _.find(flightSheet?.target, (target) => target.$type === 'GPU')?.miner;
+  const cpuMiner = _.find(flightSheet?.target, (target) => target.$type === 'CPU')?.miner;
 
   return (
     <UiBorderBox onClick={() => isOpen.setValue((prev) => !prev)} className={clsx(className, styles['flight-sheet-item'])} withPadding>
@@ -47,8 +47,8 @@ export function FlightSheetItem({
         </div>
         <div className={styles['miner-support']}>
           {renderMiners(
-            [{minerName: gpuMiner, label: 'GPU miner'}, 
-            {minerName: cpuMiner, label: 'CPU miner'}]
+            [{miner: gpuMiner, label: 'GPU miner'}, 
+            {miner: cpuMiner, label: 'CPU miner'}]
           )}
         </div>
         {features && <div className={styles['features']}>
@@ -62,16 +62,16 @@ export function FlightSheetItem({
   )
 }
 
-const renderMiners = (miners: {minerName: string | undefined, label: string}[]) => {
+const renderMiners = (miners: {miner: Miner | undefined, label: string}[]) => {
   return (
     <div className={styles['miner-support']}>
-      {_.map(miners, (miner) => (
-        <span key={miner.label}>
-          <span className={styles['blue']}>{miner.label}</span>
-          &nbsp;{miner.minerName ?? 'N/A'}&nbsp;
-          <span className={styles['gray']}>- 1.7.3</span> {/* TODO: add miner version */}
+      {_.map(miners, ({miner, label}) => (
+        <span key={label}>
+          <span className={styles['blue']}>{label}</span>
+          &nbsp;{miner?.name ?? 'N/A'}&nbsp;
+          <span className={styles['gray']}>{miner?.version}</span>
         </span>
-      ))}   
+      ))}
     </div>
   )
 }

@@ -5,13 +5,12 @@ import AnimateHeight, { Height } from "react-animate-height";
 
 export function UiResizableBox({
   children,
-  trigger,
+  trigger = true,
   ...props
 } : {
   className?: string;
   children?: ReactNode;
-  trigger: boolean;
-  // valueTriger?: Array<object>;
+  trigger?: boolean;
 } & RefAttributes<HTMLDivElement>) {
   const [height, setHeight] = useState<Height>(0);
   const contentDiv = useRef<HTMLDivElement | null>(null);
@@ -34,15 +33,10 @@ export function UiResizableBox({
     return () => resizeObserver.disconnect();
   }, [trigger]);
 
-  // useEffect(() => {
-  //   trigger ? setHeight('auto') : setHeight(0);
-  // }, [trigger]);
-
   return (
     <AnimateHeight
       {...props}
       height={height}
-      contentClassName="auto-content"
       contentRef={contentDiv}
       duration={500}
       disableDisplayNone

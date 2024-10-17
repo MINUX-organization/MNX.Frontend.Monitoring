@@ -4,7 +4,6 @@ import { HTMLProps, ReactNode } from "react";
 import { useStateObject } from "../lib/utils/state-object";
 import _ from "lodash";
 import { match } from "ts-pattern";
-import { UiButton } from "./ui-button";
 import { UiBorderBox } from "./ui-border-box";
 import { UiBgContainer } from "./ui-bg-container";
 

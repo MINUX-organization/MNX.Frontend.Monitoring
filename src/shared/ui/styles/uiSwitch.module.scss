@@ -1,0 +1,14 @@
+.switch {  
+  display: flex;
+  .switch-container {
+    width: 2.125rem;
+    height: 2.125rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .check {
+      color: var(--color-border);
+    }
+  }
+}
