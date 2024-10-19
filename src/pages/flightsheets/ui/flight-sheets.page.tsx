@@ -9,9 +9,9 @@ export function FlightSheetsPage() {
   return (
     <div className={styles['flightsheet-page']}>
       <div className={styles['header']}>
-        <UiSelect className={styles['select']}/>
+        <UiSelect className={styles['select']} placeholder='Sort by'/>
         <CreateFlightSheetButton className={styles['create-button']}/>
-        <UiSearch className={styles['search']}/>
+        <UiSearch className={styles['search']} placeholder='Search'/>
       </div>
       <FlightSheetsList />
       <Outlet />

@@ -1,5 +1,19 @@
 import { z } from "zod";
 
+export const Algorithm = z.object({
+  id: z.string({invalid_type_error: 'Id must be a string'}),
+  name: z.string({invalid_type_error: 'Name must be a string'})
+})
+export type Algorithm = z.infer<typeof Algorithm>
+
+export const Crypto = z.object({
+  id: z.string({invalid_type_error: 'Id must be a string'}),
+  shortName: z.string({invalid_type_error: 'ShortName must be a string'}),
+  fullName: z.string({invalid_type_error: 'FullName must be a string'}),
+  algorithm: Algorithm
+})
+export type Crypto = z.infer<typeof Crypto>
+
 export const RigDevices = z.object({
   name: z.string({invalid_type_error: 'RigName must be a string'}),
   devices: z.array(z.object({
@@ -17,7 +31,6 @@ export const Config = z.object({
     cryptocurrency: z.string({invalid_type_error: 'Cryptocurrency must be a string'})
   }),
   poolPassword: z.string({invalid_type_error: 'PoolPassword must be a string'}),
-  coin: z.string({invalid_type_error: 'Coin must be a string'}).optional(),
   wallet: z.object({
     id: z.string({invalid_type_error: 'Id must be a string'}),
     name: z.string({invalid_type_error: 'Name must be a string'}),
@@ -47,10 +60,16 @@ export const Target = z.object({
 })
 export type Target = z.infer<typeof Target>;
 
-export const Flightsheet = z.object({
+export const FlightSheet = z.object({
   id: z.string({invalid_type_error: 'Id must be a string'}),
   name: z.string({invalid_type_error: 'Name must be a string'}),
   devices: RigDevices.array(),
   target: Target.array(),
 })
-export type Flightsheet = z.infer<typeof Flightsheet>;
+export type FlightSheet = z.infer<typeof FlightSheet>;
+
+export const FlightSheetPost = z.object({
+  name: z.string({invalid_type_error: 'Name must be a string'}),
+  target: Target.array(),
+})
+export type FlightSheetPost = z.infer<typeof FlightSheetPost>;

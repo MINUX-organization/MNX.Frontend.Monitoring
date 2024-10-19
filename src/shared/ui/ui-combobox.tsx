@@ -54,6 +54,7 @@ export function UiComboBox<T>({
           )}>
           <UiBgContainer className={styles['select-container']} color={color ?? 'opaque'}>
             <Combobox.Input
+              autoComplete="off"
               className={styles['input']}
               placeholder={placeholder}
               onChange={(event) => query.setValue(event.target.value)}

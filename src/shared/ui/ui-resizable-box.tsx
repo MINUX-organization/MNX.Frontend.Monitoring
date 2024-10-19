@@ -6,9 +6,11 @@ import AnimateHeight, { Height } from "react-animate-height";
 export function UiResizableBox({
   children,
   trigger = true,
+  contentClassName,
   ...props
 } : {
   className?: string;
+  contentClassName?: string;
   children?: ReactNode;
   trigger?: boolean;
 } & RefAttributes<HTMLDivElement>) {
@@ -37,6 +39,7 @@ export function UiResizableBox({
     <AnimateHeight
       {...props}
       height={height}
+      contentClassName={contentClassName}
       contentRef={contentDiv}
       duration={500}
       disableDisplayNone

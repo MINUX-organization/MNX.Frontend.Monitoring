@@ -1,4 +1,4 @@
-import { Control, Controller, useFieldArray, UseFormWatch } from 'react-hook-form';
+import { Control, Controller, UseFormWatch } from 'react-hook-form';
 import styles from './target.module.scss';
 import { FormInput } from '../flightsheet-modal';
 import { UiComboBox } from '@/shared/ui/ui-combobox';
@@ -12,13 +12,17 @@ import { match } from 'ts-pattern';
 import { useStateObject } from '@/shared/lib/utils/state-object';
 import { useEffect } from 'react';
 import { UiInput } from '@/shared/ui/ui-input';
+import { UiTextArea } from '@/shared/ui/ui-textarea';
+import clsx from 'clsx';
 
 export function TargetPart({
+  className,
   miners,
   control,
   type,
   watch,
 } : {
+  className?: string;
   miners?: Miner[];
   coins?: Crypto[];
   wallets?: Wallet[];
@@ -36,11 +40,6 @@ export function TargetPart({
 
   const currentMiner = watch(`target.${index}.miner`);
 
-  const { fields } = useFieldArray({
-    control,
-    name: "target",
-  });
-
   useEffect(() => {
     minerMod.setValue(
       match(currentMiner?.miningMode)
@@ -51,21 +50,17 @@ export function TargetPart({
   }, [currentMiner]);
   
   return (
-    <div className={styles['gpu-part']}>
+    <div className={clsx(className, styles['target-part'])}>
       <Controller
         control={control}
         name={`target.${index}.miner`}
         render={({ field : { onChange } }) => (
           <UiComboBox
             className={styles['field']}
-            options={miners ?? [
-              {id: '1', name: 'N/A', version: 'N/A', deviceType: 'N/A', miningMode: 'Triple'},
-              {id: '2', name: 'N/A', version: 'N/A', deviceType: 'N/A', miningMode: 'Dual'},
-              {id: '3', name: 'N/A', version: 'N/A', deviceType: 'N/A', miningMode: 'Single'},
-            ]}
+            options={miners ?? []}
             title={`${type} Miner`}
             getOptionLabel={(option) => option?.name ?? ''}
-            selectedOption={fields[0]?.miner}
+            selectedOption={currentMiner}
             placeholder="Select miner"
             selectedOnChange={onChange}
           />
@@ -73,10 +68,9 @@ export function TargetPart({
       />
       {_.range(minerMod.value).map((index) => (
         <ConfigFields 
-          className={styles['field']} 
-          key={index} 
-          control={control} 
-          fields={fields} 
+          className={styles['field']}
+          key={index}
+          control={control}
           index={index}
           type={type}
         />
@@ -84,15 +78,17 @@ export function TargetPart({
       <UiInput
         className={styles['bottom-field']}
         control={control}
-        name='target.0.additionalArguments'
-        label={`${type} Miner`}
+        value={''}
+        name={`target.${index}.additionalArguments`}
+        label={`${type} miner additional parameters`}
         placeholder='Write additional arguments'
       />
-      <UiInput
+      <UiTextArea
         className={styles['bottom-field']}
         control={control}
-        name='target.0.configFile'
-        label={`${type} Miner`}
+        value={''}
+        name={`target.${index}.configFile`}
+        label={`${type} miner config file`}
         placeholder='Write config file'
       />
     </div>

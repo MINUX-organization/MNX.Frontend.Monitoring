@@ -25,18 +25,21 @@ export function UiTab({
 } : {
   className?: string
 } & UiTabProps) {
-  const selectedTab = useStateObject<Tab>();
+  const selectedTab = useStateObject<Tab>(tabs[0]);
 
   return (
     <div {...props} className={clsx(className, styles['tab'])}>
-      <UiBorderBox withPadding>
-        <UiBgContainer color="opaqueBlack" className={styles['tab-container']}>
+      <UiBorderBox className={styles['tab-border']}>
+        <UiBgContainer color="opaque" className={styles['tab-container']}>
           {_.map(tabs, (tab) => {
             return match(renderTab)
               .with(undefined, () => 
-                <div className={clsx(
-                  styles['tab-item'], 
-                  selectedTab.value.title === tab.title && styles['active'])}
+                <div
+                  key={tab.title} 
+                  className={clsx(
+                    styles['tab-item'], 
+                    selectedTab.value.title === tab.title && styles['active'])}
+                  onClick={() => selectedTab.setValue(tab)}
                 >
                   {tab.title}
                 </div>)

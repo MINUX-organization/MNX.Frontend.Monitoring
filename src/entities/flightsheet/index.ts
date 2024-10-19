@@ -1,3 +1,3 @@
-export { useFlightSheetQuery } from './modal/flight-sheet.query';
+export { useFlightSheetRepository } from './modal/flight-sheet.repository';
 export { FlightSheetItem } from './ui/flight-sheet-item';
-export { Flightsheet, Config, Target } from './modal/types';
+export { FlightSheet, Config, Target } from './modal/types';

@@ -1,10 +1,15 @@
 import { getFlightSheetsListApi } from "@/shared/api/get/getFlightSheetsList";
 import { ZodSaveParse } from "@/shared/lib/utils/zod-save-parse";
-import { useQuery } from "react-query";
-import { Flightsheet } from "./types";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import { FlightSheet, FlightSheetPost } from "./types";
 import { PRODUCTION_MODE } from "@/shared/constants/production-mode";
+import _ from "lodash";
+import { addFlightSheetApi } from "@/shared/api/post/addFlightSheet";
+import { deleteFlightSheetApi } from "@/shared/api/delete/deleteFlightSheet";
+import { editFlightSheetApi } from "@/shared/api/put/editFlightSheet";
+import { IS_SUCCESS_STATUS } from "@/shared/api/api-instance";
 
-export const MockFlightsheet: Flightsheet[] = [{
+export const MockFlightSheet: FlightSheet[] = [{
   id: '1',
   name: 'Mock Flight 22222222222',
   devices: [
@@ -104,13 +109,65 @@ export const MockFlightsheet: Flightsheet[] = [{
   }]
 }];
 
-export function useFlightSheetQuery() {
-  const { data, isLoading, ...query } = useQuery(['flightsheet'], getFlightSheetsListApi)
+export function useFlightSheetRepository() {
+  const queryClient = useQueryClient();
+  const { data, isLoading, ...query } = useQuery(['flightsheetsList'], getFlightSheetsListApi)
 
-  const flightSheetsList = PRODUCTION_MODE ? ZodSaveParse(data, Flightsheet.array()) : MockFlightsheet
+  const flightSheetsList = PRODUCTION_MODE ? ZodSaveParse(data, FlightSheet.array()) : MockFlightSheet
+
+  const addFlightSheetMutation = useMutation({
+    mutationFn: (flightSheet: FlightSheetPost) => addFlightSheetApi(flightSheet),
+    onSuccess: (data) => {
+      queryClient.setQueryData(
+        ['flightsheetsList'],
+        _.concat(data, flightSheetsList))
+    }
+  });
+
+  const editFlightSheetMutation = useMutation({
+    mutationFn: (value: {id: string, flightSheet: FlightSheetPost}) => editFlightSheetApi(value.id, value.flightSheet),
+    onSuccess: (data) => {
+      queryClient.setQueryData(
+        ['flightsheetsList'],
+        _.map(flightSheetsList, (flightSheet) => flightSheet.id === data.id ? data : flightSheet)
+      )
+    }
+  })
+
+  const deleteFlightSheetMutation = useMutation({
+    mutationFn: (id: string) => deleteFlightSheetApi(id),
+    onSuccess: (_data, variables) => {
+      queryClient.setQueryData(
+        ['flightsheetsList'],
+        _.filter(flightSheetsList, (flightSheet) => flightSheet.id !== variables)
+      )
+    }
+  })
+
+  
+  const addFlightSheet = async (flightSheet: FlightSheetPost) => {
+    const status = await addFlightSheetMutation.mutateAsync(flightSheet);
+
+    return IS_SUCCESS_STATUS(status);
+  };
+
+  const editFlightSheet = async (id: string, flightSheet: FlightSheetPost) => {
+    const status = await editFlightSheetMutation.mutateAsync({id, flightSheet});
+
+    return IS_SUCCESS_STATUS(status);
+  };
+
+  const deleteFlightSheet = async (id: string) => {
+    const status = await deleteFlightSheetMutation.mutateAsync(id);
+
+    return IS_SUCCESS_STATUS(status.status);
+  };
 
   return {
     flightSheetsList,
+    addFlightSheet,
+    editFlightSheet,
+    deleteFlightSheet,
     isLoading: PRODUCTION_MODE ? isLoading : false,
     ...query
   };

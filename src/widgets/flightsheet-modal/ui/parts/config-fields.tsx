@@ -1,57 +1,44 @@
-import { Control, Controller, FieldArrayWithId } from "react-hook-form";
+import { Control, Controller } from "react-hook-form";
 import { FormInput } from "../flightsheet-modal";
 import { UiComboBox } from "@/shared/ui/ui-combobox";
 import { UiInput } from "@/shared/ui/ui-input";
 import { Wallet } from "@/entities/wallet";
 import { Pool } from "@/entities/pool";
 import styles from './configFields.module.scss';
+import { match } from "ts-pattern";
 
 export function ConfigFields({
   className,
   control,
-  fields,
   index,
-  coins,
   wallets,
   pools,
   type,
 } : {
   className?: string;
   control: Control<FormInput, any, FormInput>;
-  fields: FieldArrayWithId<FormInput, "target", "id">[]
-  coins?: Crypto[];
   wallets?: Wallet[];
   pools?: Pool[];
   index: number;
   type: 'CPU' | 'GPU';
 }) {
+  const typeIndex = match(type)
+    .with('GPU', () => 0)
+    .with('CPU', () => 1)
+    .otherwise(() => 0);
+
   return (
     <div className={styles['fields']}>
       <Controller
         control={control}
-        name={`target.0.configs.${index}.coin`}
-        render={({ field : { onChange } }) => (
-          <UiComboBox
-            className={className}
-            options={coins ?? [{name: "wwww"}, {name: "2222"}]}
-            title={`${type} Coin`}
-            getOptionLabel={(option) => option?.name ?? ''}
-            selectedOption={fields[0]?.configs[index]?.coin}
-            placeholder="Select wallet"
-            selectedOnChange={onChange}
-          />
-        )}
-      />
-      <Controller
-        control={control}
-        name={`target.0.configs.${index}.wallet`}
-        render={({ field : { onChange } }) => (
+        name={`target.${typeIndex}.configs.${index}.wallet`}
+        render={({ field : { onChange, value } }) => (
           <UiComboBox 
             className={className}
             options={wallets ?? [{name: "wwww"}, {name: "11111"}]}
-            title={`${type} Wallet`}
+            title={`${type} Wallet ${index + 1}`}
             getOptionLabel={(option) => option?.name ?? ''}
-            selectedOption={fields[0]?.configs[index]?.wallet}
+            selectedOption={value ?? {}}
             placeholder="Select wallet"
             selectedOnChange={onChange}
           />
@@ -59,14 +46,14 @@ export function ConfigFields({
       />
       <Controller
         control={control}
-        name={`target.0.configs.${index}.pool`}
-        render={({ field : { onChange } }) => (
+        name={`target.${typeIndex}.configs.${index}.pool`}
+        render={({ field : { onChange, value } }) => (
           <UiComboBox
             className={className}
             options={pools ?? [{domain: "wwww"}, {domain: "11111"}]}
-            title={`${type} Pool`}
+            title={`${type} Pool ${index + 1}`}
             getOptionLabel={(option) => option?.domain ?? ''}
-            selectedOption={fields[0]?.configs[index]?.pool}
+            selectedOption={value ?? {}}
             placeholder="Select pool"
             selectedOnChange={onChange}
           />
@@ -75,7 +62,7 @@ export function ConfigFields({
       <UiInput
         className={className}
         control={control}
-        name={`target.0.configs.${index}.poolPassword`}
+        name={`target.${typeIndex}.configs.${index}.poolPassword`}
         label='Pool password'
         placeholder='Write pool password'
       />

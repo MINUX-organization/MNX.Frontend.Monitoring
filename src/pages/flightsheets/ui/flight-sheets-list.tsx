@@ -1,4 +1,4 @@
-import { FlightSheetItem, useFlightSheetQuery } from "@/entities/flightsheet"
+import { FlightSheetItem, useFlightSheetRepository } from "@/entities/flightsheet"
 import styles from './flightSheetsList.module.scss'
 import _ from "lodash";
 import { match } from "ts-pattern";
@@ -9,7 +9,7 @@ import { DeleteFlightSheetButton } from "@/features/flightsheet/delete";
 import { OnOpen } from "@/features/flightsheet/on-open";
 
 export function FlightSheetsList()  {
-  const { flightSheetsList, isLoading } = useFlightSheetQuery();
+  const { flightSheetsList, isLoading } = useFlightSheetRepository();
 
   return (
     <div className={styles['flightsheet-list']}>
