@@ -39,13 +39,15 @@ export function EditPoolForm({
   })
   const selectedCrypto = watch('cryptocurrency')
   
-  const onSubmit: SubmitHandler<FormInput> = (data) => {
+  const onSubmit: SubmitHandler<FormInput> = async (data) => {
     const mapedData = mapPool(data, cryptosList)
 
     if (!mapedData) return
     if (!pool?.id) return
 
-    editPool(pool.id, mapedData);
+    const status = await editPool(pool.id, mapedData);
+
+    if (!status) return;
 
     onClose();
   };

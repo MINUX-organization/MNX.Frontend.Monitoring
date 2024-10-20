@@ -10,6 +10,7 @@ import { UiButton } from "@/shared/ui/ui-button";
 import { UiComboBox } from "@/shared/ui/ui-combobox";
 import clsx from "clsx";
 import { Algorithm } from "@/entities/crypto/model/types";
+import _ from "lodash";
 
 type FormInput = {
   shortName: string
@@ -34,8 +35,11 @@ export function CryptoForm({
   })
   const selectedAlgorithm = watch('algorithm');
 
-  const onSubmit: SubmitHandler<FormInput> = (data) => {
-    addCrypto(data);
+  const onSubmit: SubmitHandler<FormInput> = async (data) => {
+    const status = await addCrypto(data);
+
+    if (!status) return;
+    
     reset();
   };
 
@@ -66,7 +70,7 @@ export function CryptoForm({
             <Controller 
               control={control} 
               name="algorithm"
-              rules={{ required: true }}
+              rules={{ required: true, validate: (value) => !_.isEqual(value, {}) }}
               render={({ field: {onChange} }) => 
                 <UiComboBox
                   title="Algorithm"

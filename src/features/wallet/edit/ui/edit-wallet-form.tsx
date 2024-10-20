@@ -39,13 +39,15 @@ export function EditWalletForm({
   })
   const selectedCrypto = watch('cryptocurrency')
   
-  const onSubmit: SubmitHandler<FormInput> = (data) => {
-    const mapedData = mapWallet(data, cryptosList)
+  const onSubmit: SubmitHandler<FormInput> = async (data) => {
+    const mapedData = mapWallet(data, cryptosList);
 
-    if (!mapedData) return
-    if (!wallet?.id) return
+    if (!mapedData) return;
+    if (!wallet?.id) return;
 
-    editWallet(wallet.id, mapedData);
+    const status = await editWallet(wallet.id, mapedData);
+
+    if (!status) return;
 
     onClose();
   };
@@ -76,7 +78,7 @@ export function EditWalletForm({
         <Controller 
           control={control} 
           name="cryptocurrency"
-          rules={{ required: true }}
+          rules={{ required: true, validate: (value) => !_.isEqual(value, {}) }}
           render={({ field: {onChange} }) => 
             <UiComboBox
               isDisabled

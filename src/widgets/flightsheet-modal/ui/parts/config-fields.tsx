@@ -35,7 +35,7 @@ export function ConfigFields({
         render={({ field : { onChange, value } }) => (
           <UiComboBox 
             className={className}
-            options={wallets ?? [{name: "wwww"}, {name: "11111"}]}
+            options={wallets ?? []}
             title={`${type} Wallet ${index + 1}`}
             getOptionLabel={(option) => option?.name ?? ''}
             selectedOption={value ?? {}}
@@ -50,7 +50,7 @@ export function ConfigFields({
         render={({ field : { onChange, value } }) => (
           <UiComboBox
             className={className}
-            options={pools ?? [{domain: "wwww"}, {domain: "11111"}]}
+            options={pools ?? []}
             title={`${type} Pool ${index + 1}`}
             getOptionLabel={(option) => option?.domain ?? ''}
             selectedOption={value ?? {}}

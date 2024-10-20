@@ -9,6 +9,7 @@ import { usePoolRepository } from "@/entities/pool";
 import clsx from "clsx";
 import { Crypto, useCryptoRepository } from "@/entities/crypto";
 import { mapPool } from "@/shared/lib/utils/map-pool";
+import _ from "lodash";
 
 export type FormInput = {
   domain: string;
@@ -34,13 +35,14 @@ export function PoolForm({
   })
   const selectedCrypto = watch('cryptocurrency')
   
-  const onSubmit: SubmitHandler<FormInput> = (data) => {
+  const onSubmit: SubmitHandler<FormInput> = async (data) => {
+    const mapedData = mapPool(data, cryptosList);
 
-    const mapedData = mapPool(data, cryptosList)
+    if (!mapedData) return;
 
-    if (!mapedData) return
+    const status = await addPool(mapedData);
 
-    addPool(mapedData);
+    if (!status) return;
 
     reset();
   };
@@ -73,7 +75,7 @@ export function PoolForm({
             <Controller 
               control={control} 
               name="cryptocurrency"
-              rules={{ required: true }}
+              rules={{ required: true, validate: (value) => !_.isEqual(value, {}) }}
               render={({ field: {onChange} }) => 
                 <UiComboBox
                   title="Coin"

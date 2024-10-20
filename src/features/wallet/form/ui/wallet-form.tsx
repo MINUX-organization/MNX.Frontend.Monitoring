@@ -9,6 +9,7 @@ import { useWalletRepository } from "@/entities/wallet";
 import clsx from "clsx";
 import { Crypto, useCryptoRepository } from "@/entities/crypto";
 import { mapWallet } from "@/shared/lib/utils/map-wallet";
+import _ from "lodash";
 
 export type FormInput = {
   name: string;
@@ -34,12 +35,14 @@ export function WalletForm({
   })
   const selectedCrypto = watch('cryptocurrency')
   
-  const onSubmit: SubmitHandler<FormInput> = (data) => {
+  const onSubmit: SubmitHandler<FormInput> = async (data) => {
     const mapedData = mapWallet(data, cryptosList)
 
     if (!mapedData) return
 
-    addWallet(mapedData);
+    const status = await addWallet(mapedData);
+
+    if (!status) return
 
     reset();
   };
@@ -72,7 +75,7 @@ export function WalletForm({
             <Controller 
               control={control} 
               name="cryptocurrency"
-              rules={{ required: true }}
+              rules={{ required: true, validate: (value) => !_.isEqual(value, {}) }}
               render={({ field: {onChange} }) => 
                 <UiComboBox
                   title="Coin"
