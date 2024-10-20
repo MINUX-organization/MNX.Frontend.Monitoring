@@ -12,6 +12,14 @@
   height: $size;
   border: var(--border);
   background-color: var(--color-border-square);
+
+  &.opaque {
+    background-color: var(--color-container-opaque);
+  }
+
+  &.bg-color {
+    background-color: var(--color-bg);
+  }
 }
 
 $size: 0.875rem;

@@ -1,5 +1,6 @@
 import { useSessionRepository } from "@/entities/session";
 import { UiButton } from "@/shared/ui/ui-button";
+import { LogOut } from "lucide-react";
 
 export function LogoutButton({
   className
@@ -13,8 +14,8 @@ export function LogoutButton({
   }
 
   return (
-    <UiButton color="red" withBorder className={className} onClick={handle}>
-      Logout
+    <UiButton className={className} onClick={handle}>
+      <LogOut size={28} color="#FC4E4E"/>
     </UiButton>
   )
 }

@@ -4,7 +4,7 @@ import styles from './styles/uiButton.module.scss'
 import { match } from "ts-pattern";
 
 type UiButtonVariant = {
-  color: "transparent" | "opaque" | "red" | "blue" | "green" | "none";
+  color?: "transparent" | "opaque" | "red" | "blue" | "green" | "none";
   isActive?: boolean;
   withBorder?: boolean;
   isClickable?: boolean;
@@ -23,11 +23,12 @@ export function UiButton({
   return (
     <button
       {...props}
+      disabled={!isClickable}
       className={clsx(
         className,
         !isClickable && styles['not-clickable'],
         styles['button'],
-        !withBorder && {
+        !withBorder && color && {
           transparent: styles['transparent'],
           opaque: styles['opaque'],
           red: styles['red'],
@@ -37,7 +38,7 @@ export function UiButton({
         }[color],
         isActive && styles['active'],
         withBorder && styles['outline'],
-        withBorder && {
+        withBorder && color && {
           transparent: styles['outline-transparent'],
           opaque: styles['outline-opaque'],
           red: styles['outline-red'],
@@ -53,7 +54,7 @@ export function UiButton({
           <div 
             className={clsx(
               styles['container'],
-              {
+              color && {
                 transparent: styles['transparent'],
                 opaque: styles['opaque'],
                 red: styles['red'],
