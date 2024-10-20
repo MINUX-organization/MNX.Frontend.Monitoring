@@ -104,7 +104,7 @@ export function PresetForm({
         <Controller 
           control={control} 
           name="cardName"
-          rules={{ required: true }}
+          rules={{ required: true, validate: (value) => !_.isEqual(value, {}) }}
           render={({ field: {onChange} }) => 
             <UiComboBox
               title="Card name"

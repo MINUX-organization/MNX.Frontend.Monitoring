@@ -7,13 +7,14 @@ import { UiButton } from "@/shared/ui/ui-button";
 import { UiComboBox } from "@/shared/ui/ui-combobox";
 import { usePoolRepository } from "@/entities/pool";
 import clsx from "clsx";
-import { useCryptoRepository } from "@/entities/crypto";
+import { Crypto, useCryptoRepository } from "@/entities/crypto";
 import { mapPool } from "@/shared/lib/utils/map-pool";
+import _ from "lodash";
 
 export type FormInput = {
   domain: string;
   port: string;
-  cryptocurrency: string;
+  cryptocurrency: Crypto;
 };
 
 export function PoolForm({
@@ -29,17 +30,19 @@ export function PoolForm({
     defaultValues: {
       domain: '',
       port: '',
-      cryptocurrency: '',
+      cryptocurrency: {},
     }
   })
   const selectedCrypto = watch('cryptocurrency')
   
-  const onSubmit: SubmitHandler<FormInput> = (data) => {
-    const mapedData = mapPool(data, cryptosList)
+  const onSubmit: SubmitHandler<FormInput> = async (data) => {
+    const mapedData = mapPool(data, cryptosList);
 
-    if (!mapedData) return
+    if (!mapedData) return;
 
-    addPool(mapedData);
+    const status = await addPool(mapedData);
+
+    if (!status) return;
 
     reset();
   };
@@ -72,7 +75,7 @@ export function PoolForm({
             <Controller 
               control={control} 
               name="cryptocurrency"
-              rules={{ required: true }}
+              rules={{ required: true, validate: (value) => !_.isEqual(value, {}) }}
               render={({ field: {onChange} }) => 
                 <UiComboBox
                   title="Coin"

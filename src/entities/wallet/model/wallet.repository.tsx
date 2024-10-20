@@ -3,6 +3,7 @@ import { ZodSaveParse } from "@/shared/lib/utils/zod-save-parse";
 import { PostWallet, Wallet } from "./types";
 import _ from "lodash";
 import { getWalletsListApi, addWalletApi, deleteWalletApi, editWalletApi } from "@/shared/api"
+import { IS_SUCCESS_STATUS } from "@/shared/api/api-instance";
 
 export function useWalletRepository() {
   const queryClient = useQueryClient();
@@ -39,12 +40,16 @@ export function useWalletRepository() {
     }
   });
   
-  const addWallet = (wallet: PostWallet) => {
-    addWalletMutation.mutate(wallet);
+  const addWallet = async (wallet: PostWallet) => {
+    const status = await addWalletMutation.mutate(wallet);
+
+    return IS_SUCCESS_STATUS(status);
   }
 
-  const editWallet = (id: string, wallet: PostWallet) => {
-    editWalletMutation.mutate({id, wallet});
+  const editWallet = async (id: string, wallet: PostWallet) => {
+    const status = await editWalletMutation.mutateAsync({id, wallet});
+
+    return IS_SUCCESS_STATUS(status);
   }
 
   const deleteWallet = (id: string) => {

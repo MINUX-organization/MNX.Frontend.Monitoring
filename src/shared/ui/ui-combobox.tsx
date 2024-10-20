@@ -42,7 +42,7 @@ export function UiComboBox<T>({
   return (
     <div className={clsx(className, styles['combobox'])}>
       {title && <label>{title}</label>}
-      <Combobox 
+      <Combobox
         disabled={isDisabled} 
         value={selectedOption}
         onChange={(option) => selectedOnChange?.(option)}
@@ -54,6 +54,7 @@ export function UiComboBox<T>({
           )}>
           <UiBgContainer className={styles['select-container']} color={color ?? 'opaque'}>
             <Combobox.Input
+              autoComplete="off"
               className={styles['input']}
               placeholder={placeholder}
               onChange={(event) => query.setValue(event.target.value)}

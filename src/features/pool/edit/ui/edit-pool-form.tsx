@@ -1,4 +1,4 @@
-import { useCryptoRepository } from "@/entities/crypto";
+import { Crypto, useCryptoRepository } from "@/entities/crypto";
 import { Pool, usePoolRepository } from "@/entities/pool";
 import clsx from "clsx";
 import styles from './editPoolForm.module.scss';
@@ -7,11 +7,12 @@ import { UiInput } from "@/shared/ui/ui-input";
 import { UiComboBox } from "@/shared/ui/ui-combobox";
 import { UiButton } from "@/shared/ui/ui-button";
 import { mapPool } from "@/shared/lib/utils/map-pool";
+import _ from "lodash";
 
 export type FormInput = {
   domain: string;
   port: string;
-  cryptocurrency: string;
+  cryptocurrency: Crypto;
 };
 
 export function EditPoolForm({
@@ -33,18 +34,20 @@ export function EditPoolForm({
     defaultValues: {
       domain: pool?.domain,
       port: pool?.port.toString(),
-      cryptocurrency: pool?.cryptocurrency
+      cryptocurrency: _.find(cryptosList, ['fullName', pool?.cryptocurrency])
     }
   })
   const selectedCrypto = watch('cryptocurrency')
   
-  const onSubmit: SubmitHandler<FormInput> = (data) => {
+  const onSubmit: SubmitHandler<FormInput> = async (data) => {
     const mapedData = mapPool(data, cryptosList)
 
     if (!mapedData) return
     if (!pool?.id) return
 
-    editPool(pool.id, mapedData);
+    const status = await editPool(pool.id, mapedData);
+
+    if (!status) return;
 
     onClose();
   };
@@ -78,9 +81,10 @@ export function EditPoolForm({
           rules={{ required: true }}
           render={({ field: {onChange} }) => 
             <UiComboBox
+              isDisabled
               title="Coin"
               color="opaqueBlack"
-              options={cryptosList}
+              options={cryptosList ?? []}
               selectedOption={selectedCrypto}
               selectedOnChange={onChange}
               getOptionLabel={(option) => option.fullName}

@@ -3,6 +3,7 @@ import { addCryptocurrencyApi, deleteCryptocurrencyApi, getCryptocurrenciesListA
 import { ZodSaveParse } from "@/shared/lib/utils/zod-save-parse";
 import { Crypto, PostCrypto } from "./types";
 import _ from "lodash";
+import { IS_SUCCESS_STATUS } from "@/shared/api/api-instance";
 
 export function useCryptoRepository() {
   const queryClient = useQueryClient();
@@ -36,8 +37,10 @@ export function useCryptoRepository() {
     }
   });
   
-  const addCrypto = (crypto: Crypto) => {
-    addCryptoMutation.mutate(crypto);
+  const addCrypto = async (crypto: PostCrypto) => {
+    const status = await addCryptoMutation.mutateAsync(crypto);
+
+    return IS_SUCCESS_STATUS(status);
   }
 
   const deleteCrypto = (id: string) => {

@@ -29,6 +29,7 @@ export function UiSearch({
       <UiBgContainer color={"opaque"} className={styles['search-container']}>
         <Search className={styles['search-icon']} size={20}/>
         <input 
+          autoComplete="off"
           className={styles['search-input']} 
           type='text' 
           placeholder={placeholder}

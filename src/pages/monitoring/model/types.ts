@@ -2,7 +2,7 @@ type TotalDataType =
   "TotalCoinsList"          |
   "TotalShares"             |
   "TotalPower"              |
-  "TotalRigsCount"       |
+  "TotalRigsCount"          |
   "TotalGpusCount"          |
   "TotalCpusCount"
 

@@ -41,6 +41,9 @@
   &.outline-blue {
     border-color: var(--color-active-button);
   }
+  &.outline-green {
+    border-color: var(--color-positive);
+  }
 }
 
 .opaque {
@@ -64,6 +67,14 @@
   border-color: var(--color-active-button);
   &:hover {
     background-color: color-mix(in srgb, var(--color-active-button) 90%, white 10%);
+  }
+}
+
+.green {
+  background-color: var(--color-positive);
+  border-color: var(--color-positive);
+  &:hover {
+    background-color: color-mix(in srgb, var(--color-positive) 90%, white 10%);
   }
 }
 

@@ -35,7 +35,7 @@ export function EditPresetButton({
 
   return (
     <button onClick={handle} className={clsx(!isIcon && styles['edit-preset-button'], className)}>
-      <Pencil color={isActive ? '#EC790F' : 'white'} width={30} />
+      <Pencil color={isActive ? '#EC790F' : 'white'} size={18} />
     </button>
   )
 }

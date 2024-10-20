@@ -28,7 +28,7 @@ export function PresetSlice({
 
   return (
     <UiBorderBox withPadding className={clsx(className, styles['preset-slice'])}>
-      <UiBgContainer className={styles['preset-slice-container']} color="opaque">
+      <UiBgContainer onClick={() => isOpen.setValue((prev) => !prev)} className={styles['preset-slice-container']} color="opaque">
         <div className={clsx(
           styles['header'],
           isOpen.value ? styles['visible'] : styles['hidden'])

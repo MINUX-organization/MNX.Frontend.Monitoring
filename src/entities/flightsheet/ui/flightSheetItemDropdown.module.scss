@@ -1,0 +1,42 @@
+.dropdown {
+  border-top: none;
+
+  .dropdown-container {
+    padding: 1rem;
+
+    .info {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 1rem;
+  
+      .line {
+        width: 1px;
+        height: 100%;
+        background-color: var(--color-border-op-50);
+        align-self: center;
+      }
+
+      .fields {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        
+        .title {
+          text-transform: uppercase;
+          color: var(--color-blue);
+          font-size: var(--font-size-20px);
+        }
+
+        .field {
+          display: grid;
+          grid-template-columns: 7rem 1fr;
+          gap: .625rem;
+
+          .label {
+            color: var(--color-font-gray);
+          }
+        }
+      }
+    }
+  }
+}

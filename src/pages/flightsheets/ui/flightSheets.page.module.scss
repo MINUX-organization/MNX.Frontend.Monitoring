@@ -1,14 +1,27 @@
 .flightsheet-page {
+  display: flex;
+  flex-direction: column;
+  gap: .625rem;
+
   .header {
-    display: flex;
+    display: grid;
+    grid-template-columns: auto auto 1fr;
     height: 2.375rem;
+    gap: 1.25rem;
 
     .search {
       width: 12.5rem;
+      height: 2.375rem;
+      justify-self: flex-end;
     }
 
     .select {
       width: 12.5rem;
+      height: 2.375rem;
+    }
+
+    .create-button {
+      width: 10rem;
     }
   }
 }

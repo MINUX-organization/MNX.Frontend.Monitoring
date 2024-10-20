@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import { ZodSaveParse } from "@/shared/lib/utils/zod-save-parse";
 import { Pool, PostPool } from "./types";
 import _ from "lodash";
+import { IS_SUCCESS_STATUS } from "@/shared/api/api-instance";
 
 export function usePoolRepository() {
   const queryClient = useQueryClient();
@@ -39,12 +40,16 @@ export function usePoolRepository() {
     }
   });
   
-  const addPool = (pool: PostPool) => {
-    addPoolMutation.mutate(pool);
+  const addPool = async (pool: PostPool) => {
+    const status = addPoolMutation.mutateAsync(pool);
+
+    return IS_SUCCESS_STATUS(status);
   }
 
-  const editPool = (id: string, pool: PostPool) => {
-    editPoolMutation.mutate({id, pool});
+  const editPool = async (id: string, pool: PostPool) => {
+    const status = await editPoolMutation.mutateAsync({id, pool});
+
+    return IS_SUCCESS_STATUS(status);
   }
 
   const deletePool = (id: string) => {

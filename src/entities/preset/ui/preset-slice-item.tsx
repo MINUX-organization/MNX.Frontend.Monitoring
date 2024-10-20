@@ -41,9 +41,11 @@ export function PresetSliceItem({
   return (
     <div className={clsx(className, styles["preset-slice-item"])}>
       <span className={styles["name"]}>{preset.name}</span>
-      <UiColumnBoard data={firstField} />
-      <UiColumnBoard data={secondField} />
-      <UiColumnBoard data={thirdField} />
+      <div className={styles["board"]}>
+        <UiColumnBoard data={firstField} />
+        <UiColumnBoard data={secondField} />
+        <UiColumnBoard data={thirdField} />
+      </div>
       {isFeatures && (
         <div className={styles["features"]}>
           {renderApply?.(preset.id)}

@@ -1,7 +1,7 @@
 import { UiBgContainer } from "@/shared/ui/ui-bg-container";
 import { UiBorderBox } from "@/shared/ui/ui-border-box";
 import { useForm, Controller, SubmitHandler } from "react-hook-form"
-import { Crypto, useCryptoRepository } from "@/entities/crypto";
+import { useCryptoRepository } from "@/entities/crypto";
 import { UiInput } from "@/shared/ui/ui-input";
 import styles from './cryptoForm.module.scss';
 import { useQuery } from "react-query";
@@ -9,8 +9,14 @@ import { getAvailableAlgorithmsApi } from "@/shared/api";
 import { UiButton } from "@/shared/ui/ui-button";
 import { UiComboBox } from "@/shared/ui/ui-combobox";
 import clsx from "clsx";
+import { Algorithm } from "@/entities/crypto/model/types";
+import _ from "lodash";
 
-type FormInput = Crypto;
+type FormInput = {
+  shortName: string
+  fullName: string
+  algorithm: Algorithm;
+};
 
 export function CryptoForm({
   className
@@ -29,8 +35,11 @@ export function CryptoForm({
   })
   const selectedAlgorithm = watch('algorithm');
 
-  const onSubmit: SubmitHandler<FormInput> = (data) => {
-    addCrypto(data);
+  const onSubmit: SubmitHandler<FormInput> = async (data) => {
+    const status = await addCrypto(data);
+
+    if (!status) return;
+    
     reset();
   };
 
@@ -61,7 +70,7 @@ export function CryptoForm({
             <Controller 
               control={control} 
               name="algorithm"
-              rules={{ required: true }}
+              rules={{ required: true, validate: (value) => !_.isEqual(value, {}) }}
               render={({ field: {onChange} }) => 
                 <UiComboBox
                   title="Algorithm"
