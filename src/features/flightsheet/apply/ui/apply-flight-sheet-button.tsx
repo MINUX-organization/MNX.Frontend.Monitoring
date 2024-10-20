@@ -5,7 +5,7 @@ import styles from './apply-flight-sheet-button.module.scss'
 
 export function ApplyFlightSheetButton({
   className,
-  flightSheetId
+  // flightSheetId
 } : {
   className?: string
   flightSheetId?: string
