@@ -15,7 +15,7 @@ export function RigCpusInfoPage() {
   const { rigId } = useParams();
   const { data, isLoading } = useQuery(['rigCpusInfo', rigId], () => getRigCpusListApi(rigId));
   
-  const validatedData = ZodSaveParse(data, RigCpuInfo.array());
+  const validatedData = ZodSaveParse(data, RigCpuInfo.array().optional());
 
   return (
     <UiBorderBox className={styles['rig-cpus-info']}>
@@ -27,7 +27,7 @@ export function RigCpusInfoPage() {
             </div>)
           .otherwise((validatedData) => (
             _.map(validatedData, (rigCpuInfo, index) => (
-              <React.Fragment key={rigCpuInfo.serialNumber}>
+              <React.Fragment key={rigCpuInfo.id}>
                 <RigTotalItemCpusInfo rigCpuInfo={rigCpuInfo} />
                 {index !== validatedData.length - 1 && <div className={styles['divider']} />}
               </React.Fragment>

@@ -7,26 +7,27 @@ import { ReactNode } from 'react';
 
 export function RigTotalItemInternetInfo({
   className,
-  rigInternet,
+  rigInternetInfo,
   renderScan
 } : {
   className?: string;
-  rigInternet: RigInternetInfo;
+  rigInternetInfo: RigInternetInfo;
   renderScan?: () => ReactNode;
 }) {
   const firstColumn = [
-    { label: 'Model', value: rigInternet.model },
-    { label: 'Brand', value: rigInternet.brand },
-    { label: 'Vendor Code', value: rigInternet.vendorCode },
-    { label: 'Bus Info', value: rigInternet.busInfo },
+    { label: 'Model', value: rigInternetInfo.information.model },
+    { label: 'Brand', value: rigInternetInfo.information.manufacturer },
+    { label: 'Vendor Code', value: rigInternetInfo.information.vendorCode },
+    { label: 'Bus Info', value: rigInternetInfo.information.busInfo },
   ]
 
   const secondColumn = [
-    { label: 'Logical Name', value: rigInternet.logicalName },
-    { label: 'Serial Number', value: rigInternet.serialNumber },
-    { label: 'IP', value: rigInternet.ip },
+    { label: 'Logical Name', value: rigInternetInfo.information.logicalName },
+    { label: 'Serial Number', value: rigInternetInfo.information.serialNumber },
+    { label: 'Local IP', value: rigInternetInfo.localIP },
+    { label: 'Global IP', value: rigInternetInfo.globalIP },
     { 
-      label: 'Internet', value: rigInternet.isOnline ? 
+      label: 'Internet', value: rigInternetInfo.isOnline ? 
         <span className={styles['online']}>Online</span> : 
           <span className={styles['offline']}>Offline</span> 
     },
@@ -38,11 +39,11 @@ export function RigTotalItemInternetInfo({
       styles['rig-internet-info']
     )}>
       <div className={styles['internet']}>
-        <span className={styles['internet-name']}>{rigInternet.name}</span>
+        <span className={styles['internet-name']}>{rigInternetInfo.information.name}</span>
         <img width={60} src={internetImage} alt="internet" />
       </div>
-      <UiColumnBoard data={firstColumn} />
-      <UiColumnBoard data={secondColumn} />
+      <UiColumnBoard className={styles['table']} data={firstColumn} />
+      <UiColumnBoard className={styles['table']} data={secondColumn} />
       {renderScan?.()}
     </div>
   ) 

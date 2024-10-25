@@ -1,7 +1,12 @@
 .rig-cpus-info {
-  display: grid;
+  display: flex;
   gap: 1.875rem;
-  grid-template-columns: 12.5rem 1fr 1fr;
+  flex-wrap: wrap;
+
+  .table {
+    flex-grow: 1;
+    min-width: 10rem;
+  }
 
   .cpu {
     display: flex;

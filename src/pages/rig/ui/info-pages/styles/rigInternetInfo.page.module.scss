@@ -4,8 +4,17 @@
 
   .container {
     display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
     min-height: 4.375rem;
     padding: 1rem;
+
+    .divider {
+      height: 1px;
+      opacity: .5;
+      width: 100%;
+      background-color: var(--color-border);
+    }
   }
 }
 

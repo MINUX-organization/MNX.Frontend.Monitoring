@@ -105,16 +105,26 @@ export const RigTotalCpusCount = z.object({
 })
 export type RigTotalCpusCount = z.infer<typeof RigTotalCpusCount>
 
+export const RigTotalCountDevices = z.object({
+  totalCpusCountGroupedByManufacturer: z.record(z.number({invalid_type_error: 'TotalCpusCount must be a number'})),
+  totalCpusCount: z.number({invalid_type_error: 'TotalCpusCount must be a number'}),
+  totalGpusCountGroupedByManufacturer: z.record(z.number({invalid_type_error: 'TotalGpusCount must be a number'})),
+  totalGpusCount: z.number({invalid_type_error: 'TotalGpusCount must be a number'}),
+  totalDrivesCount: z.number({invalid_type_error: 'TotalDrivesCount must be a number'}),
+})
+export type RigTotalCountDevices = z.infer<typeof RigTotalCountDevices>
+
 export const RigTotalInfo = z.object({
-  amdVer: z.string({invalid_type_error: 'AmdVer must be a string'}),
-  nvidiaVer: z.string({invalid_type_error: 'NvidiaVer must be a string'}),
-  openClVer: z.string({invalid_type_error: 'OpenClVer must be a string'}),
-  cudaVer: z.string({invalid_type_error: 'CudaVer must be a string'}),
-  linuxVer: z.string({invalid_type_error: 'LinuxVer must be a string'}),
-  minuxVer: z.string({invalid_type_error: 'MinuxVer must be a string'}),
-  mac: z.string({invalid_type_error: 'Mac must be a string'}),
-  globalIp: z.string({invalid_type_error: 'GlobalIp must be a string'}),
-  localIp: z.string({invalid_type_error: 'LocalIp must be a string'}),
+  minuxVersion: z.string({invalid_type_error: 'MinuxVersion must be a string'}),
+  linuxVersion: z.string({invalid_type_error: 'LinuxVersion must be a string'}),
+  amdDriverVersion: z.string({invalid_type_error: 'AmdDriverVersion must be a string'}),
+  nvidiaDriverVersion: z.string({invalid_type_error: 'NvidiaDriverVersion must be a string'}),
+  intelDriverVersion: z.string({invalid_type_error: 'IntelDriverVersion must be a string'}),
+  openCLVersion: z.string({invalid_type_error: 'OpenCLVersion must be a string'}),
+  cudaVersion: z.string({invalid_type_error: 'CudaVersion must be a string'}),
+  agentVersion: z.string({invalid_type_error: 'AgentVersion must be a string'}),
+  hardwareManagerVersion: z.string({invalid_type_error: 'HardwareManagerVersion must be a string'}),
+  miners: z.record(z.string({invalid_type_error: 'Miner must be a string'})),
 })
 export type RigTotalInfo = z.infer<typeof RigTotalInfo>
 
@@ -126,15 +136,13 @@ export type RigFlightSheet = z.infer<typeof RigFlightSheet>
 
 export const RigTotal = z.object({
   id: RigId,
+  ownerId: z.string({invalid_type_error: 'OwnerId must be a string'}),
   name: RigName,
-  index: z.number({invalid_type_error: 'Index must be a number'}),
-  isActive: RigIsActive,
-  onlineState: RigOnlineState,
-  gpusCount: RigTotalGpusCount,
-  cpusCount: RigTotalCpusCount,
-  hddsCount: z.number({invalid_type_error: 'TotalHddsCount must be a number'}),
-  power: MeasureUnit,
-  info: RigTotalInfo,
-  flightSheets: RigFlightSheet.array()
+  mac: z.string({invalid_type_error: 'Mac must be a string'}),
+  globalIP: z.string({invalid_type_error: 'GlobalIp must be a string'}),
+  localIP: z.string({invalid_type_error: 'LocalIp must be a string'}),
+  software: RigTotalInfo,
+  flightSheets: RigFlightSheet.array().optional(), //fix
+  countDevices: RigTotalCountDevices,
 })
 export type RigTotal = z.infer<typeof RigTotal>

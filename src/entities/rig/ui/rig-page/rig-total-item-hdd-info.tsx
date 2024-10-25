@@ -12,8 +12,8 @@ export function RigTotalItemHddInfo({
   rigHdd: RigHddInfo;
 }) {
   const fieldsList = [
-    {label: 'Serial Number', value: rigHdd.serialNumber},
-    {label: 'Capacity', value: rigHdd.capacity},
+    {label: 'Serial Number', value: rigHdd.information.serialNumber},
+    {label: 'Capacity', value: rigHdd.information.capacity, measureUnit: 'GB'},
   ]
 
   return (
@@ -22,7 +22,7 @@ export function RigTotalItemHddInfo({
       styles['hdd-info']
     )}>
       <div className={styles['hdd-info-item']}>
-        <span className={styles['hdd-name']}>{rigHdd.name}</span>
+        <span className={styles['hdd-name']}>{rigHdd.information.name}</span>
         <img width={50} src={hddImage} alt="hdd"/>
         <div className={styles['hdd-item']}>
           <UiColumnBoard data={fieldsList} />

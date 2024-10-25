@@ -5,7 +5,7 @@ import _ from "lodash";
 
 type Field = {
   label: string;
-  value?: string | number | boolean | JSX.Element;
+  value?: string | number | boolean | JSX.Element | null;
   measureUnit?: string;
 } 
 

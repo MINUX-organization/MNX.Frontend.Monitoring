@@ -22,8 +22,10 @@ export function BackButton({
       className={className}
       onClick={onClick}
     >
-      <ArrowLeft />
-      <span>BACK</span>
+      <div style={{ display: 'flex', alignItems: 'center'}}>
+        <ArrowLeft size={20}/>
+        <span>BACK</span>
+      </div>
     </UiButton>
   )
 }

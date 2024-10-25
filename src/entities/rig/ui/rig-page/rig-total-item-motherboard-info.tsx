@@ -12,11 +12,11 @@ export function RigTotalItemMotherboardInfo({
   rigMotherboard: RigMotherboardInfo;
 }) {
   const informationFieldsList = [
-    {label: 'Serial Number', value: rigMotherboard.serialNumber},
-    {label: 'SATA ports', value: rigMotherboard.sataPortsCount},
-    {label: 'RAM ports', value: rigMotherboard.ramPortsCount},
-    {label: 'PCIe 4.0 x4', value: rigMotherboard.pcix4Count},
-    {label: 'PCIe 4.0 x16', value: rigMotherboard.pcix16Count},
+    {label: 'Serial Number', value: rigMotherboard.information.serialNumber},
+    {label: 'SATA ports', value: rigMotherboard.information.sataPortsCount},
+    {label: 'RAM ports', value: rigMotherboard.information.ramPortsCount},
+    {label: 'PCIe 4.0 x4', value: rigMotherboard.information.pciX4PosrtsCount},
+    {label: 'PCIe 4.0 x16', value: rigMotherboard.information.pciX16PosrtsCount},
   ]
 
   return (
@@ -26,11 +26,11 @@ export function RigTotalItemMotherboardInfo({
     )}>
       <div className={styles['motherboard']}>
         <span className={styles['motherboard-name']}>
-          {rigMotherboard.name}
+          {rigMotherboard.information.name}
         </span>
         <img className={styles['motherboard-image']} src={motherboard} alt={'motherboard'} />
       </div>
-      <UiColumnBoard title="Information" data={informationFieldsList} />
+      <UiColumnBoard className={styles['table']} title="Information" data={informationFieldsList} />
     </div>
   )
 }

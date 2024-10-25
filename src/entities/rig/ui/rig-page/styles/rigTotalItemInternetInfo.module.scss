@@ -1,14 +1,18 @@
 .rig-internet-info {
   width: 100%;
-  display: grid;
+  display: flex;
   gap: 1.875rem;
+  flex-wrap: wrap;
   justify-content: space-between;
-  grid-template-columns: minmax(15.625rem, auto) repeat(3, minmax(13.75rem, 1fr));
+
+  .table {
+    flex-grow: 1;
+    min-width: 15rem;
+  }
 
   .internet {
     display: flex;
     gap: .75rem;
-    justify-content: space-between;
     align-items: center;
     flex-direction: column;
   }

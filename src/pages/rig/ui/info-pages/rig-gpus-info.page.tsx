@@ -14,9 +14,9 @@ import { UiSpinner } from "@/shared/ui/ui-spinner";
 export function RigGpusInfoPage() {
   const { rigId } = useParams();
   const { data, isLoading } = useQuery(['rigGpusInfo', rigId], () => getRigGpusListApi(rigId))
-  
-  const validatedData = ZodSaveParse(data, RigGpuInfo.array())
 
+  const validatedData = ZodSaveParse(data, RigGpuInfo.array().optional())
+  
   return (
     <UiBorderBox className={styles['rig-gpus-info']}>
       <UiBgContainer color="opaque" className={styles['flex']}>
@@ -27,7 +27,7 @@ export function RigGpusInfoPage() {
             </div>)
           .otherwise((validatedData) => (
             _.map(validatedData, (rigGpuInfo, index) => (
-              <React.Fragment key={rigGpuInfo.index}>
+              <React.Fragment key={rigGpuInfo.id}>
                 <RigTotalItemGpusInfo rigGpuInfo={rigGpuInfo} />
                 {index !== validatedData.length - 1 && <div className={styles['divider']}/>}
               </React.Fragment>

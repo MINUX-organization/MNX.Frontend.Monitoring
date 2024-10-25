@@ -5,8 +5,8 @@ import { RigTotal } from '../../model/types';
 import { ReactNode } from 'react';
 import { UiBgContainer } from '@/shared/ui/ui-bg-container';
 import { RigTotalItemDevicesTable } from './rig-total-item-devices-table';
-import { UiActiveState } from '@/shared/ui/ui-active-state';
-import { UiWiFiState } from '@/shared/ui/ui-wifi-state';
+// import { UiActiveState } from '@/shared/ui/ui-active-state';
+// import { UiWiFiState } from '@/shared/ui/ui-wifi-state';
 import { StateObject } from '@/shared/lib/utils/state-object';
 
 export function RigTotalItemPanel({
@@ -15,11 +15,13 @@ export function RigTotalItemPanel({
   isOpen,
   renderEdit,
   renderSetting,
-  renderOnOpen
+  renderOnOpen,
+  withFeatures,
 } : {
   className?: string;
   rig: RigTotal;
   isOpen?: StateObject<boolean>;
+  withFeatures?: boolean;
   renderEdit?: () => ReactNode;
   renderSetting?: (id: string) => ReactNode;
   renderOnOpen?: (isOpen?: StateObject<boolean>) => ReactNode;
@@ -32,11 +34,11 @@ export function RigTotalItemPanel({
     >
     <UiBgContainer className={styles['grid']} color="opaque">
       <span className={styles['index']}>
-        <UiActiveState isActive={rig.isActive} />
-        <span>
+        {/* <UiActiveState isActive={rig.isActive} /> */}
+        {/* <span>
           <span className={styles['blue']}>ID</span>&nbsp;
           {rig.index}
-        </span>
+        </span> */}
       </span>
       <div className={styles['name']}>
         {rig.name}
@@ -44,13 +46,9 @@ export function RigTotalItemPanel({
       </div>
       <RigTotalItemDevicesTable rig={rig} />
       <div className={styles['states']}>
-        <UiWiFiState className={styles['wifi']} onlineState={rig.onlineState} />
-        <span>
-          {rig.power.value}&nbsp;
-          <span className={styles['blue']}>{rig.power.measureUnit}</span>
-        </span>
+        {/* <UiWiFiState className={styles['wifi']} onlineState={rig.onlineState} /> */}
       </div>
-      {isOpen?.value && 
+      {withFeatures && 
         <div className={styles['features']}>
           {renderSetting?.(rig.id)}
           {renderOnOpen?.(isOpen)}

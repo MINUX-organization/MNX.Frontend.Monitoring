@@ -14,21 +14,21 @@ export function RigTotalItemInfo({
   className?: string;
 }) {
   const firstColumn = [
-    {label: 'AMD ver.', value: rig.info.amdVer},
-    {label: 'NVIDIA ver.', value: rig.info.nvidiaVer},
-    {label: 'OpenCL ver.', value: rig.info.openClVer},
-    {label: 'CUDA ver.', value: rig.info.cudaVer},
+    {label: 'AMD ver.', value: rig.software.amdDriverVersion},
+    {label: 'NVIDIA ver.', value: rig.software.nvidiaDriverVersion},
+    {label: 'OpenCL ver.', value: rig.software.openCLVersion},
+    {label: 'CUDA ver.', value: rig.software.cudaVersion},
   ]
 
   const secondColumn = [
-    {label: 'Linux Ver.', value: rig.info.linuxVer},
-    {label: 'Minux Ver.', value: rig.info.minuxVer},
+    {label: 'Linux Ver.', value: rig.software.linuxVersion},
+    {label: 'Minux Ver.', value: rig.software.minuxVersion},
   ]
 
   const thirdColumn = [
-    {label: 'MAC', value: rig.info.mac},
-    {label: 'Local IP', value: rig.info.localIp},
-    {label: 'Global IP', value: rig.info.globalIp},
+    {label: 'MAC', value: rig.mac},
+    {label: 'Local IP', value: rig.localIP},
+    {label: 'Global IP', value: rig.globalIP},
   ]
 
   const fieldsFlightSheetsList = _.map(rig.flightSheets, (flightSheet) => {

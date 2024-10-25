@@ -13,24 +13,33 @@ export function RigTotalItemCpusInfo({
   className?: string;
   rigCpuInfo: RigCpuInfo;
 }) {
-  const color = rigCpuInfo.name.toLowerCase().includes('intel') ? 'blue' 
-    : rigCpuInfo.name.toLowerCase().includes('amd') ? 'red' : 'white';
+  const color = rigCpuInfo.information.name.toLowerCase().includes('intel') ? 'blue' 
+    : rigCpuInfo.information.name.toLowerCase().includes('amd') ? 'red' : 'white';
 
   const informationsList = [
-    {label: 'Architecture', value: rigCpuInfo.architecture},
-    {label: 'Cores', value: rigCpuInfo.coresCount},
-    {label: 'Serial Number', value: rigCpuInfo.serialNumber},
-    {label: 'Threads', value: rigCpuInfo.threadsCount},
-    {label: 'Threads Per Socket', value: rigCpuInfo.threadsPerSocketCount},
+    {label: 'Architecture', value: rigCpuInfo.information.architecture},
+    {label: 'Cores', value: rigCpuInfo.information.coresCount},
+    {label: 'Threads', value: rigCpuInfo.information.threadsCount},
   ]
 
-  const clockingList = _.map(rigCpuInfo.clocking, (value, key) => {
-    return {label: fromKeyToWord(key), value: value}
-  })
+  const clockingList = [
+    {label: 'Clock', value: rigCpuInfo.restrictions.clock.minimal + ' - ' + rigCpuInfo.restrictions.clock.maximal},
+    {label: 'Fan Speed', value: rigCpuInfo.restrictions.fanSpeed.minimal + ' - ' + rigCpuInfo.restrictions.fanSpeed.maximal},
+    {label: 'Temperature', value: rigCpuInfo.restrictions.temperature.minimal + ' - ' + rigCpuInfo.restrictions.temperature.maximal},
+    {label: 'Power', value: rigCpuInfo.restrictions.power.minimal + ' - ' + rigCpuInfo.restrictions.power.maximal},
+  ]
+
+  const cacheList = [
+    {label: 'L1', value: rigCpuInfo.information.cache.l1},
+    {label: 'L2', value: rigCpuInfo.information.cache.l2},
+    {label: 'L3', value: rigCpuInfo.information.cache.l3},
+    {label: 'L4', value: rigCpuInfo.information.cache.l4},
+  ]
 
   const tableFiledsList = [
     {label: 'Information', value: informationsList},
     {label: 'Clocking', value: clockingList},
+    {label: 'Cache', value: cacheList},
   ]
 
   return (
@@ -40,11 +49,11 @@ export function RigTotalItemCpusInfo({
       )}
     >
       <div className={styles['cpu']}>
-        <span className={styles['cpu-name']}>{rigCpuInfo.name}</span>
+        <span className={styles['cpu-name']}>{rigCpuInfo.information.name}</span>
         <CpuSvg className={styles['cpu-image']} color={color} width={80} height={80}/>
       </div>
       {_.map(tableFiledsList, (field) => (
-        <UiColumnBoard key={field.label} title={field.label} data={field.value} isFlex />
+        <UiColumnBoard className={styles['table']} key={field.label} title={field.label} data={field.value} isFlex />
       ))}
     </div>
   )

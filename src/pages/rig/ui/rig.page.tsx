@@ -1,15 +1,20 @@
 import { RigTotal, RigTotalItem, RigTotalItemPanel } from "@/entities/rig";
-import { Outlet } from "react-router"
+import { Outlet, useParams } from "react-router"
 import styles from './rig.page.module.scss'
 import { RigMenu } from "./rig-menu";
 import { BackButton } from "@/features/rig/navigation-back";
 import { match } from "ts-pattern";
 import clsx from "clsx";
+import { useRigsQuery } from "@/entities/rig/model/rigs.query";
+import _ from "lodash";
+import { UiSpinner } from "@/shared/ui/ui-spinner";
 
 export function RigPage() {
-  // const { rigId } = useParams();
+  const { rigId } = useParams();
   
-  const rig: RigTotal | undefined = undefined
+  const { rigsList, isLoading } = useRigsQuery();
+
+  const rig = _.find(rigsList, (rig) => rig?.id === rigId);
 
   return (
     <div className={styles['rig-page']}>
@@ -18,17 +23,20 @@ export function RigPage() {
         styles['menu'],
         rig && styles['menu-with-rig']
       )}/>
-      {match(rig)
-      .with(undefined, () => <div className={styles['no-data']}>N/A</div>)
-      .otherwise((rig) => (
-        <RigTotalItem
-          className={styles['rig-total-item']}
-          rig={rig} 
-          withFeatures={false}
-          renderItemPanel={(rig) => rig && <RigTotalItemPanel rig={rig} />}
-          renderItemInfo={() => <Outlet />}
-        />
-      ))}
+      {match(isLoading)
+      .with(true, () => <UiSpinner />)
+      .otherwise(() => {
+        if (!rig) return <div className={styles['no-data']}>N/A</div>;
+        return (
+          <RigTotalItem
+            className={styles['rig-total-item']}
+            rig={rig} 
+            withFeatures={false}
+            renderItemPanel={(rig) => rig && <RigTotalItemPanel rig={rig} />}
+            renderItemInfo={() => <Outlet />}
+          />
+        )
+      })}
 
     </div>
   )

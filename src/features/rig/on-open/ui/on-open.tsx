@@ -10,7 +10,11 @@ export function OnOpen({
   className?: string;
   isOpen?: StateObject<boolean>;
 }) {
-  const onOpen = () => isOpen && isOpen.setValue((prev) => !prev)
+  const onOpen = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    
+    isOpen && isOpen.setValue((prev) => !prev)
+  }
 
   return (
     <button className={clsx(

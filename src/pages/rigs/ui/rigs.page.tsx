@@ -1,11 +1,12 @@
-import { RigTotal, RigTotalItem, RigTotalItemInfo, RigTotalItemPanel } from '@/entities/rig';
-import { ZodSaveParse } from '@/shared/lib/utils/zod-save-parse';
+import { RigTotalItem, RigTotalItemInfo, RigTotalItemPanel } from '@/entities/rig';
 import { Settings } from '@/features/rig/settings';
 import { UiSelect } from '@/shared/ui/ui-select';
 import { OnOpen } from '@/features/rig/on-open';
 import styles from './rigs.page.module.scss';
 import { match } from 'ts-pattern';
 import _ from 'lodash';
+import { useRigsQuery } from '@/entities/rig/model/rigs.query';
+import { UiSpinner } from '@/shared/ui/ui-spinner';
 
 export function RigsPage() {
   const options = [
@@ -14,9 +15,7 @@ export function RigsPage() {
     'Watt',
   ]
 
-  // ws connetion
-  const rig: RigTotal[] | undefined = undefined
-  const validatedData = ZodSaveParse(rig, RigTotal.array())
+  const { rigsList, isLoading } = useRigsQuery();
 
   return (
     <div className={styles['rigs-page']}>
@@ -27,25 +26,32 @@ export function RigsPage() {
         placeholder='Sort by' 
         selectedOnChange={(selected) => console.log(selected)}
       />
-      {match(validatedData)
-        .with(undefined, () => <div className={styles['no-data']}>N/A</div>)
-        .otherwise((rig) => {
-          return _.map(rig, (rig) => (
-            <RigTotalItem 
-              key={rig.index}
-              className={styles['rig-total-item']}
-              rig={rig}
-              withFeatures={true}
-              renderItemPanel={(rig, isOpen) => 
-                <RigTotalItemPanel 
-                  rig={rig} 
-                  isOpen={isOpen}
-                  renderOnOpen={(isOpen) => <OnOpen isOpen={isOpen}/>}
-                  renderSetting={(id) => <Settings id={id} />}
-                />} 
-              renderItemInfo={(rig) => rig && <RigTotalItemInfo rig={rig} />}
-            />
-          ))
+      {match(isLoading)
+        .with(true, () => <UiSpinner />)
+        .otherwise(() => {
+          if (!rigsList || rigsList.length === 0) return <div className={styles['no-data']}>N/A</div>;
+
+          return _.map(rigsList, (rig) => {
+            if (!rig) return undefined;
+            
+            return (
+              <RigTotalItem 
+                key={rig.id}
+                className={styles['rig-total-item']}
+                rig={rig}
+                withFeatures={true}
+                renderItemPanel={(rig, isOpen, withFeatures) => 
+                  <RigTotalItemPanel 
+                    rig={rig} 
+                    isOpen={isOpen}
+                    withFeatures={withFeatures}
+                    renderOnOpen={(isOpen) => <OnOpen isOpen={isOpen}/>}
+                    renderSetting={(id) => <Settings id={id} />}
+                  />} 
+                renderItemInfo={(rig) => rig && <RigTotalItemInfo rig={rig} />}
+              />
+            )
+          })
         })}
     </div>
   )
