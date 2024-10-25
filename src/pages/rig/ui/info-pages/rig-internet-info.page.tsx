@@ -9,12 +9,14 @@ import { ZodSaveParse } from '@/shared/lib/utils/zod-save-parse'
 import { match } from 'ts-pattern'
 import { RigTotalItemInternetInfo } from '@/entities/rig'
 import { UiSpinner } from '@/shared/ui/ui-spinner'
+import _ from 'lodash'
+import React from 'react'
 
 export function RigInternetInfoPage() {
   const { rigId } = useParams()
   const { data, isLoading } = useQuery(['rigInternetInfo', rigId], () => getRigInternetApi(rigId ?? ''))
 
-  const validatedData = ZodSaveParse(data, RigInternetInfo)
+  const validatedData = ZodSaveParse(data, RigInternetInfo.array().optional())
 
   return (
     <UiBorderBox className={styles['rig-internet-info']}>
@@ -24,7 +26,12 @@ export function RigInternetInfoPage() {
             <div className={styles['no-data']}>
               {isLoading ? <UiSpinner /> : 'N/A'}
             </div>)
-          .otherwise((validatedData) => <RigTotalItemInternetInfo rigInternet={validatedData} />)}
+          .otherwise((validatedData) => _.map(validatedData, (rigInternetInfo, index) => (
+            <React.Fragment key={rigInternetInfo.id}>
+              <RigTotalItemInternetInfo rigInternetInfo={rigInternetInfo} />
+              {index !== validatedData.length - 1 && <div className={styles['divider']}/>}
+            </React.Fragment>
+          )))}
       </UiBgContainer>
     </UiBorderBox>
   )

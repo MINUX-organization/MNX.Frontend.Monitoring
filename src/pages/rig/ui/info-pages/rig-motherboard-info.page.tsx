@@ -13,7 +13,7 @@ export function RigMotherboardInfoPage() {
   const { rigId } = useParams();
   const { data, isLoading } = useQuery(['rigMotherboardInfo', rigId], () => getRigMotherboardApi(rigId));
   
-  const validatedData = ZodSaveParse(data, RigMotherboardInfo);
+  const validatedData = ZodSaveParse(data, RigMotherboardInfo.optional());
 
   return (
     <UiBorderBox className={styles['rig-motherboard-info']}>

@@ -7,14 +7,14 @@ import { match } from "ts-pattern";
 import { useParams } from "react-router";
 import { useQuery } from "react-query";
 import { ZodSaveParse } from "@/shared/lib/utils/zod-save-parse";
-import { getRigHddsListApi } from "@/shared/api/get/getRigHddsList";
+import { getRigDrivesListApi } from "@/shared/api/get/getRigDrivesList";
 import { UiSpinner } from "@/shared/ui/ui-spinner";
 
 export function RigHddsInfoPage() {
   const { rigId } = useParams();
-  const { data, isLoading } = useQuery(['rigHddsInfo', rigId], () => getRigHddsListApi(rigId ?? ''));
+  const { data, isLoading } = useQuery(['rigHddsInfo', rigId], () => getRigDrivesListApi(rigId ?? ''));
 
-  const validatedData = ZodSaveParse(data, RigHddInfo.array());
+  const validatedData = ZodSaveParse(data, RigHddInfo.array().optional());
 
   return (
     <UiBorderBox className={styles['rig-hdds-info']}>

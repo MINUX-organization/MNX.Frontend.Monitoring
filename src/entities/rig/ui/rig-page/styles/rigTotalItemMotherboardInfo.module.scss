@@ -3,6 +3,10 @@
   grid-template-columns: auto 1fr;
   gap: 1.875rem;
 
+  .table {
+    width: 15rem;
+  }
+
   .motherboard {
     display: flex;
     flex-direction: column;

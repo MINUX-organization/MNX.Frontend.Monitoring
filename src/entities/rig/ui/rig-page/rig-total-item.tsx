@@ -3,6 +3,7 @@ import styles from './styles/rigTotalItem.module.scss';
 import { RigTotal } from "../../model/types";
 import { ReactNode } from "react";
 import clsx from 'clsx';
+import { UiResizableBox } from '@/shared/ui/ui-resizable-box';
 
 
 export function RigTotalItem({
@@ -17,7 +18,8 @@ export function RigTotalItem({
   withFeatures?: boolean;
   renderItemPanel?: (
     rig: RigTotal, 
-    setIsOpen: StateObject<boolean>
+    setIsOpen: StateObject<boolean>,
+    withFeatures?: boolean
   ) => ReactNode;
   renderItemInfo?: (rig?: RigTotal) => ReactNode;
 }) {
@@ -27,9 +29,16 @@ export function RigTotalItem({
     <div className={clsx(
       className,
       styles['rig-total-item']
-    )}> 
-      {renderItemPanel?.(rig, isOpen)} 
-      {isOpen.value && renderItemInfo?.(rig)} 
+    )}
+      onClick={() => {
+        if (!withFeatures) return;
+        isOpen.setValue((prev) => !prev)
+      }}
+    > 
+      {renderItemPanel?.(rig, isOpen, withFeatures)} 
+      <UiResizableBox trigger={isOpen.value}>
+        {renderItemInfo?.(rig)}
+      </UiResizableBox>
     </div>
   )
 }

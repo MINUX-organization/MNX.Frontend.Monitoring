@@ -10,20 +10,20 @@ export function RigTotalItemDevicesTable({
   rig: RigTotal;
 }) {
   const gpusLabelsList = [
-    {text: 'GPU', value: rig.gpusCount.total, color: 'white'},
-    {text: 'NVD', value: rig.gpusCount.nvidia, color: 'green'},
-    {text: 'AMD', value: rig.gpusCount.amd, color: 'red'},
-    {text: 'INT', value: rig.gpusCount.intel, color: 'blue'},
+    {text: 'GPU', value: rig.countDevices.totalGpusCount, color: 'white'},
+    {text: 'NVD', value: rig.countDevices.totalGpusCountGroupedByManufacturer['nvidia'] ?? 0, color: 'green'},
+    {text: 'AMD', value: rig.countDevices.totalGpusCountGroupedByManufacturer['amd'] ?? 0, color: 'red'},
+    {text: 'INT', value: rig.countDevices.totalGpusCountGroupedByManufacturer['intel'] ?? 0, color: 'blue'},
   ];
 
   const cpusLabelsList = [
-    {text: 'CPU', value: rig.cpusCount.total, color: 'white'},
-    {text: 'AMD', value: rig.cpusCount.amd, color: 'red'},
-    {text: 'INT', value: rig.cpusCount.intel, color: 'blue'},
+    {text: 'CPU', value: rig.countDevices.totalCpusCount, color: 'white'},
+    {text: 'AMD', value: rig.countDevices.totalCpusCountGroupedByManufacturer['amd'] ?? 0, color: 'red'},
+    {text: 'INT', value: rig.countDevices.totalCpusCountGroupedByManufacturer['intel'] ?? 0, color: 'blue'},
   ];
 
   const hddsLabelsList = [
-    {text: 'HDD', value: rig.hddsCount, color: 'white'},
+    {text: 'HDD', value: rig.countDevices.totalDrivesCount, color: 'white'},
   ];
 
   const fieldsList = [

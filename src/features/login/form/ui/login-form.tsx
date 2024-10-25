@@ -31,7 +31,7 @@ export function LoginForm({
   })
   
   const onSubmit: SubmitHandler<FormInput> = async (data) => {
-    const session = PRODUCTION_MODE ? await loginApi(data.login, data.password) : {
+    const session = true ? await loginApi(data.login, data.password) : {
       accessToken: 'string',
       refreshToken: 'string',
       refreshExpiration: new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toUTCString(),

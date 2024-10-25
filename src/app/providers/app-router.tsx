@@ -16,6 +16,7 @@ import { PoolsPage } from "@/pages/pools";
 import { PresetPage, SelectDevicePage } from "@/pages/preset";
 import { PresetModal } from "@/widgets/preset-modal";
 import { FlightSheetModal } from "@/widgets/flightsheet-modal";
+import { ProfilePage } from "@/pages/profile";
 
 const MonitoringPage = React.lazy(() => import("@/pages/monitoring").then(module => ({ default: module.MonitoringPage })));
 const GpusPage = React.lazy(() => import("@/pages/devices/GPUs").then(module => ({ default: module.GpusPage })));
@@ -200,6 +201,12 @@ const router = createBrowserRouter([
               <PoolsPage />
         ),
       },
+      {
+        path: ROUTER_PATHS.PROFILE,
+        element: (
+              <ProfilePage />
+        ),
+      }
     ],
   },
 ]);
