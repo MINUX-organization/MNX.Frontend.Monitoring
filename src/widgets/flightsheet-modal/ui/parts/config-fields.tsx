@@ -31,13 +31,13 @@ export function ConfigFields({
     <div className={styles['fields']}>
       <Controller
         control={control}
-        name={`target.${typeIndex}.configs.${index}.wallet`}
+        name={`targets.${typeIndex}.miningConfig.coinConfigs.${index}.wallet`}
         render={({ field : { onChange, value } }) => (
           <UiComboBox 
             className={className}
             options={wallets ?? []}
             title={`${type} Wallet ${index + 1}`}
-            getOptionLabel={(option) => option?.name ?? ''}
+            getOptionLabel={(option) => option.name && `${option.name} - ${option.cryptocurrency}`}
             selectedOption={value ?? {}}
             placeholder="Select wallet"
             selectedOnChange={onChange}
@@ -46,13 +46,13 @@ export function ConfigFields({
       />
       <Controller
         control={control}
-        name={`target.${typeIndex}.configs.${index}.pool`}
+        name={`targets.${typeIndex}.miningConfig.coinConfigs.${index}.pool`}
         render={({ field : { onChange, value } }) => (
           <UiComboBox
             className={className}
             options={pools ?? []}
             title={`${type} Pool ${index + 1}`}
-            getOptionLabel={(option) => option?.domain ?? ''}
+            getOptionLabel={(option) => option.domain && `${option.domain} - ${option.cryptocurrency}`}
             selectedOption={value ?? {}}
             placeholder="Select pool"
             selectedOnChange={onChange}
@@ -62,7 +62,8 @@ export function ConfigFields({
       <UiInput
         className={className}
         control={control}
-        name={`target.${typeIndex}.configs.${index}.poolPassword`}
+        name={`targets.${typeIndex}.miningConfig.coinConfigs.${index}.poolPassword`}
+        value={''}
         label='Pool password'
         placeholder='Write pool password'
       />

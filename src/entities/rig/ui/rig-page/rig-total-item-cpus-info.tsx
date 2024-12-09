@@ -1,4 +1,3 @@
-import { fromKeyToWord } from "@/shared/lib/utils/fromKeyToWord";
 import styles from './styles/rigTotalItemCpusInfo.module.scss'
 import { UiColumnBoard } from "@/shared/ui/ui-column-board";
 import { CpuSvg } from '@/shared/assets/images/cpu.tsx'
@@ -23,10 +22,10 @@ export function RigTotalItemCpusInfo({
   ]
 
   const clockingList = [
-    {label: 'Clock', value: rigCpuInfo.restrictions.clock.minimal + ' - ' + rigCpuInfo.restrictions.clock.maximal},
-    {label: 'Fan Speed', value: rigCpuInfo.restrictions.fanSpeed.minimal + ' - ' + rigCpuInfo.restrictions.fanSpeed.maximal},
-    {label: 'Temperature', value: rigCpuInfo.restrictions.temperature.minimal + ' - ' + rigCpuInfo.restrictions.temperature.maximal},
-    {label: 'Power', value: rigCpuInfo.restrictions.power.minimal + ' - ' + rigCpuInfo.restrictions.power.maximal},
+    {label: 'Clock', value: rigCpuInfo.restrictions.clock.minimal + ' - ' + rigCpuInfo.restrictions.clock.maximal, measureUnit: 'MHz'},
+    {label: 'Fan Speed', value: rigCpuInfo.restrictions.fanSpeed.minimal + ' - ' + rigCpuInfo.restrictions.fanSpeed.maximal, measureUnit: '%'},
+    {label: 'Temperature', value: rigCpuInfo.restrictions.temperature.minimal + ' - ' + rigCpuInfo.restrictions.temperature.maximal, measureUnit: '°C'},
+    {label: 'Power', value: rigCpuInfo.restrictions.power.minimal + ' - ' + rigCpuInfo.restrictions.power.maximal, measureUnit: 'W'},
   ]
 
   const cacheList = [

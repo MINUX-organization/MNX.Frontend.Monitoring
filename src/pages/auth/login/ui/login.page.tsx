@@ -1,4 +1,4 @@
-import { LoginForm } from '@/features/login/form'
+import { LoginForm } from '@/features/auth/login/form'
 import styles from './login.module.scss'
 import { useEffect } from 'react'
 import { useSessionRepository } from '@/entities/session'

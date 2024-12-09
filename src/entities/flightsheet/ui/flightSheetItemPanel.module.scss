@@ -23,8 +23,7 @@
 
   .config-grid {
     display: grid;
-    
-    font-size: var(--font-size-14px);
+
     grid-template-columns: repeat(3, minmax(8rem, 10rem));
     row-gap: .35rem;
     column-gap: 2rem;
@@ -48,7 +47,6 @@
   }
 
   .miner-support {
-    font-size: var(--font-size-14px);
     display: flex;
     align-self: center;
     flex-direction: column;

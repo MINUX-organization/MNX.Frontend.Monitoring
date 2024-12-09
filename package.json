@@ -26,7 +26,6 @@
     "react-hook-form": "^7.50.1",
     "react-query": "^3.39.3",
     "react-router-dom": "^6.21.3",
-    "react-signalr": "^0.2.19",
     "react-slider": "^2.0.6",
     "sass": "^1.70.0",
     "ts-pattern": "5.3.1",

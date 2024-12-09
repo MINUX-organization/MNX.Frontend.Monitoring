@@ -66,5 +66,6 @@ export const RigGpuInfo = z.object({
   pci: GpuPci,
   information: GpuInformation,
   restrictions: GpuRestrictions,
+  driverVersion: z.string({invalid_type_error: 'DriverVersion must be a string'}).nullable(),
 })
 export type RigGpuInfo = z.infer<typeof RigGpuInfo>

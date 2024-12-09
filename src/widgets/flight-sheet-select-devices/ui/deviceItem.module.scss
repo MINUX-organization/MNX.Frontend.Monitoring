@@ -1,0 +1,40 @@
+.device-item {
+  min-width: 12.5rem;
+  display: grid;
+  gap: .5rem;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+
+  .header {
+    grid-column: span 2 / 3;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    justify-content: space-between;
+
+    .id {
+      width: 2.5rem;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .name-switch {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+  }
+
+  .info {
+    display: flex;
+    justify-items: flex-end;
+    gap: .25rem;
+    flex-direction: column;
+  }
+
+  .gpu-icon {
+    justify-self: flex-end;
+    align-self: flex-end;
+  }
+}

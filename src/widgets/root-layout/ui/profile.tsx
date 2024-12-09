@@ -1,4 +1,4 @@
-import { LogoutButton } from "@/features/login/logout";
+import { LogoutButton } from "@/features/auth/login/logout";
 import { UiBgContainer } from "@/shared/ui/ui-bg-container";
 import { UiBorderBox } from "@/shared/ui/ui-border-box";
 import styles from './profile.module.scss';

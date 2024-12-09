@@ -1,3 +1,5 @@
 .flightsheet-list {
-  
+  display: flex;
+  flex-direction: column;
+  gap: .625rem;
 }

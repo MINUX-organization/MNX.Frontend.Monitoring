@@ -18,7 +18,7 @@ export function UiInput<T extends FieldValues>({
   placeholder,
   ...props
 } : UiInputProps<T>) {
-  const { field } = useController(props);
+  const { field } = useController({ defaultValue: '' as any, ...props });
   
   return (
     <div className={clsx(className, styles['input'])} {...props}>
@@ -26,7 +26,7 @@ export function UiInput<T extends FieldValues>({
       <UiBorderBox className={clsx(styles['input-container'], props.disabled && styles['disabled'])}>
         <UiBgContainer className={styles['padding-flex']} color={color ?? 'opaque'}>
           <input 
-            {...field} 
+            {...field}
             className={styles['padding-input']}
             autoComplete="off"
             type={props.type} 

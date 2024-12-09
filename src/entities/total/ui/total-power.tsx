@@ -3,14 +3,15 @@ import { UiBorderBox } from "@/shared/ui/ui-border-box";
 import styles from './totalPower.module.scss';
 import clsx from "clsx";
 import React from "react";
-import { TotalPower as type } from "../model/types";
+import { TotalPower as Type } from "../model/types";
+import { match } from "ts-pattern";
 
 function TotalPower({
   className,
   value
 } : {
   className?: string;
-  value?: type;
+  value?: Type;
 }) {
   return (
     <UiBorderBox withPadding className={clsx(
@@ -19,9 +20,14 @@ function TotalPower({
     )}>
       <UiBgContainer className={styles['container']} color="opaque">
         <span>Total Power</span>
-        <span>{value?.value ?? 'N/A'}
-          {value && <span className={styles['measure']}>&nbsp;{value?.measureUnit}</span>}
-        </span>
+        {match(value)
+          .with(undefined, () => <span>N/A</span>)
+          .otherwise((value) => (
+            <span>
+              {value}
+              <span className={styles['measure']}>W</span>
+            </span>
+          ))}
       </UiBgContainer>
     </UiBorderBox>
   )

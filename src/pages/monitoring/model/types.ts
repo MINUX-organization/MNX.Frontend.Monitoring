@@ -1,44 +1,11 @@
-type TotalDataType =
-  "TotalCoinsList"          |
-  "TotalShares"             |
-  "TotalPower"              |
-  "TotalRigsCount"          |
-  "TotalGpusCount"          |
-  "TotalCpusCount"
-
-export type TriggerTotalData = {
-  type: TotalDataType;
-  newData: unknown;
-}
-
-type ChartCoinDataType = 
-  'ChartCoinsList'  | 
-  'ChartCoinValue'
-
-export type TriggerChartCoinData = {
-  type: ChartCoinDataType;
-  newData: unknown;
-}
-
-export type TriggerRigData = {
-  rigId: string;
-  newData: unknown;
-}
-
-type RigDataType = 
-"Name"          |
-"GpuState"      |
-"ActiveState"   |
-"OnlineState"   |
-"LocalIp"       |
-"MinuxVersion"  |
-"NvidiaCount"   |
-"AmdCount"      |
-"IntelCount"    |
-"FlightSheet"
-
-export type TriggerRigDataStatic = {
-  rigId: string;
-  type: RigDataType;
-  newData: unknown;
-}
+export const SUBSCRIPTION_TYPES = {
+  GeneralMiningRigsIndicators: "GeneralMiningRigsIndicators",
+  CpusHardwareIndicators: "CpusHardwareIndicators",
+  GpusHardwareIndicators: "GpusHardwareIndicators",
+  CpusMiningIndicators: "CpusMiningIndicators",
+  GpusMiningIndicators: "GpusMiningIndicators",
+  TotalPower: "TotalPower",
+  TotalShares: "TotalShares",
+  TotalHashRate: "TotalHashRate",
+  TotalCoinsStatistics: "TotalCoinsStatistics",
+} as const

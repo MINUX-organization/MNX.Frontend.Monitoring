@@ -1,37 +1,35 @@
-import { UiInput } from "@/shared/ui/ui-input";
-import { SubmitHandler, useForm } from "react-hook-form";
-import styles from './loginForm.module.scss';
-import clsx from "clsx";
 import { UiButton } from "@/shared/ui/ui-button";
+import { UiInput } from "@/shared/ui/ui-input";
+import styles from './registrationForm.module.scss';
+import clsx from "clsx";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { registrationApi } from "@/shared/api/auth/registration";
 import { useSessionRepository } from "@/entities/session";
-import { useLocation, useNavigate } from "react-router";
-import { loginApi } from "@/shared/api/auth/login";
-import { PRODUCTION_MODE } from "@/shared/constants/production-mode";
+import { useNavigate } from "react-router";
+import { ROUTER_PATHS } from "@/shared/constants/routes";
 
 export type FormInput = {
   login: string;
   password: string;
 }
 
-export function LoginForm({
-  className
+export function RegistrationForm({
+  className,
 } : {
   className?: string;
 }) {
-  const navigate = useNavigate();
-  const location = useLocation();
-  
-  const { saveSession } = useSessionRepository();
-
   const { control, handleSubmit } = useForm<FormInput>({
     defaultValues: {
       login: "",
       password: ""
     },
   })
-  
+
+  const { saveSession } = useSessionRepository();
+  const navigate = useNavigate();
+
   const onSubmit: SubmitHandler<FormInput> = async (data) => {
-    const session = true ? await loginApi(data.login, data.password) : {
+    const session = true ? await registrationApi(data.login, data.password) : {
       accessToken: 'string',
       refreshToken: 'string',
       refreshExpiration: new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toUTCString(),
@@ -39,8 +37,7 @@ export function LoginForm({
 
     saveSession(session);
     
-    const { from } = location.state || { from: "/" };
-    navigate(from);
+    navigate(ROUTER_PATHS.MONITORING);
   }
 
   return (
@@ -49,14 +46,16 @@ export function LoginForm({
       styles['form']
     )} onSubmit={handleSubmit(onSubmit)}>
       <UiInput 
-        control={control} 
+        control={control}
+        className={styles['input']}
         name="login"
         color="opaqueBlack"
         rules={{ required: true }}
         label="Login" 
         placeholder="Your login"/>
       <UiInput 
-        control={control} 
+        control={control}
+        className={styles['input']}
         name="password"
         type="password"
         color="opaqueBlack"
@@ -64,7 +63,7 @@ export function LoginForm({
         label="Password" 
         placeholder="Your password"/>
       <UiButton className={styles['button']} color="blue" type="submit">
-        Login
+        Signup
       </UiButton>
     </form>
   )

@@ -28,7 +28,7 @@ export function PresetPage() {
           renderEdit={(id) => <EditPresetButton presetId={id} isNavigate/>}
           renderDelete={(id, preset) => <DeletePresetButton presetId={id} preset={preset}/>}
         />
-      ))}
+      ))} 
       <Outlet />
     </div>
   )

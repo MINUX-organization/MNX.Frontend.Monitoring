@@ -4,7 +4,7 @@ import { UiActiveState } from "@/shared/ui/ui-active-state";
 import { UiBgContainer } from "@/shared/ui/ui-bg-container";
 import { UiBorderBox } from "@/shared/ui/ui-border-box";
 import styles from './flightSheetItemPanel.module.scss';
-import { Config, Miner } from "../modal/types";
+import { CoinConfig, Miner } from "../modal/types";
 import _ from "lodash";
 import React from "react";
 
@@ -20,23 +20,23 @@ export function FlightSheetItemPanel({
   isOpen: StateObject<boolean>;
 } & FlightSheetItemProps) {
   const features = renderApply || renderEdit || renderDelete;
-  const gpuMiner = _.find(flightSheet?.target, (target) => target.$type === 'GPU')?.miner;
-  const cpuMiner = _.find(flightSheet?.target, (target) => target.$type === 'CPU')?.miner;
+  const gpuMiner = _.find(flightSheet?.targets, (targets) => targets.miningConfig.$type === 'GPU')?.miner;
+  const cpuMiner = _.find(flightSheet?.targets, (targets) => targets.miningConfig.$type === 'CPU')?.miner;
 
   return (
     <UiBorderBox onClick={() => isOpen.setValue((prev) => !prev)} className={styles['flight-sheet-item-panel']} withPadding>
       <UiBgContainer className={styles['flight-sheet-item-panel-container']} color="opaque">
         <span className={styles['name']}>
-          <UiActiveState className={styles['icon']}/>
+          {/* <UiActiveState className={styles['icon']}/> */}
           {flightSheet?.name}
         </span>
         <div className={styles['config-grid']}>
-          {_.map(flightSheet?.target, (target) => {
-            if (target.$type === 'CPU')
-              return renderConfigs(target.configs, 'CPU');
+          {_.map(flightSheet?.targets, (targets) => {
+            if (targets.miningConfig.$type === 'CPU')
+              return renderConfigs(targets.miningConfig.coinConfigs, 'CPU');
             
-            if (target.$type === 'GPU')  
-              return renderConfigs(target.configs, 'GPU');
+            if (targets.miningConfig.$type === 'GPU')  
+              return renderConfigs(targets.miningConfig.coinConfigs, 'GPU');
           })}
         </div>
         <div className={styles['miner-support']}>
@@ -59,18 +59,20 @@ export function FlightSheetItemPanel({
 const renderMiners = (miners: {miner: Miner | undefined, label: string}[]) => {
   return (
     <div className={styles['miner-support']}>
-      {_.map(miners, ({miner, label}) => (
-        <span key={label}>
-          <span className={styles['blue']}>{label}</span>
-          &nbsp;{miner?.name ?? 'N/A'}&nbsp;
-          <span className={styles['gray']}>{miner?.version}</span>
-        </span>
-      ))}
+      {_.map(miners, ({miner, label}) => {
+        return miner?.version && (
+          <span key={label}>
+            <span className={styles['blue']}>{label}</span>
+            &nbsp;{miner?.name ?? 'N/A'}&nbsp;
+            <span className={styles['gray']}>{miner?.version}</span>
+          </span>
+        )
+      })}
     </div>
   )
 }
 
-const renderConfigs = (configs: Config[], label: string) => {
+const renderConfigs = (configs: CoinConfig[], label: string) => {
   return Object.entries(configs).map(([_keyId, config], key) => (
     <React.Fragment key={`${config.pool.id}-${config.wallet.id}-${config.pool.cryptocurrency}-${key}`}>
       <div className={styles['field']}>

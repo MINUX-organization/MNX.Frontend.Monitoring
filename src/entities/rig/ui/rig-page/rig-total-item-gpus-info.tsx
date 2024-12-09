@@ -13,25 +13,27 @@ export function RigTotalItemGpusInfo({
   rigGpuInfo: RigGpuInfo;
 }) {
   const overclockingFieldsList = [
-    {label: 'Core clock offset', value: rigGpuInfo.restrictions.clock.core.offset.minimal + ' - ' + rigGpuInfo.restrictions.clock.core.offset.maximal},
-    {label: 'Core clock lock', value: rigGpuInfo.restrictions.clock.core.lock.minimal + ' - ' + rigGpuInfo.restrictions.clock.core.lock.maximal},
-    {label: 'Memory clock offset', value: rigGpuInfo.restrictions.clock.memory.offset.minimal + ' - ' + rigGpuInfo.restrictions.clock.memory.offset.maximal},
-    {label: 'Memory clock lock', value: rigGpuInfo.restrictions.clock.memory.lock.minimal + ' - ' + rigGpuInfo.restrictions.clock.memory.lock.maximal},
-    {label: 'Core voltage offset', value: rigGpuInfo.restrictions.voltage.core.offset.minimal + ' - ' + rigGpuInfo.restrictions.voltage.core.offset.maximal},
-    {label: 'Core voltage lock', value: rigGpuInfo.restrictions.voltage.core.lock.minimal + ' - ' + rigGpuInfo.restrictions.voltage.core.lock.maximal},
+    {label: 'Core clock offset', value: rigGpuInfo.restrictions.clock.core.offset.minimal + ' - ' + rigGpuInfo.restrictions.clock.core.offset.maximal, measureUnit: 'MHz'},
+    {label: 'Core clock lock', value: rigGpuInfo.restrictions.clock.core.lock.minimal + ' - ' + rigGpuInfo.restrictions.clock.core.lock.maximal, measureUnit: 'MHz'},
+    {label: 'Memory clock offset', value: rigGpuInfo.restrictions.clock.memory.offset.minimal + ' - ' + rigGpuInfo.restrictions.clock.memory.offset.maximal, measureUnit: 'MHz'},
+    {label: 'Memory clock lock', value: rigGpuInfo.restrictions.clock.memory.lock.minimal + ' - ' + rigGpuInfo.restrictions.clock.memory.lock.maximal, measureUnit: 'MHz'},
+    {label: 'Core voltage offset', value: rigGpuInfo.restrictions.voltage.core.offset.minimal + ' - ' + rigGpuInfo.restrictions.voltage.core.offset.maximal, measureUnit: 'mV'},
+    {label: 'Core voltage lock', value: rigGpuInfo.restrictions.voltage.core.lock.minimal + ' - ' + rigGpuInfo.restrictions.voltage.core.lock.maximal, measureUnit: 'mV'},
+    {label: 'Memory voltage offset', value: rigGpuInfo.restrictions.voltage.memory.offset.minimal + ' - ' + rigGpuInfo.restrictions.voltage.memory.offset.maximal, measureUnit: 'mV'},
+    {label: 'Memory voltage lock', value: rigGpuInfo.restrictions.voltage.memory.lock.minimal + ' - ' + rigGpuInfo.restrictions.voltage.memory.lock.maximal, measureUnit: 'mV'},
   ]
 
   const parametersFieldsList = [
-    {label: 'Power', value: rigGpuInfo.restrictions.power.minimal + ' - ' + rigGpuInfo.restrictions.power.maximal},
-    {label: 'Fan Speed', value: rigGpuInfo.restrictions.fanSpeed.minimal + ' - ' + rigGpuInfo.restrictions.fanSpeed.maximal},
-    {label: 'Temperature', value: rigGpuInfo.restrictions.temperature.core.minimal + ' - ' + rigGpuInfo.restrictions.temperature.core.maximal},
+    {label: 'Power', value: rigGpuInfo.restrictions.power.minimal + ' - ' + rigGpuInfo.restrictions.power.maximal, measureUnit: 'W'},
+    {label: 'Fan Speed', value: rigGpuInfo.restrictions.fanSpeed.minimal + ' - ' + rigGpuInfo.restrictions.fanSpeed.maximal, measureUnit: '%'},
+    {label: 'Temperature', value: rigGpuInfo.restrictions.temperature.core.minimal + ' - ' + rigGpuInfo.restrictions.temperature.core.maximal, measureUnit: '°C'},
   ]
 
   const informationFieldsList = [
     {label: 'PCI Bus ID', value: rigGpuInfo.pci.id},
     {label: 'Serial Number', value: rigGpuInfo.information.serialNumber},
     {label: 'Memory', value: rigGpuInfo.information.memory.total, measureUnit: 'GB'},
-    {label: 'Driver Ver.', value: rigGpuInfo.information.biosVersion},
+    {label: 'Driver Ver.', value: rigGpuInfo.driverVersion},
     {
       label:  rigGpuInfo.information.technology.type,
       value: `${rigGpuInfo.information.technology.version} Ver.`,

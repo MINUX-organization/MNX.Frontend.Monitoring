@@ -1,1 +1,0 @@
-export const PRODUCTION_MODE = import.meta.env.PROD;

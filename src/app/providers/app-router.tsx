@@ -9,7 +9,7 @@ import PrivateRoute from "../guards/private-route";
 import { RootLayout } from "@/widgets/root-layout";
 import { ROUTER_PATHS } from "@/shared/constants/routes";
 import { UiSpinner } from "@/shared/ui/ui-spinner";
-import { LoginPage } from "@/pages/login";
+import { LoginPage } from "@/pages/auth/login";
 import { CryptosPage } from "@/pages/cryptos";
 import { WalletsPage } from "@/pages/wallets";
 import { PoolsPage } from "@/pages/pools";
@@ -17,6 +17,10 @@ import { PresetPage, SelectDevicePage } from "@/pages/preset";
 import { PresetModal } from "@/widgets/preset-modal";
 import { FlightSheetModal } from "@/widgets/flightsheet-modal";
 import { ProfilePage } from "@/pages/profile";
+import { BACKEND_HUBS } from "@/shared/constants/backend-urls";
+import { WebsocketContextProvider } from "@/widgets/providers";
+import { RegistrationPage } from "@/pages/auth/registration";
+import { FlightSheetSelectDevicesPage } from "@/pages/flightsheets";
 
 const MonitoringPage = React.lazy(() => import("@/pages/monitoring").then(module => ({ default: module.MonitoringPage })));
 const GpusPage = React.lazy(() => import("@/pages/devices/GPUs").then(module => ({ default: module.GpusPage })));
@@ -35,6 +39,12 @@ const router = createBrowserRouter([
     path: ROUTER_PATHS.LOGIN,
     element: (
         <LoginPage />
+    ),
+  },
+  {
+    path: ROUTER_PATHS.SIGNUP,
+    element: (
+        <RegistrationPage />
     ),
   },
   {
@@ -57,7 +67,9 @@ const router = createBrowserRouter([
         path: ROUTER_PATHS.MONITORING,
         element: (
             <React.Suspense fallback={<UiSpinner />}>
-              <MonitoringPage />
+              <WebsocketContextProvider url={BACKEND_HUBS.MONITORING} token={''}>
+                <MonitoringPage />
+              </WebsocketContextProvider>
             </React.Suspense>
         ),
       },
@@ -164,6 +176,12 @@ const router = createBrowserRouter([
         ]
       },
       {
+        path: ROUTER_PATHS.SELECT_FLIGHT_SHEET_DEVICES,
+        element: (
+          <FlightSheetSelectDevicesPage />
+        )
+      },
+      {
         path: ROUTER_PATHS.PRESETS,
         element: (
               <PresetPage />
@@ -175,10 +193,11 @@ const router = createBrowserRouter([
                 <PresetModal />
             ),
           },
+
         ],
       },
       {
-        path: ROUTER_PATHS.SELECT_DEVICE,
+        path: ROUTER_PATHS.SELECT_PRESET_DEVICE,
         element: (
             <SelectDevicePage />
         ),

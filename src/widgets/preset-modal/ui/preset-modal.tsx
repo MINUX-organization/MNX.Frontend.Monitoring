@@ -9,100 +9,10 @@ import { PresetParametersGpu } from "./preset-parameters/preset-parameters-gpu";
 import { Preset, usePresetRepository } from "@/entities/preset";
 import { PresetParametersConfig } from "./preset-parameters";
 import { usePresetStateStore } from "../model";
-import { GpuRestrictions, useGpusListQuery } from "@/entities/devices/gpu";
+import { useGpusListQuery } from "@/entities/devices/gpu";
 import { State } from "../model/preset-state.store";
 import { getGpuRestrictions } from "@/shared/api/get/getGpuRestrictions";
 import { useQuery } from "react-query";
-import { PRODUCTION_MODE } from "@/shared/constants/production-mode";
-
-const gpuRestrictionsMock: GpuRestrictions = {
-  power: {
-    minimal: 0,
-    maximal: 100,
-    isWritable: true,
-    default: 50
-  },
-  fanSpeed: {
-    minimal: 0,
-    maximal: 100,
-    isWritable: true,
-    default: 50
-  },
-  temperature: {
-    core: {
-      minimal: 0,
-      maximal: 100,
-      isWritable: true,
-      default: 50
-    },
-    memory: {
-      minimal: 0,
-      maximal: 100,
-      isWritable: true,
-      default: 50
-    }
-  },
-  voltage: {
-    core: {
-      lock: {
-        minimal: 0,
-        maximal: 100,
-        isWritable: true,
-        default: 50
-      },
-      offset: {
-        minimal: -50,
-        maximal: 50,
-        isWritable: true,
-        default: 0
-      }
-    },
-    memory: {
-      lock: {
-        minimal: 0,
-        maximal: 100,
-        isWritable: true,
-        default: 50
-      },
-      offset: {
-        minimal: -50,
-        maximal: 50,
-        isWritable: true,
-        default: 0
-      }
-    }
-  },
-  clock: {
-    core: {
-      lock: {
-        minimal: 0,
-        maximal: 100,
-        isWritable: true,
-        default: 50
-      },
-      offset: {
-        minimal: -50,
-        maximal: 50,
-        isWritable: true,
-        default: 0
-      }
-    },
-    memory: {
-      lock: {
-        minimal: 0,
-        maximal: 100,
-        isWritable: true,
-        default: 50
-      },
-      offset: {
-        minimal: -50,
-        maximal: 50,
-        isWritable: true,
-        default: 0
-      }
-    }
-  }
-}
 
 export function PresetModal() {
   const { isOpen, onOpen } = useModal();
@@ -183,18 +93,16 @@ const RenderParameters = ({
   selectedGpuName?: string;
 }) => {
   const { data: gpuRestrictions } = useQuery(['gpuRestrictions'], () => getGpuRestrictions(selectedGpuName ?? ''));
-
-  const data_mock = PRODUCTION_MODE ? gpuRestrictions : gpuRestrictionsMock
-
-  const haseData = presetId && selectedPreset && data_mock;
-  const haseGpuData = selectedGpuName && data_mock;
+  
+  const haseData = presetId && selectedPreset && gpuRestrictions;
+  const haseGpuData = selectedGpuName && gpuRestrictions;
 
   if (gpuId) return <PresetParametersGpu className={className} gpuId={gpuId}/>
 
   if (haseData || haseGpuData)
     return <PresetParametersConfig 
       className={className} 
-      gpuRestrictions={data_mock} 
+      gpuRestrictions={gpuRestrictions} 
       selectedPreset={selectedPreset}/>
 
   return <></>

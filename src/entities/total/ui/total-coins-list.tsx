@@ -41,8 +41,8 @@ function TotalCoinValue({
           <div key={value.coin} className={styles['subgrid']}>
             <span>{value.coin}</span>
             <span>{value.algorithm}</span>
-            <span>{value.hashrate.value}&nbsp;
-              <span className={styles['measure']}>{value.hashrate.measureUnit}</span>
+            <span>{value.hashrate}&nbsp;
+              <span className={styles['measure']}>{"W"}</span>
             </span>
             <span className={styles['accepted']}>{value.shares.accepted}</span>
             <span className={styles['rejected']}>{value.shares.rejected}</span>  

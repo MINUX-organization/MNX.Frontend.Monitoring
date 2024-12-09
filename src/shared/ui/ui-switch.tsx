@@ -7,16 +7,18 @@ import { Check } from "lucide-react";
 export function UiSwitch({
   className,
   checked,
-  setChecked
+  setChecked,
+  size = 22,
 } : {
   className?: string;
   checked?: boolean;
   setChecked?: (enabled: boolean) => void;
+  size?: number
 }) {
   return (
     <Switch checked={checked} onChange={setChecked} className={clsx(className, styles['switch'])}>
       <UiBorderBox className={clsx(styles['switch-container'])}>
-        {checked && <Check size={22} className={styles['check']}/>}
+        {checked && <Check size={size} className={styles['check']}/>}
       </UiBorderBox>
     </Switch>
   )

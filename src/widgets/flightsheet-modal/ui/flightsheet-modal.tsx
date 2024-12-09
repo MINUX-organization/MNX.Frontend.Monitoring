@@ -14,10 +14,14 @@ import { Target, useFlightSheetRepository } from "@/entities/flightsheet";
 import clsx from "clsx";
 import { UiButton } from "@/shared/ui/ui-button";
 import _ from "lodash";
+import { useWalletRepository } from "@/entities/wallet";
+import { usePoolRepository } from "@/entities/pool";
+import { useMinerRepository } from "@/entities/miner";
+import { mapFlightSheet } from "../utils/map-flight-sheet";
 
 export type FormInput = {
   name: string
-  target: Target[],
+  targets: Target[],
 }
 
 export function FlightSheetModal() {
@@ -29,50 +33,54 @@ export function FlightSheetModal() {
   const gpuTarget = useStateObject(false);
   const cpuTarget = useStateObject(false);
 
+  const { getWalletsList } = useWalletRepository();
+  const { getPoolsList } = usePoolRepository();
+  const { minersList } = useMinerRepository();
+  
   const flightSheetId = queryParams.get('flightSheetId');
   
-  const { control, handleSubmit, reset, watch, setValue } = useForm<FormInput>({
+  const { control, handleSubmit, watch, setValue } = useForm<FormInput>({
     defaultValues: {
       name: '',
-      target: [],
+      targets: [],
     }
   });
 
   const onSubmit: SubmitHandler<FormInput> = async (data) => {
+    const postFlightSheet = mapFlightSheet(gpuTarget.value, cpuTarget.value, data);
+
     if (flightSheetId) {
-      const status = await editFlightSheet(flightSheetId, data);
-
+      const status = await editFlightSheet(flightSheetId, postFlightSheet);
       if (!status) return;
-
       navigate('..')
       return;
     };
-    
-    const status = await addFlightSheet(data);
 
+    const status = await addFlightSheet(postFlightSheet);
     if (!status) return;
-
-    reset();
+    navigate('..')
   }; 
 
   useEffect(() => {
     if (!flightSheetId) return;
-    
+
     const flightSheet = _.find(flightSheetsList, (flightSheet) => flightSheet.id === flightSheetId);
 
     if (!flightSheet) return;
 
-    _.forEach(flightSheet.target, (target) => {
-      if (target.$type === 'GPU') gpuTarget.setValue(true);
-      if (target.$type === 'CPU') cpuTarget.setValue(true);
+    _.forEach(flightSheet.targets, (targets) => {
+      if (targets.miningConfig.$type === 'GPU') gpuTarget.setValue(true);
+      if (targets.miningConfig.$type === 'CPU') cpuTarget.setValue(true);
     })
 
     setValue('name', flightSheet.name);
-    setValue('target', flightSheet.target);
+    setValue('targets', flightSheet.targets);
   }, [flightSheetId])
 
   useEffect(() => {
     onOpen();
+    setValue('targets.0.miningConfig.$type', "CPU");
+    setValue('targets.1.miningConfig.$type', "GPU");
   })
 
   return (
@@ -87,8 +95,8 @@ export function FlightSheetModal() {
             )} 
             contentClassName={styles['target-part']}
           >
-            {gpuTarget.value && <TargetPart control={control} watch={watch} type="GPU"/>}
-            {cpuTarget.value && <TargetPart control={control} watch={watch} type="CPU"/>}
+            {gpuTarget.value && <TargetPart control={control} watch={watch} miners={minersList} wallets={getWalletsList()} pools={getPoolsList()} type="GPU"/>}
+            {cpuTarget.value && <TargetPart control={control} watch={watch} miners={minersList} wallets={getWalletsList()} pools={getPoolsList()} type="CPU"/>}
           </UiResizableBox>
           <div className={styles['buttons']}>
             {

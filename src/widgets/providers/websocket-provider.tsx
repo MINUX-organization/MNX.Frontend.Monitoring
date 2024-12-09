@@ -1,6 +1,6 @@
 import { WebsocketContext } from "@/shared/lib/context/websocket-context";
-import { HttpTransportType } from "@microsoft/signalr";
-import { ReactNode } from "react";
+import { HubConnectionBuilder, HttpTransportType } from "@microsoft/signalr";
+import { ReactNode, useContext, useEffect } from "react";
 
 export function WebsocketContextProvider({
   url,
@@ -8,18 +8,33 @@ export function WebsocketContextProvider({
   children
 } : {
   url: string;
-  token?: string;
+  token: string;
   children: ReactNode;
 }) {
+  const connection = new HubConnectionBuilder()
+    .withUrl(url, {
+      transport: HttpTransportType.WebSockets,
+      accessTokenFactory: () => token,
+      skipNegotiation: true
+    })
+    .withAutomaticReconnect()
+    .build();
+
+  useEffect(() => {
+    connection.start();
+
+    return () => {
+      connection.stop();
+    }
+  }, []);
+  
   return (
-    <WebsocketContext.Provider
-      skipNegotiation
-      transport={HttpTransportType.WebSockets}
-      accessTokenFactory={() => token ?? ''} 
-      dependencies={[token]} 
-      url={url}
-    >
+    <WebsocketContext.Provider value={connection}>
       {children}
     </WebsocketContext.Provider>
   )
+}
+
+export const useWebsocketContext = () => {
+  return useContext(WebsocketContext);
 }

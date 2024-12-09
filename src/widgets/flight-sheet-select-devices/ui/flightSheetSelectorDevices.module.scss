@@ -1,0 +1,43 @@
+.flight-sheet-selector-devices {
+  .rig {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      .line {
+        flex-grow: 1;
+        opacity: .5;
+        border-bottom: solid 1px #ffffff80;
+      }
+
+      .rig-name {
+        font-size: var(--font-size-18px);
+      }
+
+      .arrow-down {
+        cursor: pointer;
+
+        &.open {
+          transform: rotate(180deg);
+        }
+      }
+    }
+
+    .devices {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+
+      .device-type {
+        display: flex;
+        gap: 1.5rem;
+
+      }
+    }
+  } 
+}

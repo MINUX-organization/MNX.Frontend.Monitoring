@@ -19,6 +19,7 @@ export function NamePart({
       <UiInput 
         className={styles['name-input']} 
         control={control} 
+        value={''}
         name="name" 
         label="Flight sheet name"
         placeholder="Write name" 

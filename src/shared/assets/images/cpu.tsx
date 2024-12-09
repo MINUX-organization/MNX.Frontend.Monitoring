@@ -7,12 +7,11 @@ export function CpuSvg({
   color
 } : SVGAttributes<SVGSVGElement>) {
   return (
-    <svg width={width ?? 58} height={height ?? width ?? 58} 
+    <svg width={width ?? 40} height={height ?? width ?? 40} 
       className={className}  fill="none" xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 58 58"  
     >
       <path
-        className={className}
         style={color === 'blue' ? {fill: 'var(--color-blue)'} : color === 'red' ? {fill: 'var(--color-red)'} : {} }
         fillRule="evenodd" 
         clipRule="evenodd" 

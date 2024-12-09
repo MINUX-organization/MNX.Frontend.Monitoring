@@ -1,6 +1,7 @@
 export const ROUTER_PATHS = {
   HOME: "/",
   LOGIN: "/login",
+  SIGNUP: "/signup",
   MONITORING: "monitoring",
   DEVICES: 'devices',
   CPUS: "/devices/cpus",
@@ -22,5 +23,6 @@ export const ROUTER_PATHS = {
   PROFILE: 'profile',
   FEEDBACK: 'feedback',
   CONFIG: 'config',
-  SELECT_DEVICE: 'presets/:presetId',
+  SELECT_PRESET_DEVICE: 'presets/:presetId',
+  SELECT_FLIGHT_SHEET_DEVICES: 'flight-sheets/:flightSheetId',
 } as const;

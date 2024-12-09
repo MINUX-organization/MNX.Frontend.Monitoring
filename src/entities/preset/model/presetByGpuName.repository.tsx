@@ -1,73 +1,72 @@
 import { getPresetsListByGpuNameApi } from "@/shared/api/get/getPresetsListByGpuName";
-import { PRODUCTION_MODE } from "@/shared/constants/production-mode";
 import { useQuery, useQueryClient } from "react-query";
 import { PostPresetOverclocking, Preset, PresetGroupedList } from "./types";
 import { ZodSaveParse } from "@/shared/lib/utils/zod-save-parse";
 import _ from "lodash";
 
-const PresetMock: PresetGroupedList[] = [{
-  name: 'NVIDIA GeForce RTX 3080',
-  presets: [{
-    id: '1',
-    name: 'My Preset',
-    gpuName: 'NVIDIA GeForce RTX 3080',
-    overclocking: {
-      powerLimit: 150,
-      fanSpeed: 1200,
-      memoryClockLock: 3200,
-      memoryClockOffset: 100,
-      memoryVoltage: 1.35,
-      memoryVoltageOffset: 0.05,
-      coreClockLock: 3.2,
-      coreClockOffset: 100,
-      coreVoltage: 1.2,
-      coreVoltageOffset: 0.05,
-    }
-  },
-  {
-    id: '2',
-    name: 'My Preset',
-    gpuName: 'NVIDIA GeForce RTX 3080',
-    overclocking: {
-      powerLimit: 150,
-      fanSpeed: 1200,
-      memoryClockLock: 3200,
-      memoryClockOffset: 100,
-      memoryVoltage: 1.35,
-      memoryVoltageOffset: 0.05,
-      coreClockLock: 3.2,
-      coreClockOffset: 100,
-      coreVoltage: 1.2,
-      coreVoltageOffset: 0.05,
-    }
-  }],
-}, {
-  name: 'NVIDIA GeForce RTX 3090',
-  presets: [{
-    id: '3',
-    name: 'My Preset',
-    gpuName: 'NVIDIA GeForce RTX 3090',
-    overclocking: {
-      powerLimit: 150,
-      fanSpeed: 1200,
-      memoryClockLock: 3200,
-      memoryClockOffset: 100,
-      memoryVoltage: 1.35,
-      memoryVoltageOffset: 0.05,
-      coreClockLock: 3.2,
-      coreClockOffset: 100,
-      coreVoltage: 1.2,
-      coreVoltageOffset: 0.05,
-    }
-  }],
-}]
+// const PresetMock: PresetGroupedList[] = [{
+//   name: 'NVIDIA GeForce RTX 3080',
+//   presets: [{
+//     id: '1',
+//     name: 'My Preset',
+//     gpuName: 'NVIDIA GeForce RTX 3080',
+//     overclocking: {
+//       powerLimit: 150,
+//       fanSpeed: 1200,
+//       memoryClockLock: 3200,
+//       memoryClockOffset: 100,
+//       memoryVoltage: 1.35,
+//       memoryVoltageOffset: 0.05,
+//       coreClockLock: 3.2,
+//       coreClockOffset: 100,
+//       coreVoltage: 1.2,
+//       coreVoltageOffset: 0.05,
+//     }
+//   },
+//   {
+//     id: '2',
+//     name: 'My Preset',
+//     gpuName: 'NVIDIA GeForce RTX 3080',
+//     overclocking: {
+//       powerLimit: 150,
+//       fanSpeed: 1200,
+//       memoryClockLock: 3200,
+//       memoryClockOffset: 100,
+//       memoryVoltage: 1.35,
+//       memoryVoltageOffset: 0.05,
+//       coreClockLock: 3.2,
+//       coreClockOffset: 100,
+//       coreVoltage: 1.2,
+//       coreVoltageOffset: 0.05,
+//     }
+//   }],
+// }, {
+//   name: 'NVIDIA GeForce RTX 3090',
+//   presets: [{
+//     id: '3',
+//     name: 'My Preset',
+//     gpuName: 'NVIDIA GeForce RTX 3090',
+//     overclocking: {
+//       powerLimit: 150,
+//       fanSpeed: 1200,
+//       memoryClockLock: 3200,
+//       memoryClockOffset: 100,
+//       memoryVoltage: 1.35,
+//       memoryVoltageOffset: 0.05,
+//       coreClockLock: 3.2,
+//       coreClockOffset: 100,
+//       coreVoltage: 1.2,
+//       coreVoltageOffset: 0.05,
+//     }
+//   }],
+// }]
 
 export function usePresetByGpuNameRepository() {
   const queryClient = useQueryClient();
 
   const { data, isLoading, ...presetQuery } = useQuery(['presetsListByGpuName'], getPresetsListByGpuNameApi);
 
-  const PresetsByGpuNameList = PRODUCTION_MODE ? ZodSaveParse(data, PresetGroupedList.array().optional()) : PresetMock;
+  const PresetsByGpuNameList = ZodSaveParse(data, PresetGroupedList.array().optional());
   
   const addPresetToList = (preset: Preset) => {
     if (!_.find(PresetsByGpuNameList, (card) => card.name === preset.gpuName)) {

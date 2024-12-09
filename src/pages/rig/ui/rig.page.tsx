@@ -1,4 +1,4 @@
-import { RigTotal, RigTotalItem, RigTotalItemPanel } from "@/entities/rig";
+import { RigTotalItem, RigTotalItemPanel } from "@/entities/rig";
 import { Outlet, useParams } from "react-router"
 import styles from './rig.page.module.scss'
 import { RigMenu } from "./rig-menu";

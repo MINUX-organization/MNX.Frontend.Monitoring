@@ -7,12 +7,11 @@ export function GpuSvg({
   color
 } : SVGAttributes<SVGSVGElement>) {
   return (
-    <svg width={width ?? 58} height={height ?? width ?? 58} 
-      className={className}  fill="none" xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 58 58"  
+    <svg width={width ?? 55} height={height ?? width ?? 40} 
+      className={className} fill="none" xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 34 25"  
     >
       <path
-        className={className}
         style={color === 'blue' ? {fill: 'var(--color-blue)'} : color === 'red' ? {fill: 'var(--color-red)'} : color === 'green' ? {fill: 'var(--color-green)'} : {}}
         fillRule="evenodd" 
         clipRule="evenodd" 

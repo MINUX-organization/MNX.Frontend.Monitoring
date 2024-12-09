@@ -1,4 +1,3 @@
-import { MeasureUnit } from "@/shared/types/measure-unit";
 import { z } from "zod";
 
 export const SharesCount = z.object({
@@ -10,7 +9,7 @@ export type SharesCount = z.infer<typeof SharesCount>
 export const TotalCoinValue = z.object({
   coin: z.string({invalid_type_error: 'Coin must be a string'}),
   algorithm: z.string({invalid_type_error: 'Algorithm must be a string'}),
-  hashrate: MeasureUnit,
+  hashrate: z.number({invalid_type_error: 'Hashrate must be a number'}),
   shares: SharesCount
 })
 export type TotalCoinValue = z.infer<typeof TotalCoinValue>
@@ -23,7 +22,7 @@ export const TotalGpusCount = z.object({
 })
 export type TotalGpusCount = z.infer<typeof TotalGpusCount>
 
-export const TotalPower = MeasureUnit
+export const TotalPower = z.number({invalid_type_error: 'TotalPower must be a number'})
 export type TotalPower = z.infer<typeof TotalPower>
 
 export const TotalRigsCount = z.number({invalid_type_error: 'TotalRigsCount must be a number'})

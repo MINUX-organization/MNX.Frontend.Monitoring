@@ -1,14 +1,14 @@
 import clsx from "clsx";
 import styles from "./styles/uiSpinner.module.scss";
 
-export function UiSpinner({ className }: { className?: string }) {
+export function UiSpinner({ className, size }: { className?: string, size?: number }) {
   return (
     <div className={clsx(className, styles["spinner-wrapper"])}>
       <svg
         className={styles["spinner"]}
         xmlns="http://www.w3.org/2000/svg"
-        width="32"
-        height="32"
+        width={size || 32}
+        height={size || 32}
         viewBox="0 0 24 24"
       >
         <path

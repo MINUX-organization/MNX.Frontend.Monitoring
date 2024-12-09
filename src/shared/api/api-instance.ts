@@ -14,6 +14,18 @@ export const IS_SUCCESS_STATUS = (status: number | any): boolean => {
   return false;
 }
 
+let isRefreshing = false;
+let subscribers: Array<(token: string) => void> = [];
+
+function onRefreshed(token: string) {
+  subscribers.forEach(callback => callback(token));
+  subscribers = [];
+}
+
+function addSubscriber(callback: (token: string) => void) {
+  subscribers.push(callback);
+}
+
 export function apiInstance(url?: string, customApiConfig?: AxiosRequestConfig): AxiosInstance {
   const apiConfig: AxiosRequestConfig = {
     baseURL: `${BACKEND_BASE_URL}${url ?? ''}`,
@@ -29,42 +41,47 @@ export function apiInstance(url?: string, customApiConfig?: AxiosRequestConfig):
   const instance = axios.create(apiConfig);
 
   instance.interceptors.request.use(config => {
-    const token = localStorage.getItem('session')
+    const token = localStorage.getItem('session');
     
     if (token) {
-      const parsedToken = JSON.parse(token)
-      config.headers.Authorization = `Bearer ${parsedToken.accessToken}`
+      const parsedToken = JSON.parse(token);
+      config.headers.Authorization = `Bearer ${parsedToken.accessToken}`;
     }
   
-    return config
-  })
+    return config;
+  });
 
   instance.interceptors.response.use(response => response, async error => {
     const originalRequest = error.config;
 
-    if (
-      error.response?.status === 401 &&
-      !originalRequest._retry
-    ) {
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      if (isRefreshing) {
+        return new Promise((resolve, _) => {
+          addSubscriber((token: string) => {
+            originalRequest.headers.Authorization = `Bearer ${token}`;
+            resolve(instance(originalRequest));
+          });
+        });
+      }
+
       originalRequest._retry = true;
+      isRefreshing = true;
 
       const token = localStorage.getItem('session');
 
       if (token) {
         const parsedToken = JSON.parse(token);
-
+        
         try {
-          const response = await refreshAccessTokenApi(
-            parsedToken.refreshToken
-          );
-
-          localStorage.removeItem('session');
+          const response = await refreshAccessTokenApi(parsedToken.refreshToken);
           localStorage.setItem('session', JSON.stringify(response));
-
+          onRefreshed(response.accessToken);
           return instance(originalRequest);
-        } catch {
+        } catch (err) {
           localStorage.removeItem('session');
           window.location.reload();
+        } finally {
+          isRefreshing = false;
         }
       }
     }
