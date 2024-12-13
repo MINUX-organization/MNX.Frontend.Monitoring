@@ -1,4 +1,3 @@
-import { elements } from "chart.js";
 import { z } from "zod";
 
 export const Algorithm = z.object({
@@ -17,7 +16,7 @@ export type Crypto = z.infer<typeof Crypto>
 
 export const RigDevice = z.object({
   id: z.string({invalid_type_error: 'Id must be a string'}),
-  name: z.string({invalid_type_error: 'Name must be a string'}),
+  model: z.string({invalid_type_error: 'Name must be a string'}),
   manufacturer: z.string({invalid_type_error: 'Manufacturer must be a string'}),
   rigName: z.string({invalid_type_error: 'RigName must be a string'}),
   type: z.string({invalid_type_error: 'Type must be a string'}),

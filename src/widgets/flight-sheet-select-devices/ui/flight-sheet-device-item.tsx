@@ -23,9 +23,9 @@ export function FlightSheetDeviceItem({
   return (
     <div className={clsx(className, styles['device-item'])} {...props} onClick={() => onSetChecked?.(checked)}>
       <div className={styles['header']}>
-        <span className={styles['id']}>{rigDevice?.id}</span>
+        <span className={styles['id']}>ID:&nbsp;{rigDevice?.id}</span>
         <div className={styles['name-switch']}>
-          <span className={styles['name']}>{rigDevice?.name}</span>
+          <span className={styles['name']}>{rigDevice?.model}</span>
           <UiSwitch className={styles['switch']} checked={checked} />
         </div>
       </div>
@@ -34,8 +34,8 @@ export function FlightSheetDeviceItem({
           <span className={styles['blue']}>BUS:</span>&nbsp;
           {rigDevice?.pciBus}
         </span>
-        <span className={styles['flight-sheet-name']}>{rigDevice?.flightSheetName}</span>
-        <span className={styles['miner-name']}>{rigDevice?.minerName}</span>
+        <span className={styles['blue']}>{rigDevice?.flightSheetName}</span>
+        <span className={styles['blue']}>{rigDevice?.minerName}</span>
       </div>
       {match(rigDevice?.type)
         .with('GPU', () => (

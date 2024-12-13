@@ -1,6 +1,5 @@
 import { StateObject } from "@/shared/lib/utils/state-object";
 import { FlightSheetItemProps } from "./flight-sheet-item";
-import { UiActiveState } from "@/shared/ui/ui-active-state";
 import { UiBgContainer } from "@/shared/ui/ui-bg-container";
 import { UiBorderBox } from "@/shared/ui/ui-border-box";
 import styles from './flightSheetItemPanel.module.scss';

@@ -5,9 +5,10 @@ import { UiBorderBox } from '@/shared/ui/ui-border-box'
 import { UiBgContainer } from '@/shared/ui/ui-bg-container'
 import { useNavigate, useParams } from 'react-router'
 import { useFlightSheetByIdQuery, useRigDevicesQuery } from '@/entities/flightsheet'
-import { FlightSheetSelectorDevices } from '@/widgets/flight-sheet-select-devices'
 import { match } from 'ts-pattern'
 import { UiSpinner } from '@/shared/ui/ui-spinner'
+import { ROUTER_PATHS } from '@/shared/constants/routes'
+import { FlightSheetSelectorDevices } from '@/widgets/flight-sheet-select-devices'
 
 export function FlightSheetSelectDevicesPage() {
   const { flightSheetId } = useParams(); 
@@ -19,7 +20,12 @@ export function FlightSheetSelectDevicesPage() {
   return (
     <div className={styles['flight-sheet-select-devices-page']}>
       <div className={styles['header']}>
-        <UiButton className={styles['back-button']} color="blue" withBorder onClick={() => navigation(-1)}>
+        <UiButton 
+          className={styles['back-button']} 
+          color="blue" 
+          withBorder 
+          onClick={() => navigation(`/${ROUTER_PATHS.FLIGHT_SHEETS}`)}
+        >
           <div style={{ display: 'flex', alignItems: 'center'}}>
             <ArrowLeft size={20}/>
             <span>BACK</span>
@@ -36,7 +42,7 @@ export function FlightSheetSelectDevicesPage() {
               .otherwise(() => <span className={styles['flight-sheet-name']}>{flightSheet?.name}</span>)}
             </span>
           </div>
-          <FlightSheetSelectorDevices rigDevices={rigDevices}/>
+          <FlightSheetSelectorDevices rigDevices={rigDevices} flightSheet={flightSheet}/>
         </UiBgContainer>
       </UiBorderBox>
     </div>

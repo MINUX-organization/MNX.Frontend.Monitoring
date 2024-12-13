@@ -3,9 +3,13 @@ import { UiSwitch } from "@/shared/ui/ui-switch";
 import { FlightSheetDeviceItem } from "./flight-sheet-device-item";
 import styles from './flightSheetSelectorDevices.module.scss';
 import { RigDevice, RigDevices } from "@/entities/flightsheet";
-import { StateObject, useStateObject } from "@/shared/lib/utils/state-object";
+import { useStateObject } from "@/shared/lib/utils/state-object";
 import _ from "lodash";
 import clsx from "clsx";
+import { UiResizableBox } from "@/shared/ui/ui-resizable-box";
+import { GpuSvg } from "@/shared/assets/images/gpu";
+import { CpuSvg } from "@/shared/assets/images/cpu";
+import React from "react";
 
 export function FlightSheetSelectorDropdown({
   rig,
@@ -16,7 +20,7 @@ export function FlightSheetSelectorDropdown({
 } : {
   rig: RigDevices,
   isSelectedAll: boolean,
-  devicesIds: StateObject<Map<string, Set<string>>>,
+  devicesIds: Map<string, Set<string>>,
   onSelectAllDevices: (rigName: string, isSelectedAll: boolean) => void
   onSelectDevice: (isChecked: boolean, device: RigDevice) => void
 }) {
@@ -41,20 +45,29 @@ export function FlightSheetSelectorDropdown({
           onClick={() => isOpen.setValue((prev) => !prev)} 
         />
       </div>
-      {isOpen.value && <div className={styles['devices']}>
-        {_.map(rig.elements, (type) => (
-          <div key={type.name} className={styles['device-type']}>
-            {_.map(type.elements, (device) => (
-                <FlightSheetDeviceItem 
-                  rigDevice={device} 
-                  key={device.id} 
-                  checked={devicesIds.value.get(device.rigName)?.has(device.id) || false}
-                  onSetChecked={(isChecked) => onSelectDevice(isChecked, device)}
-                />
-            ))}
-          </div>
+      <UiResizableBox contentClassName={styles['devices']} trigger={isOpen.value}>
+        {_.map(rig.elements, (type, index) => (
+          <React.Fragment key={type.name}>
+            <div className={styles['device-type']}>
+              <div className={styles['type-header']}>
+                <span className={styles['type-name']}>{type.name}</span>
+                {type.name === 'GPU' && <GpuSvg className={styles['icon']}/>}
+                {type.name === 'CPU' && <CpuSvg className={styles['icon']}/>}
+                <div className={styles['line']} />
+              </div>
+              {_.map(type.elements, (device) => (
+                  <FlightSheetDeviceItem 
+                    rigDevice={device} 
+                    key={device.id}
+                    checked={devicesIds.get(device.rigName)?.has(device.id) || false}
+                    onSetChecked={(isChecked) => onSelectDevice(isChecked, device)}
+                  />
+              ))}
+            </div>
+            {!index && <div className={styles['separator']} />}
+          </React.Fragment>
         ))}
-      </div>}
+      </UiResizableBox>
     </div>
   )
 }

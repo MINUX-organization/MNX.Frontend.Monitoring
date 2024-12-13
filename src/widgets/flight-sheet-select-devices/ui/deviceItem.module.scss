@@ -13,7 +13,7 @@
     justify-content: space-between;
 
     .id {
-      width: 2.5rem;
+      width: 4rem;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
@@ -37,4 +37,8 @@
     justify-self: flex-end;
     align-self: flex-end;
   }
+}
+
+.blue {
+  color: var(--color-blue);
 }
