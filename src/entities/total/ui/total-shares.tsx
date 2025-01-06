@@ -14,8 +14,8 @@ function TotalShares({
 }) {
   const label = 'Total Shares';
   const fields: FieldWidget[] = [
-    {label: 'Accepted', value: value?.accepted, style: 'green'},
-    {label: 'Rejected', value: value?.rejected, style: 'red'},
+    {label: 'Accepted', value: value?.accepted ?? 0, style: 'green'},
+    {label: 'Rejected', value: value?.rejected ?? 0, style: 'red'},
   ]
   return (
     <UiLabelBoard

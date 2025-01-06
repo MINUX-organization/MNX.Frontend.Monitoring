@@ -6,9 +6,7 @@ export { MemoizedTotalGpusCount } from './ui/total-gpus-count'
 export { MemoizedTotalCpusCount } from './ui/total-cpus-count'
 export { 
   SharesCount, 
-  TotalCoinValue, 
-  TotalCpusCount, 
-  TotalGpusCount, 
+  CoinStatistic,
   TotalPower, 
   TotalRigsCount 
 } from './model/types'

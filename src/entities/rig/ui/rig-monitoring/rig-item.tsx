@@ -1,6 +1,6 @@
 import clsx from "clsx"
 import styles from './styles/rigItem.module.scss'
-import { Rig as Type, RigInfo } from "../../model/types"
+import { Rig, RigInfo } from "../../model/types"
 import { RigItemPanel } from "./rig-item-panel";
 import { useStateObject } from "@/shared/lib/utils/state-object"; 
 import { RigCoinTable } from "./rig-item-coin-table";
@@ -10,7 +10,7 @@ import React from "react";
 
 type RigItemProps = {
   className?: string;
-  rig?: Type;
+  rig?: Rig;
 } & FeaturesProps 
 
 function RigItem({
@@ -22,19 +22,22 @@ function RigItem({
   renderRigRebootIn
 } : RigItemProps) {
   const isOpen = useStateObject<boolean>(false);
+
   const labels = [
     'Coin', 'Flight Sheet', 'Miner', 
     'Hashrate', 'Shares Accepted', 'Shares Rejected'
   ];
+
   const rigInfo: Partial<RigInfo> = {
     miningUpTime: rig?.miningUpTime,
     bootedUpTime: rig?.bootedUpTime,
     localIp: rig?.localIp,
     minuxVersion: rig?.minuxVersion,
-    nvidiaCount: rig?.nvidiaCount,
-    amdCount: rig?.amdCount,
-    intelCount: rig?.intelCount
+    nvidiaCount: rig?.countDevices.totalGpusCountGroupedByManufacturer['nvidia'],
+    amdCount: rig?.countDevices.totalGpusCountGroupedByManufacturer['amd'],
+    intelCount: rig?.countDevices.totalGpusCountGroupedByManufacturer['intel'],
   }
+
   return (
     <div className={clsx(
       className,
@@ -44,7 +47,7 @@ function RigItem({
       <RigItemDropdown
         isOpen={isOpen.value}
         rigFlightSheetRender={() => 
-          <RigCoinTable flightSheets={rig?.coinInfo} labels={labels}/>}
+          <RigCoinTable flightSheets={rig?.totalCoinStatistics} labels={labels}/>}
         rigInfoRender={() => <RigItemInfo rigInfo={rigInfo}/>}
         renderRigStartStopMining={renderRigStartStopMining}
         renderRigPowerOff={renderRigPowerOff}

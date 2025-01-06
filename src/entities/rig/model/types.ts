@@ -1,3 +1,5 @@
+import { SharesCount } from "@/entities/total";
+import { CoinStatistic } from "@/entities/total/model/types";
 import { MeasureUnit } from "@/shared/types/measure-unit";
 import { z } from "zod";
 
@@ -34,13 +36,10 @@ export type RigAverageTemperature = z.infer<typeof RigAverageTemperature>;
 export const RigPower = MeasureUnit
 export type RigPower = z.infer<typeof RigPower>
 
-export const RigCoinInfo = z.object({
-  coin: z.string({invalid_type_error: 'Coin must be a string'}),
-  flightSheet: z.string({invalid_type_error: 'FlightSheet must be a string'}),
-  miner: z.string({invalid_type_error: 'Miner must be a string'}),
-  hashrate: MeasureUnit,
-  shares: RigShares
-})
+export const RigCoinInfo = CoinStatistic.and(z.object({
+  minerName: z.string({invalid_type_error: 'MinerName must be a string'}),
+  flightSheetName: z.string({invalid_type_error: 'FlightSheetName must be a string'})
+}))
 export type RigCoinInfo = z.infer<typeof RigCoinInfo>
 
 export const RigLocalIp = z.string({invalid_type_error: 'RigLocalIp must be a string'});
@@ -70,23 +69,23 @@ export type RigInfo = {
 
 export const Rig = z.object({
   id: RigId,
-  name: RigName.optional(),
-  index: z.number({invalid_type_error: 'Index must be a number'}).optional(),
-  gpusState: RigGpusState.optional(),
-  isActive: RigIsActive.optional(),
-  onlineState: RigOnlineState.optional(),
-  internetSpeed: RigInternetSpeed.optional(),
-  averageTemperature: RigAverageTemperature.optional(),
-  fan: z.number({invalid_type_error: 'Fan must be a string'}).optional(),
-  power: RigPower.optional(),
-  coinInfo: RigCoinInfo.array().optional(),
-  miningUpTime: z.string({invalid_type_error: 'MiningUpTime must be a string'}).optional(),
-  bootedUpTime: z.string({invalid_type_error: 'BootedUpTime must be a string'}).optional(),
-  localIp: RigLocalIp.optional(),
-  minuxVersion: RigMinuxVersion.optional(),
-  nvidiaCount: RigNvidiaCount.optional(),
-  amdCount: RigAmdCount.optional(),
-  intelCount: RigIntelCount.optional()
+  name: RigName,
+  totalShares: SharesCount,
+  totalHashRate: z.number({invalid_type_error: 'TotalHashRate must be a number'}),
+  totalCoinStatistics: RigCoinInfo.array(),
+  bootedUpTime: z.string({invalid_type_error: 'BootedUpTime must be a string'}),
+  miningUpTime: z.string({invalid_type_error: 'MiningUpTime must be a string'}),
+  totalPower: z.number({invalid_type_error: 'TotalPower must be a number'}),
+  averageMiningDevicesTemperature: z.number({invalid_type_error: 'AverageMiningDevicesTemperature must be a number'}),
+  averageMiningDevicesFanSpeed: z.number({invalid_type_error: 'AverageMiningDevicesFanSpeed must be a number'}),
+  internetSpeed: z.number({invalid_type_error: 'InternetSpeed must be a number'}),
+  onlineState: RigOnlineState,
+  localIp: RigLocalIp,
+  minuxVersion: RigMinuxVersion,
+  countDevices: z.object({
+    totalCpusCountGroupedByManufacturer: z.record(z.number({invalid_type_error: 'TotalCpusCount must be a number'})),
+    totalGpusCountGroupedByManufacturer: z.record(z.number({invalid_type_error: 'TotalGpusCount must be a number'})),
+  })
 }).nullable();
 export type Rig = z.infer<typeof Rig>
 
@@ -114,7 +113,7 @@ export const RigTotalCountDevices = z.object({
 })
 export type RigTotalCountDevices = z.infer<typeof RigTotalCountDevices>
 
-export const RigTotalInfo = z.object({
+export const RigTotalInfo = z.object({  
   minuxVersion: z.string({invalid_type_error: 'MinuxVersion must be a string'}),
   linuxVersion: z.string({invalid_type_error: 'LinuxVersion must be a string'}),
   amdDriverVersion: z.string({invalid_type_error: 'AmdDriverVersion must be a string'}),

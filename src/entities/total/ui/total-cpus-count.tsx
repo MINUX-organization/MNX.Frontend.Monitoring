@@ -1,13 +1,14 @@
-import { FieldWidget, TotalCpusCount as type } from "../model/types";
+import { FieldWidget } from "../model/types";
 import { UiBgContainer } from "@/shared/ui/ui-bg-container";
 import { UiLabelBoard } from "@/shared/ui/ui-label-board";
 import styles from './totalCount.module.scss';
 import clsx from "clsx";
 import React from "react";
+import { TotalDevices } from "@/pages/monitoring";
 
 type StatiscticCpuTableProps = {
   className?: string,
-  value?: type
+  value?: TotalDevices
 } 
 
 function TotalCpusCount({
@@ -16,9 +17,9 @@ function TotalCpusCount({
 } : StatiscticCpuTableProps) {
   const label = 'CPU';
   const fields: FieldWidget[] = [
-    {label: 'Total', value: value?.total},
-    {label: 'Intel', value: value?.intel, style: 'blue'},
-    {label: 'AMD', value: value?.amd, style: 'red'},
+    {label: 'Total', value: value?.totalCpusCount ?? 0},
+    {label: 'Intel', value: value?.totalCpusCountGroupedByManufacturer['intel'] ?? 0, style: 'blue'},
+    {label: 'AMD', value: value?.totalCpusCountGroupedByManufacturer['amd'] ?? 0, style: 'red'},
   ]
   return (
     <UiLabelBoard

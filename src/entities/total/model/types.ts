@@ -6,34 +6,18 @@ export const SharesCount = z.object({
 }) 
 export type SharesCount = z.infer<typeof SharesCount>
 
-export const TotalCoinValue = z.object({
-  coin: z.string({invalid_type_error: 'Coin must be a string'}),
-  algorithm: z.string({invalid_type_error: 'Algorithm must be a string'}),
-  hashrate: z.number({invalid_type_error: 'Hashrate must be a number'}),
+export const CoinStatistic = z.object({
+  coinName: z.string({invalid_type_error: 'Coin must be a string'}),
+  hashRate: z.number({invalid_type_error: 'Hashrate must be a number'}),
   shares: SharesCount
 })
-export type TotalCoinValue = z.infer<typeof TotalCoinValue>
-
-export const TotalGpusCount = z.object({
-  total: z.number({invalid_type_error: 'Total must be a number'}),
-  nvidia: z.number({invalid_type_error: 'Nvidia must be a number'}),
-  amd: z.number({invalid_type_error: 'Amd must be a number'}),
-  intel: z.number({invalid_type_error: 'Intel must be a number'})
-})
-export type TotalGpusCount = z.infer<typeof TotalGpusCount>
+export type CoinStatistic = z.infer<typeof CoinStatistic>
 
 export const TotalPower = z.number({invalid_type_error: 'TotalPower must be a number'})
 export type TotalPower = z.infer<typeof TotalPower>
 
 export const TotalRigsCount = z.number({invalid_type_error: 'TotalRigsCount must be a number'})
 export type TotalRigsCount = z.infer<typeof TotalRigsCount>
-
-export const TotalCpusCount = z.object({
-  total: z.number({invalid_type_error: 'Total must be a number'}),
-  amd: z.number({invalid_type_error: 'Amd must be a number'}),
-  intel: z.number({invalid_type_error: 'Intel must be a number'})
-})
-export type TotalCpusCount = z.infer<typeof TotalCpusCount>
 
 export type FieldWidget = {
   label: string;
