@@ -14,6 +14,14 @@ export default ({ mode }) => {
       },
       build: {
         rollupOptions: {
+          onwarn(warning, defaultHandler) {
+            if (warning.code === 'INVALID_ANNOTATION') {
+              return;
+            }
+
+            defaultHandler(warning);
+          },
+
           output: {
             manualChunks(id) {
               if (id.includes('node_modules')) {

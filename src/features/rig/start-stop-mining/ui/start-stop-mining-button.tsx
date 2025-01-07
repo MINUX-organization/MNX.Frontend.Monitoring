@@ -1,10 +1,10 @@
-import { BACKEND_TRIGGERS } from "@/shared/constants/backend-triggers";
-import { WebsocketContext } from "@/shared/lib/context/websocket-context";
+// import { BACKEND_TRIGGERS } from "@/shared/constants/backend-triggers";
+// import { WebsocketContext } from "@/shared/lib/context/websocket-context";
 import { UiButton } from "@/shared/ui/ui-button";
 
 export function StartStopMiningButton({
   className,
-  rigId,
+  // rigId,
   rigIsActive,
   rigIsOnline
 } : {
@@ -19,9 +19,9 @@ export function StartStopMiningButton({
 
   const onClick = () => {
     if (rigIsActive) {
-      WebsocketContext.invoke(BACKEND_TRIGGERS.SEND_STOP_MINING, rigId)
+      // WebsocketContext.invoke(BACKEND_TRIGGERS.SEND_STOP_MINING, rigId)
     } else {
-      WebsocketContext.invoke(BACKEND_TRIGGERS.SEND_START_MINING, rigId)
+      // WebsocketContext.invoke(BACKEND_TRIGGERS.SEND_START_MINING, rigId)
     }
   }
 

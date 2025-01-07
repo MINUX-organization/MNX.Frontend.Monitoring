@@ -1,5 +1,5 @@
-import { BACKEND_TRIGGERS } from "@/shared/constants/backend-triggers";
-import { WebsocketContext } from "@/shared/lib/context/websocket-context";
+// import { BACKEND_TRIGGERS } from "@/shared/constants/backend-triggers";
+// import { WebsocketContext } from "@/shared/lib/context/websocket-context";
 import { UiButton } from "@/shared/ui/ui-button";
 
 export function RebootInButton({
@@ -14,7 +14,8 @@ export function RebootInButton({
 
   const onClick = () => {
     if (!rigId) return;
-    WebsocketContext.invoke(BACKEND_TRIGGERS.SEND_REBOOT_RIG, rigId);
+
+    // WebsocketContext.invoke(BACKEND_TRIGGERS.SEND_REBOOT_RIG, rigId);
   }
 
   return (

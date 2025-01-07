@@ -5,7 +5,7 @@ import styles from './changeChartCoinsList.module.scss';
 import { z } from "zod";
 import clsx from "clsx";
 import { useEffect } from "react";
-import { WebsocketContext } from "@/shared/lib/context/websocket-context";
+// import { WebsocketContext } from "@/shared/lib/context/websocket-context";
 import React from "react";
 
 
@@ -19,9 +19,9 @@ function ChangeChartCoinsList({
 }) {
   const currentCoinChartObject = useStateObject<string>(coinsList ? coinsList[0] : '');
   useEffect(() => {
-    if (!coinsList) return;
-    currentCoinChartObject.setValue(coinsList ? coinsList[0] : '')
-    WebsocketContext.invoke("SendCoin", currentCoinChartObject)
+    // if (!coinsList) return;
+    // currentCoinChartObject.setValue(coinsList ? coinsList[0] : '')
+    // WebsocketContext.invoke("SendCoin", currentCoinChartObject)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [coinsList])
   if (!coinsList) return ChangeCoinChartListEmpty()
