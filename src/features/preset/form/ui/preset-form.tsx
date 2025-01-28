@@ -3,7 +3,6 @@ import { UiComboBox } from "@/shared/ui/ui-combobox";
 import { UiInput } from "@/shared/ui/ui-input";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { useQuery } from "react-query";
-
 import styles from './presetForm.module.scss';
 import { UiButton } from "@/shared/ui/ui-button";
 import clsx from "clsx";
@@ -16,7 +15,7 @@ import _ from "lodash";
 
 export type FormInput = {
   presetName: string;
-  cardName: string;
+  deviceName: string;
 };
 
 export function PresetForm({
@@ -46,13 +45,13 @@ export function PresetForm({
   const { control, handleSubmit, watch, setValue} = useForm<FormInput>({
     defaultValues: {
       presetName: '',
-      cardName: '',
+      deviceName: '',
     },
   })
-  const selectedCard = watch('cardName')
+  const selectedCard = watch('deviceName')
 
   useEffect(() => {
-    setValue('cardName', selectedGpuName ?? '')
+    setValue('deviceName', selectedGpuName ?? '')
     setValue('presetName', selectedPreset?.name ?? '')
   }, [selectedPreset])
 
@@ -63,7 +62,7 @@ export function PresetForm({
   const onSubmit: SubmitHandler<FormInput> = async (data) => {
     if (!slidersParameters) return
 
-    const preset = toPreset(data.presetName, data.cardName, slidersParameters);
+    const preset = toPreset(data.presetName, data.deviceName, slidersParameters);
 
     if (modalState === State.Editing && selectedPreset) {
       const isSuccess = await editPreset(selectedPreset.id, preset);
@@ -82,7 +81,7 @@ export function PresetForm({
       setPreset(data)
       addPresetToList(data)
       setModalState(State.Idle)
-    };
+    }
   };
   
   return (
@@ -103,7 +102,7 @@ export function PresetForm({
         />
         <Controller 
           control={control} 
-          name="cardName"
+          name="deviceName"
           rules={{ required: true, validate: (value) => !_.isEqual(value, {}) }}
           render={({ field: {onChange} }) => 
             <UiComboBox

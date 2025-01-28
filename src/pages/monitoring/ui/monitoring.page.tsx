@@ -6,49 +6,43 @@ import {
   MemoizedTotalShares,
   MemoizedTotalRigsCount } from "@/entities/total";
 import styles from './monitoring.page.module.scss';
-import { useStreamValues } from "../lib/hooks/stream-values";
-import { WebsocketContextProvider } from "@/widgets/providers/websocket-provider";
-import { useTotalDataSignalTrigger } from "../lib/hooks/total-data-signal-trigger";
-import { MemoizedChangeChartCoinsList } from "@/features/chart/change-coin-chart";
 import { MemoizedRigItem, MemoizedRigsListTable } from "@/entities/rig";
-import { MemoizedCoinChart } from "@/entities/chart";
 import { PowerOffButton } from "@/features/rig/power-off";
 import { StartStopMiningButton } from "@/features/rig/start-stop-mining";
 import { RebootButton } from "@/features/rig/reboot";
 import { RebootInButton } from "@/features/rig/reboot-in";
-import { useChartDataSignalTrigger } from "../lib/hooks/chart-data-signal-trigger";
-import { useRigsDataSignalTrigger } from "../lib/hooks/rigs-data-signal-trigger";
+import { useMonitoringStream } from "../hooks/monitoring-stream";
 
 export function MonitoringPage() {
-  const { totalShares, totalPower } = useStreamValues();
+  const indicators = useMonitoringStream();
   
   return (
       <div className={styles['monitoring-page']}>
         <article className={styles['slot-1']}>
-          <MemoizedTotalPower className={styles['item-1']} value={totalPower}/>
-          {/* <MemoizedTotalRigsCount className={styles['item-2']} value={totalRigsCount}/> */}
-          {/* <MemoizedTotalCoinsList className={styles['item-3']} values={totalCoinsList}/> */}
+          <MemoizedTotalPower className={styles['item-1']} value={indicators?.totalPower}/>
+          <MemoizedTotalRigsCount className={styles['item-2']} value={indicators?.miningRigsIndicators.length}/>
+          <MemoizedTotalCoinsList className={styles['item-3']} values={indicators?.totalCoinStatistics}/>
         </article>
         <article className={styles['slot-2']}>
-          <MemoizedTotalShares className={styles['item-1']} value={totalShares}/>
-          {/* <MemoizedTotalGpusCount className={styles['item-2']} value={totalGpusCount}/>
-          <MemoizedTotalCpusCount className={styles['item-3']} value={totalCpusCount}/> */}
+          <MemoizedTotalShares className={styles['item-1']} value={indicators?.totalShares}/>
+          <MemoizedTotalGpusCount className={styles['item-2']} value={indicators?.totalDevices}/>
+          <MemoizedTotalCpusCount className={styles['item-3']} value={indicators?.totalDevices}/>
           {/* <MemoizedCoinChart
             className={styles['item-4']} 
             values={chartDataList}
             renderCoinList={() => <MemoizedChangeChartCoinsList coinsList={chartCoinsList}/>}
           />  */}
         </article>
-        {/* <article className={styles['slot-3']}>
+        <article className={styles['slot-3']}>
             <MemoizedRigsListTable 
-              rigsList={rigsList}
+              rigsList={indicators?.miningRigsIndicators}
               renderRigItem={(rig) => (
                 <MemoizedRigItem
                   key={rig?.id}
                   rig={rig}
                   renderRigStartStopMining={() => 
                     <StartStopMiningButton 
-                      rigIsActive={rig?.isActive} 
+                      rigIsActive={true} 
                       rigIsOnline={rig?.onlineState !== "0"}
                       rigId={rig?.id}
                     />}
@@ -61,7 +55,7 @@ export function MonitoringPage() {
                 />
               )}
             />
-        </article> */}
+        </article>
       </div>
   )
 }

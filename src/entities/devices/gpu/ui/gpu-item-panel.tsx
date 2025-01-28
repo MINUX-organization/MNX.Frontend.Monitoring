@@ -28,29 +28,29 @@ export function GpuItemPanel({
       className
     )}>
       <UiBgContainer className={styles['gpu-item-container']} color="opaque">
-        {<UiActiveState isActive={deviceGpu.isActive} />}
+        {<UiActiveState isActive={deviceGpu.miningState === 'Active'} />}
         <div className={styles['gpu-item-id']}>
-          <span>
+          <span className={styles['ellipsis']}>
             <span className={clsx(
               styles['blue'],
               styles['text']
-            )}>Index</span>&nbsp;
+            )}>Id</span>&nbsp;
             {deviceGpu.id}
           </span>
-          <span>
+          <span className={styles['ellipsis']}>
             <span className={clsx(
               styles['blue'],
               styles['text']
             )}>BUS</span>&nbsp;
-            {deviceGpu.bus}
+            {deviceGpu.pci.bus}
           </span>
         </div>
         <div className={styles['gpu-item-name']}>
-          <span className={styles['device-name']}>{deviceGpu.name}</span>
+          <span className={styles['device-name']}>{deviceGpu.information.name}</span>
           <span className={styles['blue']}>{deviceGpu.rigName}</span>
         </div>
         <GpuItemPanelTable deviceGpu={deviceGpu}/>
-        <GpuItemPanelGrid coinsList={deviceGpu.coins}/>
+        <GpuItemPanelGrid flightSheet={deviceGpu?.flightSheet}/>
         <div className={styles['features']}>
           {renderSetting?.(deviceGpu.id)}
           {renderOnOpen?.(isOpen)}

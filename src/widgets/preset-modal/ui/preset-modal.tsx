@@ -35,16 +35,16 @@ export function PresetModal() {
     _.find(getPresetsList(), ['id', presetId]), [presetId]);
 
   const getSelectedGpuName = useMemo(() => 
-    _.find(gpusList, ['id', gpuId])?.name, [gpuId]);
+    _.find(gpusList, ['id', gpuId])?.information.name, [gpuId]);
 
   useEffect(() => {
     if (getSelectedPreset) setPreset(getSelectedPreset);
 
     if (gpuId) setGpuName(getSelectedGpuName)
-    else setGpuName(getSelectedPreset?.gpuName);
+    else setGpuName(getSelectedPreset?.deviceName);
 
     if (!presetId && !gpuId) setModalState(State.Creating); 
-  }, [getSelectedPreset, gpuId]);
+  }, [getSelectedPreset, getSelectedGpuName, gpuId]);
 
   useEffect(() => {
     if (presetId) setModalState(State.Editing);
@@ -97,7 +97,7 @@ const RenderParameters = ({
   const haseData = presetId && selectedPreset && gpuRestrictions;
   const haseGpuData = selectedGpuName && gpuRestrictions;
 
-  if (gpuId) return <PresetParametersGpu className={className} gpuId={gpuId}/>
+  if (gpuId && haseGpuData) return <PresetParametersGpu className={className} gpuRestrictions={gpuRestrictions}  gpuId={gpuId}/>
 
   if (haseData || haseGpuData)
     return <PresetParametersConfig 

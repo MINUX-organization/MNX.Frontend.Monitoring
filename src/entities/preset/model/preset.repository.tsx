@@ -8,43 +8,6 @@ import { deletePresetApi } from "@/shared/api/delete/deletePreset";
 import { editPresetApi } from "@/shared/api/patch/editPreset";
 import { IS_SUCCESS_STATUS } from "@/shared/api/api-instance";
 
-// const presetsListMock: Preset[] = [
-//   {
-//     id: "1",
-//     name: "Preset 1",
-//     gpuName: "NVIDIA GeForce RTX 3080",
-//     overclocking: {
-//       coreClockLock: 1500,
-//       coreClockOffset: 100,
-//       memoryClockLock: 1000,
-//       memoryClockOffset: 100,
-//       coreVoltage: 1000,
-//       coreVoltageOffset: 100,
-//       memoryVoltage: 1000,
-//       memoryVoltageOffset: 100,
-//       powerLimit: 100,
-//       fanSpeed: 50,
-//     }
-//   },
-//   {
-//     id: "2",
-//     name: "Preset 2",
-//     gpuName: "NVIDIA GeForce RTX 3080",
-//     overclocking: {
-//       coreClockLock: 1600,
-//       coreClockOffset: 100,
-//       memoryClockLock: 1100,
-//       memoryClockOffset: 100,
-//       coreVoltage: 1100,
-//       coreVoltageOffset: 100,
-//       memoryVoltage: 1100,
-//       memoryVoltageOffset: 100,
-//       powerLimit: 100,
-//       fanSpeed: 60,
-//     }
-//   }
-// ]
-
 export function usePresetRepository() {
   const queryClient = useQueryClient();
   const { data, isLoading, ...presetQuery } = useQuery(['presetsList'], getPresetsListApi);

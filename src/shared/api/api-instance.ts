@@ -2,7 +2,7 @@ import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { BACKEND_BASE_URL } from '../constants/backend-urls';
 import { refreshAccessTokenApi } from './auth/refresh-access-token';
 
-export const IS_SUCCESS_STATUS = (status: number | any): boolean => {
+export const IS_SUCCESS_STATUS = (status: number | object): boolean => {
   if (typeof(status) === 'number') {
     return status >= 200 && status < 300
   }
@@ -41,6 +41,11 @@ export function apiInstance(url?: string, customApiConfig?: AxiosRequestConfig):
   const instance = axios.create(apiConfig);
 
   instance.interceptors.request.use(config => {
+    if (config.url?.includes('/auth')) {
+
+      return config;
+    }
+
     const token = localStorage.getItem('session');
     
     if (token) {
@@ -53,33 +58,35 @@ export function apiInstance(url?: string, customApiConfig?: AxiosRequestConfig):
 
   instance.interceptors.response.use(response => response, async error => {
     const originalRequest = error.config;
-
     if (error.response?.status === 401 && !originalRequest._retry) {
       if (isRefreshing) {
-        return new Promise((resolve, _) => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        return new Promise((resolve, _reject) => {
           addSubscriber((token: string) => {
             originalRequest.headers.Authorization = `Bearer ${token}`;
             resolve(instance(originalRequest));
           });
         });
       }
-
+      
       originalRequest._retry = true;
       isRefreshing = true;
-
+      
       const token = localStorage.getItem('session');
 
       if (token) {
         const parsedToken = JSON.parse(token);
-        
+
         try {
           const response = await refreshAccessTokenApi(parsedToken.refreshToken);
-          localStorage.setItem('session', JSON.stringify(response));
-          onRefreshed(response.accessToken);
+
+          localStorage.setItem('session', JSON.stringify(response.data));
+          onRefreshed(response.data.accessToken);
+
           return instance(originalRequest);
         } catch (err) {
-          localStorage.removeItem('session');
-          window.location.reload();
+          // localStorage.removeItem('session');
+          // window.location.reload();
         } finally {
           isRefreshing = false;
         }

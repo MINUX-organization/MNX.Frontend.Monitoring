@@ -1,5 +1,5 @@
 import { UiBorderBox } from "@/shared/ui/ui-border-box";
-import { TotalCoinValue as Type } from "../model/types";
+import { CoinStatistic } from "../model/types";
 import styles from './totalCoinsList.module.scss';
 import { UiBgContainer } from "@/shared/ui/ui-bg-container";
 import clsx from "clsx";
@@ -8,8 +8,7 @@ import React from "react";
 
 const titles: string[] = [
   'Coin',
-  'Algorithm',
-  'Value',
+  'Hashrate',
   'Shares Accepted',
   'Shares Rejected'
 ] as const
@@ -19,7 +18,7 @@ function TotalCoinValue({
   values,
 } : {
   className: string,
-  values?: Type[]
+  values?: CoinStatistic[]
 }) {
   return (
     <UiBorderBox withPadding className={clsx(
@@ -38,10 +37,9 @@ function TotalCoinValue({
       </div>
       <UiBgContainer className={styles['slot-3']} color="opaque">
         {_.map(values, (value) => (
-          <div key={value.coin} className={styles['subgrid']}>
-            <span>{value.coin}</span>
-            <span>{value.algorithm}</span>
-            <span>{value.hashrate}&nbsp;
+          <div key={value.coinName} className={styles['subgrid']}>
+            <span>{value.coinName}</span>
+            <span>{value.hashRate}&nbsp;
               <span className={styles['measure']}>{"W"}</span>
             </span>
             <span className={styles['accepted']}>{value.shares.accepted}</span>

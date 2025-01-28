@@ -1,5 +1,5 @@
-import { BACKEND_TRIGGERS } from "@/shared/constants/backend-triggers";
-import { WebsocketContext } from "@/shared/lib/context/websocket-context";
+// import { BACKEND_TRIGGERS } from "@/shared/constants/backend-triggers";
+// import { WebsocketContext } from "@/shared/lib/context/websocket-context";
 import { UiButton } from "@/shared/ui/ui-button";
 
 export function PowerOffButton({
@@ -14,7 +14,8 @@ export function PowerOffButton({
 
   const onClick = () => {
     if (!rigId) return;
-    WebsocketContext.invoke(BACKEND_TRIGGERS.SEND_POWER_OFF_RIG, rigId);
+
+    // WebsocketContext.invoke(BACKEND_TRIGGERS.SEND_POWER_OFF_RIG, rigId);
   }
 
   return (

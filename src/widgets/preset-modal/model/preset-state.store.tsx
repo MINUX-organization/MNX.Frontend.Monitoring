@@ -6,6 +6,7 @@ export enum State {
   Editing = 'editing',
   Creating = 'creating',
   Idle = 'idle',
+  Gpu = 'gpu',
 }
 
 type PresetModalState = {
@@ -13,7 +14,7 @@ type PresetModalState = {
   selectedPreset?: Preset;
   slidersParameters?: SliderParameter,
   modalState: State,
-} 
+}
 
 type Actions = {
   setGpuName: (gpuName?: string) => void

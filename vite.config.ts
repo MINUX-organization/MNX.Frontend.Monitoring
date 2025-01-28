@@ -1,6 +1,6 @@
 import { defineConfig, loadEnv } from 'vite'
 import { resolve } from 'path';
-import react from '@vitejs/plugin-react-swc';
+import react from '@vitejs/plugin-react-swc'; 
 
 export default ({ mode }) => {
     const env = loadEnv(mode, process.cwd(), '') 
@@ -14,6 +14,14 @@ export default ({ mode }) => {
       },
       build: {
         rollupOptions: {
+          onwarn(warning, defaultHandler) {
+            if (warning.code === 'INVALID_ANNOTATION') {
+              return;
+            }
+
+            defaultHandler(warning);
+          },
+
           output: {
             manualChunks(id) {
               if (id.includes('node_modules')) {

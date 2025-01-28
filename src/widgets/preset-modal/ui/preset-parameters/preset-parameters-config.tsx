@@ -23,7 +23,7 @@ export function PresetParametersConfig({
 }) {
   const { setSlidersParameters, modalState } = usePresetStateStore();
 
-  const { reset, ...states } = useSliderStates(gpuRestrictions, selectedPreset);
+  const { reset, ...states } = useSliderStates(gpuRestrictions, undefined, selectedPreset?.id);
   const depth = _.flatten(_.map(states, (item) => _.map(item, (item) => item.value)));
 
   const debouncedSetValue = useRef(_.debounce((newValue) => {

@@ -22,15 +22,15 @@ export function RigCoinTable({
       </UiBgContainer>
       <div className={styles['grid-items']}>
         {_.map(flightSheets, (flightSheet) => (
-          <div key={flightSheet.flightSheet} className={styles['grid-item']}>
-            <span>{flightSheet.coin}</span>
-            <span>{flightSheet.flightSheet}</span>
-            <span>{flightSheet.miner}</span>
+          <div key={flightSheet.flightSheetName} className={styles['grid-item']}>
+            <span>{flightSheet.coinName}</span>
+            <span>{flightSheet.flightSheetName}</span>
+            <span>{flightSheet.minerName}</span>
             <span>
-              {flightSheet.hashrate.value}
+              {flightSheet.hashRate}
               &nbsp;
               <span className={styles['measure']}>
-                {flightSheet.hashrate.measureUnit}
+                {"Mh/s"}
               </span>
             </span>
             <span className={styles['positive']}>{flightSheet.shares.accepted}</span>
