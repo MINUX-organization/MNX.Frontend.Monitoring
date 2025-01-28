@@ -1,1 +1,0 @@
-export { MemoizedCoinChart } from './ui/coin-chart'

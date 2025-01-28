@@ -1,1 +1,0 @@
-export { GpusPage } from './ui/gpus.page'

@@ -1,1 +1,0 @@
-export { DeleteCrypto } from './ui/delete-crypto'

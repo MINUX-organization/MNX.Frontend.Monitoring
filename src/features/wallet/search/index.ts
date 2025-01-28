@@ -1,1 +1,0 @@
-export { WalletSearch } from './ui/wallet-search';
