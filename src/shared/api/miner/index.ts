@@ -1,0 +1,1 @@
+export { getMinersApi } from './get-miners'
