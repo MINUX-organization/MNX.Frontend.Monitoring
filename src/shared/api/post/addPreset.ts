@@ -5,8 +5,9 @@ import { BACKEND_APIS } from "@/shared/constants/backend-urls";
 type Response = {
   id: string;
   name: string;
-  gpuName: string;
+  deviceName: string;
   overclocking: {
+    $type: 'GPU' | 'CPU';
     powerLimit: number;
     fanSpeed: number;
     memoryClockLock: number;
@@ -22,8 +23,9 @@ type Response = {
 
 type Request = {
   name: string;
-  gpuName: string;
+  deviceName: string;
   overclocking: {
+    $type: 'GPU' | 'CPU';
     powerLimit: number;
     fanSpeed: number;
     memoryClockLock: number;

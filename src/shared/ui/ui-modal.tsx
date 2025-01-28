@@ -58,7 +58,7 @@ export function UiModal({
                   {renderContent?.()}
                 </Dialog.Panel>
               </UiBgContainer>
-            </UiBorderBox>
+            </UiBorderBox>  
           }
           </div>
         </div>

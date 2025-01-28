@@ -5,10 +5,10 @@ import _ from "lodash";
 
 export function GpuItemPanelGrid({
   className,
-  coinsList
+  flightSheet
 } : {
   className?: string;
-  coinsList?: Coin[];
+  flightSheet?: Coin;
 }) {
   return (
     <div className={clsx(
@@ -19,18 +19,18 @@ export function GpuItemPanelGrid({
         <span className={styles['text']}>Coin</span>
         <span className={styles['text']}>Hashrate</span>
         <span className={clsx(styles['span'], styles['text'])}>Shares</span>
-        <span className={styles['text']}>Perfomance</span>
+        {/* <span className={styles['text']}>Perfomance</span> */}
       </div>
-      {_.map(coinsList, (coin) => (
-        <div key={coin.coin} className={styles['gpu-panel-grid-items']}>
-          <span>{coin.coin}</span>
+      {_.map(flightSheet?.coins, (coin) => (
+        <div key={coin.coinName} className={styles['gpu-panel-grid-items']}>
+          <span>{coin.coinName}</span>
           <span>
-            {coin.hashrate.value}&nbsp;
-            <span className={styles['blue']}>{coin.hashrate.measureUnit}</span>
+            {coin.hashRate ?? 0}&nbsp;
+            <span className={styles['blue']}>{'Mh/s'}</span>
           </span>
           <span className={styles['shares-accepted']}>{coin.shares.accepted}</span>
           <span className={styles['shares-rejected']}>{coin.shares.rejected}</span>
-          <span>{coin.performance}</span>
+          {/* <span>{coin.performance}</span> */}
         </div>
       ))}
     </div>

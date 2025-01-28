@@ -1,23 +1,24 @@
 .nav-links {
   display: grid;
-  grid-template-columns: repeat(9, minmax(auto, 9.375rem));
+  grid-template-columns: repeat(8, minmax(auto, 9.375rem));
   justify-content: center;
-  align-self: flex-end;
-  height: 3.125rem;
+  align-self: flex-end; 
   font-size: var(--font-size-22px);
   gap: 0.3125rem;
+  line-height: 3rem;
+  max-height: 100vh;
 }
 
 @mixin container {
   position: relative;
   width: 100%;
-  height: 100%;
   display: flex;
   align-self: center;
   max-width: 9.375rem;
   align-items: center;
   justify-content: center;
   z-index: 1;
+  max-height: 100vh;  
 }
 
 .inactive-link {
@@ -45,6 +46,7 @@
 .active-link {
   @include container();
   background: linear-gradient(rgba(0, 0, 0, 0), var(--color-active-link-bg-gradient));
+
   border-bottom: solid 1px var(--color-active-link-text);
   color: var(--color-active-link-text);
   padding-top: 1px;
@@ -58,5 +60,11 @@
 
   &.white {
     color: white;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .nav-links {
+    justify-content: flex-start;
   }
 }

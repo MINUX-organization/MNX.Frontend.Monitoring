@@ -14,25 +14,25 @@ export function GpuItemInfo({
   deviceGpu: DeviceGpu
 }) {
   const firstColumn = [
-    { label: "Core", value: `${deviceGpu.coreClock.value} ${deviceGpu.coreClock.measureUnit}` },
-    { label: "Memory", value: `${deviceGpu.memoryClock.value} ${deviceGpu.memoryClock.measureUnit}` },
-    { label: "Critical Temp.", value: `${deviceGpu.criticalTemperature} °C` },
-    { label: "Power Limit", value: `${deviceGpu.powerLimit} Watt` },
+    // { label: "Core", value: `${deviceGpu} ${deviceGpu.coreClock.measureUnit}` },
+    // { label: "Memory", value: `${deviceGpu.memoryClock.value} ${deviceGpu.memoryClock.measureUnit}` },
+    { label: "Critical Temp.", value: `${deviceGpu.avarageTemperature} °C` },
+    { label: "Power Limit", value: `${deviceGpu.power} Watt` },
   ]
 
   const secondColumn = [
-    { label: "Manufacturer", value: deviceGpu.manufacture },
-    { label: "Driver", value: deviceGpu.driver },
-    { label: deviceGpu.parallelComputingTechnology.name, value: deviceGpu.parallelComputingTechnology.version },
-    { label: "Vendor", value: `${deviceGpu.powerLimit} Watt` },
+    { label: "Manufacturer", value: deviceGpu.information.manufacturer },
+    { label: "Driver", value: deviceGpu.driverVersion },
+    { label: deviceGpu.information.technology.type, value: deviceGpu.information.technology.version },
+    { label: "Vendor", value: deviceGpu.information.vendor},
   ]
 
-  const thirdColumn = [
-    { label: "Memory Size", value: `${deviceGpu.memorySize.value} ${deviceGpu.memorySize.measureUnit}` },
-    { label: "Memory", value: `${deviceGpu.memoryClock.value} ${deviceGpu.memoryClock.measureUnit}` },
-    { label: "Critical Temp.", value: `${deviceGpu.criticalTemperature} °C` },
-    { label: "Power Limit", value: `${deviceGpu.powerLimit} Watt` },
-  ]
+  // const thirdColumn = [
+  //   { label: "Memory Size", value: `${deviceGpu.memorySize.value} ${deviceGpu.memorySize.measureUnit}` },
+  //   { label: "Memory", value: `${deviceGpu.memoryClock.value} ${deviceGpu.memoryClock.measureUnit}` },
+  //   { label: "Critical Temp.", value: `${deviceGpu.criticalTemperature} °C` },
+  //   { label: "Power Limit", value: `${deviceGpu.powerLimit} Watt` },
+  // ]
 
   return (
     <UiBorderBox className={clsx(
@@ -42,7 +42,7 @@ export function GpuItemInfo({
       <UiBgContainer className={styles['gpu-item-flex']} color="opaque">
         <UiColumnBoard data={firstColumn} />
         <UiColumnBoard data={secondColumn} />
-        <UiColumnBoard data={thirdColumn} />
+        {/* <UiColumnBoard data={thirdColumn} /> */}
         <div className={styles['gpu-info']}>
           <div className={styles['item']}>
             <span className={styles['label']}>MINER</span>
@@ -50,7 +50,7 @@ export function GpuItemInfo({
           </div>
           <div className={styles['item']}>
             <span className={styles['label']}>FLIGHT SHEET</span>
-            <span>{deviceGpu.flightSheet}</span>
+            <span>{deviceGpu.flightSheetName}</span>
           </div>
         </div>
         <GpuMinerTable/>

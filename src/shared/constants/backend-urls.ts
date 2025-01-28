@@ -7,13 +7,13 @@ export const BACKEND_MONITORING_URL = `/${BACKEND_MONITORING}/api`;
 export const BACKEND_SECURITY_URL = `/${BACKEND_SECURITY}/api`;
 
 export const BACKEND_HUBS = {
-  MONITORING: `${BACKEND_BASE_URL}/hubs/monitoring`,
+  MONITORING: `${BACKEND_BASE_URL}/${BACKEND_MONITORING}/hubs/monitoring`,
 } as const
 
 export const BACKEND_APIS = {
   LOGIN: `${BACKEND_SECURITY_URL}/auth/user/login`,
   SIGNUP: `${BACKEND_SECURITY_URL}/auth/user/registration`,
-  REFRESH_ACCESS_TOKEN: `${BACKEND_SECURITY_URL}/auth/refreshTokens`,
+  REFRESH_ACCESS_TOKEN: `${BACKEND_SECURITY_URL}/auth/user/refreshTokens`,
   CRYPTOCURRENCY: `${BACKEND_MONITORING_URL}/cryptocurrencies`,
   ALHORITHM: `${BACKEND_MONITORING_URL}/algorithms/available`,
   POOL: `${BACKEND_MONITORING_URL}/pools`,
@@ -25,4 +25,8 @@ export const BACKEND_APIS = {
   GPUS: `${BACKEND_MONITORING_URL}/devices/gpus`,
   GPUS_RESTRICTIONS: (gpuName: string) => `${BACKEND_MONITORING_URL}/devices/gpus/${gpuName}/restrictions`,
   GPUS_UNIQUE_NAMES: `${BACKEND_MONITORING_URL}/devices/gpus/unique_names`,
+  PROFILE: `${BACKEND_SECURITY_URL}/profile`,
+  NICKNAME : `${BACKEND_SECURITY_URL}/profile/nickname`,
+  DEVICE_OVERCLOCKING: `${BACKEND_MONITORING_URL}/devices/overclocking`,
+  CHANGE_PASSWORD: `${BACKEND_SECURITY_URL}/user/changePassword`,
 }

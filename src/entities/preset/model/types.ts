@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 export const Overclocking = z.object({
+  $type: z.enum(['CPU', 'GPU'], {invalid_type_error: 'Type must be a string'}),
   powerLimit: z.number({invalid_type_error: 'PowerLimit must be a number'}),
   fanSpeed: z.number({invalid_type_error: 'FanSpeed must be a number'}),
   memoryClockLock: z.number({invalid_type_error: 'MemoryClockLock must be a number'}),
@@ -17,8 +18,8 @@ export type Overclocking = z.infer<typeof Overclocking>
 export const Preset = z.object({
   id: z.string({invalid_type_error: 'Id must be a string'}),
   name: z.string({invalid_type_error: 'Name must be a string'}),
-  gpuName: z.string({invalid_type_error: 'GpuName must be a string'}),
-  overclocking: Overclocking
+  deviceName: z.string({invalid_type_error: 'DeviceName must be a string'}),
+  overclocking: Overclocking,
 })
 export type Preset = z.infer<typeof Preset>
 

@@ -22,7 +22,7 @@ export function GpuItemPanelTable({
           <span className={clsx(
               deviceGpu?.coreTemperature && deviceGpu.coreTemperature > 80 && styles['red']
             )}>
-              {deviceGpu.memTemperature}&nbsp;
+              {deviceGpu.memoryTemperature}&nbsp;
           </span>
             <span>°C</span>
         </span>
@@ -41,7 +41,7 @@ export function GpuItemPanelTable({
       <div className={styles['gpu-panel-table-item']}>
         <UiTextTitleWrapper className={styles['text']}  text="FAN" />
         <span>
-          {deviceGpu.fan}&nbsp;
+          {deviceGpu.fanSpeed}&nbsp;
           <span>%</span>
         </span>
       </div>

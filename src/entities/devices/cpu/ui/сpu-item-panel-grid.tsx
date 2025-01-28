@@ -1,11 +1,11 @@
 import clsx from "clsx";
 import styles from './сpuItemPanelGrid.module.scss'
 import { Coin } from "../model/types";
-import _ from "lodash";
+// import _ from "lodash";
 
 export function CpuItemPanelGrid({
   className,
-  coinsList
+  // coinsList
 } : {
   className?: string;
   coinsList?: Coin[];
@@ -15,7 +15,7 @@ export function CpuItemPanelGrid({
       className,
       styles['cpu-panel-grid']
     )}>
-      <div className={styles['cpu-panel-grid-title']}>
+      {/* <div className={styles['cpu-panel-grid-title']}>
         <span className={styles['text']}>Coin</span>
         <span className={styles['text']}>Hashrate</span>
         <span className={clsx(styles['span'], styles['text'])}>Shares</span>
@@ -32,7 +32,7 @@ export function CpuItemPanelGrid({
           <span className={styles['shares-rejected']}>{coin.shares.rejected}</span>
           <span>{coin.performance}</span>
         </div>
-      ))}
+      ))} */}
     </div>
   )
 }

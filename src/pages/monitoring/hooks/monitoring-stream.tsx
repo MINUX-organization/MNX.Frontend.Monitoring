@@ -11,7 +11,7 @@ export function useMonitoringStream() {
 
     websocket
         ?.stream(SubscriptionType.Monitoring)
-        .subscribe(subscriber(
+        .subscribe(subscriber<MonitoringIndicators>(
             data => monitoringIndicators.setValue(data),
             error => console.error(error),
         ));

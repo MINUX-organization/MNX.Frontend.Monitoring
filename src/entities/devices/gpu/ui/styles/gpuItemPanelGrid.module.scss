@@ -1,14 +1,14 @@
 @mixin subgrid() {
   display: grid;
   grid-template-columns: subgrid;
-  grid-column: 1 / 6;
+  grid-column: 1 / 5;
   justify-content: center;
   align-items: center;
 }
 
 .gpu-panel-grid {
   display: grid;
-  grid-template-columns: minmax(auto, 3rem) 1fr minmax(auto, 3rem) minmax(auto, 3rem) 1fr;
+  grid-template-columns: minmax(auto, 3rem) 1fr minmax(auto, 3rem) minmax(auto, 3rem);
   gap: var(--gap-content);
   grid-auto-flow: row;
 

@@ -1,0 +1,20 @@
+.profile-info-card {
+  .profile-info-card-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .layout {
+    height: 6rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .divider {
+    height: 1px;
+    opacity: .5;
+    width: 100%;
+    background-color: var(--color-border);
+  }
+}

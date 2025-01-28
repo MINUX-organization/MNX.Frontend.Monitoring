@@ -9,7 +9,7 @@ import clsx from "clsx";
 
 export function RootLayout({
   className
-} : {
+} : { 
   className?: string;
 }) {
   return (

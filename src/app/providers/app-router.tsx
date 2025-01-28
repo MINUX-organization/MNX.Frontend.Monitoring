@@ -3,7 +3,6 @@ import {
   createBrowserRouter,
   redirect,
 } from "react-router-dom";
-import _ from "lodash";
 import React from "react";
 import PrivateRoute from "../guards/private-route";
 import { RootLayout } from "@/widgets/root-layout";
@@ -21,7 +20,6 @@ import { BACKEND_HUBS } from "@/shared/constants/backend-urls";
 import { WebsocketContextProvider } from "@/widgets/providers";
 import { RegistrationPage } from "@/pages/auth/registration";
 import { FlightSheetSelectDevicesPage } from "@/pages/flightsheets";
-
 const MonitoringPage = React.lazy(() => import("@/pages/monitoring").then(module => ({ default: module.MonitoringPage })));
 const GpusPage = React.lazy(() => import("@/pages/devices/GPUs").then(module => ({ default: module.GpusPage })));
 const RigsPage = React.lazy(() => import("@/pages/rigs").then(module => ({ default: module.RigsPage })));
@@ -67,7 +65,7 @@ const router = createBrowserRouter([
         path: ROUTER_PATHS.MONITORING,
         element: (
             <React.Suspense fallback={<UiSpinner />}>
-              <WebsocketContextProvider url={BACKEND_HUBS.MONITORING} token={''}>
+              <WebsocketContextProvider url={BACKEND_HUBS.MONITORING}>
                 <MonitoringPage />
               </WebsocketContextProvider>
             </React.Suspense>
@@ -77,14 +75,16 @@ const router = createBrowserRouter([
         path: ROUTER_PATHS.GPUS,
         element: (
             <React.Suspense fallback={<UiSpinner />}>
-              <GpusPage />
+              <WebsocketContextProvider url={BACKEND_HUBS.MONITORING}>
+                <GpusPage />
+              </WebsocketContextProvider>
             </React.Suspense>
         ),
         children: [
           {
             path: ROUTER_PATHS.GPU,
             element: (
-                  <PresetModal />
+              <PresetModal />
             ),
           },
         ],
@@ -93,7 +93,9 @@ const router = createBrowserRouter([
         path: ROUTER_PATHS.CPUS,
         element: (
             <React.Suspense fallback={<UiSpinner />}>
-              <CpusPage />
+              <WebsocketContextProvider url={BACKEND_HUBS.MONITORING}>
+                <CpusPage />
+              </WebsocketContextProvider>
             </React.Suspense>
         ),
       },
@@ -170,7 +172,7 @@ const router = createBrowserRouter([
           {
             path: ROUTER_PATHS.CONFIG,
             element: (
-                <FlightSheetModal />
+              <FlightSheetModal />
             ),
           },
         ]

@@ -7,6 +7,6 @@ type Response = {
   refreshExpiration: string
 }
 
-export const refreshAccessTokenApi = async (refreshToken: string) => {
-  return (await apiInstance().post(BACKEND_APIS.REFRESH_ACCESS_TOKEN, {refreshToken})).data as Response
+export const refreshAccessTokenApi = (refreshToken: string) => {
+  return apiInstance().post<Response>(BACKEND_APIS.REFRESH_ACCESS_TOKEN, {refreshToken})
 }

@@ -17,7 +17,7 @@ export function useSliderParameters({
 
   useEffect(() => {
     sliderValue.setValue(value ?? defaultValue);
-  }, [presetId, forceReset]);
+  }, [presetId, forceReset, value]);
 
   return {
     label,

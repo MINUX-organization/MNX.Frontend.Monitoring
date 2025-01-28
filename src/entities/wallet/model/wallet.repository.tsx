@@ -41,7 +41,7 @@ export function useWalletRepository() {
   });
   
   const addWallet = async (wallet: PostWallet) => {
-    const status = await addWalletMutation.mutate(wallet);
+    const status = await addWalletMutation.mutateAsync(wallet);
 
     return IS_SUCCESS_STATUS(status);
   }

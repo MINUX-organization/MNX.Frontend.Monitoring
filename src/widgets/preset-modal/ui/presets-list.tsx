@@ -48,7 +48,7 @@ export function PresetsList({
             <UiSpinner className={styles['centered']}/>
           ))
           .otherwise(() => {
-            const filteredPresetsList = _.filter(getPresetsList(), (preset) => _.startsWith(preset.gpuName, selectedGpuName ?? ''))
+            const filteredPresetsList = _.filter(getPresetsList(), (preset) => _.startsWith(preset.deviceName, selectedGpuName ?? ''))
 
             if (_.isEmpty(filteredPresetsList)) return <span className={styles['centered']}>N/A</span>;
 

@@ -3,7 +3,7 @@ import { apiInstance } from "../api-instance";
 
 type Request = {
   name: string;
-  gpuName: string;
+  deviceName: string;
   overclocking: {
     powerLimit: number;
     fanSpeed: number;
