@@ -1,9 +1,7 @@
-import { FC } from "react";
+import { AppComposer } from "./providers/app-composer";
 
-export const App: FC = () => {
+export function App() {
   return (
-    <div>
-      <h1>Monitoring</h1>
-    </div>
+    <AppComposer />
   );
 };
