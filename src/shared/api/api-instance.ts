@@ -41,11 +41,6 @@ export function apiInstance(url?: string, customApiConfig?: AxiosRequestConfig):
   const instance = axios.create(apiConfig);
 
   instance.interceptors.request.use(config => {
-    if (config.url?.includes('/auth')) {
-
-      return config;
-    }
-
     const token = localStorage.getItem('session');
     
     if (token) {

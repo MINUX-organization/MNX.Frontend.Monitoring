@@ -36,11 +36,11 @@ export function EditPasswordForm({
   return (
     <form onSubmit={handleSubmit(submit)} className={clsx(className, styles['edit-password-form'])}>
       <span className={styles['title']}>Edit nickname</span>
-      <UiInput type="password" name="oldPassword" control={control} color="transparent"/>
-      <UiInput type="password" name="newPassword" control={control} color="transparent"/>
+      <UiInput label="Old password" type="password" name="oldPassword" control={control} color="transparent"/>
+      <UiInput label="New password" type="password" name="newPassword" control={control} color="transparent"/>
       <div className={styles['buttons']}>
-        <UiButton withBorder color="blue" type="submit">Save</UiButton>
-        <UiButton withBorder color="red" onClick={onClose}>Cancel</UiButton>
+        <UiButton className={styles['button']} withBorder color="blue" type="submit">Save</UiButton>
+        <UiButton className={styles['button']} withBorder color="red" onClick={onClose}>Cancel</UiButton>
       </div>
     </form>
   )

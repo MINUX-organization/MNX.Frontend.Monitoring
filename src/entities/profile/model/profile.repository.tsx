@@ -14,10 +14,10 @@ export function useProfileRepository() {
 
   const editNicknameMutation = useMutation({
     mutationFn: (nickname: string) => editNicknameApi(nickname),
-    onSuccess: (_data, nickname) => {
-      queryClient.setQueryData(['profile'], {...profileInfo, nickname})
+    onSuccess: () => {
+      queryClient.invalidateQueries(['profile']);
     }
-  })
+  })        
 
   const editPasswordMutation = useMutation({
     mutationFn: (data: {newPassword: string, password: string, login: string}) => editPasswordApi(data),
@@ -37,8 +37,6 @@ export function useProfileRepository() {
 
     return IS_SUCCESS_STATUS(result.status);
   }
-
-
 
   return {
     profileInfo,

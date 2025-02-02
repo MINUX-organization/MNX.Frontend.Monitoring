@@ -28,5 +28,5 @@ export const BACKEND_APIS = {
   PROFILE: `${BACKEND_SECURITY_URL}/profile`,
   NICKNAME : `${BACKEND_SECURITY_URL}/profile/nickname`,
   DEVICE_OVERCLOCKING: `${BACKEND_MONITORING_URL}/devices/overclocking`,
-  CHANGE_PASSWORD: `${BACKEND_SECURITY_URL}/user/changePassword`,
+  CHANGE_PASSWORD: `${BACKEND_SECURITY_URL}/auth/user/changePassword`,
 }
