@@ -12,8 +12,7 @@ export default ({ mode }: { mode: string }) => {
     plugins: [
       react(), 
       tsconfigPaths(), 
-      TanStackRouterVite({ 
-        autoCodeSplitting: true,
+      TanStackRouterVite({
         routesDirectory: resolve(__dirname, "./src/app/routes"),
         generatedRouteTree: resolve(__dirname, "./src/app/routeTree.gen.ts")
       })],

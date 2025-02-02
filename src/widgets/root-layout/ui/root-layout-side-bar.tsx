@@ -8,13 +8,17 @@ export function RootLayoutSideBar({ ...props }: StackProps) {
   return (
     <Flex {...props} direction={'column'} >
       <Stack separator={<StackSeparator />}>
-        <MinuxLogo />
+        <MinuxLogo textClassName={{ 
+          "@media screen and (max-width: 1024px)": {
+            display: 'none',
+          }
+         }}/>
         <></>
       </Stack>
-      <RootLayoutSideBarNav as={'nav'} overflow={'auto'} links={NAV_FIELDS} flexGrow={1}/>
+      <RootLayoutSideBarNav p={1} as={'nav'} overflow={'auto'} links={NAV_FIELDS} flexGrow={1}/>
       <Stack separator={<StackSeparator />}>
         <></>
-        <UiAvatar name={'name'}  />
+        <UiAvatar name={'name'} />
       </Stack>
     </Flex>
   )

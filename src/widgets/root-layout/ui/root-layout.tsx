@@ -4,8 +4,13 @@ import { RootLayoutMainContent } from "./root-layout-main-content";
 
 export function RootLayout() {
   return (
-    <Stack separator={<StackSeparator />} minHeight={"100vh"} direction={"row"} padding={2.5}>
-      <RootLayoutSideBar as={'aside'}/>
+    <Stack separator={<StackSeparator />} 
+      minHeight={"100vh"} 
+      maxHeight={"100vh"} 
+      direction={"row"} 
+      padding={2.5}
+    >
+      <RootLayoutSideBar as={'aside'} />
       <RootLayoutMainContent as={'main'} />
     </Stack>
   )

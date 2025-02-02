@@ -2,6 +2,7 @@ import { MicrochipIcon } from "@/shared/assets/svg/microchip";
 import { RootLayoutNavLink } from "../root-layout-nav-link.type";
 import { MonitoringIcon } from "@/shared/assets/svg/monitoring";
 import { SetupIcon } from "@/shared/assets/svg/setup";
+import { MiningIcon } from "@/shared/assets/svg/mining";
 
 export const NAV_FIELDS: RootLayoutNavLink[] = [
   { label: "Monitoring", to: "/monitoring", icon: <MonitoringIcon /> },
@@ -9,7 +10,7 @@ export const NAV_FIELDS: RootLayoutNavLink[] = [
     { label: "GPUs", to: "/gpus" },
     { label: "CPUs", to: "/cpus" },
   ]},
-  { label: "Mining", to: "/mining", children: [
+  { label: "Mining", to: "/mining", icon: <MiningIcon />, children: [
     { label: "Cryptocurrencies", to: "/rigs" },
     { label: "Wallets", to: "/software" },
     { label: "Pools", to: "/pools" },

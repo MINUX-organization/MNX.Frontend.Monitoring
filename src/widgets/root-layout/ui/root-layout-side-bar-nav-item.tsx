@@ -1,15 +1,18 @@
 import { useState } from "react";
 import { RootLayoutNavLink } from "../model/root-layout-nav-link.type";
-import { Button, Collapsible, Stack, chakra, ButtonProps } from "@chakra-ui/react";
-import { useNavigate } from "@tanstack/react-router";
+import { Button, Collapsible, Stack, chakra, ButtonProps, Text, } from "@chakra-ui/react";
+import { useRouterState, Link } from "@tanstack/react-router";
 import _ from "lodash";
-import { LuChevronDown } from "react-icons/lu";
 import { motion } from "motion/react";
+import { ChevronDownIcon } from "@/shared/assets/svg/chevron-down";
 
-const MLuChevronDown = motion.create(LuChevronDown);
+const MChevronDownIcon = motion.create(ChevronDownIcon);
 
 const NavButton = chakra(Button, {
   base: {
+    '@media (max-width: 1024px)': {
+      p: '2'
+    },
     fontSize: "md",
     justifyContent: "space-between",
     width: "100%",
@@ -21,7 +24,7 @@ const NavButton = chakra(Button, {
     _open: {
       opacity: 1,
     },
-    transition: "opacity 0.2s ease-in-out",
+    transition: "all 0.2s ease-in-out",
   },
 });
 
@@ -33,11 +36,13 @@ export function RootLayoutSideBarNavItem({
   fontSize?: string 
 } & ButtonProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const navigate = useNavigate();
+  const router = useRouterState();
 
-  const handleLinkClick = () => {
-    navigate({ to: link.to });
+  if (!link.to) {
+    return null;
   }
+
+  const isActive = _.includes(router.location.pathname, link.to);
 
   if (link.children) {
     return (
@@ -47,16 +52,25 @@ export function RootLayoutSideBarNavItem({
             fontSize={"md"}
             variant="ghost"
             onClick={() => setIsOpen(!isOpen)}
+            css={isActive && {
+              color: 'minux.solid',
+              opacity: 1
+            }}
           >
-            <Stack direction={'row'}>
-              {link.icon}
-              {link.label}
-            </Stack>
-            <MLuChevronDown initial={{ rotate: isOpen ? 180 : 0 }} animate={{ rotate: isOpen ? 180 : 0 }}/>
+            <TextResponsive link={link}/>
+            <MChevronDownIcon 
+              css={{
+                '@media (max-width: 1024px)': { display: 'none' },
+              }} 
+              initial={{ rotate: isOpen ? 180 : 0 }} 
+              animate={{ rotate: isOpen ? 180 : 0 }}
+            />
           </NavButton>
         </Collapsible.Trigger>
         <Collapsible.Content>
-          <Stack pl={4} mt={1} gap={2}>
+          <Stack css={{
+            '@media (max-width: 1024px)': { pl: 0 },
+          }} pl={4} pb={1} mt={1} gap={2}>
             {_.map(link.children, (child) => (
               <RootLayoutSideBarNavItem 
                 key={child.label} 
@@ -70,15 +84,26 @@ export function RootLayoutSideBarNavItem({
   }
 
   return (
-    <NavButton 
-      variant="ghost" 
-      fontSize={fontSize} 
-      onClick={handleLinkClick}
-    >
-      <Stack direction={'row'}>
-        {link.icon}
-        {link.label}
-      </Stack>
-    </NavButton>  
+    <Link to={link.to}>
+      <NavButton
+        variant="ghost" 
+        fontSize={fontSize} 
+        css={isActive && {
+          color: 'minux.solid',
+          opacity: 1
+        }}
+      >
+        <TextResponsive link={link}/>
+      </NavButton>  
+    </Link>
   );
 }
+
+export const TextResponsive = ({ link } : { link: RootLayoutNavLink }) =>(
+  <Stack direction={'row'}>
+    {link.icon}
+    <Text css={{ '@media (max-width: 1024px)': { display: 'none' } }}>
+      {link.label}
+    </Text>
+  </Stack>
+)

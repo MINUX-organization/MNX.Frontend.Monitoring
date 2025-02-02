@@ -12,7 +12,7 @@ export interface InputGroupProps extends BoxProps {
   endOffset?: InputElementProps["paddingEnd"]
 }
 
-export const UiInputGroup = React.forwardRef<HTMLDivElement, InputGroupProps>(
+export const InputGroup = React.forwardRef<HTMLDivElement, InputGroupProps>(
   function InputGroup(props, ref) {
     const {
       startElement,

@@ -1,11 +1,15 @@
-import { Heading, Stack, StackProps } from "@chakra-ui/react";
+import { Heading, Stack, StackProps, SystemStyleObject } from "@chakra-ui/react";
 import { MinuxLogoIcon } from "../assets/svg/minux-logo-icon";
 import { motion } from 'motion/react'
 
 const MHeadeing = motion.create(Heading)
 const MMinuxLogoIcon = motion.create(MinuxLogoIcon)
 
-export function MinuxLogo({ ...props }: StackProps) {
+export interface MinuxLogoProps extends StackProps {
+  textClassName?: SystemStyleObject
+}
+
+export function MinuxLogo({ textClassName, ...props }: MinuxLogoProps) {
   return (
     <Stack {...props} direction={'row'} align={'center'} gap={4} userSelect={'none'}>
       <MMinuxLogoIcon
@@ -25,6 +29,7 @@ export function MinuxLogo({ ...props }: StackProps) {
         }}
       /> 
       <MHeadeing
+        css={textClassName}
         fontSize={'3xl'}
         letterSpacing={'0.5em'}  
         background={'linear-gradient(to right, #c0c0c0 20%, rgba(60, 158, 165, 1) 30%, rgba(60, 158, 165, 1) 70%,  #c0c0c0 80%)'}
