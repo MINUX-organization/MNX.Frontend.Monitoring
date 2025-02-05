@@ -27,6 +27,7 @@ export const UiToaster = () => {
               animationName: "fade-in, slide-from-bottom-full",
               animationDuration: "250ms",
             }}
+            alignContent={'center'}
           >
             {toast.type === "loading" ? (
               <Spinner size="sm" color="blue.solid" />
@@ -34,9 +35,9 @@ export const UiToaster = () => {
               <Toast.Indicator />
             )}
             <Stack gap="1" flex="1" maxWidth="100%">
-              {toast.title && <Toast.Title>{toast.title}</Toast.Title>}
+              {toast.title && <Toast.Title fontSize={"lg"}>{toast.title}</Toast.Title>}
               {toast.description && (
-                <Toast.Description>{toast.description}</Toast.Description>
+                <Toast.Description fontSize={"lg"}>{toast.description}</Toast.Description>
               )}
             </Stack>
             {toast.action && (

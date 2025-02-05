@@ -1,32 +1,34 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { useMutation } from "@tanstack/react-query"
 import { LoginType } from "./login.type";
-import { loginApi, registrationApi } from "@/shared/api";
+import { loginApi, logoutApi, refreshTokensApi, registrationApi } from "@/shared/api";
 import { RegistrationType } from "./registration.type";
 import { SessionType } from "./session.type";
 import { toaster } from "@/shared/ui/toaster";
+import { AxiosError } from "axios";
 
-function useSessionQuery() {
-  return useQuery({
-    queryKey: ['session'],
-    queryFn: () => localStorage.getItem('session'),
-  });
+const sessionQuery = (): SessionType | undefined => {
+  const session = localStorage.getItem('session');
+
+  if (!session) {
+    return undefined;
+  }
+
+  return JSON.parse(session);
 }
 
 function useSessionMutation() {
-  const query = useQueryClient();
-
   const setSessionViaLoginMutation = useMutation({
     mutationFn: (data: LoginType) => loginApi<LoginType, SessionType>(data),
     onSuccess: (response) => {
       localStorage.setItem('session', JSON.stringify(response.data));
-      query.setQueryData(['session'], response)
       toaster.success({
         description: 'You have successfully logged in',
       })
     },
-    onError: (error) => {
+    onError: (error: AxiosError<string[]>) => {
       toaster.error({
-        description: error.message
+        title: error.message,
+        description: error.response?.data[0],
       })
     }
   })
@@ -35,31 +37,52 @@ function useSessionMutation() {
     mutationFn: (data: RegistrationType) => registrationApi<RegistrationType, SessionType>(data),
     onSuccess: (response) => {
       localStorage.setItem('session', JSON.stringify(response.data));
-      query.setQueryData(['session'], response)
       toaster.success({
         description: 'You have successfully registered and logged in',
       })
     },
-    onError: (error) => {
+    onError: (error: AxiosError<string[]>) => {
       toaster.error({
-        description: error.message
+        title: error.message,
+        description: error.response?.data[0],
       })
+    }
+  })
+
+  const refreshSessionMutation = useMutation({
+    mutationFn: (refreshToken: string) => refreshTokensApi(refreshToken),
+    onSuccess: (response) => {
+      localStorage.setItem('session', JSON.stringify(response.data));
+    },
+    onError: (error: AxiosError<string[]>) => {
+      toaster.error({
+        title: error.message,
+        description: error.response?.data[0],
+      })
+    }
+  })
+
+  const removeSessionMutation = useMutation({
+    mutationFn: (refreshToken: string) => logoutApi(refreshToken),
+    onSuccess: () => {
+      localStorage.removeItem('session');
     }
   })
 
   const setSession = (session: SessionType) => {
     localStorage.setItem('session', JSON.stringify(session));
-    query.setQueryData(['session'], session)
   }
 
   return {
+    refreshSession: refreshSessionMutation.mutateAsync,
     setSessionViaLogin: setSessionViaLoginMutation.mutateAsync,
     setSessionViaRegistration: setSessionViaRegistrationMutation.mutateAsync,
+    removeSession: removeSessionMutation.mutateAsync,
     setSession,
   }
 }
 
 export const sessionRepository = {
-  useSessionQuery,
+  sessionQuery,
   useSessionMutation,
 }

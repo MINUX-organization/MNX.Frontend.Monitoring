@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export function ZodSaveParse<T>(
+export function zodSaveParse<T>(
   data: unknown, 
   schema: z.ZodType<T>, 
   callback?: (checkedData: T) => void

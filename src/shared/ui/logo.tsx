@@ -6,12 +6,13 @@ const MHeadeing = motion.create(Heading)
 const MMinuxLogoIcon = motion.create(MinuxLogoIcon)
 
 export interface MinuxLogoProps extends StackProps {
-  textClassName?: SystemStyleObject
+  textClassName?: SystemStyleObject,
+  fontSize?: string,
 }
 
-export function MinuxLogo({ textClassName, ...props }: MinuxLogoProps) {
+export function MinuxLogo({ textClassName, fontSize, ...props }: MinuxLogoProps) {
   return (
-    <Stack {...props} direction={'row'} align={'center'} gap={4} userSelect={'none'}>
+    <Stack {...props} direction={'row'} align={'center'} gap={4} userSelect={'none'} justify={{ base: 'center', lg: 'flex-start'}}>
       <MMinuxLogoIcon
         initial={{ filter: 'drop-shadow(0 0 16px rgba(60, 158, 165, 0.5))'}}
         animate={{
@@ -30,13 +31,12 @@ export function MinuxLogo({ textClassName, ...props }: MinuxLogoProps) {
       /> 
       <MHeadeing
         css={textClassName}
-        fontSize={'3xl'}
+        fontSize={fontSize || '3xl'}
         letterSpacing={'0.5em'}  
         background={'linear-gradient(to right, #c0c0c0 20%, rgba(60, 158, 165, 1) 30%, rgba(60, 158, 165, 1) 70%,  #c0c0c0 80%)'}
         backgroundClip={'text'}
         WebkitTextFillColor={'transparent'}
         backgroundSize={'500% auto'}
-        filter={""}
         overflow={'hidden'}
         initial={{ backgroundPosition: '0% 50%'}}
         animate={{ backgroundPosition: '100% 50%'}}

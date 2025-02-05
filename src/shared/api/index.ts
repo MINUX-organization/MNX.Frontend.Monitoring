@@ -1,3 +1,5 @@
+import { AxiosResponse } from 'axios'
+
 export { loginApi, logoutApi, refreshTokensApi, registrationApi, changePasswordApi } from './user'
 export { getRigsApi, getRigCpusApi, getRigGpusApi, getRigDrivesApi, getRigSoftwareApi, getRigMotherboardApi, getRigNetworkAdaptersApi, rigStopMiningApi, rigStartMiningApi } from './rig'
 export { getPresetsApi, getPresetsGroupedByGpuApi, savePresetApi, deletePresetApi, editPresetApi } from './preset'
@@ -8,3 +10,5 @@ export { getMinersApi } from './miner'
 export { getCryptocurrenciesApi, addCryptocurrencyApi, deleteCryptocurrencyApi } from './cryptocurrency'
 export { getCpuDevices, getGpuDevices, getGpuRestrictionsApi, getGpusUniqueNamesApi, getDeviceOverclockingApi, applyDeviceOverclockingApi } from './device'
 export { getFlightSheetsApi, getFlightSheetByIdApi, createFlightSheetApi, deleteFlightSheetApi, editFlightSheetApi, getFlightSheetDevicesApi, getFlightSheetDevicesSupportApi, applyFlightSheetApi } from './flight-sheet'
+
+export const isSuccessResponse = (response: AxiosResponse) => response.status >= 200 && response.status < 300

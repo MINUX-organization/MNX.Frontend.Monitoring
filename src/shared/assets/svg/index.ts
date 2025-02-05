@@ -1,0 +1,16 @@
+export { AlgorithmIcon } from './algorithm';
+export { CoinIcon } from './coin';
+export { CpuIcon } from './cpu';
+export { EditIcon } from './edit';
+export { FlightSheetIcon } from './flight-sheet';
+export { GpuIcon } from './gpu';
+export { MiningIcon } from './mining';
+export { PoolIcon } from './pool';
+export { PresetIcon } from './preset';
+export { WalletIcon } from './wallet';
+export { MicrochipIcon } from './microchip';
+export { MonitoringIcon } from './monitoring';
+export { SetupIcon } from './setup';
+export { MinuxLogoIcon } from './minux-logo-icon';
+export { UnconfirmedIcon } from './unconfirmed';
+export { ConfirmedIcon } from './confirmed';

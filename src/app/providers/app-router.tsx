@@ -8,16 +8,15 @@ const router = createRouter({
   context: {
     session: {
       get: undefined!,
-      set: undefined!,
+      mutation: undefined!,
     },
   },
 });
 
-const { useSessionQuery, useSessionMutation } = sessionRepository;
+const { sessionQuery, useSessionMutation } = sessionRepository;
 
 export function AppRouterProvider() {
-  const { data: session } = useSessionQuery();
-  const { setSession } = useSessionMutation();
+  const mutatuion = useSessionMutation();
 
-  return <RouterProvider router={router} context={{ session: { get: session, set: setSession }}}/>;
+  return <RouterProvider router={router} context={{ session: { get: sessionQuery, mutation: mutatuion }}}/>;
 }

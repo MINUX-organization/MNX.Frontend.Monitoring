@@ -9,10 +9,11 @@ export function AppComposer({ children }: { children?: ReactNode }) {
   return (
     <ComposeChildren>
       <AppQueryProvider />
-      <AppStylingProvider />
-      <AppRouterProvider />
-      {children}
-      <UiToaster />
+      <AppStylingProvider>
+        <AppRouterProvider />
+        {children}
+        <UiToaster />
+      </AppStylingProvider>
     </ComposeChildren>
   );
 }

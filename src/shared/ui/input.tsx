@@ -1,8 +1,23 @@
-import { chakra, Input } from "@chakra-ui/react";
+import { Input, InputProps } from "@chakra-ui/react";
+import { match } from "ts-pattern";
+import { UiText } from "./text";
+import { forwardRef } from "react";
 
-export const UiInput = chakra(Input, {
-  base: {
-    bg: 'bg.panel',
-    borderColor: 'minux.solid',
-  }
-})
+export const UiInput = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
+  return (
+    <>
+      {match(props.readOnly)
+        .with(true, () => <UiText {...props}>{props.value}</UiText>)
+        .otherwise(() => (
+          <Input
+            {...props}
+            ref={ref}
+            colorPalette="input"
+            bg="bg.input"
+            borderColor="minux.solid"
+            rounded="md"
+          />
+        ))}
+    </>
+  );
+});

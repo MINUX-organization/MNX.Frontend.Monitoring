@@ -16,7 +16,7 @@ export const BACKEND_APIS = {
     SIGNUP: `${BACKEND_SECURITY_URL}/auth/user/registration`,
     REFRESH_TOKENS: `${BACKEND_SECURITY_URL}/auth/user/refreshTokens`,
     LOGOUT: `${BACKEND_SECURITY_URL}/auth/user/invalidateRefreshToken`,
-    CHANGE_PASSWORD: `${BACKEND_SECURITY_URL}/user/changePassword`,
+    CHANGE_PASSWORD: `${BACKEND_SECURITY_URL}/auth/user/changePassword`,
   },
   RIG: {
     RIGS: `${BACKEND_MONITORING_URL}/rigs`,
@@ -41,12 +41,15 @@ export const BACKEND_APIS = {
     FLIGHT_SHEETS_DEVICES: (id: string) => `${BACKEND_MONITORING_URL}/flight_sheets/${id}/devices`,
     FLIGHT_SHEETS_DEVICES_SUPPORT: (id: string) => `${BACKEND_MONITORING_URL}/flight_sheets/${id}/devices/support`,
   },
+  PROFILE: {
+    BASE: `${BACKEND_SECURITY_URL}/profile`,
+    NICKNAME: `${BACKEND_SECURITY_URL}/profile/nickname`,
+  },
   CRYPTOCURRENCIES: `${BACKEND_MONITORING_URL}/cryptocurrencies`,
   ALHORITHMS: `${BACKEND_MONITORING_URL}/algorithms/available`,
   POOLS: `${BACKEND_MONITORING_URL}/pools`,
   WALLETS: `${BACKEND_MONITORING_URL}/wallets`,
   MINERS: `${BACKEND_MONITORING_URL}/miners/available`,
   PRESETS: `${BACKEND_MONITORING_URL}/presets`,
-  PROFILE: `${BACKEND_SECURITY_URL}/profile`,
   NICKNAME : `${BACKEND_SECURITY_URL}/profile/nickname`,
 } as const

@@ -10,7 +10,6 @@ import {
   Box,
   HStack,
   IconButton,
-  Input,
   Stack,
   mergeRefs,
   useControllableState,
@@ -18,6 +17,7 @@ import {
 import * as React from "react"
 import { LuEye, LuEyeOff } from "react-icons/lu"
 import { InputGroup } from "./input-group"
+import { UiInput } from "./input"
 
 export interface PasswordVisibilityProps {
   defaultVisible?: boolean
@@ -71,8 +71,17 @@ export const UiPasswordInput = React.forwardRef<
       }
       {...rootProps}
     >
-      <Input
+      <UiInput
         {...rest}
+        bg={'bg.input'} 
+        _focus={{
+          borderColor: 'transparent'
+        }}
+        borderColor={'minux.solid'}
+        _invalid={{
+          borderColor: 'border.error',
+        }}
+        colorPalette={'input'}
         ref={mergeRefs(ref, inputRef)}
         type={visible ? "text" : "password"}
       />

@@ -14,26 +14,28 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as GuardLayoutImport } from './routes/_guard-layout'
+import { Route as AuthImport } from './routes/_auth'
 import { Route as IndexImport } from './routes/index'
-import { Route as authRegistrationImport } from './routes/(auth)/registration'
-import { Route as authLoginImport } from './routes/(auth)/login'
+import { Route as AuthRegistrationImport } from './routes/_auth/registration'
+import { Route as AuthLoginImport } from './routes/_auth/login'
+import { Route as GuardLayoutDevicesGpusImport } from './routes/_guard-layout/devices/gpus'
+import { Route as GuardLayoutDevicesCpusImport } from './routes/_guard-layout/devices/cpus'
 
 // Create Virtual Routes
 
 const GuardLayoutMonitoringLazyImport = createFileRoute(
   '/_guard-layout/monitoring',
 )()
-const GuardLayoutDevicesGpusLazyImport = createFileRoute(
-  '/_guard-layout/devices/gpus',
-)()
-const GuardLayoutDevicesCpusLazyImport = createFileRoute(
-  '/_guard-layout/devices/cpus',
-)()
 
 // Create/Update Routes
 
 const GuardLayoutRoute = GuardLayoutImport.update({
   id: '/_guard-layout',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AuthRoute = AuthImport.update({
+  id: '/_auth',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -51,37 +53,29 @@ const GuardLayoutMonitoringLazyRoute = GuardLayoutMonitoringLazyImport.update({
   import('./routes/_guard-layout/monitoring.lazy').then((d) => d.Route),
 )
 
-const authRegistrationRoute = authRegistrationImport.update({
-  id: '/(auth)/registration',
+const AuthRegistrationRoute = AuthRegistrationImport.update({
+  id: '/registration',
   path: '/registration',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => AuthRoute,
 } as any)
 
-const authLoginRoute = authLoginImport.update({
-  id: '/(auth)/login',
+const AuthLoginRoute = AuthLoginImport.update({
+  id: '/login',
   path: '/login',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => AuthRoute,
 } as any)
 
-const GuardLayoutDevicesGpusLazyRoute = GuardLayoutDevicesGpusLazyImport.update(
-  {
-    id: '/devices/gpus',
-    path: '/devices/gpus',
-    getParentRoute: () => GuardLayoutRoute,
-  } as any,
-).lazy(() =>
-  import('./routes/_guard-layout/devices/gpus.lazy').then((d) => d.Route),
-)
+const GuardLayoutDevicesGpusRoute = GuardLayoutDevicesGpusImport.update({
+  id: '/devices/gpus',
+  path: '/devices/gpus',
+  getParentRoute: () => GuardLayoutRoute,
+} as any)
 
-const GuardLayoutDevicesCpusLazyRoute = GuardLayoutDevicesCpusLazyImport.update(
-  {
-    id: '/devices/cpus',
-    path: '/devices/cpus',
-    getParentRoute: () => GuardLayoutRoute,
-  } as any,
-).lazy(() =>
-  import('./routes/_guard-layout/devices/cpus.lazy').then((d) => d.Route),
-)
+const GuardLayoutDevicesCpusRoute = GuardLayoutDevicesCpusImport.update({
+  id: '/devices/cpus',
+  path: '/devices/cpus',
+  getParentRoute: () => GuardLayoutRoute,
+} as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -94,6 +88,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/_auth': {
+      id: '/_auth'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AuthImport
+      parentRoute: typeof rootRoute
+    }
     '/_guard-layout': {
       id: '/_guard-layout'
       path: ''
@@ -101,19 +102,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GuardLayoutImport
       parentRoute: typeof rootRoute
     }
-    '/(auth)/login': {
-      id: '/(auth)/login'
+    '/_auth/login': {
+      id: '/_auth/login'
       path: '/login'
       fullPath: '/login'
-      preLoaderRoute: typeof authLoginImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof AuthLoginImport
+      parentRoute: typeof AuthImport
     }
-    '/(auth)/registration': {
-      id: '/(auth)/registration'
+    '/_auth/registration': {
+      id: '/_auth/registration'
       path: '/registration'
       fullPath: '/registration'
-      preLoaderRoute: typeof authRegistrationImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof AuthRegistrationImport
+      parentRoute: typeof AuthImport
     }
     '/_guard-layout/monitoring': {
       id: '/_guard-layout/monitoring'
@@ -126,14 +127,14 @@ declare module '@tanstack/react-router' {
       id: '/_guard-layout/devices/cpus'
       path: '/devices/cpus'
       fullPath: '/devices/cpus'
-      preLoaderRoute: typeof GuardLayoutDevicesCpusLazyImport
+      preLoaderRoute: typeof GuardLayoutDevicesCpusImport
       parentRoute: typeof GuardLayoutImport
     }
     '/_guard-layout/devices/gpus': {
       id: '/_guard-layout/devices/gpus'
       path: '/devices/gpus'
       fullPath: '/devices/gpus'
-      preLoaderRoute: typeof GuardLayoutDevicesGpusLazyImport
+      preLoaderRoute: typeof GuardLayoutDevicesGpusImport
       parentRoute: typeof GuardLayoutImport
     }
   }
@@ -141,16 +142,28 @@ declare module '@tanstack/react-router' {
 
 // Create and export the route tree
 
+interface AuthRouteChildren {
+  AuthLoginRoute: typeof AuthLoginRoute
+  AuthRegistrationRoute: typeof AuthRegistrationRoute
+}
+
+const AuthRouteChildren: AuthRouteChildren = {
+  AuthLoginRoute: AuthLoginRoute,
+  AuthRegistrationRoute: AuthRegistrationRoute,
+}
+
+const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
+
 interface GuardLayoutRouteChildren {
   GuardLayoutMonitoringLazyRoute: typeof GuardLayoutMonitoringLazyRoute
-  GuardLayoutDevicesCpusLazyRoute: typeof GuardLayoutDevicesCpusLazyRoute
-  GuardLayoutDevicesGpusLazyRoute: typeof GuardLayoutDevicesGpusLazyRoute
+  GuardLayoutDevicesCpusRoute: typeof GuardLayoutDevicesCpusRoute
+  GuardLayoutDevicesGpusRoute: typeof GuardLayoutDevicesGpusRoute
 }
 
 const GuardLayoutRouteChildren: GuardLayoutRouteChildren = {
   GuardLayoutMonitoringLazyRoute: GuardLayoutMonitoringLazyRoute,
-  GuardLayoutDevicesCpusLazyRoute: GuardLayoutDevicesCpusLazyRoute,
-  GuardLayoutDevicesGpusLazyRoute: GuardLayoutDevicesGpusLazyRoute,
+  GuardLayoutDevicesCpusRoute: GuardLayoutDevicesCpusRoute,
+  GuardLayoutDevicesGpusRoute: GuardLayoutDevicesGpusRoute,
 }
 
 const GuardLayoutRouteWithChildren = GuardLayoutRoute._addFileChildren(
@@ -160,32 +173,33 @@ const GuardLayoutRouteWithChildren = GuardLayoutRoute._addFileChildren(
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '': typeof GuardLayoutRouteWithChildren
-  '/login': typeof authLoginRoute
-  '/registration': typeof authRegistrationRoute
+  '/login': typeof AuthLoginRoute
+  '/registration': typeof AuthRegistrationRoute
   '/monitoring': typeof GuardLayoutMonitoringLazyRoute
-  '/devices/cpus': typeof GuardLayoutDevicesCpusLazyRoute
-  '/devices/gpus': typeof GuardLayoutDevicesGpusLazyRoute
+  '/devices/cpus': typeof GuardLayoutDevicesCpusRoute
+  '/devices/gpus': typeof GuardLayoutDevicesGpusRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '': typeof GuardLayoutRouteWithChildren
-  '/login': typeof authLoginRoute
-  '/registration': typeof authRegistrationRoute
+  '/login': typeof AuthLoginRoute
+  '/registration': typeof AuthRegistrationRoute
   '/monitoring': typeof GuardLayoutMonitoringLazyRoute
-  '/devices/cpus': typeof GuardLayoutDevicesCpusLazyRoute
-  '/devices/gpus': typeof GuardLayoutDevicesGpusLazyRoute
+  '/devices/cpus': typeof GuardLayoutDevicesCpusRoute
+  '/devices/gpus': typeof GuardLayoutDevicesGpusRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/_auth': typeof AuthRouteWithChildren
   '/_guard-layout': typeof GuardLayoutRouteWithChildren
-  '/(auth)/login': typeof authLoginRoute
-  '/(auth)/registration': typeof authRegistrationRoute
+  '/_auth/login': typeof AuthLoginRoute
+  '/_auth/registration': typeof AuthRegistrationRoute
   '/_guard-layout/monitoring': typeof GuardLayoutMonitoringLazyRoute
-  '/_guard-layout/devices/cpus': typeof GuardLayoutDevicesCpusLazyRoute
-  '/_guard-layout/devices/gpus': typeof GuardLayoutDevicesGpusLazyRoute
+  '/_guard-layout/devices/cpus': typeof GuardLayoutDevicesCpusRoute
+  '/_guard-layout/devices/gpus': typeof GuardLayoutDevicesGpusRoute
 }
 
 export interface FileRouteTypes {
@@ -210,9 +224,10 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/_auth'
     | '/_guard-layout'
-    | '/(auth)/login'
-    | '/(auth)/registration'
+    | '/_auth/login'
+    | '/_auth/registration'
     | '/_guard-layout/monitoring'
     | '/_guard-layout/devices/cpus'
     | '/_guard-layout/devices/gpus'
@@ -221,16 +236,14 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthRoute: typeof AuthRouteWithChildren
   GuardLayoutRoute: typeof GuardLayoutRouteWithChildren
-  authLoginRoute: typeof authLoginRoute
-  authRegistrationRoute: typeof authRegistrationRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthRoute: AuthRouteWithChildren,
   GuardLayoutRoute: GuardLayoutRouteWithChildren,
-  authLoginRoute: authLoginRoute,
-  authRegistrationRoute: authRegistrationRoute,
 }
 
 export const routeTree = rootRoute
@@ -244,13 +257,19 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/_guard-layout",
-        "/(auth)/login",
-        "/(auth)/registration"
+        "/_auth",
+        "/_guard-layout"
       ]
     },
     "/": {
       "filePath": "index.ts"
+    },
+    "/_auth": {
+      "filePath": "_auth.tsx",
+      "children": [
+        "/_auth/login",
+        "/_auth/registration"
+      ]
     },
     "/_guard-layout": {
       "filePath": "_guard-layout.tsx",
@@ -260,22 +279,24 @@ export const routeTree = rootRoute
         "/_guard-layout/devices/gpus"
       ]
     },
-    "/(auth)/login": {
-      "filePath": "(auth)/login.tsx"
+    "/_auth/login": {
+      "filePath": "_auth/login.tsx",
+      "parent": "/_auth"
     },
-    "/(auth)/registration": {
-      "filePath": "(auth)/registration.tsx"
+    "/_auth/registration": {
+      "filePath": "_auth/registration.tsx",
+      "parent": "/_auth"
     },
     "/_guard-layout/monitoring": {
       "filePath": "_guard-layout/monitoring.lazy.tsx",
       "parent": "/_guard-layout"
     },
     "/_guard-layout/devices/cpus": {
-      "filePath": "_guard-layout/devices/cpus.lazy.tsx",
+      "filePath": "_guard-layout/devices/cpus.tsx",
       "parent": "/_guard-layout"
     },
     "/_guard-layout/devices/gpus": {
-      "filePath": "_guard-layout/devices/gpus.lazy.tsx",
+      "filePath": "_guard-layout/devices/gpus.tsx",
       "parent": "/_guard-layout"
     }
   }

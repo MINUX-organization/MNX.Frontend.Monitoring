@@ -8,7 +8,7 @@ interface DialogContentProps extends ChakraDialog.ContentProps {
   backdrop?: boolean
 }
 
-export const UiDialogContent = React.forwardRef<
+export const DialogContent = React.forwardRef<
   HTMLDivElement,
   DialogContentProps
 >(function DialogContent(props, ref) {
