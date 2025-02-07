@@ -33,7 +33,6 @@ export function RigTotalItemGpusInfo({
     {label: 'PCI Bus ID', value: rigGpuInfo.pci.id},
     {label: 'Serial Number', value: rigGpuInfo.information.serialNumber},
     {label: 'Memory', value: rigGpuInfo.information.memory.total, measureUnit: 'GB'},
-    {label: 'Driver Ver.', value: rigGpuInfo.driverVersion},
     {
       label:  rigGpuInfo.information.technology.type,
       value: `${rigGpuInfo.information.technology.version} Ver.`,
