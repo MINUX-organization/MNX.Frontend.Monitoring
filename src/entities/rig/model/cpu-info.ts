@@ -18,7 +18,7 @@ export const CpuInfo = z.object({
     l1: z.number({invalid_type_error: 'L1 must be a number'}).nullable(),
     l2: z.number({invalid_type_error: 'L2 must be a number'}).nullable(),
     l3: z.number({invalid_type_error: 'L3 must be a number'}).nullable(),
-    l4: z.number({invalid_type_error: 'L4 must be a number'}).nullable(),
+    l4: z.number({invalid_type_error: 'L4 must be a number'}).nullable().optional(),
   }, {invalid_type_error: 'Cache must be an object'}),
 }, {invalid_type_error: 'Information must be an object'})
 

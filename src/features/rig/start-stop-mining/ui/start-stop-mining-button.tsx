@@ -1,10 +1,11 @@
 // import { BACKEND_TRIGGERS } from "@/shared/constants/backend-triggers";
 // import { WebsocketContext } from "@/shared/lib/context/websocket-context";
+import { startMiningApi } from "@/shared/api/post/startMining";
 import { UiButton } from "@/shared/ui/ui-button";
 
 export function StartStopMiningButton({
   className,
-  // rigId,
+  rigId,
   rigIsActive,
   rigIsOnline
 } : {
@@ -21,8 +22,13 @@ export function StartStopMiningButton({
     if (rigIsActive) {
       // WebsocketContext.invoke(BACKEND_TRIGGERS.SEND_STOP_MINING, rigId)
     } else {
+      const response = startMiningApi(rigId ?? '');
+
+      if (!response) return;
+
+      console.log('start mining {}', rigId);
       // WebsocketContext.invoke(BACKEND_TRIGGERS.SEND_START_MINING, rigId)
-    }
+    } 
   }
 
   return (

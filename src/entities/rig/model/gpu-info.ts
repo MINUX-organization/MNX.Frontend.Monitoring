@@ -9,8 +9,8 @@ export type GpuPci = z.infer<typeof GpuPci>
 
 export const GpuMemory = z.object({
   total: z.number({invalid_type_error: 'Total must be a number'}),
-  type: z.string({invalid_type_error: 'Type must be a string'}),
-  vendor: z.string({invalid_type_error: 'Vendor must be a string'}),
+  type: z.string({invalid_type_error: 'Type must be a string'}).optional(),
+  vendor: z.string({invalid_type_error: 'Vendor must be a string'}).optional(),
 }, {invalid_type_error: 'Memory must be an object'})
 
 export const GpuTechnology = z.object({
@@ -23,9 +23,9 @@ export const GpuInformation = z.object({
   manufacturer: z.string({invalid_type_error: 'Manufacturer must be a string'}),
   model: z.string({invalid_type_error: 'Model must be a string'}),
   name: z.string({invalid_type_error: 'Name must be a string'}),
-  serialNumber: z.string({invalid_type_error: 'SerialNumber must be a string'}),
+  serialNumber: z.string({invalid_type_error: 'SerialNumber must be a string'}).optional(),
   vendor: z.string({invalid_type_error: 'Vendor must be a string'}),
-  biosVersion: z.string({invalid_type_error: 'BiosVersion must be a string'}),
+  biosVersion: z.string({invalid_type_error: 'BiosVersion must be a string'}).optional(),
   technology: GpuTechnology,
   memory: GpuMemory
 })
@@ -66,6 +66,5 @@ export const RigGpuInfo = z.object({
   pci: GpuPci,
   information: GpuInformation,
   restrictions: GpuRestrictions,
-  driverVersion: z.string({invalid_type_error: 'DriverVersion must be a string'}).nullable(),
 })
 export type RigGpuInfo = z.infer<typeof RigGpuInfo>

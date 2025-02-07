@@ -16,6 +16,7 @@ export function RigTotalItemPanel({
   renderEdit,
   renderSetting,
   renderOnOpen,
+  renderStartMining,
   withFeatures,
 } : {
   className?: string;
@@ -23,6 +24,7 @@ export function RigTotalItemPanel({
   isOpen?: StateObject<boolean>;
   withFeatures?: boolean;
   renderEdit?: () => ReactNode;
+  renderStartMining?: (id: string) => ReactNode;
   renderSetting?: (id: string) => ReactNode;
   renderOnOpen?: (isOpen?: StateObject<boolean>) => ReactNode;
 }) {
@@ -50,6 +52,7 @@ export function RigTotalItemPanel({
       </div>
       {withFeatures && 
         <div className={styles['features']}>
+          {renderStartMining?.(rig.id)}
           {renderSetting?.(rig.id)}
           {renderOnOpen?.(isOpen)}
         </div>}

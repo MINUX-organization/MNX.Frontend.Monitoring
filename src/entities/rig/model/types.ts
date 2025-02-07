@@ -116,9 +116,9 @@ export type RigTotalCountDevices = z.infer<typeof RigTotalCountDevices>
 export const RigTotalInfo = z.object({  
   minuxVersion: z.string({invalid_type_error: 'MinuxVersion must be a string'}),
   linuxVersion: z.string({invalid_type_error: 'LinuxVersion must be a string'}),
-  amdDriverVersion: z.string({invalid_type_error: 'AmdDriverVersion must be a string'}),
-  nvidiaDriverVersion: z.string({invalid_type_error: 'NvidiaDriverVersion must be a string'}),
-  intelDriverVersion: z.string({invalid_type_error: 'IntelDriverVersion must be a string'}),
+  amdGpuDriverVersion: z.string({invalid_type_error: 'AmdDriverVersion must be a string'}),
+  nvidiaGpuDriverVersion: z.string({invalid_type_error: 'NvidiaDriverVersion must be a string'}),
+  intelGpuDriverVersion: z.string({invalid_type_error: 'IntelDriverVersion must be a string'}),
   openCLVersion: z.string({invalid_type_error: 'OpenCLVersion must be a string'}),
   cudaVersion: z.string({invalid_type_error: 'CudaVersion must be a string'}),
   agentVersion: z.string({invalid_type_error: 'AgentVersion must be a string'}),

@@ -14,8 +14,8 @@ export function RigTotalItemInfo({
   className?: string;
 }) {
   const firstColumn = [
-    {label: 'AMD ver.', value: rig.software.amdDriverVersion},
-    {label: 'NVIDIA ver.', value: rig.software.nvidiaDriverVersion},
+    {label: 'AMD ver.', value: rig.software.amdGpuDriverVersion},
+    {label: 'NVIDIA ver.', value: rig.software.nvidiaGpuDriverVersion},
     {label: 'OpenCL ver.', value: rig.software.openCLVersion},
     {label: 'CUDA ver.', value: rig.software.cudaVersion},
   ]

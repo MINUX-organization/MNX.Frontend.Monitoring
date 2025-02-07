@@ -7,6 +7,7 @@ import { match } from 'ts-pattern';
 import _ from 'lodash';
 import { useRigsQuery } from '@/entities/rig/model/rigs.query';
 import { UiSpinner } from '@/shared/ui/ui-spinner';
+import { StartStopMiningButton } from '@/features/rig/start-stop-mining';
 
 export function RigsPage() {
   const options = [
@@ -45,6 +46,7 @@ export function RigsPage() {
                     rig={rig} 
                     isOpen={isOpen}
                     withFeatures={withFeatures}
+                    renderStartMining={(id) => <StartStopMiningButton rigId={id} rigIsOnline/>}
                     renderOnOpen={(isOpen) => <OnOpen isOpen={isOpen}/>}
                     renderSetting={(id) => <Settings id={id} />}
                   />} 
