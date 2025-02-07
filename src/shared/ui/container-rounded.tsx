@@ -7,6 +7,6 @@ export const UiContainerRounded = chakra('div', {
     border: '1px solid',
     borderColor: 'minux.solid',
     shadow: 'md',
-    p: '4'
+    p: '6'
   }
 })

@@ -1,11 +1,13 @@
 import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { routeTree } from "../routeTree.gen";
 import { sessionRepository } from "@/entities/session";
+import { queryClient } from "./app-query";
 
 const router = createRouter({ 
   routeTree,
   defaultPreload: 'intent',
   context: {
+    queryClient,
     session: {
       get: undefined!,
       mutation: undefined!,

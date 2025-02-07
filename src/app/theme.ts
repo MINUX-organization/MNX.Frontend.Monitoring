@@ -11,7 +11,6 @@ const config = defineConfig({
     },
   },
   theme: {
-    
     tokens: {
       sizes: {
         "4xs": { value: "8.125rem" }
@@ -108,6 +107,8 @@ const config = defineConfig({
           subtle: { value: { _dark: "#20202A", _light: "#0B0B0B" }, },
           panel: { value: { _dark: "#242834", _light: "#FFFFFF" }, },
           input: { value: { _dark: "#212327", _light: "#FFFFFF" }, },
+          transparent: { value: { _dark: "rgba(0, 0, 0, 0.2)", _light: "rgba(0, 0, 0, 0.2)" }, },
+          hover: { value: { _dark: "rgba(255, 255, 255, 0.2)", _light: "rgba(0, 0, 0, 0.1)" }, },
         }
       },
     },

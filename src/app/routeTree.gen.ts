@@ -18,6 +18,13 @@ import { Route as AuthImport } from './routes/_auth'
 import { Route as IndexImport } from './routes/index'
 import { Route as AuthRegistrationImport } from './routes/_auth/registration'
 import { Route as AuthLoginImport } from './routes/_auth/login'
+import { Route as GuardLayoutSetupPresetsImport } from './routes/_guard-layout/setup/presets'
+import { Route as GuardLayoutSetupFlightSheetsImport } from './routes/_guard-layout/setup/flight-sheets'
+import { Route as GuardLayoutMiningWalletsImport } from './routes/_guard-layout/mining/wallets'
+import { Route as GuardLayoutMiningPoolsImport } from './routes/_guard-layout/mining/pools'
+import { Route as GuardLayoutMiningMinersImport } from './routes/_guard-layout/mining/miners'
+import { Route as GuardLayoutMiningCryptocurrenciesImport } from './routes/_guard-layout/mining/cryptocurrencies'
+import { Route as GuardLayoutMiningAlgorithmsImport } from './routes/_guard-layout/mining/algorithms'
 import { Route as GuardLayoutDevicesGpusImport } from './routes/_guard-layout/devices/gpus'
 import { Route as GuardLayoutDevicesCpusImport } from './routes/_guard-layout/devices/cpus'
 
@@ -64,6 +71,51 @@ const AuthLoginRoute = AuthLoginImport.update({
   path: '/login',
   getParentRoute: () => AuthRoute,
 } as any)
+
+const GuardLayoutSetupPresetsRoute = GuardLayoutSetupPresetsImport.update({
+  id: '/setup/presets',
+  path: '/setup/presets',
+  getParentRoute: () => GuardLayoutRoute,
+} as any)
+
+const GuardLayoutSetupFlightSheetsRoute =
+  GuardLayoutSetupFlightSheetsImport.update({
+    id: '/setup/flight-sheets',
+    path: '/setup/flight-sheets',
+    getParentRoute: () => GuardLayoutRoute,
+  } as any)
+
+const GuardLayoutMiningWalletsRoute = GuardLayoutMiningWalletsImport.update({
+  id: '/mining/wallets',
+  path: '/mining/wallets',
+  getParentRoute: () => GuardLayoutRoute,
+} as any)
+
+const GuardLayoutMiningPoolsRoute = GuardLayoutMiningPoolsImport.update({
+  id: '/mining/pools',
+  path: '/mining/pools',
+  getParentRoute: () => GuardLayoutRoute,
+} as any)
+
+const GuardLayoutMiningMinersRoute = GuardLayoutMiningMinersImport.update({
+  id: '/mining/miners',
+  path: '/mining/miners',
+  getParentRoute: () => GuardLayoutRoute,
+} as any)
+
+const GuardLayoutMiningCryptocurrenciesRoute =
+  GuardLayoutMiningCryptocurrenciesImport.update({
+    id: '/mining/cryptocurrencies',
+    path: '/mining/cryptocurrencies',
+    getParentRoute: () => GuardLayoutRoute,
+  } as any)
+
+const GuardLayoutMiningAlgorithmsRoute =
+  GuardLayoutMiningAlgorithmsImport.update({
+    id: '/mining/algorithms',
+    path: '/mining/algorithms',
+    getParentRoute: () => GuardLayoutRoute,
+  } as any)
 
 const GuardLayoutDevicesGpusRoute = GuardLayoutDevicesGpusImport.update({
   id: '/devices/gpus',
@@ -137,6 +189,55 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GuardLayoutDevicesGpusImport
       parentRoute: typeof GuardLayoutImport
     }
+    '/_guard-layout/mining/algorithms': {
+      id: '/_guard-layout/mining/algorithms'
+      path: '/mining/algorithms'
+      fullPath: '/mining/algorithms'
+      preLoaderRoute: typeof GuardLayoutMiningAlgorithmsImport
+      parentRoute: typeof GuardLayoutImport
+    }
+    '/_guard-layout/mining/cryptocurrencies': {
+      id: '/_guard-layout/mining/cryptocurrencies'
+      path: '/mining/cryptocurrencies'
+      fullPath: '/mining/cryptocurrencies'
+      preLoaderRoute: typeof GuardLayoutMiningCryptocurrenciesImport
+      parentRoute: typeof GuardLayoutImport
+    }
+    '/_guard-layout/mining/miners': {
+      id: '/_guard-layout/mining/miners'
+      path: '/mining/miners'
+      fullPath: '/mining/miners'
+      preLoaderRoute: typeof GuardLayoutMiningMinersImport
+      parentRoute: typeof GuardLayoutImport
+    }
+    '/_guard-layout/mining/pools': {
+      id: '/_guard-layout/mining/pools'
+      path: '/mining/pools'
+      fullPath: '/mining/pools'
+      preLoaderRoute: typeof GuardLayoutMiningPoolsImport
+      parentRoute: typeof GuardLayoutImport
+    }
+    '/_guard-layout/mining/wallets': {
+      id: '/_guard-layout/mining/wallets'
+      path: '/mining/wallets'
+      fullPath: '/mining/wallets'
+      preLoaderRoute: typeof GuardLayoutMiningWalletsImport
+      parentRoute: typeof GuardLayoutImport
+    }
+    '/_guard-layout/setup/flight-sheets': {
+      id: '/_guard-layout/setup/flight-sheets'
+      path: '/setup/flight-sheets'
+      fullPath: '/setup/flight-sheets'
+      preLoaderRoute: typeof GuardLayoutSetupFlightSheetsImport
+      parentRoute: typeof GuardLayoutImport
+    }
+    '/_guard-layout/setup/presets': {
+      id: '/_guard-layout/setup/presets'
+      path: '/setup/presets'
+      fullPath: '/setup/presets'
+      preLoaderRoute: typeof GuardLayoutSetupPresetsImport
+      parentRoute: typeof GuardLayoutImport
+    }
   }
 }
 
@@ -158,12 +259,27 @@ interface GuardLayoutRouteChildren {
   GuardLayoutMonitoringLazyRoute: typeof GuardLayoutMonitoringLazyRoute
   GuardLayoutDevicesCpusRoute: typeof GuardLayoutDevicesCpusRoute
   GuardLayoutDevicesGpusRoute: typeof GuardLayoutDevicesGpusRoute
+  GuardLayoutMiningAlgorithmsRoute: typeof GuardLayoutMiningAlgorithmsRoute
+  GuardLayoutMiningCryptocurrenciesRoute: typeof GuardLayoutMiningCryptocurrenciesRoute
+  GuardLayoutMiningMinersRoute: typeof GuardLayoutMiningMinersRoute
+  GuardLayoutMiningPoolsRoute: typeof GuardLayoutMiningPoolsRoute
+  GuardLayoutMiningWalletsRoute: typeof GuardLayoutMiningWalletsRoute
+  GuardLayoutSetupFlightSheetsRoute: typeof GuardLayoutSetupFlightSheetsRoute
+  GuardLayoutSetupPresetsRoute: typeof GuardLayoutSetupPresetsRoute
 }
 
 const GuardLayoutRouteChildren: GuardLayoutRouteChildren = {
   GuardLayoutMonitoringLazyRoute: GuardLayoutMonitoringLazyRoute,
   GuardLayoutDevicesCpusRoute: GuardLayoutDevicesCpusRoute,
   GuardLayoutDevicesGpusRoute: GuardLayoutDevicesGpusRoute,
+  GuardLayoutMiningAlgorithmsRoute: GuardLayoutMiningAlgorithmsRoute,
+  GuardLayoutMiningCryptocurrenciesRoute:
+    GuardLayoutMiningCryptocurrenciesRoute,
+  GuardLayoutMiningMinersRoute: GuardLayoutMiningMinersRoute,
+  GuardLayoutMiningPoolsRoute: GuardLayoutMiningPoolsRoute,
+  GuardLayoutMiningWalletsRoute: GuardLayoutMiningWalletsRoute,
+  GuardLayoutSetupFlightSheetsRoute: GuardLayoutSetupFlightSheetsRoute,
+  GuardLayoutSetupPresetsRoute: GuardLayoutSetupPresetsRoute,
 }
 
 const GuardLayoutRouteWithChildren = GuardLayoutRoute._addFileChildren(
@@ -178,6 +294,13 @@ export interface FileRoutesByFullPath {
   '/monitoring': typeof GuardLayoutMonitoringLazyRoute
   '/devices/cpus': typeof GuardLayoutDevicesCpusRoute
   '/devices/gpus': typeof GuardLayoutDevicesGpusRoute
+  '/mining/algorithms': typeof GuardLayoutMiningAlgorithmsRoute
+  '/mining/cryptocurrencies': typeof GuardLayoutMiningCryptocurrenciesRoute
+  '/mining/miners': typeof GuardLayoutMiningMinersRoute
+  '/mining/pools': typeof GuardLayoutMiningPoolsRoute
+  '/mining/wallets': typeof GuardLayoutMiningWalletsRoute
+  '/setup/flight-sheets': typeof GuardLayoutSetupFlightSheetsRoute
+  '/setup/presets': typeof GuardLayoutSetupPresetsRoute
 }
 
 export interface FileRoutesByTo {
@@ -188,6 +311,13 @@ export interface FileRoutesByTo {
   '/monitoring': typeof GuardLayoutMonitoringLazyRoute
   '/devices/cpus': typeof GuardLayoutDevicesCpusRoute
   '/devices/gpus': typeof GuardLayoutDevicesGpusRoute
+  '/mining/algorithms': typeof GuardLayoutMiningAlgorithmsRoute
+  '/mining/cryptocurrencies': typeof GuardLayoutMiningCryptocurrenciesRoute
+  '/mining/miners': typeof GuardLayoutMiningMinersRoute
+  '/mining/pools': typeof GuardLayoutMiningPoolsRoute
+  '/mining/wallets': typeof GuardLayoutMiningWalletsRoute
+  '/setup/flight-sheets': typeof GuardLayoutSetupFlightSheetsRoute
+  '/setup/presets': typeof GuardLayoutSetupPresetsRoute
 }
 
 export interface FileRoutesById {
@@ -200,6 +330,13 @@ export interface FileRoutesById {
   '/_guard-layout/monitoring': typeof GuardLayoutMonitoringLazyRoute
   '/_guard-layout/devices/cpus': typeof GuardLayoutDevicesCpusRoute
   '/_guard-layout/devices/gpus': typeof GuardLayoutDevicesGpusRoute
+  '/_guard-layout/mining/algorithms': typeof GuardLayoutMiningAlgorithmsRoute
+  '/_guard-layout/mining/cryptocurrencies': typeof GuardLayoutMiningCryptocurrenciesRoute
+  '/_guard-layout/mining/miners': typeof GuardLayoutMiningMinersRoute
+  '/_guard-layout/mining/pools': typeof GuardLayoutMiningPoolsRoute
+  '/_guard-layout/mining/wallets': typeof GuardLayoutMiningWalletsRoute
+  '/_guard-layout/setup/flight-sheets': typeof GuardLayoutSetupFlightSheetsRoute
+  '/_guard-layout/setup/presets': typeof GuardLayoutSetupPresetsRoute
 }
 
 export interface FileRouteTypes {
@@ -212,6 +349,13 @@ export interface FileRouteTypes {
     | '/monitoring'
     | '/devices/cpus'
     | '/devices/gpus'
+    | '/mining/algorithms'
+    | '/mining/cryptocurrencies'
+    | '/mining/miners'
+    | '/mining/pools'
+    | '/mining/wallets'
+    | '/setup/flight-sheets'
+    | '/setup/presets'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -221,6 +365,13 @@ export interface FileRouteTypes {
     | '/monitoring'
     | '/devices/cpus'
     | '/devices/gpus'
+    | '/mining/algorithms'
+    | '/mining/cryptocurrencies'
+    | '/mining/miners'
+    | '/mining/pools'
+    | '/mining/wallets'
+    | '/setup/flight-sheets'
+    | '/setup/presets'
   id:
     | '__root__'
     | '/'
@@ -231,6 +382,13 @@ export interface FileRouteTypes {
     | '/_guard-layout/monitoring'
     | '/_guard-layout/devices/cpus'
     | '/_guard-layout/devices/gpus'
+    | '/_guard-layout/mining/algorithms'
+    | '/_guard-layout/mining/cryptocurrencies'
+    | '/_guard-layout/mining/miners'
+    | '/_guard-layout/mining/pools'
+    | '/_guard-layout/mining/wallets'
+    | '/_guard-layout/setup/flight-sheets'
+    | '/_guard-layout/setup/presets'
   fileRoutesById: FileRoutesById
 }
 
@@ -276,7 +434,14 @@ export const routeTree = rootRoute
       "children": [
         "/_guard-layout/monitoring",
         "/_guard-layout/devices/cpus",
-        "/_guard-layout/devices/gpus"
+        "/_guard-layout/devices/gpus",
+        "/_guard-layout/mining/algorithms",
+        "/_guard-layout/mining/cryptocurrencies",
+        "/_guard-layout/mining/miners",
+        "/_guard-layout/mining/pools",
+        "/_guard-layout/mining/wallets",
+        "/_guard-layout/setup/flight-sheets",
+        "/_guard-layout/setup/presets"
       ]
     },
     "/_auth/login": {
@@ -297,6 +462,34 @@ export const routeTree = rootRoute
     },
     "/_guard-layout/devices/gpus": {
       "filePath": "_guard-layout/devices/gpus.tsx",
+      "parent": "/_guard-layout"
+    },
+    "/_guard-layout/mining/algorithms": {
+      "filePath": "_guard-layout/mining/algorithms.tsx",
+      "parent": "/_guard-layout"
+    },
+    "/_guard-layout/mining/cryptocurrencies": {
+      "filePath": "_guard-layout/mining/cryptocurrencies.tsx",
+      "parent": "/_guard-layout"
+    },
+    "/_guard-layout/mining/miners": {
+      "filePath": "_guard-layout/mining/miners.tsx",
+      "parent": "/_guard-layout"
+    },
+    "/_guard-layout/mining/pools": {
+      "filePath": "_guard-layout/mining/pools.tsx",
+      "parent": "/_guard-layout"
+    },
+    "/_guard-layout/mining/wallets": {
+      "filePath": "_guard-layout/mining/wallets.tsx",
+      "parent": "/_guard-layout"
+    },
+    "/_guard-layout/setup/flight-sheets": {
+      "filePath": "_guard-layout/setup/flight-sheets.tsx",
+      "parent": "/_guard-layout"
+    },
+    "/_guard-layout/setup/presets": {
+      "filePath": "_guard-layout/setup/presets.tsx",
       "parent": "/_guard-layout"
     }
   }

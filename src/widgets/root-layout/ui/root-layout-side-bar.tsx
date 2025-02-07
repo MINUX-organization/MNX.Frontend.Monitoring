@@ -7,8 +7,8 @@ import { motion } from "motion/react";
 import { RootLayoutSideBarProfile } from "./root-layout-side-bar-profile";
 
 // TODO: animate side bar in future
-const MFlex = motion(Flex);
-const MIcon = motion(FaArrowLeft);
+const MFlex = motion.create(Flex);
+const MIcon = motion.create(FaArrowLeft);
 
 interface RootLayoutSideBarProps extends StackProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>

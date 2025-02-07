@@ -14,3 +14,5 @@ export { SetupIcon } from './setup';
 export { MinuxLogoIcon } from './minux-logo-icon';
 export { UnconfirmedIcon } from './unconfirmed';
 export { ConfirmedIcon } from './confirmed';
+export { MinerIcon } from './miner';
+export { TrashIcon } from './trash';

@@ -15,7 +15,7 @@ export function RootLayout() {
       padding={2.5}
     >
       <RootLayoutSideBar as={'aside'} open={open} setOpen={setOpen}/>
-      <RootLayoutMainContent as={'main'} />
+      <RootLayoutMainContent as={'main'} overflow={'auto'}/>
     </Stack>
   )
 }
