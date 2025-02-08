@@ -46,7 +46,12 @@ export function RigsPage() {
                     rig={rig} 
                     isOpen={isOpen}
                     withFeatures={withFeatures}
-                    renderStartMining={(id) => <StartStopMiningButton rigId={id} rigIsOnline/>}
+                    renderStartMining={(id) => 
+                      <div className={styles['buttons']}>
+                        <StartStopMiningButton rigId={id} rigIsOnline/>
+                        <StartStopMiningButton rigId={id} rigIsOnline rigIsActive/>
+                      </div>
+                    }
                     renderOnOpen={(isOpen) => <OnOpen isOpen={isOpen}/>}
                     renderSetting={(id) => <Settings id={id} />}
                   />} 

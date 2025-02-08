@@ -2,7 +2,7 @@ export const ROUTER_PATHS = {
   HOME: "/",
   LOGIN: "/login",
   SIGNUP: "/signup",
-  MONITORING: "monitoring",
+  MONITORING: "/monitoring",
   DEVICES: 'devices',
   CPUS: "/devices/cpus",
   GPUS: "/devices/gpus",
