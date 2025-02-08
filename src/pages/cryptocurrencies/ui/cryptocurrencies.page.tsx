@@ -1,5 +1,5 @@
 import { cryptocurrencyQueryOptions } from "@/entities/cryptocurrency";
-import { DeleteCryptocurrencyButton } from "@/features/cryptocurrency";
+import { AddCryptocurrencyButton, AddCryptocurrencyForm, DeleteCryptocurrencyButton } from "@/features/cryptocurrency";
 import { MiningTable } from "@/widgets/mining-table";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import _ from "lodash";
@@ -21,6 +21,9 @@ export function CryptocurrenciesPage() {
   ]
 
   return (
-    <MiningTable data={cryptocurrenciesTable} actions={actions}/>
+    <>
+      <AddCryptocurrencyForm />
+      <MiningTable data={cryptocurrenciesTable} actions={actions} renderAddButton={() => <AddCryptocurrencyButton />}/>
+    </>
   )
 }

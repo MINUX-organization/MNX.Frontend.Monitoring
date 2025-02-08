@@ -1,15 +1,14 @@
 import { ButtonProps, Fieldset } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Controller, useForm, FieldValues, DefaultValues, Path, FieldErrors } from "react-hook-form";
-import { UiField, UiFormButtonsGroup, UiInput } from "@/shared/ui";
-import { ComponentType } from "react";
+import { Controller, useForm, FieldValues, DefaultValues, Path, FieldErrors, ControllerRenderProps } from "react-hook-form";
+import { UiField, UiFormButtonsGroup } from "@/shared/ui";
 import { ZodSchema } from "zod";
+import _ from "lodash";
 
-export type FormField<T> = {
-  name: keyof T;
+export type FormField<T extends FieldValues> = {
+  name: Path<T>;
   label: string;
-  component: ComponentType<unknown>;
-  props?: Record<string, unknown>;
+  component: (field: ControllerRenderProps<T, Path<T>>) => React.ReactElement;
 };
 
 export type FormConfig<T extends FieldValues> = {
@@ -18,8 +17,8 @@ export type FormConfig<T extends FieldValues> = {
   fields: FormField<T>[];
   onSubmit: (data: T) => Promise<void> | void;
   isSubmitEnabled?: (errors: FieldErrors<T>) => boolean;
-  confirmButtonProps?: ButtonProps;
-  cancelButtonProps?: ButtonProps;
+  confirmButtonprops?: ButtonProps;
+  cancelButtonprops?: ButtonProps;
 };
 
 interface GenericFormProps<T extends FieldValues> {
@@ -57,32 +56,28 @@ export function GenericForm<T extends FieldValues>({
     <form onSubmit={handleSubmit(handleFormSubmit)}>
       <Fieldset.Root>
         <Fieldset.Content>
-          {config.fields.map((field) => (
+          {_.map(config.fields, (fieldPart) => (
             <UiField
-              key={field.name.toString()}
-              label={field.label}
-              errorText={errors[field.name]?.message?.toString()}
-              invalid={!!errors[field.name]}
+              key={fieldPart.name.toString()}
+              label={fieldPart.label}
+              errorText={errors[fieldPart.name]?.message?.toString()}
+              invalid={!!errors[fieldPart.name]}
             >
               <Controller
-                name={field.name.toString() as Path<T>}
+                name={fieldPart.name}
                 control={control}
-                render={({ field }) => (
-                  <UiInput
-                    {...field}
-                  />
-                )}
+                render={({ field }) => fieldPart.component(field)}
               />
             </UiField>
           ))}
           <UiFormButtonsGroup
             confirmButtonprops={{
               disabled: !config.isSubmitEnabled?.(errors),
-              ...config.confirmButtonProps
+              ...config.confirmButtonprops
             }}
             cancelButtonprops={{
               onClick: handleCancel,
-              ...config.cancelButtonProps
+              ...config.cancelButtonprops
             }}
           />
         </Fieldset.Content>
