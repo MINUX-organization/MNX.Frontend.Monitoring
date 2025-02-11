@@ -9,11 +9,13 @@ export function ProfileCard({
   profileInfo,
   renderEdit,
   renderEditPassword,
+  renderGenerateKey
 } : {
   className?: string,
   profileInfo?: ProfileInfo,
   renderEdit?: () => React.ReactNode,
   renderEditPassword?: () => React.ReactNode
+  renderGenerateKey?: () => React.ReactNode
 }) {
   return (
     <UiBorderBox className={clsx(className, styles['profile-card'])}>
@@ -25,7 +27,10 @@ export function ProfileCard({
           </div>
           <span className={styles['profile-login']}>{profileInfo?.login}</span>
         </div>
-        {renderEditPassword?.()}
+        <div className={styles['profile-buttons']}>
+          {renderEditPassword?.()}
+          {renderGenerateKey?.()}
+        </div>
       </UiBgContainer>
     </UiBorderBox>
   )

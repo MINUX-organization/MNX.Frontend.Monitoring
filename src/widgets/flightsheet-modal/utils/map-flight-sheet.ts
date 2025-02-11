@@ -11,13 +11,16 @@ export function mapFlightSheet(gpuTarget: boolean, cpuTarget: boolean, flightShe
     return {
       miningConfig: {
         $type: index === 0 ? 'GPU' : 'CPU' as 'GPU' | 'CPU',
-        coinConfigs: _.map(target.miningConfig.coinConfigs, (config) => {
+        coinConfigs: _.compact(_.map(target.miningConfig.coinConfigs, (config) => {
+          if (_.isEmpty(config.pool?.id) && _.isEmpty(config.wallet?.id)) 
+            return undefined;
+
           return {
             poolId: config.pool?.id,
             walletId: config.wallet?.id,
             poolPassword: _.isEmpty(config?.poolPassword) ? undefined : config.poolPassword,
           }
-        }),
+        })),
         additionalArguments: _.isEmpty(target?.miningConfig.additionalArguments) ? undefined : target.miningConfig.additionalArguments,
         hugePages: target?.miningConfig.hugePages === 0 || _.isEmpty(target?.miningConfig.hugePages) ? undefined : target?.miningConfig.hugePages,
         configFileContent: _.isEmpty(target?.miningConfig.configFileContent) ? undefined : target.miningConfig.configFileContent,

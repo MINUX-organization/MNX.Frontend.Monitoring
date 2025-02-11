@@ -5,6 +5,7 @@ import { ProfileInfo } from "./types";
 import { editNicknameApi } from "@/shared/api/patch/editNickname";
 import { IS_SUCCESS_STATUS } from "@/shared/api/api-instance";
 import { editPasswordApi } from "@/shared/api/put/editPassword";
+import { generateKeyApi } from "@/shared/api/post/generateKey";
 
 export function useProfileRepository() {
   const queryClient = useQueryClient();
@@ -26,6 +27,13 @@ export function useProfileRepository() {
     }
   })
 
+  const generateKeyMutation = useMutation({
+    mutationFn: () => generateKeyApi(),
+    onSuccess: () => {
+      queryClient.invalidateQueries(['profile']);
+    }
+  })
+
   const editPassword = async (data: {password: string, newPassword: string, login: string}) => {
     const result = await editPasswordMutation.mutateAsync(data);
 
@@ -38,10 +46,17 @@ export function useProfileRepository() {
     return IS_SUCCESS_STATUS(result.status);
   }
 
+  const generateKey = async () => {
+    const result = await generateKeyMutation.mutateAsync();
+
+    return IS_SUCCESS_STATUS(result.status);
+  }
+
   return {
     profileInfo,
     editNickname,
     editPassword,
+    generateKey,
     ...query
   }
 }

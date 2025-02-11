@@ -1,14 +1,14 @@
 import clsx from "clsx";
 import styles from './cpuItemPanelTable.module.scss';
-// import { UiTextTitleWrapper } from "@/shared/ui/ui-text-title-wrapper";
-import { DeviceCpu } from "../model/types";
+import { UiTextTitleWrapper } from "@/shared/ui/ui-text-title-wrapper";
+import { Cpu } from "../model/types";
 
 export function СpuItemPanelTable({
   className,
   // deviceCpu
 } : {
   className?: string;
-  deviceCpu: DeviceCpu;
+  deviceCpu: Cpu;
 }) {
   return (
     <div className={clsx(
@@ -16,38 +16,38 @@ export function СpuItemPanelTable({
         styles['cpu-panel-table']
       )}
     >
-      {/* <div className={styles['cpu-panel-table-item']}>
+      <div className={styles['cpu-panel-table-item']}>
         <UiTextTitleWrapper className={styles['text']} text="CLK" />
         <span>
-          {deviceCpu.}&nbsp;
+          {/* {'N/A'}&nbsp; */}
           <span>MHz</span>
         </span>
       </div>
       <div className={styles['cpu-panel-table-item']}>
         <UiTextTitleWrapper className={styles['text']} text="TEMP" />
         <span>
-          <span className={clsx(
+          {/* <span className={clsx(
             deviceCpu?.temperature && deviceCpu.temperature > 80 && styles['red']
           )}>
             {deviceCpu.temperature}
-          </span>&nbsp;
+          </span>&nbsp; */}
           <span>°C</span>
         </span>
       </div>
       <div className={styles['cpu-panel-table-item']}>
         <UiTextTitleWrapper className={styles['text']}  text="FAN" />
         <span>
-          {deviceCpu.fan}&nbsp;
+          {/* {deviceCpu.fan}&nbsp; */}
           <span>%</span>
         </span>
       </div>
       <div className={styles['cpu-panel-table-item']}>
         <UiTextTitleWrapper className={styles['text']} text="PWR" />
         <span>
-          {deviceCpu.power}&nbsp;
+          {/* {deviceCpu.power}&nbsp; */}
           <span className={styles['blue']}>W</span>
         </span>
-      </div> */}
+      </div>
     </div>
   )
 }

@@ -23,10 +23,12 @@ export const BACKEND_APIS = {
   PRESETS: `${BACKEND_MONITORING_URL}/presets`,
   FLIGHT_SHEETS: `${BACKEND_MONITORING_URL}/flight_sheets`,
   GPUS: `${BACKEND_MONITORING_URL}/devices/gpus`,
+  CPUS: `${BACKEND_MONITORING_URL}/devices/cpus`,
   GPUS_RESTRICTIONS: (gpuName: string) => `${BACKEND_MONITORING_URL}/devices/gpus/${gpuName}/restrictions`,
   GPUS_UNIQUE_NAMES: `${BACKEND_MONITORING_URL}/devices/gpus/unique_names`,
   PROFILE: `${BACKEND_SECURITY_URL}/profile`,
   NICKNAME : `${BACKEND_SECURITY_URL}/profile/nickname`,
   DEVICE_OVERCLOCKING: `${BACKEND_MONITORING_URL}/devices/overclocking`,
   CHANGE_PASSWORD: `${BACKEND_SECURITY_URL}/auth/user/changePassword`,
+  GENERATE_KEY: `${BACKEND_SECURITY_URL}/profile/key/generate`,
 }

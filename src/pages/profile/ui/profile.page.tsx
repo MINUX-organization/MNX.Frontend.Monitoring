@@ -3,6 +3,7 @@ import styles from './profile.page.module.scss'
 import { EditButton } from '@/features/profile/edit';
 import { EditNicknameForm } from '@/features/profile/form';
 import { EditPasswordButton } from '@/features/profile/edit';
+import { GenerateKey } from '@/features/profile/generatei-key';
 
 export function ProfilePage() {
   const { profileInfo } = useProfileRepository();
@@ -18,6 +19,7 @@ export function ProfilePage() {
           renderModalContent={(onClose) => <EditNicknameForm nickname={profileInfo?.nickname} onClose={onClose} />}
         />}
         renderEditPassword={() => <EditPasswordButton className={styles['button']} />}
+        renderGenerateKey={() => <GenerateKey className={styles['button']}/>}
       />
       <ProfileInfoCard profileInfo={profileInfo}/>
     </div>
