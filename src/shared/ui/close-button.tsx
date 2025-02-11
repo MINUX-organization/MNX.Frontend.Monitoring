@@ -5,7 +5,7 @@ import { LuX } from "react-icons/lu"
 
 export type CloseButtonProps = ButtonProps
 
-export const UiCloseButton = React.forwardRef<
+export const CloseButton = React.forwardRef<
   HTMLButtonElement,
   CloseButtonProps
 >(function CloseButton(props, ref) {

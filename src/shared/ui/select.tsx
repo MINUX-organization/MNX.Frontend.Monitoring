@@ -1,11 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
-import type { CollectionItem, NativeSelectFieldProps, NativeSelectRootProps } from "@chakra-ui/react"
-import { Select as ChakraSelect, NativeSelectField, NativeSelectRoot, Portal } from "@chakra-ui/react"
-import { UiCloseButton } from "./close-button"
+import { Combobox, ComboboxInput, ComboboxOption, ComboboxOptions } from '@headlessui/react'
+import type { CollectionItem } from "@chakra-ui/react"
+import { Select as ChakraSelect, Portal } from "@chakra-ui/react"
+import { CloseButton } from "./close-button"
 import * as React from "react"
-import { UiText } from "./text"
-import _ from "lodash"
+import { useState } from "react"
 
 interface SelectTriggerProps extends ChakraSelect.ControlProps {
   clearable?: boolean
@@ -33,7 +34,7 @@ const SelectClearTrigger = React.forwardRef<
 >(function SelectClearTrigger(props, ref) {
   return (
     <ChakraSelect.ClearTrigger asChild {...props} ref={ref}>
-      <UiCloseButton
+      <CloseButton
         size="xs"
         variant="plain"
         focusVisibleRing="inside"
@@ -141,50 +142,44 @@ export const SelectItemGroup = React.forwardRef<
   )
 })
 
-export interface SelectLabelProps<T> extends ChakraSelect.RootProps {
-  label: string;
-  placeholder?: string;
-  renderOptionLabel?: (value: T) => string;
-  renderOptionValue?: (value: T) => string;
-  options?: T[];
-  selectLabelprops?: ChakraSelect.LabelProps;
-} 
+export interface SelectItemProps<T> {
+  items : T[]
+  getLabel: (item: T) => string;
+  onChange: (item: NoInfer<T> | null) => void
+}
 
-export function UiSelect<T>({ 
-  label, 
-  placeholder, 
-  options, 
-  renderOptionLabel, 
-  renderOptionValue, 
-  ...props 
-} : SelectLabelProps<T>) {
+export function UiSelect<T>({ items, getLabel, onChange }: SelectItemProps<T>) {
+  const [selectedObject, setSelectedObject] = useState<T | string | null>('')
+  const [query, setQuery] = useState('')
+
+  const filteredObjects =
+    query === ''
+      ? items
+      : items?.filter((item) => 
+          getLabel(item).toLowerCase().includes(query.toLowerCase())
+        )
+
+  const handleChange = (item: NoInfer<T> | null) => {
+    setSelectedObject(item)
+    onChange(item)
+  }
+
   return (
-    <SelectRoot {...props}>
-      <SelectLabel {...props.selectLabelprops}>
-        <UiText>{label}</UiText>
-      </SelectLabel>
-      <SelectTrigger>
-        <SelectValueText placeholder={placeholder} />
-      </SelectTrigger>
-      <SelectContent>
-        {_.map(options, (item) => (
-          <SelectItem key={renderOptionValue?.(item) || ''} item={item}>
-            <SelectItemText>{renderOptionLabel?.(item) || ''}</SelectItemText>
-          </SelectItem>
+    <Combobox value={selectedObject as T} onChange={handleChange} onClose={() => setQuery('')}>
+      <ComboboxInput
+        aria-label="Assignee"
+        displayValue={(item) => item ? getLabel(item as T) : ''}
+        onChange={(event) => setQuery(event.target.value)}
+      />
+      <ComboboxOptions anchor="bottom" >
+        {filteredObjects.map((item) => (
+          <ComboboxOption key={getLabel(item)} value={item}>
+            {getLabel(item)}
+          </ComboboxOption>
         ))}
-      </SelectContent>
-    </SelectRoot>
+      </ComboboxOptions>
+    </Combobox>
   )
-}
-
-export interface NativeSelectProps extends NativeSelectRootProps {
-  nativeSelectFieldprops: NativeSelectFieldProps
-}
-
-export function UiNativeSelect({ nativeSelectFieldprops, ...props }: NativeSelectProps) {
-  <NativeSelectRoot {...props}>
-    <NativeSelectField {...nativeSelectFieldprops}/>
-  </NativeSelectRoot>
 }
 
 export const SelectLabel = ChakraSelect.Label

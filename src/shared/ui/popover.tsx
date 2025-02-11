@@ -1,5 +1,5 @@
 import { Popover as ChakraPopover, PopoverOpenChangeDetails, Portal } from "@chakra-ui/react"
-import { UiCloseButton } from "./close-button"
+import { CloseButton } from "./close-button"
 import * as React from "react"
 import { match } from "ts-pattern"
 
@@ -46,7 +46,7 @@ export const PopoverCloseTrigger = React.forwardRef<
       asChild
       ref={ref}
     >
-      <UiCloseButton size="sm" />
+      <CloseButton size="sm" />
     </ChakraPopover.CloseTrigger>
   )
 })

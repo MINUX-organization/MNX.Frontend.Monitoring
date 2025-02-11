@@ -1,5 +1,5 @@
 import { Drawer as ChakraDrawer, Portal } from "@chakra-ui/react"
-import { UiCloseButton } from "./close-button"
+import { CloseButton } from "./close-button"
 import * as React from "react"
 
 interface DrawerContentProps extends ChakraDrawer.ContentProps {
@@ -36,7 +36,7 @@ export const DrawerCloseTrigger = React.forwardRef<
       {...props}
       asChild
     >
-      <UiCloseButton size="sm" ref={ref} />
+      <CloseButton size="sm" ref={ref} />
     </ChakraDrawer.CloseTrigger>
   )
 })
