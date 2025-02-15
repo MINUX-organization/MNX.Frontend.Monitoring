@@ -1,10 +1,10 @@
 import { PlusIcon } from "@/shared/assets/svg";
 import { UiButton, UiDialog } from "@/shared/ui";
 
-export function AddCryptocurrencyButton({
-  renderCryptocurrencyForm
+export function AddWalletButton({
+  renderPoolForm
 } : {
-  renderCryptocurrencyForm: (onClose: () => void) => React.ReactNode
+  renderPoolForm: (onClose: () => void) => React.ReactNode
 }) {
   return (
     <UiDialog
@@ -15,8 +15,8 @@ export function AddCryptocurrencyButton({
           Add <PlusIcon />
         </UiButton>
       )}
-      renderTitle={() => "Add Cryptocurrency"}
-      renderBody={(onClose) => renderCryptocurrencyForm(onClose)}
+      renderTitle={() => "Add Wallet"}
+      renderBody={(onClose) => renderPoolForm(onClose)}
     />
   );
 }

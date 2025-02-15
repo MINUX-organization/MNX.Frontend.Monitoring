@@ -21,9 +21,15 @@ export function CryptocurrenciesPage() {
   ]
 
   return (
-    <>
-      <AddCryptocurrencyForm />
-      <MiningTable data={cryptocurrenciesTable} actions={actions} renderAddButton={() => <AddCryptocurrencyButton />}/>
-    </>
+    <MiningTable 
+      data={cryptocurrenciesTable} 
+      actions={actions}
+      sortable
+      searchable
+      renderAddButton={() => 
+        <AddCryptocurrencyButton 
+          renderCryptocurrencyForm={(onClose) => <AddCryptocurrencyForm onClose={onClose}/>}
+        />}
+    />
   )
 }

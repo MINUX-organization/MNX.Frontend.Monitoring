@@ -20,7 +20,7 @@ export const UiField = React.forwardRef<HTMLDivElement, FieldProps>(
     return (
       <ChakraField.Root ref={ref} {...rest}>
         {label && (
-          <ChakraField.Label {...props.labelprops} textStyle={'md'}>
+          <ChakraField.Label {...props.labelprops} textStyle={'md'} className="peer">
             {label}
             {
               match(confirmed)

@@ -3,10 +3,15 @@
 
 import { Combobox, ComboboxInput, ComboboxOption, ComboboxOptions } from '@headlessui/react'
 import type { CollectionItem } from "@chakra-ui/react"
-import { Select as ChakraSelect, Portal } from "@chakra-ui/react"
+import { Box, Center, Select as ChakraSelect, Portal } from "@chakra-ui/react"
 import { CloseButton } from "./close-button"
 import * as React from "react"
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
+import { UiInput } from './input'
+import { UiContainerRounded } from './container-rounded'
+import { UiText } from './text'
+import _ from 'lodash'
+import { match } from 'ts-pattern'
 
 interface SelectTriggerProps extends ChakraSelect.ControlProps {
   clearable?: boolean
@@ -145,12 +150,47 @@ export const SelectItemGroup = React.forwardRef<
 export interface SelectItemProps<T> {
   items : T[]
   getLabel: (item: T) => string;
-  onChange: (item: NoInfer<T> | null) => void
+  onChange: (item: NoInfer<T> | null) => void;
+  selectedItem?: T | null
+  firstInitValue?: boolean
 }
 
-export function UiSelect<T>({ items, getLabel, onChange }: SelectItemProps<T>) {
-  const [selectedObject, setSelectedObject] = useState<T | string | null>('')
+export function UiSelect<T>({ items, getLabel, onChange, selectedItem, firstInitValue }: SelectItemProps<T>) {
   const [query, setQuery] = useState('')
+  const [firstInit, setFirstInit] = useState(firstInitValue ?? false)
+  const [item, setItem] = useState<T | null>(null)
+  const [inputWidth, setInputWidth] = useState<number | string>('auto');
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleChange = (item: T | null) => {
+    onChange(item)
+    setItem(item)
+  }
+
+  useEffect(() => {
+    if (_.isEmpty(selectedItem)) {
+      setItem(null)
+      return;
+    }
+
+    if (firstInit && selectedItem) {
+      setItem(selectedItem as T)
+      setFirstInit(false)
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedItem])
+
+  useEffect(() => {
+    const updateWidth = () => {
+      if (inputRef.current) {
+        setInputWidth(inputRef.current.offsetWidth);
+      }
+    };
+    
+    updateWidth();
+    window.addEventListener('resize', updateWidth);
+    return () => window.removeEventListener('resize', updateWidth);
+  }, []);
 
   const filteredObjects =
     query === ''
@@ -159,27 +199,59 @@ export function UiSelect<T>({ items, getLabel, onChange }: SelectItemProps<T>) {
           getLabel(item).toLowerCase().includes(query.toLowerCase())
         )
 
-  const handleChange = (item: NoInfer<T> | null) => {
-    setSelectedObject(item)
-    onChange(item)
-  }
-
   return (
-    <Combobox value={selectedObject as T} onChange={handleChange} onClose={() => setQuery('')}>
-      <ComboboxInput
-        aria-label="Assignee"
-        displayValue={(item) => item ? getLabel(item as T) : ''}
-        onChange={(event) => setQuery(event.target.value)}
-      />
-      <ComboboxOptions anchor="bottom" >
-        {filteredObjects.map((item) => (
-          <ComboboxOption key={getLabel(item)} value={item}>
-            {getLabel(item)}
-          </ComboboxOption>
-        ))}
-      </ComboboxOptions>
+    <Combobox immediate value={item} onChange={handleChange} onClose={() => setQuery('')}>
+      <UiInput asChild>
+        <ComboboxInput
+          ref={inputRef}
+          aria-label="Assignee"
+          displayValue={(item) => {
+            if (!item) return '';
+
+            if (typeof(item) === 'string') {
+              return item.toString();
+            }
+
+            return getLabel(item as T);
+          }}
+          onChange={(event) => setQuery(event.target.value)}
+        />
+      </UiInput>
+      <UiContainerRounded zIndex={'max'} asChild bg={'bg.input'} mt={2} p={0} h={'15rem'}>
+        <ComboboxOptions
+          anchor="bottom" 
+          style={{ 
+            width: inputWidth,
+            emptyCells: 'hide',
+            boxSizing: 'border-box'
+          }}
+        >
+          {match(filteredObjects)
+          .when((filteredObjects) => _.isEmpty(filteredObjects), () => (
+            <Center asChild bg={'bg.input'} mt={2} p={0} h={'15rem'}>
+              <UiText color={'fg.input'}>No results</UiText>
+            </Center>
+          ))
+          .otherwise(() => (
+            filteredObjects.map((item) => (
+              <Box 
+                asChild  
+                key={getLabel(item)}
+                _hover={{ bg: 'bg.hover' }} 
+                p={3} pl={4} pr={4} 
+                _selected={{ color: 'minux.solid' }}
+                transition={"all 0.2s ease-in-out"}
+              >
+                <ComboboxOption value={item}>
+                  <UiText >{getLabel(item)}</UiText>
+                </ComboboxOption>
+              </Box>
+            ))
+          ))}
+        </ComboboxOptions>
+      </UiContainerRounded>
     </Combobox>
-  )
+  );
 }
 
 export const SelectLabel = ChakraSelect.Label

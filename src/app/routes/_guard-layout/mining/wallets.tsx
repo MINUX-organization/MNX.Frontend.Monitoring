@@ -1,9 +1,9 @@
+import { walletQueryOptions } from '@/entities/wallet'
+import { WalletsPage } from '@/pages/wallets'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_guard-layout/mining/wallets')({
-  component: RouteComponent,
+  component: WalletsPage,
+  loader: ({ context: { queryClient } }) =>
+    queryClient.ensureQueryData(walletQueryOptions),
 })
-
-function RouteComponent() {
-  return <div>Hello "/_guard-layout/mining/wallet"!</div>
-}

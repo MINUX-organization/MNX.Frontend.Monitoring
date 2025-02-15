@@ -1,6 +1,7 @@
-import { Dialog as ChakraDialog, Portal } from "@chakra-ui/react"
+import { Dialog as ChakraDialog, DialogContext, Portal } from "@chakra-ui/react"
 import { CloseButton } from "./close-button"
 import * as React from "react"
+import { match } from "ts-pattern"
 
 interface DialogContentProps extends ChakraDialog.ContentProps {
   portalled?: boolean
@@ -50,6 +51,51 @@ export const DialogCloseTrigger = React.forwardRef<
     </ChakraDialog.CloseTrigger>
   )
 })
+
+export interface DialogProps extends Omit<ChakraDialog.RootProps, "children"> {
+  children?: React.ReactNode
+  renderBody?: (onClose: () => void) => React.ReactNode
+  renderTitle?: () => React.ReactNode
+  renderTrigger?: () => React.ReactNode
+  renderFooter?: () => React.ReactNode
+}
+
+export function UiDialog({ renderBody, renderTitle, renderTrigger, renderFooter, ...props }: DialogProps) {
+  return (
+    <DialogRoot {...props} motionPreset={'slide-in-bottom'} placement={'center'} modal={false}>
+      <DialogTrigger asChild>{renderTrigger?.()}</DialogTrigger>
+      <DialogContent>
+      {match(renderTitle)
+        .with(undefined, () => null)
+        .otherwise(() => (
+          <DialogHeader>
+            <DialogTitle textAlign={"center"}>
+              {renderTitle?.()}
+            </DialogTitle>
+          </DialogHeader>
+        ))}
+      {match(renderBody)
+        .with(undefined, () => null)
+        .otherwise(() => (
+          <DialogContext>
+            {(store) => (
+              <DialogBody>
+                {renderBody?.(() => store.setOpen(false))}
+              </DialogBody>
+            )}
+          </DialogContext>
+        ))}
+      {match(renderFooter)
+        .with(undefined, () => null)
+        .otherwise(() => (
+          <DialogFooter>
+            {renderFooter?.()}
+          </DialogFooter>
+        ))}
+      </DialogContent>
+    </DialogRoot>
+  )
+}
 
 export const DialogRoot = ChakraDialog.Root
 export const DialogFooter = ChakraDialog.Footer

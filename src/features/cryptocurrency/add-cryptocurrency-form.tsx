@@ -1,47 +1,51 @@
-import { algorithmRepository } from "@/entities/algorithm";
-import { CryptocurrencySchema, CryptocurrencyType } from "@/entities/cryptocurrency";
+import { algorithmRepository, AlgorithmType } from "@/entities/algorithm";
+import { cryptocurrencyRepository, PostCryptocurrencySchema, PostCryptocurrencyType } from "@/entities/cryptocurrency";
+import { isSuccessResponse } from "@/shared/api";
 import { UiInput, UiSelect } from "@/shared/ui";
 import { FormConfig, GenericForm } from "@/shared/ui";
 import _ from "lodash";
 
 const { useAlgorithmQuery } = algorithmRepository;
+const { useCryptocurrencyMutation } = cryptocurrencyRepository;
 
-export function AddCryptocurrencyForm() {
+export function AddCryptocurrencyForm({
+  onClose
+} : {
+  onClose?: () => void
+}) {
   const { algorithms } = useAlgorithmQuery();
+  const { addCryptocurrency } = useCryptocurrencyMutation();
 
-  const config: FormConfig<CryptocurrencyType> = {
-    validationSchema: CryptocurrencySchema,
+  const config: FormConfig<PostCryptocurrencyType> = {
+    validationSchema: PostCryptocurrencySchema,
     defaultValues: {
       shortName: '',
       fullName: '',
-      algorithm: {
-        id: '',
-        name: '',
-      }
+      algorithmId: ''
     },
     fields: [
       { name: 'shortName', label: 'Short name', component: (field) => <UiInput {...field} /> },
       { name: 'fullName', label: 'Full name', component: (field) => <UiInput {...field} /> },
-      { name: 'algorithm', label: 'Algorithm', component: (field) => (
-        <UiSelect
+      { name: 'algorithmId', label: 'Algorithm', component: (field) => (
+        <UiSelect<AlgorithmType>
           items={algorithms ?? []}
           getLabel={(item) => item.name}
-          onChange={(item) => field.onChange(item)}
+          onChange={(item) => field.onChange(item?.id)}
+          selectedItem={field.value}
         />
       )},
     ],
     onSubmit: async (data) => {
-      console.log(data)
+      const response = await addCryptocurrency(data);
+
+      if (!isSuccessResponse(response)) {
+        return;
+      }
     },
-    // isSubmitEnabled: (errors) => {
-    //   return !_.isEmpty(errors)
-    // },
+    isSubmitDisabled: (errors) => !_.isEmpty(errors)
   }
 
-  return (
-    <>    
-      <GenericForm config={config} />
-      
-    </>
+  return (   
+    <GenericForm config={config} onClose={onClose}/>
   )
 }

@@ -17,3 +17,4 @@ export { ConfirmedIcon } from './confirmed';
 export { MinerIcon } from './miner';
 export { TrashIcon } from './trash';
 export { PlusIcon } from './plus';
+export { SearchIcon } from './search';

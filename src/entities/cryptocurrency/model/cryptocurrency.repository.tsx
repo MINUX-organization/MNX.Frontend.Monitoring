@@ -1,7 +1,7 @@
 import { addCryptocurrencyApi, deleteCryptocurrencyApi, getCryptocurrenciesApi } from "@/shared/api"
 import { zodSaveParse } from "@/shared/lib/utils/zod-save-parse";
 import { queryOptions, useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
-import { CryptocurrencySchema, CryptocurrencyType } from "./cryptocurrency.type";
+import { CryptocurrencySchema, CryptocurrencyType, PostCryptocurrencyType } from "./cryptocurrency.type";
 import { toaster } from "@/shared/ui/toaster";
 import { AxiosError } from "axios";
 
@@ -13,7 +13,7 @@ export const cryptocurrencyQueryOptions = queryOptions({
 const useCryptocurrencyQuery = () => {
   const { data, ...query } = useQuery(cryptocurrencyQueryOptions);
 
-  const cryptocurrencies = zodSaveParse(data?.data, CryptocurrencySchema.optional());
+  const cryptocurrencies = zodSaveParse(data?.data, CryptocurrencySchema.array().optional());
 
   return { cryptocurrencies, ...query }
 } 
@@ -22,7 +22,7 @@ const useCryptocurrencyMutation = () => {
   const queryClient = useQueryClient();
 
   const addCryptocurrencyMutation = useMutation({
-    mutationFn: (data: Omit<CryptocurrencyType, 'id'>) => addCryptocurrencyApi(data),
+    mutationFn: (data: PostCryptocurrencyType) => addCryptocurrencyApi(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['cryptocurrency'] });
       toaster.success({

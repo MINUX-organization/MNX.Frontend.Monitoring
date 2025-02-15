@@ -17,7 +17,7 @@ export type FormConfig<T extends FieldValues> = {
   defaultValues: DefaultValues<T>;
   fields: FormField<T>[];
   onSubmit: (data: T) => Promise<void> | void;
-  isSubmitEnabled?: (errors: FieldErrors<T>) => boolean;
+  isSubmitDisabled?: (errors: FieldErrors<T>) => boolean;
   confirmButtonprops?: ButtonProps;
   cancelButtonprops?: ButtonProps;
 };
@@ -36,14 +36,16 @@ export function GenericForm<T extends FieldValues>({
     handleSubmit,
     formState: { errors },
     reset,
+    watch,
   } = useForm<T>({
     resolver: zodResolver(config.validationSchema),  
     defaultValues: config.defaultValues,
     mode: "onChange",
   });
 
+  const watchedValues = _.map(config.fields, (fieldPart) => watch(fieldPart.name));
+
   const handleFormSubmit = async (data: T) => {
-    console.log(data);
     await config.onSubmit(data);
     reset();
     onClose?.(); 
@@ -53,6 +55,15 @@ export function GenericForm<T extends FieldValues>({
     reset();
     onClose?.();
   };
+
+  const isDisabled = (config.isSubmitDisabled?.(errors) ?? false) || 
+  _.map(watchedValues, (fieldPart) => {
+    if (typeof fieldPart === 'number') {
+      return _.isEmpty(fieldPart.toString());
+    }
+
+    return _.isEmpty(fieldPart);
+  }).includes(true);
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)}>
@@ -64,6 +75,7 @@ export function GenericForm<T extends FieldValues>({
               label={fieldPart.label}
               errorText={errors[fieldPart.name]?.message?.toString()}
               invalid={!!errors[fieldPart.name]}
+              className="group"
             >
               <Controller
                 control={control}
@@ -73,8 +85,9 @@ export function GenericForm<T extends FieldValues>({
             </UiField>
           ))}
           <UiFormButtonsGroup
+            mt={4}
             confirmButtonprops={{
-              // disabled: !(config.isSubmitEnabled?.(errors) || true), 
+              disabled: isDisabled,
               ...config.confirmButtonprops
             }}
             cancelButtonprops={{

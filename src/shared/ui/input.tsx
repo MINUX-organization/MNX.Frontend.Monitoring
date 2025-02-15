@@ -10,12 +10,15 @@ export const UiInput = forwardRef<HTMLInputElement, InputProps>((props, ref) => 
         .with(true, () => <UiText {...props}>{props.value}</UiText>)
         .otherwise(() => (
           <Input
-            {...props}
             ref={ref}
             colorPalette="input"
             bg="bg.input"
             borderColor="minux.solid"
             rounded="md"
+            textStyle={'md'}
+            _invalid={{ borderColor: "red.500" }}
+            _peerInvalid={{ borderColor: "red.500", focusRingColor: "red.500" }}
+            {...props}
           />
         ))}
     </>
