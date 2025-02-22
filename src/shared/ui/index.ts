@@ -14,3 +14,8 @@ export { SelectContent, SelectItem, SelectItemGroup, SelectRoot, SelectTrigger, 
 export { UiDialog } from "./dialog"
 export { UiTooltip } from "./tooltip"
 export { UiSearch } from "./search"
+export { SortingIcon } from './sorting-icon'
+export { UiSwitch } from './switch'
+export { GpuDevicesIcons, type Device } from './gpu-devices-icons'
+export { UiToggler } from './toggler'
+export { UiTextarea } from './textarea'

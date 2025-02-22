@@ -24,15 +24,17 @@ export function WalletsPage() {
         <WalletForm onClose={onClose} mode={'edit'} wallet={item} cryptocurrencies={cryptocurrencies}/>
       }/>
     ),
-    (item: WalletType) => (
-      <DeleteWalletButton id={item.id}/>
+    ({ id }: WalletType) => (
+      <DeleteWalletButton id={id}/>
     ),
   ]
 
   return (
     <MiningTable 
       data={walletsTable} 
-      actions={actions} 
+      actions={actions}
+      searchable
+      sortable
       renderAddButton={() => 
         <AddWalletButton 
           renderPoolForm={(onClose) => <WalletForm onClose={onClose} mode={'add'} cryptocurrencies={cryptocurrencies}/>}

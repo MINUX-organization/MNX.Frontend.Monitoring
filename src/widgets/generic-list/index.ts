@@ -1,0 +1,1 @@
+export { GenericList, type GenericListProps } from './ui/generic-list';

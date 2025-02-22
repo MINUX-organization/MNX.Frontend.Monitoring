@@ -1,4 +1,4 @@
-import { cryptocurrencyQueryOptions } from "@/entities/cryptocurrency";
+import { cryptocurrencyQueryOptions, CryptocurrencyType } from "@/entities/cryptocurrency";
 import { AddCryptocurrencyButton, AddCryptocurrencyForm, DeleteCryptocurrencyButton } from "@/features/cryptocurrency";
 import { MiningTable } from "@/widgets/mining-table";
 import { useSuspenseQuery } from "@tanstack/react-query";
@@ -15,7 +15,7 @@ export function CryptocurrenciesPage() {
   }))
 
   const actions = [
-    (id: string) => (
+    ({ id }: CryptocurrencyType) => (
       <DeleteCryptocurrencyButton id={id.toString()}/>
     )
   ]

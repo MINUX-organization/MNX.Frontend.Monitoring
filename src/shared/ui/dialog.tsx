@@ -62,7 +62,7 @@ export interface DialogProps extends Omit<ChakraDialog.RootProps, "children"> {
 
 export function UiDialog({ renderBody, renderTitle, renderTrigger, renderFooter, ...props }: DialogProps) {
   return (
-    <DialogRoot {...props} motionPreset={'slide-in-bottom'} placement={'center'} modal={false}>
+    <DialogRoot {...props} motionPreset={'slide-in-bottom'} placement={'center'} modal={false} scrollBehavior={'inside'}>
       <DialogTrigger asChild>{renderTrigger?.()}</DialogTrigger>
       <DialogContent>
       {match(renderTitle)
@@ -92,6 +92,7 @@ export function UiDialog({ renderBody, renderTitle, renderTrigger, renderFooter,
             {renderFooter?.()}
           </DialogFooter>
         ))}
+        <DialogCloseTrigger />
       </DialogContent>
     </DialogRoot>
   )

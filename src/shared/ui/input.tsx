@@ -16,8 +16,10 @@ export const UiInput = forwardRef<HTMLInputElement, InputProps>((props, ref) => 
             borderColor="minux.solid"
             rounded="md"
             textStyle={'md'}
-            _invalid={{ borderColor: "red.500" }}
+            _focusVisible={{ borderColor: "orange", focusRingColor: "orange" }}
+            _invalid={{ borderColor: "red.500", focusRingColor: "red.500" }}
             _peerInvalid={{ borderColor: "red.500", focusRingColor: "red.500" }}
+            _groupInvalid={{ borderColor: "red.500", focusRingColor: "red.500" }} 
             {...props}
           />
         ))}

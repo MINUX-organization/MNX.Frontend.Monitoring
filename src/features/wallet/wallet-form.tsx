@@ -38,10 +38,11 @@ export function WalletForm({
         cryptocurrencyId: findedCryptocurrency?.id,
       })),
     fields: [
-      { name: 'name', label: 'Name', component: (field) => <UiInput {...field} /> },
-      { name: 'address', label: 'Address', component: (field) => <UiInput {...field} /> },
-      { name: 'cryptocurrencyId', label: 'Cryptocurrency', component: (field) => (
+      { name: 'name', label: 'Name', component: ({field}) => <UiInput {...field} /> },
+      { name: 'address', label: 'Address', component: ({field}) => <UiInput {...field} /> },
+      { name: 'cryptocurrencyId', label: 'Cryptocurrency', component: ({field, invalid}) => (
         <UiSelect<CryptocurrencyType>
+          invalid={invalid}
           items={cryptocurrencies ?? []}
           getLabel={(item) => item.fullName}
           onChange={(item) => field.onChange(item?.id)}

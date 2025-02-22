@@ -16,6 +16,11 @@ const config = defineConfig({
         "4xs": { value: "8.125rem" }
       },
       colors: {
+        tech: {
+          nvidia: { value: "#76B900" },
+          amd: { value: "#ED1C24" },
+          intel: { value: "#0071C5" },
+        },
         minux: {
           solid: {
             value: "rgba(60, 158, 165, 1)",

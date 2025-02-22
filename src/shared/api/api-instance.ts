@@ -17,7 +17,7 @@ function addSubscriber(callback: (token: string) => void) {
 export function apiInstance(url?: string, customApiConfig?: AxiosRequestConfig): AxiosInstance {
   const apiConfig: AxiosRequestConfig = {
     baseURL: `${BACKEND_BASE_URL}${url ?? ''}`,
-    timeout: 5000,
+    timeout: 10000,
     withCredentials: false,
     headers: {
       'Content-Type': 'application/json',
@@ -41,7 +41,6 @@ export function apiInstance(url?: string, customApiConfig?: AxiosRequestConfig):
   instance.interceptors.response.use(response => response, async error => {
     const originalRequest = error.config;
     if (error.response?.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
       return refreshToken(instance, originalRequest);
     }
 
@@ -61,7 +60,8 @@ const refreshToken = async (instance: AxiosInstance, config: InternalAxiosReques
       });
     });
   }
-  
+
+  (config as unknown as { _retry: boolean })._retry = true;
   isRefreshing = true;
   
   const token = localStorage.getItem('session');

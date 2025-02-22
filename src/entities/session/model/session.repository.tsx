@@ -4,7 +4,6 @@ import { loginApi, logoutApi, refreshTokensApi, registrationApi } from "@/shared
 import { RegistrationType } from "./registration.type";
 import { SessionType } from "./session.type";
 import { toaster } from "@/shared/ui/toaster";
-import { AxiosError } from "axios";
 
 const sessionQuery = (): SessionType | undefined => {
   const session = localStorage.getItem('session');
@@ -25,12 +24,6 @@ function useSessionMutation() {
         description: 'You have successfully logged in',
       })
     },
-    onError: (error: AxiosError<string[]>) => {
-      toaster.error({
-        title: error.message,
-        description: error.response?.data[0],
-      })
-    }
   })
 
   const setSessionViaRegistrationMutation = useMutation({
@@ -41,12 +34,6 @@ function useSessionMutation() {
         description: 'You have successfully registered and logged in',
       })
     },
-    onError: (error: AxiosError<string[]>) => {
-      toaster.error({
-        title: error.message,
-        description: error.response?.data[0],
-      })
-    }
   })
 
   const refreshSessionMutation = useMutation({
@@ -54,12 +41,6 @@ function useSessionMutation() {
     onSuccess: (response) => {
       localStorage.setItem('session', JSON.stringify(response.data));
     },
-    onError: (error: AxiosError<string[]>) => {
-      toaster.error({
-        title: error.message,
-        description: error.response?.data[0],
-      })
-    }
   })
 
   const removeSessionMutation = useMutation({

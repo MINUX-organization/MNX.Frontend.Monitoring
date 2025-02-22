@@ -24,10 +24,11 @@ export function AddCryptocurrencyForm({
       algorithmId: ''
     },
     fields: [
-      { name: 'shortName', label: 'Short name', component: (field) => <UiInput {...field} /> },
-      { name: 'fullName', label: 'Full name', component: (field) => <UiInput {...field} /> },
-      { name: 'algorithmId', label: 'Algorithm', component: (field) => (
+      { name: 'shortName', label: 'Short name', component: ({field}) => <UiInput {...field} /> },
+      { name: 'fullName', label: 'Full name', component: ({field}) => <UiInput {...field} /> },
+      { name: 'algorithmId', label: 'Algorithm', component: ({field, invalid}) => (
         <UiSelect<AlgorithmType>
+          invalid={invalid}
           items={algorithms ?? []}
           getLabel={(item) => item.name}
           onChange={(item) => field.onChange(item?.id)}

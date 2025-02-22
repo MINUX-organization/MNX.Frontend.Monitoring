@@ -14,7 +14,7 @@ export function PoolsPage() {
   const poolsTable = _.map(data.data, (item) => ({
     id: item.id,
     domain: item.domain,
-    port: item.port,
+    port: item.port.toString(),
     cryptocurrency: item.cryptocurrency
   }))
 
@@ -24,15 +24,17 @@ export function PoolsPage() {
         <PoolForm onClose={onClose} mode={'edit'} pool={item} cryptocurrencies={cryptocurrencies}/>
       }/>
     ),
-    (item: PoolType) => (
-      <DeletePoolButton id={item.id}/>
+    ({ id }: PoolType) => (
+      <DeletePoolButton id={id}/>
     ),
   ]
 
   return (
     <MiningTable 
       data={poolsTable} 
-      actions={actions} 
+      actions={actions}
+      searchable
+      sortable
       renderAddButton={() => 
         <AddPoolButton 
           renderPoolForm={(onClose) => <PoolForm onClose={onClose} mode={'add'} cryptocurrencies={cryptocurrencies}/>}

@@ -9,7 +9,7 @@ export type FormField<T extends FieldValues> = {
   name: Path<T>;
   label: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  component: (field: any) => React.ReactElement;
+  component: ({field, invalid}: { field: any; invalid: boolean }) => React.ReactElement;
 };
 
 export type FormConfig<T extends FieldValues> = {
@@ -80,7 +80,7 @@ export function GenericForm<T extends FieldValues>({
               <Controller
                 control={control}
                 name={fieldPart.name}
-                render={({ field }) => fieldPart.component(field)}
+                render={({ field }) => fieldPart.component({ field, invalid: !!errors[fieldPart.name] })}
               />
             </UiField>
           ))}

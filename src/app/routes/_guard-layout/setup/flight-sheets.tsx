@@ -1,9 +1,9 @@
+import { flightSheetQueryOptions } from '@/entities/flight-sheet'
+import { FlightSheetsPage } from '@/pages/flightsheets'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_guard-layout/setup/flight-sheets')({
-  component: RouteComponent,
+  component: FlightSheetsPage,
+  loader: ({ context: { queryClient } }) =>
+    queryClient.ensureQueryData(flightSheetQueryOptions),
 })
-
-function RouteComponent() {
-  return <div>Hello "/_guard-layout/setup/flight-sheets"!</div>
-}

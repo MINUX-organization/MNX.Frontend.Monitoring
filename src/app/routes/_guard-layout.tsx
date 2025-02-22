@@ -22,8 +22,10 @@ export const Route = createFileRoute('/_guard-layout')({
 
       if (new Date(payload.exp * 1000).getTime() < Date.now()) {
         const response = await context.session.mutation.refreshSession(session.refreshToken);
+
         if (!isSuccessResponse(response)) {
           localStorage.removeItem('session');
+          
           throw redirect({
             to: '/login',
             search: {
@@ -42,8 +44,6 @@ export const Route = createFileRoute('/_guard-layout')({
         },
       })
     }
-
-
   },
 })
 

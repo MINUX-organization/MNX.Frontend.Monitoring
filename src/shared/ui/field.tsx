@@ -1,4 +1,4 @@
-import { Field as ChakraField } from "@chakra-ui/react"
+import { Badge, Field as ChakraField } from "@chakra-ui/react"
 import * as React from "react"
 import { match } from "ts-pattern";
 import { ConfirmedIcon } from "../assets/svg/confirmed";
@@ -28,7 +28,7 @@ export const UiField = React.forwardRef<HTMLDivElement, FieldProps>(
                 .with(false, () => <UnconfirmedIcon fill={'border.error'} />)
                 .otherwise(() => null)
             }
-            <ChakraField.RequiredIndicator fallback={optionalText} />
+            <ChakraField.RequiredIndicator fallback={optionalText && <Badge size="xs" variant="surface">{optionalText}</Badge>} />
           </ChakraField.Label>
         )}
         {children}

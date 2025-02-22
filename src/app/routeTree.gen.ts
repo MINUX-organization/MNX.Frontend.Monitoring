@@ -27,6 +27,7 @@ import { Route as GuardLayoutMiningCryptocurrenciesImport } from './routes/_guar
 import { Route as GuardLayoutMiningAlgorithmsImport } from './routes/_guard-layout/mining/algorithms'
 import { Route as GuardLayoutDevicesGpusImport } from './routes/_guard-layout/devices/gpus'
 import { Route as GuardLayoutDevicesCpusImport } from './routes/_guard-layout/devices/cpus'
+import { Route as GuardLayoutSetupFlightSheetsConfigImport } from './routes/_guard-layout/setup/flight-sheets.config'
 
 // Create Virtual Routes
 
@@ -128,6 +129,13 @@ const GuardLayoutDevicesCpusRoute = GuardLayoutDevicesCpusImport.update({
   path: '/devices/cpus',
   getParentRoute: () => GuardLayoutRoute,
 } as any)
+
+const GuardLayoutSetupFlightSheetsConfigRoute =
+  GuardLayoutSetupFlightSheetsConfigImport.update({
+    id: '/config',
+    path: '/config',
+    getParentRoute: () => GuardLayoutSetupFlightSheetsRoute,
+  } as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -238,6 +246,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GuardLayoutSetupPresetsImport
       parentRoute: typeof GuardLayoutImport
     }
+    '/_guard-layout/setup/flight-sheets/config': {
+      id: '/_guard-layout/setup/flight-sheets/config'
+      path: '/config'
+      fullPath: '/setup/flight-sheets/config'
+      preLoaderRoute: typeof GuardLayoutSetupFlightSheetsConfigImport
+      parentRoute: typeof GuardLayoutSetupFlightSheetsImport
+    }
   }
 }
 
@@ -255,6 +270,21 @@ const AuthRouteChildren: AuthRouteChildren = {
 
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 
+interface GuardLayoutSetupFlightSheetsRouteChildren {
+  GuardLayoutSetupFlightSheetsConfigRoute: typeof GuardLayoutSetupFlightSheetsConfigRoute
+}
+
+const GuardLayoutSetupFlightSheetsRouteChildren: GuardLayoutSetupFlightSheetsRouteChildren =
+  {
+    GuardLayoutSetupFlightSheetsConfigRoute:
+      GuardLayoutSetupFlightSheetsConfigRoute,
+  }
+
+const GuardLayoutSetupFlightSheetsRouteWithChildren =
+  GuardLayoutSetupFlightSheetsRoute._addFileChildren(
+    GuardLayoutSetupFlightSheetsRouteChildren,
+  )
+
 interface GuardLayoutRouteChildren {
   GuardLayoutMonitoringLazyRoute: typeof GuardLayoutMonitoringLazyRoute
   GuardLayoutDevicesCpusRoute: typeof GuardLayoutDevicesCpusRoute
@@ -264,7 +294,7 @@ interface GuardLayoutRouteChildren {
   GuardLayoutMiningMinersRoute: typeof GuardLayoutMiningMinersRoute
   GuardLayoutMiningPoolsRoute: typeof GuardLayoutMiningPoolsRoute
   GuardLayoutMiningWalletsRoute: typeof GuardLayoutMiningWalletsRoute
-  GuardLayoutSetupFlightSheetsRoute: typeof GuardLayoutSetupFlightSheetsRoute
+  GuardLayoutSetupFlightSheetsRoute: typeof GuardLayoutSetupFlightSheetsRouteWithChildren
   GuardLayoutSetupPresetsRoute: typeof GuardLayoutSetupPresetsRoute
 }
 
@@ -278,7 +308,8 @@ const GuardLayoutRouteChildren: GuardLayoutRouteChildren = {
   GuardLayoutMiningMinersRoute: GuardLayoutMiningMinersRoute,
   GuardLayoutMiningPoolsRoute: GuardLayoutMiningPoolsRoute,
   GuardLayoutMiningWalletsRoute: GuardLayoutMiningWalletsRoute,
-  GuardLayoutSetupFlightSheetsRoute: GuardLayoutSetupFlightSheetsRoute,
+  GuardLayoutSetupFlightSheetsRoute:
+    GuardLayoutSetupFlightSheetsRouteWithChildren,
   GuardLayoutSetupPresetsRoute: GuardLayoutSetupPresetsRoute,
 }
 
@@ -299,8 +330,9 @@ export interface FileRoutesByFullPath {
   '/mining/miners': typeof GuardLayoutMiningMinersRoute
   '/mining/pools': typeof GuardLayoutMiningPoolsRoute
   '/mining/wallets': typeof GuardLayoutMiningWalletsRoute
-  '/setup/flight-sheets': typeof GuardLayoutSetupFlightSheetsRoute
+  '/setup/flight-sheets': typeof GuardLayoutSetupFlightSheetsRouteWithChildren
   '/setup/presets': typeof GuardLayoutSetupPresetsRoute
+  '/setup/flight-sheets/config': typeof GuardLayoutSetupFlightSheetsConfigRoute
 }
 
 export interface FileRoutesByTo {
@@ -316,8 +348,9 @@ export interface FileRoutesByTo {
   '/mining/miners': typeof GuardLayoutMiningMinersRoute
   '/mining/pools': typeof GuardLayoutMiningPoolsRoute
   '/mining/wallets': typeof GuardLayoutMiningWalletsRoute
-  '/setup/flight-sheets': typeof GuardLayoutSetupFlightSheetsRoute
+  '/setup/flight-sheets': typeof GuardLayoutSetupFlightSheetsRouteWithChildren
   '/setup/presets': typeof GuardLayoutSetupPresetsRoute
+  '/setup/flight-sheets/config': typeof GuardLayoutSetupFlightSheetsConfigRoute
 }
 
 export interface FileRoutesById {
@@ -335,8 +368,9 @@ export interface FileRoutesById {
   '/_guard-layout/mining/miners': typeof GuardLayoutMiningMinersRoute
   '/_guard-layout/mining/pools': typeof GuardLayoutMiningPoolsRoute
   '/_guard-layout/mining/wallets': typeof GuardLayoutMiningWalletsRoute
-  '/_guard-layout/setup/flight-sheets': typeof GuardLayoutSetupFlightSheetsRoute
+  '/_guard-layout/setup/flight-sheets': typeof GuardLayoutSetupFlightSheetsRouteWithChildren
   '/_guard-layout/setup/presets': typeof GuardLayoutSetupPresetsRoute
+  '/_guard-layout/setup/flight-sheets/config': typeof GuardLayoutSetupFlightSheetsConfigRoute
 }
 
 export interface FileRouteTypes {
@@ -356,6 +390,7 @@ export interface FileRouteTypes {
     | '/mining/wallets'
     | '/setup/flight-sheets'
     | '/setup/presets'
+    | '/setup/flight-sheets/config'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -372,6 +407,7 @@ export interface FileRouteTypes {
     | '/mining/wallets'
     | '/setup/flight-sheets'
     | '/setup/presets'
+    | '/setup/flight-sheets/config'
   id:
     | '__root__'
     | '/'
@@ -389,6 +425,7 @@ export interface FileRouteTypes {
     | '/_guard-layout/mining/wallets'
     | '/_guard-layout/setup/flight-sheets'
     | '/_guard-layout/setup/presets'
+    | '/_guard-layout/setup/flight-sheets/config'
   fileRoutesById: FileRoutesById
 }
 
@@ -486,11 +523,18 @@ export const routeTree = rootRoute
     },
     "/_guard-layout/setup/flight-sheets": {
       "filePath": "_guard-layout/setup/flight-sheets.tsx",
-      "parent": "/_guard-layout"
+      "parent": "/_guard-layout",
+      "children": [
+        "/_guard-layout/setup/flight-sheets/config"
+      ]
     },
     "/_guard-layout/setup/presets": {
       "filePath": "_guard-layout/setup/presets.tsx",
       "parent": "/_guard-layout"
+    },
+    "/_guard-layout/setup/flight-sheets/config": {
+      "filePath": "_guard-layout/setup/flight-sheets.config.tsx",
+      "parent": "/_guard-layout/setup/flight-sheets"
     }
   }
 }

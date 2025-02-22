@@ -33,14 +33,15 @@ export function PoolForm({
       }))
       .otherwise((pool) => ({
         domain: pool.domain,
-        port: pool.port,
+        port: pool.port.toString(),
         cryptocurrencyId: findedCryptocurrency?.id,
       })),
     fields: [
-      { name: 'domain', label: 'Domain', component: (field) => <UiInput {...field} /> },
-      { name: 'port', label: 'Port', component: (field) => <UiInput {...field} /> },
-      { name: 'cryptocurrencyId', label: 'Cryptocurrency', component: (field) => (
+      { name: 'domain', label: 'Domain', component: ({field}) => <UiInput {...field} /> },
+      { name: 'port', label: 'Port', component: ({field}) => <UiInput {...field} /> },
+      { name: 'cryptocurrencyId', label: 'Cryptocurrency', component: ({field, invalid}) => (
         <UiSelect<CryptocurrencyType>
+          invalid={invalid}
           items={cryptocurrencies ?? []}
           getLabel={(item) => item.fullName}
           onChange={(item) => field.onChange(item?.id)}

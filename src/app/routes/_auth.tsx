@@ -9,5 +9,7 @@ export const Route = createFileRoute('/_auth')({
     if (context.session.get()) {
       throw redirect({ to: search.redirect || '/' })
     }
+    
+    context.queryClient.clear();
   }
 })

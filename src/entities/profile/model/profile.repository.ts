@@ -5,7 +5,6 @@ import { editNicknameApi } from "@/shared/api/profile/edit-nickname"
 import { toaster } from "@/shared/ui/toaster"
 import { changePasswordApi } from "@/shared/api"
 import { zodSaveParse } from "@/shared/lib/utils/zod-save-parse"
-import { AxiosError } from "axios"
 
 const profileQueryOptions = queryOptions({
   queryKey: ['profile'],
@@ -31,12 +30,6 @@ const useProfileMutation = () => {
         description: 'You have successfully changed your nickname',
       })
     },
-    onError: (error: AxiosError<string[]>) => {
-      toaster.error({
-        title: error.message,
-        description: error.response?.data[0],
-      })
-    }
   })
 
   const changePasswordMutation = useMutation({
@@ -47,12 +40,6 @@ const useProfileMutation = () => {
         description: 'You have successfully changed your password',
       })
     },
-    onError: (error: AxiosError<string[]>) => {
-      toaster.error({
-        title: error.message,
-        description: error.response?.data[0],
-      })
-    }
   })
 
   return { 

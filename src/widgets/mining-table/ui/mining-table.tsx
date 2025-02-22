@@ -4,9 +4,7 @@ import { flexRender, getCoreRowModel, getFilteredRowModel, getSortedRowModel, So
 import _ from "lodash";
 import { generateColumnsFromData } from "../utils/generate-columns-from-data";
 import { useMemo, useState } from "react";
-import { match } from "ts-pattern";
-import { FaSort, FaSortAmountDownAlt, FaSortAmountUp } from "react-icons/fa";
-import { UiSearch } from "@/shared/ui";
+import { SortingIcon, UiSearch } from "@/shared/ui";
 
 interface MiningTableProps<T> extends Table.RootProps {
   columnsDef?: ColumnType[];
@@ -48,8 +46,6 @@ export function MiningTable<T>({
     getCoreRowModel: getCoreRowModel(),
   })
 
-  console.log(sorting)
-
   return (
     <Stack direction={'column'} gap={4}>
       {searchable && <HStack justify={'flex-end'}>
@@ -83,10 +79,7 @@ export function MiningTable<T>({
                           ? null
                           : flexRender(column.columnDef.header, header.getContext())}
                         &nbsp;
-                        {match(column.getIsSorted())
-                          .with('asc', () => <FaSortAmountDownAlt />)
-                          .with('desc', () => <FaSortAmountUp />)
-                          .otherwise(() => <FaSort />)}
+                        <SortingIcon state={column.getIsSorted()}/>
                       </HStack>
                     </Table.ColumnHeader>
                   )
