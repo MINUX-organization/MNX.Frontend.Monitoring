@@ -152,7 +152,6 @@ export interface SelectItemProps<T> extends Omit<InputProps, 'onChange'> {
   getLabel: (item: T) => string;
   onChange: (item: NoInfer<T> | null) => void;
   selectedItem?: T | null
-  firstInitValue?: boolean;
   renderEndElement?: (item: T) => React.ReactNode;
   invalid?: boolean
 }
@@ -162,35 +161,30 @@ export function UiSelect<T>({
   getLabel, 
   onChange, 
   selectedItem, 
-  firstInitValue, 
   placeholder,
   renderEndElement,
   invalid,
   ...props
 }: SelectItemProps<T>) {
   const [query, setQuery] = useState('')
-  const [firstInit, setFirstInit] = useState(firstInitValue ?? false)
   const [item, setItem] = useState<T | null>(null)
   const [inputWidth, setInputWidth] = useState<number | string>('auto');
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleChange = (item: T | null) => {
-    onChange(item)
-    setItem(item)
-  }
+  const handleChange = (newItem: T | null) => {
+    setItem(newItem);
+    onChange(newItem);
+    setQuery('');
+  };
 
   useEffect(() => {
-    if (_.isEmpty(selectedItem)) {
-      setItem(null)
-      return;
+    if (!selectedItem) {
+      setItem(null);
+      setQuery('');
+    } else {
+      setItem(selectedItem ?? null);
     }
-
-    if (firstInit && selectedItem) {
-      setItem(selectedItem as T)
-      setFirstInit(false)
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedItem])
+  }, [selectedItem]);
 
   const updateWidth = () => {
     if (inputRef.current && inputRef.current.offsetWidth !== inputWidth) {
@@ -230,7 +224,7 @@ export function UiSelect<T>({
             displayValue={(item) => {
               if (!item) return '';
 
-              return getLabel(item as T);
+              return selectedItem ? getLabel(selectedItem) : getLabel(item as T);
             }}
             onChange={(event) => setQuery(event.target.value ?? '')}
           />
@@ -265,6 +259,7 @@ export function UiSelect<T>({
                 _hover={{ bg: 'bg.hover' }} 
                 p={3} pl={4} pr={4} 
                 _selected={{ color: 'minux.solid' }}
+                _active={{ bg: 'bg.active' }}
                 transition={"all 0.2s ease-in-out"}
                 justify={'space-between'}
                 cursor={'pointer'}

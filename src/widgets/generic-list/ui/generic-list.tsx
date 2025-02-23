@@ -1,8 +1,8 @@
 import { SortingIcon, UiButton, UiSearch } from "@/shared/ui";
-import { Box, Stack } from "@chakra-ui/react";
+import { Stack } from "@chakra-ui/react";
 import { ColumnDef, flexRender, getCoreRowModel, getFilteredRowModel, getSortedRowModel, SortingState, useReactTable } from "@tanstack/react-table"
 import _ from "lodash";
-import { useState } from "react";
+import React, { useState } from "react";
 
 export interface GenericListProps<T> {
   data: T[];
@@ -44,7 +44,7 @@ export function GenericList<T>({
   })
 
   return (
-    <Stack>
+    <Stack gap={4}>
       <Stack direction={{ base: 'column', md: 'row'}}>
         {searchable && (
           <UiSearch
@@ -66,11 +66,11 @@ export function GenericList<T>({
           </Stack>
         ))}
       </Stack>
-      <Stack>
+      <Stack gap={3}>
         {_.map(table.getRowModel().rows, (row) => (
-          <Box key={row.id}>
+          <React.Fragment key={row.id}>
             {renderItem?.(row.original)}
-          </Box>
+          </React.Fragment>
         ))}
       </Stack>
     </Stack>

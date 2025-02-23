@@ -1,7 +1,7 @@
-import { MinerType } from "@/entities/miner"
+import { minerRepository, MinerType } from "@/entities/miner"
 import { poolRepository, PoolType } from "@/entities/pool"
 import { walletRepository, WalletType } from "@/entities/wallet"
-import { Device, GpuDevicesIcons, UiField, UiInput, UiSelect, UiTextarea, UiToggler } from "@/shared/ui"
+import { Device, DevicesIcons, UiField, UiInput, UiSelect, UiTextarea, UiToggler } from "@/shared/ui"
 import { FileInput } from "@/shared/ui/file-upload"
 import { FileUploadFileAcceptDetails, FileUploadHiddenInput, FileUploadRootProvider, Stack, StackProps, useFileUpload } from "@chakra-ui/react"
 import _ from "lodash"
@@ -9,16 +9,13 @@ import { useCallback, useEffect, useMemo, useState } from "react"
 import { Controller, useFormContext, useWatch } from "react-hook-form"
 import { match } from "ts-pattern"
 import { useFlightSheetFormStore } from "../model/flight-sheet-form.store"
-import { FlightSheetType } from "@/entities/flight-sheet"
-
 const { useWalletQuery } = walletRepository;
 const { usePoolQuery } = poolRepository;
+const { useMinerQuery } = minerRepository;
 
 export interface FlightSheetFormTargetProps extends StackProps {
   type: 'GPU' | 'CPU'
   targetIndex: number;
-  miners?: MinerType[],
-  flightSheet?: FlightSheetType,
 }
 
 const transformMiningMode = (item?: string) => match(item)
@@ -29,9 +26,7 @@ const transformMiningMode = (item?: string) => match(item)
 
 export function FlightSheetFormTarget({
   type,
-  miners,
   targetIndex,
-  // flightSheet,
   ...props
 }: FlightSheetFormTargetProps) {
   const isCpu = type === 'CPU'
@@ -41,17 +36,28 @@ export function FlightSheetFormTarget({
     accept: 'text/plain',
     onFileAccept: (details) => handleFileChange(details),
   })
-  const [maxMiningMode, setMaxMiningMode] = useState(1)
-  const [currentMiningMode, setCurrentMiningMode] = useState(1)
   const { control, formState: { errors }, setValue, clearErrors } = useFormContext()
-  const { pools } = usePoolQuery()
-  const { wallets } = useWalletQuery()
-  const { addClearUploadFiles } = useFlightSheetFormStore();
-
   const targets = useWatch({
     control,
     name: `targets`,
   });
+  const [maxMiningMode, setMaxMiningMode] = useState(1)
+  const [savedCurrentMiningMode, setSavedCurrentMiningMode] = useState(1)
+  const [currentMiningMode, setCurrentMiningMode] = useState(() => {    
+    const initialConfigs = targets[targetIndex]?.miningConfig?.coinConfigs;
+    setSavedCurrentMiningMode(initialConfigs?.length || 1);
+    return initialConfigs?.length || 1;
+  });
+  const { pools } = usePoolQuery()
+  const { wallets } = useWalletQuery()
+  const { miners } = useMinerQuery();
+  const { addClearUploadFiles, mode } = useFlightSheetFormStore();
+
+  const miner = useMemo(() => {
+    if (!targets[targetIndex]?.minerId) return;
+    const miner = _.find(miners, { id: targets?.[targetIndex]?.minerId })
+    return miner
+  }, [targets, targetIndex, miners])
 
   const handleFileChange = useCallback(
     (uloadedFile: FileUploadFileAcceptDetails) => {
@@ -69,23 +75,54 @@ export function FlightSheetFormTarget({
   );
 
   useEffect(() => {
-    if (!targets[targetIndex]?.miningConfig) return
+    if (miner) {
+      const maxMode = transformMiningMode(miner.miningMode);
+      setMaxMiningMode(maxMode);
+      
+      if (currentMiningMode > maxMode) {
+        setCurrentMiningMode(maxMode);
+      }
+    }
+  }, [miner, currentMiningMode]);
 
-    match(type)
-      .with("CPU", () => { return; })
-      .otherwise(() => {
-        const newCoinConfigs = targets[targetIndex].miningConfig.coinConfigs.slice(0, currentMiningMode);
-        setValue(`targets.${targetIndex}.miningConfig.coinConfigs`, newCoinConfigs);
+  useEffect(() => {
+    if (!targets[targetIndex]?.miningConfig || type === "CPU") return;
 
-        _.range(currentMiningMode, targets[targetIndex].miningConfig.coinConfigs.length).forEach((index) => {
-          clearErrors(`targets.${targetIndex}.miningConfig.coinConfigs.${index}`);
-        });
+    const currentConfigs = targets[targetIndex].miningConfig.coinConfigs;
+    
+    const safeMiningMode = Math.max(currentMiningMode, 1);
+  
+    const newCoinConfigs = Array.from({ length: safeMiningMode }, (_, index) => {
+      return index < currentConfigs.length 
+        ? currentConfigs[index] 
+        : { 
+            poolId: '', 
+            walletId: '', 
+            poolPassword: '' 
+          };
+    });
+  
+    setValue(
+      `targets.${targetIndex}.miningConfig.coinConfigs`,
+      newCoinConfigs
+    );  
+  
+    if (currentConfigs.length > safeMiningMode) {
+      _.range(safeMiningMode, currentConfigs.length).forEach((index) => {
+        clearErrors(`targets.${targetIndex}.miningConfig.coinConfigs.${index}`);
       });
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentMiningMode]);
 
   useEffect(() => {
     addClearUploadFiles(() => {
+      if (mode === 'edit') {
+        fileUpload?.clearFiles()
+        setCurrentMiningMode(savedCurrentMiningMode);
+        return;
+      }
+
       fileUpload?.clearFiles()
       setMaxMiningMode(1);
       setCurrentMiningMode(1);
@@ -111,16 +148,17 @@ export function FlightSheetFormTarget({
         <Controller
           control={control}
           name={`targets.${targetIndex}.miningConfig.coinConfigs.${index}.poolId`}
-          render={({ field }) => (
-            <UiSelect<PoolType>
+          render={({ field }) => {
+            const poolId = targets[targetIndex]?.miningConfig?.coinConfigs?.[index]?.poolId
+            return <UiSelect<PoolType>
               invalid={!!targetsErrors?.[targetIndex]?.miningConfig?.coinConfigs?.[index]?.poolId}
               placeholder="Select pool"
               items={pools ?? []}
               getLabel={(item) => `${item.domain} - ${item.cryptocurrency}`}
               onChange={(item) => field.onChange(item?.id)}
-              selectedItem={field.value}
+              selectedItem={_.find(pools, { id: poolId })}
             />
-          )}
+          }}
         />
       </UiField>
 
@@ -132,16 +170,18 @@ export function FlightSheetFormTarget({
         <Controller
           control={control}
           name={`targets.${targetIndex}.miningConfig.coinConfigs.${index}.walletId`}
-          render={({ field }) => (
-            <UiSelect<WalletType>
+          render={({ field }) => {
+            const walletId = targets[targetIndex]?.miningConfig?.coinConfigs?.[index]?.walletId
+
+            return <UiSelect<WalletType>
               invalid={!!targetsErrors?.[targetIndex]?.miningConfig?.coinConfigs?.[index]?.walletId}
               placeholder="Select wallet"
               items={wallets ?? []}
               getLabel={(item) => `${item.name} - ${item.cryptocurrency}`}
               onChange={(item) => field.onChange(item?.id)}
-              selectedItem={field.value}
+              selectedItem={_.find(wallets, { id: walletId })}
             />
-          )}
+          }}
         />
       </UiField>
       <UiField 
@@ -153,7 +193,7 @@ export function FlightSheetFormTarget({
         <Controller
           control={control}
           name={`targets.${targetIndex}.miningConfig.coinConfigs.${index}.poolPassword`}
-          render={({ field }) => <UiInput placeholder="Write pool password" {...field} />}
+          render={({ field }) => <UiInput placeholder="Write pool password" {...field} value={field.value || ''}/>}
         />
       </UiField>
     </>
@@ -181,19 +221,24 @@ export function FlightSheetFormTarget({
                   field.onChange(item?.id)
                   setMaxMiningMode(transformMiningMode(item?.miningMode))
                 }}
-                selectedItem={field.value}
+                selectedItem={miner}
                 renderEndElement={(item) => 
-                  <GpuDevicesIcons devices={_.split(item?.supportedDevices, ', ') as Device[]} />}
+                  <DevicesIcons devices={_.split(item?.supportedDevices, ', ') as Device[]} />}
               />
             )}
           />
         </UiField>
+
         {!isCpu && (
           <UiField label="Mining mode">
             <UiToggler 
               w="5.5rem"
-              values={slisedModes} 
-              onChange={(state) => setCurrentMiningMode(transformMiningMode(state))} 
+              values={slisedModes}
+              value={slisedModes[currentMiningMode - 1]}
+              onChange={(state) => {
+                const newMode = transformMiningMode(state);
+                setCurrentMiningMode(newMode);
+              }}
               reverse 
             />
           </UiField>
@@ -215,7 +260,8 @@ export function FlightSheetFormTarget({
                 <UiInput 
                   placeholder="Enter huge pages" 
                   type="number"
-                  {...field} 
+                  {...field}
+                  value={field.value || ''}
                 />
               )}
             />
@@ -233,7 +279,7 @@ export function FlightSheetFormTarget({
                 <UiInput 
                   placeholder="Enter threads count" 
                   type="number"
-                  {...field} 
+                  {...field}
                 />
               )}
             />
@@ -261,6 +307,7 @@ export function FlightSheetFormTarget({
               <UiTextarea 
                 placeholder="Write miner additional arguments" 
                 {...field}
+                value={field.value || ''}
               />
             )}
           />

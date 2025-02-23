@@ -6,7 +6,7 @@ import React from 'react'
 
 export type Device = 'NvidiaGpu' | 'IntelGpu' | 'IntelCpu' | 'AmdGpu' | 'AmdCpu'
 
-export function GpuDevicesIcons({ devices, ...props }: { devices: Device[] } & StackProps) {
+export function DevicesIcons({ devices, ...props }: { devices: Device[] } & StackProps) {
   const sortedDevices = _.sortBy(devices, (device) => !_.endsWith(device, 'Gpu'))
 
   return (

@@ -16,6 +16,6 @@ export { UiTooltip } from "./tooltip"
 export { UiSearch } from "./search"
 export { SortingIcon } from './sorting-icon'
 export { UiSwitch } from './switch'
-export { GpuDevicesIcons, type Device } from './gpu-devices-icons'
+export { DevicesIcons, type Device } from './devices-icons'
 export { UiToggler } from './toggler'
 export { UiTextarea } from './textarea'

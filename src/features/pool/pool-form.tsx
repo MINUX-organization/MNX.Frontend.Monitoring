@@ -45,8 +45,7 @@ export function PoolForm({
           items={cryptocurrencies ?? []}
           getLabel={(item) => item.fullName}
           onChange={(item) => field.onChange(item?.id)}
-          selectedItem={findedCryptocurrency ? findedCryptocurrency : field.value}
-          firstInitValue={mode === 'edit'}
+          selectedItem={_.find(cryptocurrencies, { id: field.value })}
         />
       )},
     ],

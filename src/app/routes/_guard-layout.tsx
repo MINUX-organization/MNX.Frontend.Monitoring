@@ -36,6 +36,7 @@ export const Route = createFileRoute('/_guard-layout')({
       }
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (_) {
+      console.log('error on route');
       localStorage.removeItem('session');
       throw redirect({
         to: '/login',

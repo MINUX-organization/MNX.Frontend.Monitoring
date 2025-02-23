@@ -1,6 +1,6 @@
 import { UiButton } from "@/shared/ui";
 
-export function FlightSheetFormSubmit({ formRef }: { formRef: React.RefObject<HTMLFormElement | null> | null }) {
+export function FlightSheetFormSubmit({ formRef, label }: { label?: string, formRef: React.RefObject<HTMLFormElement | null> | null }) {
   const handleExternalSubmit = () => {
     if (formRef && formRef.current) {
       formRef.current.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }));
@@ -9,7 +9,7 @@ export function FlightSheetFormSubmit({ formRef }: { formRef: React.RefObject<HT
 
   return (
     <UiButton type="submit" colorPalette={'accept'} onClick={handleExternalSubmit}>
-      Submit
+      {label ?? 'Submit'}
     </UiButton>
   )
 }

@@ -8,8 +8,8 @@ const numberOrEmptyString = z.string().refine((val) => {
 });
 
 export const PostCoinConfigSchema = z.object({
-  poolId: z.string({invalid_type_error: 'Pool id must be a string'}).nonempty({message: 'Pool is required'}),
-  walletId: z.string({invalid_type_error: 'Wallet id must be a string'}).nonempty({message: 'Wallet is required'}),
+  poolId: z.string({invalid_type_error: 'Pool id must be a string'}).nonempty({message: 'Pool is required'}).default(''), 
+  walletId: z.string({invalid_type_error: 'Wallet id must be a string'}).nonempty({message: 'Wallet is required'}).default(''),
   poolPassword: z.string({invalid_type_error: 'Pool password must be a string'}).optional()
 })
 export type PostCoinConfigType = z.infer<typeof PostCoinConfigSchema>
@@ -18,7 +18,7 @@ export const CoinConfigSchema = z.object({
   pool: z.object({
     id: z.string({invalid_type_error: 'Id must be a string'}),
     domain: z.string({invalid_type_error: 'Domain must be a string'}),
-    port: z.string({invalid_type_error: 'Port must be a string'}),
+    port: z.number({invalid_type_error: 'Port must be a number'}),
     cryptocurrency: z.string({invalid_type_error: 'Cryptocurrency must be a string'}),
   }),
   wallet: z.object({
@@ -36,8 +36,8 @@ export const FlightSheetTargetMiningConfigSchema = z.object({
   additionalArguments: z.string({invalid_type_error: 'Additional arguments must be a string'}).optional(),
   configFileContent: z.string({invalid_type_error: 'Config file content must be a string'}).optional(),
   coinConfigs: CoinConfigSchema.array(),
-  hugePages: numberOrEmptyString.optional(),
-  threadsCount: numberOrEmptyString.optional(),
+  hugePages: z.union([z.number({invalid_type_error: 'Huge pages must be a number'}), numberOrEmptyString]).optional(),
+  threadsCount: z.union([z.number({invalid_type_error: 'Threads count must be a number'}), numberOrEmptyString]).optional(),
 })
 export type FlightSheetTargetMiningConfigType = z.infer<typeof FlightSheetTargetMiningConfigSchema>
 

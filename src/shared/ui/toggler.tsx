@@ -1,50 +1,57 @@
 import { ButtonProps } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
-import { UiText } from "./text";
-import { UiButton } from "./button";
+import { UiButton } from "./button"
+import { UiText } from "./text"
 
 export interface UiTogglerProps extends Omit<ButtonProps, 'onChange'> {
   values: string[]
+  value: string
   onChange: (value: string) => void
-  reverse?: boolean;
+  reverse?: boolean
   renderLabel?: (value: string) => React.ReactNode
 }
 
-export function UiToggler({ values, onChange, reverse, renderLabel, ...props }: UiTogglerProps) {
-  const [offset, setOffset] = useState(0);
-  const [reversing, setReversing] = useState(false);
+export function UiToggler({ 
+  values, 
+  value,
+  onChange, 
+  reverse = false,
+  renderLabel, 
+  ...props 
+}: UiTogglerProps) {
+  const [currentValue, setCurrentValue] = useState(value);
+  const [direction, setDirection] = useState<1 | -1>(1);
+  const currentIndex = values.indexOf(currentValue);
 
   useEffect(() => {
-    setOffset(0)
-  }, [values])
-
-  useEffect(() => {
-    onChange(values[offset])
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [offset])
+    setCurrentValue(value);
+  }, [value]);
 
   const handleClick = () => {
-    if (values.length === 1) return
+    if (values.length <= 1) return;
 
-    if (reversing && offset === 0) {
-      setReversing(false);
-      setOffset(prev => (prev + 1) % values.length)
-      return;
+    let newIndex = currentIndex;
+    let newDirection = direction;
+
+    if (reverse) {
+      // Логика для паттерна 1-2-3-2-1
+      if (currentIndex === values.length - 1) {
+        newDirection = -1;
+      } else if (currentIndex === 0) {
+        newDirection = 1;
+      }
+      newIndex = currentIndex + newDirection;
+    } else {
+      // Обычный циклический режим
+      newIndex = (currentIndex + 1) % values.length;
     }
 
-    if (reverse && offset === values.length - 1) {
-      setReversing(true)
-      setOffset(prev => prev - 1)
-      return
-    }
-
-    if (reversing) {
-      setOffset(prev => prev - 1)
-      return
-    }
+    const newValue = values[newIndex];
     
-    setOffset(prev => (prev + 1) % values.length)
-  }
+    setCurrentValue(newValue);
+    onChange(newValue);
+    setDirection(newDirection);
+  };
 
   return (
     <UiButton 
@@ -54,8 +61,8 @@ export function UiToggler({ values, onChange, reverse, renderLabel, ...props }: 
       userSelect={'none'}
       {...props}
     >
-      {!renderLabel && <UiText textTransform={'capitalize'}>{values[offset]}</UiText>}
-      {renderLabel && renderLabel(values[offset])}
+      {!renderLabel && <UiText textTransform={'capitalize'}>{currentValue}</UiText>}
+      {renderLabel && renderLabel(currentValue)}
     </UiButton>
-  )
+  );
 }

@@ -61,8 +61,16 @@ export interface DialogProps extends Omit<ChakraDialog.RootProps, "children"> {
 }
 
 export function UiDialog({ renderBody, renderTitle, renderTrigger, renderFooter, ...props }: DialogProps) {
+  const currentFocusRef = React.useRef<HTMLButtonElement>(null)
   return (
-    <DialogRoot {...props} motionPreset={'slide-in-bottom'} placement={'center'} modal={false} scrollBehavior={'inside'}>
+    <DialogRoot 
+      motionPreset={'slide-in-bottom'} 
+      placement={'center'} 
+      modal={false} 
+      scrollBehavior={'inside'}
+      initialFocusEl={() => currentFocusRef.current}
+      {...props} 
+    >
       <DialogTrigger asChild>{renderTrigger?.()}</DialogTrigger>
       <DialogContent>
       {match(renderTitle)
@@ -92,7 +100,7 @@ export function UiDialog({ renderBody, renderTitle, renderTrigger, renderFooter,
             {renderFooter?.()}
           </DialogFooter>
         ))}
-        <DialogCloseTrigger />
+        <DialogCloseTrigger ref={currentFocusRef}/>
       </DialogContent>
     </DialogRoot>
   )

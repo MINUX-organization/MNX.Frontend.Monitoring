@@ -2,8 +2,7 @@
 import { FlightSheetFormHeader } from "./flight-sheet-form-header";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { FlightSheetFormTarget } from "./flight-sheet-form-target";
-import { flightSheetRepository, PostFlightSheetSchema } from "@/entities/flight-sheet";
-import { minerRepository } from "@/entities/miner";
+import { flightSheetRepository, FlightSheetType, PostFlightSheetSchema } from "@/entities/flight-sheet";
 import { FormProvider, useForm, useWatch } from "react-hook-form";
 import { PostFlightSheetType } from "@/entities/flight-sheet";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,6 +14,7 @@ import _ from "lodash";
 import { deepClean } from "@/shared/lib/utils/deep-clean";
 import { isSuccessResponse } from "@/shared/api";
 import { useNavigate } from "@tanstack/react-router";
+import { flightSheetToPost } from "../utils/flight-sheet-to-post";
 
 const targetAnimation = {
   initial: { opacity: 0, y: -30, height: 0 },
@@ -25,16 +25,13 @@ const targetAnimation = {
 
 type TargetType = 'GPU' | 'CPU';
 
-const { useMinerQuery } = minerRepository;
 const { useFlightSheetMutation } = flightSheetRepository;
 
-// {
-//   flightSheet
-// } : {
-//   flightSheet?: FlightSheetType
-// }  
-
-export function FlightSheetForm() {
+export function FlightSheetForm({
+  flightSheet
+} : {
+  flightSheet?: FlightSheetType
+}  ) {
   const [targetsState, setTargetsState] = useState<Record<TargetType, boolean>>({
     GPU: false,
     CPU: false
@@ -42,9 +39,10 @@ export function FlightSheetForm() {
   const { 
     setFormRef, 
     setReset,
+    setMode,
+    mode,
   } = useFlightSheetFormStore();
-  const { miners } = useMinerQuery();
-  const { addFlightSheet } = useFlightSheetMutation();
+  const { addFlightSheet, editFlightSheet } = useFlightSheetMutation();
   const navigate = useNavigate();
   const formRef = useRef<HTMLFormElement>(null);
   const methods = useForm<PostFlightSheetType>({
@@ -58,7 +56,10 @@ export function FlightSheetForm() {
   const handleSubmit = async (data: PostFlightSheetType) => {
     const cleanData = deepClean(data);
 
-    const response = await addFlightSheet(cleanData);
+    const response = await match(mode)
+      .with('add', () => addFlightSheet(cleanData))
+      .with('edit', () => editFlightSheet({ id: flightSheet!.id, ...cleanData }))
+      .exhaustive();
 
     if (isSuccessResponse(response))
       navigate({ to: '..' });
@@ -78,6 +79,17 @@ export function FlightSheetForm() {
 
     methods.setValue('targets', newTargets);
   };
+
+  const resetFormForEdit = (flightSheet: FlightSheetType) => {
+    const postFlightSheet = flightSheetToPost(flightSheet);
+
+    methods.reset(postFlightSheet);
+
+    setTargetsState({
+      GPU: postFlightSheet.targets.some(t => t.miningConfig.$type === 'GPU'),
+      CPU: postFlightSheet.targets.some(t => t.miningConfig.$type === 'CPU')
+    });
+  }
 
   const createTarget = (type: TargetType, length: number = 1) => match(type)
     .with('CPU', () => ({
@@ -111,6 +123,16 @@ export function FlightSheetForm() {
     .exhaustive();
 
   useEffect(() => {
+    if (!flightSheet) {
+      setMode('add');
+      return;
+    };
+
+    setMode('edit');
+    resetFormForEdit(flightSheet);
+  }, [flightSheet]);
+
+  useEffect(() => {
     if (!formRef.current) return;
   
     setFormRef(formRef);
@@ -118,6 +140,13 @@ export function FlightSheetForm() {
 
   useEffect(() => {  
     setReset(() => {
+      if (mode === 'edit') {
+        if (!flightSheet) return;
+
+        resetFormForEdit(flightSheet);
+        return;
+      };
+
       const coinConfigsCpuLength = targets[targetIndices.CPU]?.miningConfig?.coinConfigs?.length;
       const coinConfigsGpuLength = targets[targetIndices.GPU]?.miningConfig?.coinConfigs?.length;
 
@@ -134,17 +163,17 @@ export function FlightSheetForm() {
         targets: newTargets,
       });
     });
-  }, [methods, setReset, targetsState]);
+  }, [targetsState, flightSheet, mode]);
 
   const targetIndices = useMemo(() => ({
     GPU: targets.findIndex(t => t?.miningConfig?.$type === 'GPU'),
     CPU: targets.findIndex(t => t?.miningConfig?.$type === 'CPU')
   }), [targets]);
-
+  console.log(targets)
   const renderAnimatedTarget = (type: TargetType) => {
     const isOpen = targetsState[type];
     const index = targetIndices[type];
-    
+
     return (
       <AnimatePresence key={`${type}-target`} mode="wait">
         {isOpen && index > -1 && (
@@ -158,8 +187,7 @@ export function FlightSheetForm() {
             <FlightSheetFormTarget 
               pt={2} 
               type={type} 
-              targetIndex={index} 
-              miners={miners}
+              targetIndex={index}
             />
             {type === 'GPU' && targetsState.CPU && <Separator mt={4} borderColor="whiteAlpha.200" />}
           </motion.div>
