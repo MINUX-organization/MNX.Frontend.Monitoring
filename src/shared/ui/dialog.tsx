@@ -65,7 +65,8 @@ export function UiDialog({ renderBody, renderTitle, renderTrigger, renderFooter,
   return (
     <DialogRoot 
       motionPreset={'slide-in-bottom'} 
-      placement={'center'} 
+      placement={'center'}
+      closeOnInteractOutside={false}
       modal={false} 
       scrollBehavior={'inside'}
       initialFocusEl={() => currentFocusRef.current}

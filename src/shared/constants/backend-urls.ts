@@ -38,8 +38,8 @@ export const BACKEND_APIS = {
   },
   FLIGHT_SHEET: {
     FLIGHT_SHEETS: `${BACKEND_MONITORING_URL}/flight_sheets`,
-    FLIGHT_SHEETS_DEVICES: (id: string) => `${BACKEND_MONITORING_URL}/flight_sheets/${id}/devices`,
-    FLIGHT_SHEETS_DEVICES_SUPPORT: (id: string) => `${BACKEND_MONITORING_URL}/flight_sheets/${id}/devices/support`,
+    FLIGHT_SHEETS_DEVICES: (id?: string) => `${BACKEND_MONITORING_URL}/flight_sheets/${id}/devices`,
+    FLIGHT_SHEETS_DEVICES_SUPPORTED: (id?: string) => `${BACKEND_MONITORING_URL}/flight_sheets/${id}/devices/supported`,
   },
   PROFILE: {
     BASE: `${BACKEND_SECURITY_URL}/profile`,

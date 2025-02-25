@@ -1,17 +1,22 @@
 import { ConfirmedIcon } from "@/shared/assets/svg";
 import { IconButton } from "@chakra-ui/react";
+import { Link, linkOptions } from "@tanstack/react-router";
 
-// {
-//   flightSheetId
-// } : {
-//   flightSheetId: string
-// }
-
-export function ApplyFlightSheetButton() {
-
+export function ApplyFlightSheetButton({
+  flightSheetId
+} : {
+  flightSheetId: string
+}) {
+  const link = linkOptions({
+    to: '/setup/flight-sheets/$flightSheetId/apply',
+    params: { flightSheetId }
+  })
+    
   return (
-    <IconButton variant="ghost" className='group' aria-label="Apply flight sheet">
-      <ConfirmedIcon />
-    </IconButton>
+    <Link {...link}>
+      <IconButton variant="ghost" className='group' aria-label="Apply flight sheet">
+        <ConfirmedIcon />
+      </IconButton>
+    </Link>
   )
 }

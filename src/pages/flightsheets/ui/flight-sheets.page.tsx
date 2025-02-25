@@ -1,5 +1,5 @@
 import { FlightSheetItem, flightSheetQueryOptions, FlightSheetType } from "@/entities/flight-sheet"
-import { AddFlightSheetButton, ApplyFlightSheetButton, DeleteFlightSheetButton, EditFlightSheetButton } from "@/features/flight-sheet"
+import { AddFlightSheetButton, ApplyFlightSheetButton, DeleteFlightSheetButton, EditFlightSheetButton, OpenFlightSheetDropdown } from "@/features/flight-sheet"
 import { GenericList } from "@/widgets/generic-list"
 import { useSuspenseQuery } from "@tanstack/react-query"
 import { Outlet } from "@tanstack/react-router"
@@ -26,7 +26,13 @@ export function FlightSheetsPage() {
         sortable
         searchable
         renderAddButton={() => <AddFlightSheetButton />}
-        renderItem={(item) => <FlightSheetItem flightSheet={item} renderPanelActions={actions}/>}
+        renderItem={(item) => 
+          <FlightSheetItem 
+            flightSheet={item} 
+            renderPanelActions={actions}
+            renderOpenDropDownButton={(setOpen, open) => 
+              <OpenFlightSheetDropdown setOpen={setOpen} open={open}/>}
+          />}
       />
       <Outlet />
     </>

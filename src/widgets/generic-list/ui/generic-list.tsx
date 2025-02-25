@@ -1,10 +1,10 @@
 import { SortingIcon, UiButton, UiSearch } from "@/shared/ui";
-import { Stack } from "@chakra-ui/react";
+import { Stack, StackProps } from "@chakra-ui/react";
 import { ColumnDef, flexRender, getCoreRowModel, getFilteredRowModel, getSortedRowModel, SortingState, useReactTable } from "@tanstack/react-table"
 import _ from "lodash";
 import React, { useState } from "react";
 
-export interface GenericListProps<T> {
+export interface GenericListProps<T> extends Omit<StackProps, 'columns'> {
   data: T[];
   columns: ColumnDef<T>[];
   searchable?: boolean;
@@ -20,6 +20,7 @@ export function GenericList<T>({
   sortable,
   renderItem,
   renderAddButton,
+  ...props
 }: GenericListProps<T>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = useState('');
@@ -44,7 +45,7 @@ export function GenericList<T>({
   })
 
   return (
-    <Stack gap={4}>
+    <Stack gap={4} {...props}>
       <Stack direction={{ base: 'column', md: 'row'}}>
         {searchable && (
           <UiSearch

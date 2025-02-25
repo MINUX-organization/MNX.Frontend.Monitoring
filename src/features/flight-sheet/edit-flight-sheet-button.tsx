@@ -8,7 +8,7 @@ export function EditFlightSheetButton({
   flightSheetId: string
 }) {
   const link = linkOptions({
-    to: 'config',
+    to: '/setup/flight-sheets/config',
     search: { id: flightSheetId }
   })
 

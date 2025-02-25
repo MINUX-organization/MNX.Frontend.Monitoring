@@ -1,15 +1,23 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { BACKEND_BASE_URL } from '../constants/backend-urls';
 import { refreshTokensApi } from './user/refresh-tokens';
+import { TokenRefresher } from '../lib/utils/refresh-token';
 
-type RefreshState = {
-  isRefreshing: boolean;
-  subscribers: ((token: string | null) => void)[];
-};
+const shouldSkipAuthCheck = (url: string): boolean => {
+  const AUTH_ROUTE_PREFIX = 'api/auth/';
+  const AUTH_EXCEPTIONS = [
+    'api/auth/user/changePassword'
+  ];
 
-const refreshStates = new WeakMap<AxiosInstance, RefreshState>();
+  const isAuthRoute = url.includes(AUTH_ROUTE_PREFIX);
+  const isException = AUTH_EXCEPTIONS.some(exception => url.includes(exception));
+
+  return isAuthRoute && !isException;
+}; 
 
 export function apiInstance(url?: string, customApiConfig?: AxiosRequestConfig): AxiosInstance {
+  const tokenRefresher = TokenRefresher.getInstance();
+
   const apiConfig: AxiosRequestConfig = {
     baseURL: `${BACKEND_BASE_URL}${url ?? ''}`,
     timeout: 10000,
@@ -21,21 +29,32 @@ export function apiInstance(url?: string, customApiConfig?: AxiosRequestConfig):
   };
 
   const instance = axios.create(apiConfig);
-  refreshStates.set(instance, { isRefreshing: false, subscribers: [] });
 
-  instance.interceptors.request.use(config => {
-    const token = localStorage.getItem('session');
-    
-    if (token) {
-      try {
-        const parsedToken = JSON.parse(token);
-        config.headers.Authorization = `Bearer ${parsedToken.accessToken}`;
-      } catch (error) {
-        console.error('Error parsing session token:', error);
-        localStorage.removeItem('session');
-      }
+  instance.interceptors.request.use(async (config) => { 
+    const url = config.url?.replace(config.baseURL || '', '') || '';
+
+    if (shouldSkipAuthCheck(url)) {
+      return config;
     }
-  
+
+    const token = JSON.parse(localStorage.getItem('session')!);
+
+    await tokenRefresher.checkAndRefresh(
+      token.accessToken,
+      token.refreshToken,
+      refreshTokensApi,
+      (data) => {
+        localStorage.setItem('session', JSON.stringify(data));
+      },
+      () => {
+        localStorage.removeItem('session');
+        window.location.reload();
+      }
+    ).then(() => {
+      config.headers.Authorization = 
+        `Bearer ${JSON.parse(localStorage.getItem('session')!).accessToken}`;
+    })
+    
     return config;
   });
 
@@ -43,45 +62,21 @@ export function apiInstance(url?: string, customApiConfig?: AxiosRequestConfig):
     response => response,
     async error => {
       const originalRequest = error.config;
-      const state = refreshStates.get(instance)!;
-
       if (error.response?.status === 401 && !originalRequest._retry) {
-        if (state.isRefreshing) {
-          return new Promise((resolve, reject) => {
-            state.subscribers.push(newToken => {
-              if (!newToken) return reject(error);
-              originalRequest.headers.Authorization = `Bearer ${newToken}`;
-              resolve(instance(originalRequest));
-            });
-          });
-        }
-
-        state.isRefreshing = true;
         originalRequest._retry = true;
-
-        try {
-          const token = localStorage.getItem('session');
-          if (!token) throw new Error('No session token');
-
-          const parsedToken = JSON.parse(token);
-          const response = await refreshTokensApi(parsedToken.refreshToken);
-
-          localStorage.setItem('session', JSON.stringify(response.data));
-          state.subscribers.forEach(callback => callback(response.data.accessToken));
-          state.subscribers = [];
-          
-          return instance(originalRequest);
-        } catch (error) {
-          console.error('Error refreshing token:', error);
-          localStorage.removeItem('session');
-          state.subscribers.forEach(callback => callback(null));
-          window.location.href = '/login';
-          return Promise.reject(error);
-        } finally {
-          state.isRefreshing = false;
-        }
+        return tokenRefresher.refreshToken(
+          refreshTokensApi,
+          JSON.parse(localStorage.getItem('session')!).refreshToken,
+          (data) => {
+            localStorage.setItem('session', JSON.stringify(data));
+            instance.defaults.headers.common['Authorization'] = `Bearer ${data.accessToken}`;
+          },
+          () => {
+            localStorage.removeItem('session');
+            window.location.reload();
+          }
+        ).then(() => instance(originalRequest));
       }
-
       return Promise.reject(error);
     }
   );

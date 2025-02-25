@@ -59,6 +59,7 @@ export function RootLayoutSideBar({ setOpen, open, ...props }: RootLayoutSideBar
         justifyContent={'center'}
         border={'1px solid var(--global-color-border)'}
         borderEndRadius={'15px'}
+        zIndex={1}
       >
         <MIcon size={'0.725rem'} layout initial={{ rotate: open ? 180 : 0 }} animate={{ rotate: !open ? 180 : 0 }}/>
       </Box>

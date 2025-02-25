@@ -169,7 +169,7 @@ export function FlightSheetForm({
     GPU: targets.findIndex(t => t?.miningConfig?.$type === 'GPU'),
     CPU: targets.findIndex(t => t?.miningConfig?.$type === 'CPU')
   }), [targets]);
-  console.log(targets)
+  
   const renderAnimatedTarget = (type: TargetType) => {
     const isOpen = targetsState[type];
     const index = targetIndices[type];

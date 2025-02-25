@@ -17,8 +17,8 @@ export function DeleteCryptocurrencyButton({id, ...props}: DeleteCryptocurrencyB
   }
 
   return (
-    <IconButton variant="ghost" className='group' aria-label="Delete cryptocurrency">
-      <TrashIcon {...props} onClick={handleClick}/>
+    <IconButton variant="ghost" className='group' aria-label="Delete cryptocurrency" onClick={handleClick}>
+      <TrashIcon {...props} />
     </IconButton>
   ) 
 }

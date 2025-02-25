@@ -5,6 +5,7 @@ const config = defineConfig({
   globalCss: {
     "*::selection": {
       bg: "rgba(60, 158, 165, 1)",
+      color: 'white',
     },
     html: {
       overflow: "hidden",
@@ -20,6 +21,9 @@ const config = defineConfig({
           nvidia: { value: "#76B900" },
           amd: { value: "#ED1C24" },
           intel: { value: "#0071C5" },
+        },
+        checked: {
+          solid: { value: 'orange' },
         },
         minux: {
           solid: {

@@ -3,9 +3,10 @@ import { routeTree } from "../routeTree.gen";
 import { sessionRepository } from "@/entities/session";
 import { queryClient } from "./app-query";
 
-const router = createRouter({ 
+const router = createRouter({
   routeTree,
   defaultPreload: 'intent',
+  defaultPreloadDelay: 100,
   context: {
     queryClient,
     session: {

@@ -32,7 +32,7 @@ export function AddCryptocurrencyForm({
           items={algorithms ?? []}
           getLabel={(item) => item.name}
           onChange={(item) => field.onChange(item?.id)}
-          selectedItem={field.value}
+          selectedItem={_.find(algorithms, { id: field.value })}
         />
       )},
     ],

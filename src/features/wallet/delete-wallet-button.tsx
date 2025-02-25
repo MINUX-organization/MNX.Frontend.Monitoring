@@ -17,8 +17,8 @@ export function DeleteWalletButton({id, ...props}: DeletePoolButtonProps) {
   }
 
   return (
-    <IconButton variant="ghost" className='group' aria-label="Delete pool">
-      <TrashIcon {...props} onClick={handleClick}/>
+    <IconButton variant="ghost" className='group' aria-label="Delete pool" onClick={handleClick}>
+      <TrashIcon {...props} />
     </IconButton>
   ) 
 }

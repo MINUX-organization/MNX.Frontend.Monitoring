@@ -9,6 +9,6 @@ export { getAvailableAlgorithmsApi } from './algorithm'
 export { getMinersApi } from './miner'
 export { getCryptocurrenciesApi, addCryptocurrencyApi, deleteCryptocurrencyApi } from './cryptocurrency'
 export { getCpuDevices, getGpuDevices, getGpuRestrictionsApi, getGpusUniqueNamesApi, getDeviceOverclockingApi, applyDeviceOverclockingApi } from './device'
-export { getFlightSheetsApi, getFlightSheetByIdApi, createFlightSheetApi, deleteFlightSheetApi, editFlightSheetApi, getFlightSheetDevicesApi, getFlightSheetDevicesSupportApi, applyFlightSheetApi } from './flight-sheet'
+export { getFlightSheetsApi, getFlightSheetByIdApi, createFlightSheetApi, deleteFlightSheetApi, editFlightSheetApi, getFlightSheetDevicesApi, getFlightSheetDevicesSupportedApi, applyFlightSheetApi } from './flight-sheet'
 
 export const isSuccessResponse = (response: AxiosResponse) => response.status >= 200 && response.status < 300

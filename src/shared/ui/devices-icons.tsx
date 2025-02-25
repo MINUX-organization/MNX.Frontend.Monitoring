@@ -4,21 +4,24 @@ import { CpuIcon, GpuIcon } from '../assets/svg'
 import { Stack, StackProps } from '@chakra-ui/react'
 import React from 'react'
 
-export type Device = 'NvidiaGpu' | 'IntelGpu' | 'IntelCpu' | 'AmdGpu' | 'AmdCpu'
+export type Device = 'NvidiaGpu' | 'IntelGpu' | 'IntelCpu' | 'AmdGpu' | 'AmdCpu' | 'Amd' | 'Intel' | 'Nvidia'
 
-export function DevicesIcons({ devices, ...props }: { devices: Device[] } & StackProps) {
-  const sortedDevices = _.sortBy(devices, (device) => !_.endsWith(device, 'Gpu'))
+export function DevicesIcons({ devices, wi, he, ...props }: { devices: Device[], wi: string, he: string } & StackProps) {
+  const sortedDevices = _.sortBy(devices, (device) => !_.endsWith(device.toLowerCase(), 'gpu'))
 
   return (
     <Stack direction={'row'} {...props}>
       {_.map(sortedDevices, (device) => (
         <React.Fragment key={device}>
-          {match(device)
-            .with('NvidiaGpu', () => <GpuIcon  fill={'tech.nvidia'} />)
-            .with('AmdGpu', () => <GpuIcon fill={'tech.amd'} />)
-            .with('IntelGpu', () => <GpuIcon fill={'tech.intel'} />)
-            .with('IntelCpu', () => <CpuIcon fill={'tech.intel'} />)
-            .with('AmdCpu', () => <CpuIcon fill={'tech.amd'} />)
+          {match(device.toLowerCase())
+            .with('nvidiagpu', () => <GpuIcon width={wi} height={he} fill={'tech.nvidia'} />)
+            .with('amdgpu', () => <GpuIcon width={wi} height={he} fill={'tech.amd'} />)
+            .with('intelgpu', () => <GpuIcon width={wi} height={he} fill={'tech.intel'} />)
+            .with('intelcpu', () => <CpuIcon width={wi} height={he} fill={'tech.intel'} />)
+            .with('amdcpu', () => <CpuIcon width={wi} height={he} fill={'tech.amd'} />)
+            .with('amd', () => <GpuIcon width={wi} height={he} fill={'tech.amd'} />)
+            .with('intel', () => <CpuIcon width={wi} height={he} fill={'tech.intel'} />)
+            .with('nvidia', () => <GpuIcon width={wi} height={he} fill={'tech.nvidia'} />)
             .otherwise(() => null)}
         </React.Fragment>
       ))}

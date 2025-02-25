@@ -4,5 +4,5 @@ export { deleteFlightSheetApi } from './delete-flight-sheet';
 export { editFlightSheetApi } from './edit-flight-sheet';
 export { getFlightSheetByIdApi } from './get-flight-sheet-by-id';
 export { getFlightSheetDevicesApi } from './get-flight-sheet-devices';
-export { getFlightSheetDevicesSupportApi } from './get-flight-sheet-devices-support';
+export { getFlightSheetDevicesSupportedApi } from './get-flight-sheet-devices-support';
 export { getFlightSheetsApi } from './get-flight-sheets';

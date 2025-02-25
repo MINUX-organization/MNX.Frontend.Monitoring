@@ -1,13 +1,34 @@
-import { createFlightSheetApi, deleteFlightSheetApi, editFlightSheetApi, getFlightSheetsApi } from "@/shared/api";
+import { applyFlightSheetApi, createFlightSheetApi, deleteFlightSheetApi, editFlightSheetApi, getFlightSheetDevicesApi, getFlightSheetDevicesSupportedApi, getFlightSheetsApi } from "@/shared/api";
 import { queryOptions, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { FlightSheetSchema, FlightSheetType, PostFlightSheetType } from "./flight-sheet.type";
 import { zodSaveParse } from "@/shared/lib/utils/zod-save-parse";
 import { toaster } from "@/shared/ui/toaster";
 import _ from "lodash";
+import { FlightSheetDevicesType } from "./flight-sheet-devices.type";
 
 export const flightSheetQueryOptions = queryOptions({
-  queryKey: ['flightsheet'],
-  queryFn: getFlightSheetsApi<FlightSheetType[]>,
+  queryKey: ['flightsheets'],
+  queryFn: () => getFlightSheetsApi<FlightSheetType[]>(),
+})
+
+export const flightSheetByIdQueryOptions = (id?: string) => queryOptions({
+  queryKey: ['flightsheets', id],
+  queryFn: () => getFlightSheetsApi<FlightSheetType>(id),
+  enabled: !!id,
+})
+
+export const flightSheetRigDevicesQueryOptions = (id?: string) => queryOptions({
+  queryKey: ['flightsheets', id, 'devices'],
+  queryFn: () => getFlightSheetDevicesApi<FlightSheetDevicesType[]>(id),
+  enabled: !!id,
+  staleTime: 0
+})
+
+export const flightSheetRigDevicesSupportQueryOptions = (id?: string) => queryOptions({
+  queryKey: ['flightsheets', id, 'devices-support'],
+  queryFn: () => getFlightSheetDevicesSupportedApi<FlightSheetDevicesType[]>(id!),
+  enabled: !!id,
+  staleTime: 0
 })
 
 const useFlightSheetQuery = () => {
@@ -33,7 +54,7 @@ const useFlightSheetMutation = () => {
   const addFlightSheetMutation = useMutation({
     mutationFn: (data: PostFlightSheetType) => createFlightSheetApi(data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['flightsheet'] });
+      queryClient.invalidateQueries({ queryKey: ['flightsheets'] });
       toaster.success({
         description: 'You have successfully added flight sheet',
       })
@@ -43,7 +64,7 @@ const useFlightSheetMutation = () => {
   const editFlightSheetMutation = useMutation({
     mutationFn: ({ id, ...data }: { id: string } & PostFlightSheetType) => editFlightSheetApi(id, data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['flightsheet'] });
+      queryClient.invalidateQueries({ queryKey: ['flightsheets'] });
       toaster.success({
         description: 'You have successfully edited flight sheet',
       })
@@ -53,9 +74,19 @@ const useFlightSheetMutation = () => {
   const deleteFlightSheetMutation = useMutation({
     mutationFn: (id: string) => deleteFlightSheetApi(id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['flightsheet'] });
+      queryClient.invalidateQueries({ queryKey: ['flightsheets'] });
       toaster.success({
         description: 'You have successfully deleted flight sheet',
+      })
+    }
+  })
+
+  const applyFlightSheetDevicesMutation = useMutation({
+    mutationFn: ({ id, data }: { id: string, data: string[] }) => applyFlightSheetApi(id, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['flightsheets'] });
+      toaster.success({
+        description: 'You have successfully applied flight sheet on devices',
       })
     }
   })
@@ -63,7 +94,8 @@ const useFlightSheetMutation = () => {
   return {
     addFlightSheet: addFlightSheetMutation.mutateAsync,
     editFlightSheet: editFlightSheetMutation.mutateAsync,
-    deleteFlightSheet: deleteFlightSheetMutation.mutateAsync
+    deleteFlightSheet: deleteFlightSheetMutation.mutateAsync,
+    applyFlightSheetDevices: applyFlightSheetDevicesMutation.mutateAsync
   }
 }
 
