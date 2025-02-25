@@ -1,4 +1,3 @@
-import { UiText } from "@/shared/ui";
 import { Button, Group, GroupProps, Heading } from "@chakra-ui/react";
 import { useLocation, useRouter } from "@tanstack/react-router";
 import _ from "lodash";
