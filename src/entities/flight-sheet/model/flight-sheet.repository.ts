@@ -21,14 +21,14 @@ export const flightSheetRigDevicesQueryOptions = (id?: string) => queryOptions({
   queryKey: ['flightsheets', id, 'devices'],
   queryFn: () => getFlightSheetDevicesApi<FlightSheetDevicesType[]>(id),
   enabled: !!id,
-  staleTime: 0
+  staleTime: 5000
 })
 
 export const flightSheetRigDevicesSupportQueryOptions = (id?: string) => queryOptions({
   queryKey: ['flightsheets', id, 'devices-support'],
   queryFn: () => getFlightSheetDevicesSupportedApi<FlightSheetDevicesType[]>(id!),
   enabled: !!id,
-  staleTime: 0
+  staleTime: 5000
 })
 
 const useFlightSheetQuery = () => {

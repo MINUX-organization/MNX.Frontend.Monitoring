@@ -9,10 +9,11 @@ import { createFileRoute } from '@tanstack/react-router'
 export const Route = createFileRoute(
   '/_guard-layout/setup/flight-sheets_/$flightSheetId/apply',
 )({
+  preloadStaleTime: 0,
   loader: ({ context: { queryClient }, params: { flightSheetId } }) => {
-    queryClient.ensureQueryData(flightSheetRigDevicesSupportQueryOptions(flightSheetId))
-    queryClient.ensureQueryData(flightSheetRigDevicesQueryOptions(flightSheetId))
-    return queryClient.ensureQueryData(flightSheetByIdQueryOptions(flightSheetId))
+    queryClient.prefetchQuery(flightSheetByIdQueryOptions(flightSheetId))
+    queryClient.prefetchQuery(flightSheetRigDevicesSupportQueryOptions(flightSheetId))
+    return queryClient.prefetchQuery(flightSheetRigDevicesQueryOptions(flightSheetId))
   },
   component: FlightSheetApplyPage,
 })
