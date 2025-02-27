@@ -1,10 +1,10 @@
 import { applyFlightSheetApi, createFlightSheetApi, deleteFlightSheetApi, editFlightSheetApi, getFlightSheetDevicesApi, getFlightSheetDevicesSupportedApi, getFlightSheetsApi } from "@/shared/api";
 import { queryOptions, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { FlightSheetSchema, FlightSheetType, PostFlightSheetType } from "./flight-sheet.type";
+import { FlightSheetDevicesType } from "./flight-sheet-devices.type";
 import { zodSaveParse } from "@/shared/lib/utils/zod-save-parse";
 import { toaster } from "@/shared/ui/toaster";
 import _ from "lodash";
-import { FlightSheetDevicesType } from "./flight-sheet-devices.type";
 
 export const flightSheetQueryOptions = queryOptions({
   queryKey: ['flightsheets'],
