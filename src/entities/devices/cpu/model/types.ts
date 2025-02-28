@@ -63,7 +63,7 @@ export const Cpu = z.object({
   pci: CpuPci,
   information: CpuInfo,
   rigName: z.string({invalid_type_error: 'RigName must be a string'}),
-  flightSheetName: z.string({invalid_type_error: 'FlightSheetName must be a string'}),
-  minerName: z.string({invalid_type_error: 'MinerName must be a string'}),
+  flightSheetName: z.string({invalid_type_error: 'FlightSheetName must be a string'}).optional(),
+  minerName: z.string({invalid_type_error: 'MinerName must be a string'}).optional(),
 })
 export type Cpu = z.infer<typeof Cpu>
