@@ -1,26 +1,27 @@
+import _ from 'lodash';
 import styles from './presetParametersGpu.module.scss';
+import { useGpusListQuery } from '@/entities/devices/gpu';
 
 export function PresetCard({
   gpuId
 } : {
   gpuId?: string;
 }) {
-  const presetName = 'preset-123';
-  const gpuName = 'Nvidia RTX 3080 Ti';
-  const ven = 'Samsung GDDR6';
+  const { data } = useGpusListQuery();
+  const gpuName = _.find(data, ['id', gpuId]);
 
   return (
     <div className={styles['preset-header']}>
       <div className={styles['preset-header-item']}>
         <span className={styles['blue']}>Index:&nbsp;</span>
-        <span>{gpuId}</span>
+        <span>{gpuName?.id}</span>
         <br/>
-        {presetName && (<span className={styles['blue']}>{presetName}</span>)}
+        {/* {presetName && (<span className={styles['blue']}>{}</span>)} */}
       </div>
       <div className={styles['preset-header-item']}>
-        <span>{gpuName}</span>
+        <span>{gpuName?.information.model}</span>
         <br/>
-        <span className={styles['gray']}>{ven}</span>
+        {/* <span className={styles['gray']}>{gpuName?.information.vendor}</span> */}
       </div>
       <div className={styles['preset-header-item']}/>
   </div>
