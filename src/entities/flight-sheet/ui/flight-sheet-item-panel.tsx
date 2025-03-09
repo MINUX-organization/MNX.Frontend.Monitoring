@@ -1,4 +1,4 @@
-import { UiContainerRounded } from "@/shared/ui/container-rounded";
+import { UiContainerRounded } from "@/shared/ui";
 import { Box, Flex, Grid, GridItem, Group, Heading, Stack, Wrap, WrapItem } from "@chakra-ui/react";
 import { FlightSheetType } from "..";
 import { Device, DevicesIcons, UiText } from "@/shared/ui";
@@ -56,7 +56,7 @@ export function FlightSheetItemPanel({ state, flightSheet, renderActions, render
                       <UiText color={'minux.solid'} mr={2}>{miner.type} miner</UiText>
                       <UiText truncate>{miner.name}</UiText>
                     </Group>
-                    <DevicesIcons devices={_.split(miner.supportedDevices, ', ') as Device[]} />
+                    <DevicesIcons devices={miner.supportedDevices as Device[]} />
                   </Stack>
                 ))}   
               </Flex>
@@ -77,6 +77,7 @@ export function FlightSheetItemPanel({ state, flightSheet, renderActions, render
                       key={coinConfig.cryptocurrency + coinConfig.type}
                       gridColumn={{ base: 1, md: '1 / 5'}}
                       gap={4}
+                      alignItems={'center'}
                       gridTemplateColumns={'subgrid'}
                     >
                       <UiText color={'minux.solid'}>{coinConfig.type}</UiText>

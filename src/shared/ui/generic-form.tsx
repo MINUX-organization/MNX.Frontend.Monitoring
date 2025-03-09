@@ -17,6 +17,7 @@ export type FormConfig<T extends FieldValues> = {
   defaultValues: DefaultValues<T>;
   fields: FormField<T>[];
   onSubmit: (data: T) => Promise<void> | void;
+  onReset?: () => void;
   isSubmitDisabled?: (errors: FieldErrors<T>) => boolean;
   confirmButtonprops?: ButtonProps;
   cancelButtonprops?: ButtonProps;
@@ -47,13 +48,13 @@ export function GenericForm<T extends FieldValues>({
 
   const handleFormSubmit = async (data: T) => {
     await config.onSubmit(data);
-    reset();
-    onClose?.(); 
+    handleCancel();
   };
 
   const handleCancel = () => {
     reset();
     onClose?.();
+    config.onReset?.();
   };
 
   const isDisabled = (config.isSubmitDisabled?.(errors) ?? false) || 

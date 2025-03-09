@@ -223,7 +223,7 @@ export function FlightSheetFormTarget({
                 }}
                 selectedItem={miner}
                 renderEndElement={(item) => 
-                  <DevicesIcons devices={_.split(item?.supportedDevices, ', ') as Device[]} />}
+                  <DevicesIcons devices={item?.supportedDevices as Device[]} />}
               />
             )}
           />

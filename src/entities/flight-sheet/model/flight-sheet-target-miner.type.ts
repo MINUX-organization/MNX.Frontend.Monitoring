@@ -12,7 +12,7 @@ export const FlightSheetTargetMinerSchema = z.object({
   name: z.string({invalid_type_error: 'Name must be a string'}),
   version: z.string({invalid_type_error: 'Version must be a string'}),
   supportedAlgorithms: SupportedAlgorithmsSchema.array(),
-  supportedDevices: z.string({invalid_type_error: 'Supported devices must be a string'}),
+  supportedDevices: z.enum(['NvidiaGpu', 'IntelGpu', 'IntelCpu', 'AmdGpu', 'AmdCpu']).array(),
   miningMode: z.enum(["Single", "Dual", "Triple"]),
 })
 export type FlightSheetTargetMinerType = z.infer<typeof FlightSheetTargetMinerSchema>

@@ -1,6 +1,6 @@
 import { SortingIcon, UiButton, UiSearch } from "@/shared/ui";
 import { Stack, StackProps } from "@chakra-ui/react";
-import { ColumnDef, flexRender, getCoreRowModel, getFilteredRowModel, getSortedRowModel, SortingState, useReactTable } from "@tanstack/react-table"
+import { ColumnDef, FilterFn, flexRender, getCoreRowModel, getFilteredRowModel, getSortedRowModel, SortingState, useReactTable } from "@tanstack/react-table"
 import _ from "lodash";
 import React, { useState } from "react";
 
@@ -9,6 +9,7 @@ export interface GenericListProps<T> extends Omit<StackProps, 'columns'> {
   columns: ColumnDef<T>[];
   searchable?: boolean;
   sortable?: boolean;
+  customGlobalFilterFn?: FilterFn<T>
   renderItem?: (item: T) => React.ReactNode;
   renderAddButton?: () => React.ReactNode;
 }
@@ -20,6 +21,7 @@ export function GenericList<T>({
   sortable,
   renderItem,
   renderAddButton,
+  customGlobalFilterFn,
   ...props
 }: GenericListProps<T>) {
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -42,6 +44,7 @@ export function GenericList<T>({
     getFilteredRowModel: getFilteredRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getCoreRowModel: getCoreRowModel(),
+    globalFilterFn: customGlobalFilterFn || 'includesString',
   })
 
   return (
@@ -58,10 +61,12 @@ export function GenericList<T>({
         {_.flatMap(table.getHeaderGroups(), (headerGroup) => (
           <Stack key={headerGroup.id} direction={'row'}>
             {_.map(headerGroup.headers, (header) => (
-              <UiButton key={header.id} onClick={header.column.getToggleSortingHandler()}>
-                {flexRender(header.column.columnDef.header, header.getContext())}
-                <SortingIcon state={header.column.getIsSorted()} />
-              </UiButton>
+              <>
+                {sortable && <UiButton key={header.id} onClick={header.column.getToggleSortingHandler()}>
+                  {flexRender(header.column.columnDef.header, header.getContext())}
+                  <SortingIcon state={header.column.getIsSorted()} />
+                </UiButton>}
+              </>
             ))}
             {renderAddButton?.()}
           </Stack>

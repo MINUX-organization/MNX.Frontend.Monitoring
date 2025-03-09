@@ -4,6 +4,7 @@ import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_guard-layout/mining/wallets')({
   component: WalletsPage,
-  loader: ({ context: { queryClient } }) =>
-    queryClient.ensureQueryData(walletQueryOptions),
+  loader: ({ context: { queryClient } }) => {
+    queryClient.ensureQueryData(walletQueryOptions)
+  }
 })

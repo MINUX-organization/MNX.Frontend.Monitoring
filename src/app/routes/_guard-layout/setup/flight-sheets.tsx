@@ -4,6 +4,7 @@ import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_guard-layout/setup/flight-sheets')({
   component: FlightSheetsPage,
-  loader: ({ context: { queryClient } }) =>
-    queryClient.ensureQueryData(flightSheetQueryOptions),
+  loader: ({ context: { queryClient } }) => {
+    queryClient.ensureQueryData(flightSheetQueryOptions)
+  }
 })

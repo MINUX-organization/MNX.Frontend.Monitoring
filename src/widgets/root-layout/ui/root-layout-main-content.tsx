@@ -1,4 +1,4 @@
-import { UiContainerRounded } from "@/shared/ui/container-rounded";
+import { UiContainerRounded } from "@/shared/ui";
 import { BoxProps, Loader } from "@chakra-ui/react";
 import { Outlet } from "@tanstack/react-router";
 import { Suspense } from "react";

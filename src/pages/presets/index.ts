@@ -1,1 +1,1 @@
-export { PresetPage } from './ui/preset.page';
+export { PresetsPage } from './ui/presets.page';

@@ -118,6 +118,7 @@ const config = defineConfig({
           input: { value: { _dark: "#212327", _light: "#FFFFFF" }, },
           transparent: { value: { _dark: "rgba(0, 0, 0, 0.2)", _light: "rgba(0, 0, 0, 0.2)" }, },
           hover: { value: { _dark: "rgba(255, 255, 255, 0.2)", _light: "rgba(0, 0, 0, 0.1)" }, },
+          minux: { value: "rgba(60, 158, 165, 1)", },
         }
       },
     },

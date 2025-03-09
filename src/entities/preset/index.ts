@@ -1,6 +1,7 @@
-export { presetRepository, presetQueryOptions } from "./model/preset.repository";
+export { presetRepository, presetQueryOptions, presetGroupedByGpuQueryOptions } from "./model/preset.repository";
 export { type PresetType, PresetSchema } from "./model/preset.type";
-export { type PresetGroupByGpuType, PresetGroupByGpuSchema } from "./model/preset-group-by-gpu.type";
+export { type PresetGroupedByGpuType, PresetGroupedByGpuSchema } from "./model/preset-grouped-by-gpu.type";
+export { PresetGroupedByGpuItem } from "./ui/preset-grouped-by-gpu-item";
 export { 
   type OverclockingType, 
   OverclockingSchema, 

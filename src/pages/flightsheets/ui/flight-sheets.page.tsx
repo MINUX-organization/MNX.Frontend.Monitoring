@@ -25,6 +25,17 @@ export function FlightSheetsPage() {
         columns={flightSheetsColumns}
         sortable
         searchable
+        customGlobalFilterFn={(row, _, filterValue) => {
+          const search = filterValue.toLowerCase()
+
+          const nameMatch = row.original.name.toLowerCase().includes(search)
+
+          const minerNameMatch = row.original.targets?.some(target => 
+            target.miner.name.toLowerCase().includes(search)
+          )
+
+          return nameMatch || minerNameMatch
+        }}
         renderAddButton={() => <AddFlightSheetButton />}
         renderItem={(item) => 
           <FlightSheetItem 
@@ -32,7 +43,7 @@ export function FlightSheetsPage() {
             renderPanelActions={actions}
             renderOpenDropDownButton={(setOpen, open) => 
               <OpenFlightSheetDropdown setOpen={setOpen} open={open}/>}
-          />}
+          />} 
       />
       <Outlet />
     </>

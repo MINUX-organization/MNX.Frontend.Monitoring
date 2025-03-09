@@ -69,7 +69,7 @@ export function RootLayoutSideBarNavItem({
           </NavButton>
         </Collapsible.Trigger>
         <Collapsible.Content>
-          <Stack pl={{ lg: 4 }} mt={2} gap={2}>
+          <Stack pl={{ lg: 4 }} mt={2} gap={2} >
             {_.map(link.children, (child) => (
               <RootLayoutSideBarNavItem 
                 key={child.label} 
@@ -95,7 +95,7 @@ export function RootLayoutSideBarNavItem({
 }
 
 export const TextResponsive = ({ link, fontSize } : { link: RootLayoutNavLink, fontSize?: string }) =>(
-  <Stack direction={'row'}>
+  <Stack direction={'row'} alignItems={'center'}>
       {link.icon}
       <UiText display={{ base: 'none', lg: 'block' }} fontSize={fontSize}>
         {link.label}

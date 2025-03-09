@@ -1,4 +1,4 @@
-import { UiContainerRounded } from "@/shared/ui/container-rounded"
+import { UiContainerRounded } from "@/shared/ui"
 import { FlightSheetType } from "../model/flight-sheet.type"
 import { BoxProps, DataList, Heading, Stack, StackSeparator } from "@chakra-ui/react"
 import _ from "lodash"

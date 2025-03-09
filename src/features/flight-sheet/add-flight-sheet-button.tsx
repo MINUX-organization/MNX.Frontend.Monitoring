@@ -1,17 +1,17 @@
 import { PlusIcon } from "@/shared/assets/svg";
 import { UiButton } from "@/shared/ui";
-import { useNavigate } from "@tanstack/react-router";
+import { Link, linkOptions } from "@tanstack/react-router";
 
 export function AddFlightSheetButton() {
-  const navigate = useNavigate();
-
-  const handleClick = () => {
-    navigate({ to: 'config' });
-  }
+  const link = linkOptions({
+    to: '/setup/flight-sheets/config',
+  })
 
   return (
-    <UiButton colorPalette={'accept'} onClick={handleClick}>
-      Add <PlusIcon />
-    </UiButton>
+    <Link {...link}>
+      <UiButton colorPalette={'accept'}>
+        Add <PlusIcon />
+      </UiButton>
+    </Link>
   )
 }

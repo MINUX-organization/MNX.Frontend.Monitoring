@@ -1,7 +1,7 @@
 import { flightSheetByIdQueryOptions, FlightSheetDevicesType, flightSheetRigDevicesQueryOptions, flightSheetRigDevicesSupportQueryOptions } from "@/entities/flight-sheet"
 import { FlightSheetSelector, FlightSheetSelectorApplyButton } from "@/features/flight-sheet";
 import { UiText } from "@/shared/ui";
-import { UiContainerRounded } from "@/shared/ui/container-rounded";
+import { UiContainerRounded } from "@/shared/ui";
 import { GenericList } from "@/widgets/generic-list";
 import { Heading, Stack, VStack } from "@chakra-ui/react";
 import { useSuspenseQueries } from "@tanstack/react-query"

@@ -36,7 +36,7 @@ export function FlightSheetModal() {
             onClick={() => {
               reset?.();
               clearUploadFiles.forEach(clear => clear());
-            }} 
+            }}
           />
         </Group>
       )}

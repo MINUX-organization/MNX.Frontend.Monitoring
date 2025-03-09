@@ -1,5 +1,5 @@
 import { BACKEND_APIS } from "@/shared/constants/backend-urls";
 import { apiInstance } from "../api-instance";
 
-export const getGpuRestrictionsApi = <T>(id: string) => 
-  apiInstance().get<T>(BACKEND_APIS.DEVICES.GPUS_RESTRICTIONS(id));
+export const getGpuRestrictionsApi = <T>(deviceName: string) => 
+  apiInstance().get<T>(BACKEND_APIS.DEVICES.GPUS_RESTRICTIONS(deviceName));

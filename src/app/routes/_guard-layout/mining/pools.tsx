@@ -4,6 +4,7 @@ import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_guard-layout/mining/pools')({
   component: PoolsPage,
-  loader: ({ context: { queryClient } }) =>
-    queryClient.ensureQueryData(poolQueryOptions),
+  loader: ({ context: { queryClient } }) => {
+    queryClient.ensureQueryData(poolQueryOptions)
+  }
 })

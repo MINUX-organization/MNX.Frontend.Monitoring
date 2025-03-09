@@ -1,8 +1,10 @@
-import { HubConnection } from "@microsoft/signalr";
-import { createContext, useContext } from "react";
+import { useContext } from "react";
+import { SignalRContext } from "../contexts/signal-r-context";
 
-const HubConnectionContext = createContext<HubConnection | undefined>(undefined)
-
-export function useHubConnection() {
-  return useContext(HubConnectionContext);
-}
+export const useSignalR = () => {
+  const context = useContext(SignalRContext);
+  if (!context) {
+    throw new Error('useSignalR must be used within a SignalRProvider');
+  }
+  return context;
+};

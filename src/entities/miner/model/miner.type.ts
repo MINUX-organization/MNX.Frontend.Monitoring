@@ -9,7 +9,7 @@ export const MinerSchema = z.object({
     minerId: z.string({invalid_type_error: 'Miner id must be a string'}),
     name: z.string({invalid_type_error: 'Name must be a string'})
   })),
-  supportedDevices: z.string({invalid_type_error: 'Supported devices must be a string'}),
+  supportedDevices: z.enum(['NvidiaGpu', 'IntelGpu', 'IntelCpu', 'AmdGpu', 'AmdCpu']).array(),
   miningMode: z.enum(['Single', 'Dual', 'Triple'], {invalid_type_error: 'Mining mode must be a string'}),
 })
 export type MinerType = z.infer<typeof MinerSchema>
