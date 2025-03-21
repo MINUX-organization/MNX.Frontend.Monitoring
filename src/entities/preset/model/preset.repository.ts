@@ -4,11 +4,17 @@ import { PresetSchema, PresetType } from "./preset.type";
 import { zodSaveParse } from "@/shared/lib/utils/zod-save-parse";
 import { toaster } from "@/shared/ui/toaster";
 import { PresetGroupedByGpuType } from "./preset-grouped-by-gpu.type";
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
+import _ from "lodash";
 
 export const presetQueryOptions = queryOptions({
   queryKey: ['presets'],
   queryFn: () => getPresetsApi<PresetType[]>()
+})
+
+export const presetsByDeviceNameQueryOptions = (deviceName?: string) => queryOptions({
+  queryKey: ['presets', 'by-device-name'],
+  queryFn: () => getPresetsApi<PresetType[]>(deviceName)
 })
 
 export const presetGroupedByGpuQueryOptions = queryOptions({
@@ -24,7 +30,15 @@ const usePresetQuery = () => {
     [data?.data]
   );
 
-  return { presets, ...query }
+  const getById = useCallback(
+    (id?: string) => {
+      if (!id) return undefined;  
+      return _.find(presets, (preset) => preset.id === id);
+    },
+    [presets]
+  )
+
+  return { presets, getById, ...query }
 }
 
 const usePresetMutation = () => {

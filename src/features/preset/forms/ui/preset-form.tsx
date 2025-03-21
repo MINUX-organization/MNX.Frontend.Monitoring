@@ -1,8 +1,6 @@
-import { presetRepository, PresetSchema, PresetType } from "@/entities/preset";
+import { OverclockingGpuType, presetRepository, PresetSchema, PresetType } from "@/entities/preset";
 import { FormConfig, GenericForm, UiInput, UiSelect } from "@/shared/ui";
-import { presetFormStore } from "../model/preset-form.store";
 import { isSuccessResponse } from "@/shared/api";
-import { useNavigate } from "@tanstack/react-router";
 import { match } from "ts-pattern";
 
 const { usePresetMutation } = presetRepository;
@@ -10,12 +8,20 @@ const { usePresetMutation } = presetRepository;
 export function PresetForm({
   devicesNames,
   defaultValues,
+  deviceNameInputDisabled,
+  onClose,
+  setDeviceName,
+  overclocking,
+  mode = 'add',
 } : {
-  devicesNames: string[];
+  setDeviceName: (deviceName: string) => void
+  devicesNames?: string[];
   defaultValues?: Partial<Omit<PresetType, 'overclocking'>>
+  deviceNameInputDisabled?: boolean
+  overclocking?: Omit<OverclockingGpuType, '$type'> | null
+  mode?: 'add' | 'edit'
+  onClose?: () => void
 }) {
-  const navigate = useNavigate();
-  const { setDeviceName, overclocking, mode } = presetFormStore();
   const { savePreset, editPreset } = usePresetMutation();
 
   const config: FormConfig<Omit<Omit<PresetType, 'overclocking'>, 'id'>>  = {
@@ -32,13 +38,14 @@ export function PresetForm({
       { name: 'name', label: 'Name', component: ({field}) => <UiInput {...field} /> },
       { name: 'deviceName', label: 'Device name', component: ({field}) => (
         <UiSelect
-          items={devicesNames}
+          items={devicesNames ?? []}
           getLabel={(item) => item}
           onChange={(item) => {
             field.onChange(item);
             setDeviceName(item);
           }}
           selectedItem={field.value}
+          disabled={deviceNameInputDisabled}
         />
       )},
     ],
@@ -51,13 +58,10 @@ export function PresetForm({
         .exhaustive();
 
       if (isSuccessResponse(response))
-        navigate({ to: '..' });
+        onClose?.();
     },
     onReset: () => {
-      if (mode === 'edit') 
-        navigate({ to: '/setup/presets' });
-
-      setDeviceName('');
+      onClose?.();
     }
   }
 

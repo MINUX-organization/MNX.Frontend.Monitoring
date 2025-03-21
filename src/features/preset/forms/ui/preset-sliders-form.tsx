@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { gpuRestrictionsOptions } from "@/entities/devices"
 import { HeaderSeparator, UiButton } from "@/shared/ui"
-import { Stack } from "@chakra-ui/react"
+import { Group, Stack } from "@chakra-ui/react"
 import { convertToSliders } from "../utils/convert-to-sliders-values"
 import { OverclockingGpuType } from "@/entities/preset"
 import _ from "lodash"
@@ -10,16 +10,16 @@ import { Controller, useForm } from "react-hook-form"
 import { transformSlidersToObject } from "../utils/transformSlidersToObject"
 import { useSuspenseQuery } from "@tanstack/react-query"
 import { useCallback, useEffect, useMemo, useState } from "react"
-import { presetFormStore } from "../model/preset-form.store"
 
 export function PresetSlidersForm({
-  // context = 'preset',
   overclockingPresetValues,
+  setOverclocking,
+  deviceName
 } : {
-  context?: 'preset' | 'device',
   overclockingPresetValues?: OverclockingGpuType
+  setOverclocking: (overclocking: Omit<OverclockingGpuType, '$type'>) => void
+  deviceName: string
 }) {
-  const { setOverclocking, deviceName } = presetFormStore();
   const { data: restrictions } = useSuspenseQuery(gpuRestrictionsOptions(deviceName));
 
   const [savedRestrictions] = useState(restrictions.data);
@@ -49,6 +49,18 @@ export function PresetSlidersForm({
   }
 
   const handleChangeValueEnd = () => setOverclocking(getValues());
+
+  const handleReset = () => {
+    reset(defaultValues)
+    handleChangeValueEnd();
+  }
+
+  const handleResetToDefault = () => {
+    const restrictionsSlider = convertToSliders(restrictions.data)
+    const object = transformSlidersToObject(restrictionsSlider);
+    reset(object);
+    handleChangeValueEnd();
+  }
 
   useEffect(() => {
     reset(defaultValues);
@@ -98,9 +110,14 @@ export function PresetSlidersForm({
             </Stack>
           </Stack>
         ))}
-        <UiButton colorPalette={'cancel'} onClick={() => reset(defaultValues)}>
-          Reset
-        </UiButton>
+        <Group>
+          <UiButton colorPalette={'cancel'} onClick={handleReset} flex={1}>
+            Reset to previous
+          </UiButton>
+          <UiButton colorPalette={'cancel'} onClick={handleResetToDefault} flex={1}>
+            Reset to default
+          </UiButton>
+        </Group>
       </Stack>
     </form>
   )

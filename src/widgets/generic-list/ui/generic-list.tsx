@@ -1,12 +1,21 @@
 import { SortingIcon, UiButton, UiSearch } from "@/shared/ui";
 import { Stack, StackProps } from "@chakra-ui/react";
-import { ColumnDef, FilterFn, flexRender, getCoreRowModel, getFilteredRowModel, getSortedRowModel, SortingState, useReactTable } from "@tanstack/react-table"
+import { 
+  ColumnDef,
+  FilterFn, 
+  flexRender, 
+  getCoreRowModel, 
+  getFilteredRowModel, 
+  getSortedRowModel, 
+  SortingState, 
+  useReactTable 
+} from "@tanstack/react-table"
 import _ from "lodash";
 import React, { useState } from "react";
 
 export interface GenericListProps<T> extends Omit<StackProps, 'columns'> {
   data: T[];
-  columns: ColumnDef<T>[];
+  columns?: ColumnDef<T>[];
   searchable?: boolean;
   sortable?: boolean;
   customGlobalFilterFn?: FilterFn<T>
@@ -61,12 +70,12 @@ export function GenericList<T>({
         {_.flatMap(table.getHeaderGroups(), (headerGroup) => (
           <Stack key={headerGroup.id} direction={'row'}>
             {_.map(headerGroup.headers, (header) => (
-              <>
-                {sortable && <UiButton key={header.id} onClick={header.column.getToggleSortingHandler()}>
+              <React.Fragment key={header.id}>
+                {sortable && <UiButton onClick={header.column.getToggleSortingHandler()}>
                   {flexRender(header.column.columnDef.header, header.getContext())}
                   <SortingIcon state={header.column.getIsSorted()} />
                 </UiButton>}
-              </>
+              </React.Fragment>
             ))}
             {renderAddButton?.()}
           </Stack>

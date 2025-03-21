@@ -1,0 +1,1 @@
+export { GpusPage } from './gpus';

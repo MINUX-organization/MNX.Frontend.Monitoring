@@ -1,5 +1,5 @@
 import { RemoveSessionButton } from "@/features/auth";
-import { EditPasswordButton, EditPasswordForm } from "@/features/profile";
+import { EditPasswordButton, EditPasswordForm, RefreshKeyButton } from "@/features/profile";
 import { ProfilePanel, ProfilePanelPopover } from "@/entities/profile";
 import { profileRepository } from "@/entities/profile/model/profile.repository";
 import { StackSeparator, Stack } from "@chakra-ui/react";
@@ -28,7 +28,8 @@ export function RootLayoutSideBarProfile() {
           <ProfilePanel
             buttonProps={{ bg: open ? 'var(--mnx-colors-color-palette-subtle)' : 'ghost' }}
             profile={profile}
-          />}
+          />} 
+        renderRefreshButton={() => <RefreshKeyButton />}
       />
     </Stack>
   )

@@ -7,7 +7,7 @@ export const BACKEND_MONITORING_URL = `/${BACKEND_MONITORING}/api`;
 export const BACKEND_SECURITY_URL = `/${BACKEND_SECURITY}/api`;
 
 export const BACKEND_HUBS = {
-  MONITORING: `${BACKEND_URL}/${BACKEND_MONITORING}/hubs/monitoring`,
+  MONITORING: `/${BACKEND_MONITORING}/hubs/monitoring`,
 } as const
 
 export const BACKEND_APIS = {
@@ -44,6 +44,7 @@ export const BACKEND_APIS = {
   PROFILE: {
     BASE: `${BACKEND_SECURITY_URL}/profile`,
     NICKNAME: `${BACKEND_SECURITY_URL}/profile/nickname`,
+    GENERATE: `${BACKEND_SECURITY_URL}/profile/key/generate`
   },
   CRYPTOCURRENCIES: `${BACKEND_MONITORING_URL}/cryptocurrencies`,
   ALHORITHMS: `${BACKEND_MONITORING_URL}/algorithms/available`,

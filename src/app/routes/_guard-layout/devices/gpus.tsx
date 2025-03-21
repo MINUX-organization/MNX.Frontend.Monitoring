@@ -1,10 +1,26 @@
+import { gpusQueryOptions } from '@/entities/devices';
+import { sessionRepository } from '@/entities/session'
+import { GpusPage } from '@/pages/devices'
+import { BACKEND_HUBS } from '@/shared/constants/backend-urls';
+import { SignalRProvider } from '@/shared/lib/providers/signal-r-provider';
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_guard-layout/devices/gpus')({
-  component: RouteComponent,
+  preloadStaleTime: 0,
+  component: GpusPageWrapper,
+  loader: ({ context: { queryClient } }) => {
+    queryClient.prefetchQuery(gpusQueryOptions)
+  }
 })
 
-function RouteComponent() {
-  console.log('2')
-  return <div>Hello "/_layout/devices/gpus"!</div>
+const { sessionQuery } = sessionRepository;
+
+function GpusPageWrapper() {
+  const session = sessionQuery();
+  
+  return (
+    <SignalRProvider route={BACKEND_HUBS.MONITORING} token={session?.accessToken ?? ''}>
+      <GpusPage />
+    </SignalRProvider>
+  )
 }

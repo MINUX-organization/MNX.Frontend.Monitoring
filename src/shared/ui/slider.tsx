@@ -45,6 +45,10 @@ export const UiSlider = React.forwardRef<HTMLDivElement, SliderProps>(
       props.onValueChangeEnd?.({ value: [alignedValue] });
     };
 
+    React.useEffect(() => {
+      setInputValue(props.value?.[0] ?? 0)
+    }, [props.value, setInputValue])
+
     return (
       <ChakraSlider.Root 
         ref={ref}

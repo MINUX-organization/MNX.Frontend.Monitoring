@@ -29,6 +29,7 @@ import { Route as GuardLayoutDevicesGpusImport } from './routes/_guard-layout/de
 import { Route as GuardLayoutDevicesCpusImport } from './routes/_guard-layout/devices/cpus'
 import { Route as GuardLayoutSetupPresetsConfigImport } from './routes/_guard-layout/setup/presets/config'
 import { Route as GuardLayoutSetupFlightSheetsConfigImport } from './routes/_guard-layout/setup/flight-sheets/config'
+import { Route as GuardLayoutDevicesGpusConfigImport } from './routes/_guard-layout/devices/gpus/config'
 import { Route as GuardLayoutSetupFlightSheetsFlightSheetIdApplyImport } from './routes/_guard-layout/setup/flight-sheets_/$flightSheetId.apply'
 
 // Create Virtual Routes
@@ -155,6 +156,13 @@ const GuardLayoutSetupFlightSheetsConfigRoute =
     getParentRoute: () => GuardLayoutSetupFlightSheetsRoute,
   } as any)
 
+const GuardLayoutDevicesGpusConfigRoute =
+  GuardLayoutDevicesGpusConfigImport.update({
+    id: '/config',
+    path: '/config',
+    getParentRoute: () => GuardLayoutDevicesGpusRoute,
+  } as any)
+
 const GuardLayoutSetupFlightSheetsFlightSheetIdApplyRoute =
   GuardLayoutSetupFlightSheetsFlightSheetIdApplyImport.update({
     id: '/setup/flight-sheets_/$flightSheetId/apply',
@@ -278,6 +286,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GuardLayoutSetupPresetsImport
       parentRoute: typeof GuardLayoutImport
     }
+    '/_guard-layout/devices/gpus/config': {
+      id: '/_guard-layout/devices/gpus/config'
+      path: '/config'
+      fullPath: '/devices/gpus/config'
+      preLoaderRoute: typeof GuardLayoutDevicesGpusConfigImport
+      parentRoute: typeof GuardLayoutDevicesGpusImport
+    }
     '/_guard-layout/setup/flight-sheets/config': {
       id: '/_guard-layout/setup/flight-sheets/config'
       path: '/config'
@@ -316,6 +331,20 @@ const AuthRouteChildren: AuthRouteChildren = {
 
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 
+interface GuardLayoutDevicesGpusRouteChildren {
+  GuardLayoutDevicesGpusConfigRoute: typeof GuardLayoutDevicesGpusConfigRoute
+}
+
+const GuardLayoutDevicesGpusRouteChildren: GuardLayoutDevicesGpusRouteChildren =
+  {
+    GuardLayoutDevicesGpusConfigRoute: GuardLayoutDevicesGpusConfigRoute,
+  }
+
+const GuardLayoutDevicesGpusRouteWithChildren =
+  GuardLayoutDevicesGpusRoute._addFileChildren(
+    GuardLayoutDevicesGpusRouteChildren,
+  )
+
 interface GuardLayoutSetupFlightSheetsRouteChildren {
   GuardLayoutSetupFlightSheetsConfigRoute: typeof GuardLayoutSetupFlightSheetsConfigRoute
 }
@@ -349,7 +378,7 @@ interface GuardLayoutRouteChildren {
   GuardLayoutMonitoringLazyRoute: typeof GuardLayoutMonitoringLazyRoute
   GuardLayoutRigsLazyRoute: typeof GuardLayoutRigsLazyRoute
   GuardLayoutDevicesCpusRoute: typeof GuardLayoutDevicesCpusRoute
-  GuardLayoutDevicesGpusRoute: typeof GuardLayoutDevicesGpusRoute
+  GuardLayoutDevicesGpusRoute: typeof GuardLayoutDevicesGpusRouteWithChildren
   GuardLayoutMiningAlgorithmsRoute: typeof GuardLayoutMiningAlgorithmsRoute
   GuardLayoutMiningCryptocurrenciesRoute: typeof GuardLayoutMiningCryptocurrenciesRoute
   GuardLayoutMiningMinersRoute: typeof GuardLayoutMiningMinersRoute
@@ -364,7 +393,7 @@ const GuardLayoutRouteChildren: GuardLayoutRouteChildren = {
   GuardLayoutMonitoringLazyRoute: GuardLayoutMonitoringLazyRoute,
   GuardLayoutRigsLazyRoute: GuardLayoutRigsLazyRoute,
   GuardLayoutDevicesCpusRoute: GuardLayoutDevicesCpusRoute,
-  GuardLayoutDevicesGpusRoute: GuardLayoutDevicesGpusRoute,
+  GuardLayoutDevicesGpusRoute: GuardLayoutDevicesGpusRouteWithChildren,
   GuardLayoutMiningAlgorithmsRoute: GuardLayoutMiningAlgorithmsRoute,
   GuardLayoutMiningCryptocurrenciesRoute:
     GuardLayoutMiningCryptocurrenciesRoute,
@@ -390,7 +419,7 @@ export interface FileRoutesByFullPath {
   '/monitoring': typeof GuardLayoutMonitoringLazyRoute
   '/rigs': typeof GuardLayoutRigsLazyRoute
   '/devices/cpus': typeof GuardLayoutDevicesCpusRoute
-  '/devices/gpus': typeof GuardLayoutDevicesGpusRoute
+  '/devices/gpus': typeof GuardLayoutDevicesGpusRouteWithChildren
   '/mining/algorithms': typeof GuardLayoutMiningAlgorithmsRoute
   '/mining/cryptocurrencies': typeof GuardLayoutMiningCryptocurrenciesRoute
   '/mining/miners': typeof GuardLayoutMiningMinersRoute
@@ -398,6 +427,7 @@ export interface FileRoutesByFullPath {
   '/mining/wallets': typeof GuardLayoutMiningWalletsRoute
   '/setup/flight-sheets': typeof GuardLayoutSetupFlightSheetsRouteWithChildren
   '/setup/presets': typeof GuardLayoutSetupPresetsRouteWithChildren
+  '/devices/gpus/config': typeof GuardLayoutDevicesGpusConfigRoute
   '/setup/flight-sheets/config': typeof GuardLayoutSetupFlightSheetsConfigRoute
   '/setup/presets/config': typeof GuardLayoutSetupPresetsConfigRoute
   '/setup/flight-sheets/$flightSheetId/apply': typeof GuardLayoutSetupFlightSheetsFlightSheetIdApplyRoute
@@ -411,7 +441,7 @@ export interface FileRoutesByTo {
   '/monitoring': typeof GuardLayoutMonitoringLazyRoute
   '/rigs': typeof GuardLayoutRigsLazyRoute
   '/devices/cpus': typeof GuardLayoutDevicesCpusRoute
-  '/devices/gpus': typeof GuardLayoutDevicesGpusRoute
+  '/devices/gpus': typeof GuardLayoutDevicesGpusRouteWithChildren
   '/mining/algorithms': typeof GuardLayoutMiningAlgorithmsRoute
   '/mining/cryptocurrencies': typeof GuardLayoutMiningCryptocurrenciesRoute
   '/mining/miners': typeof GuardLayoutMiningMinersRoute
@@ -419,6 +449,7 @@ export interface FileRoutesByTo {
   '/mining/wallets': typeof GuardLayoutMiningWalletsRoute
   '/setup/flight-sheets': typeof GuardLayoutSetupFlightSheetsRouteWithChildren
   '/setup/presets': typeof GuardLayoutSetupPresetsRouteWithChildren
+  '/devices/gpus/config': typeof GuardLayoutDevicesGpusConfigRoute
   '/setup/flight-sheets/config': typeof GuardLayoutSetupFlightSheetsConfigRoute
   '/setup/presets/config': typeof GuardLayoutSetupPresetsConfigRoute
   '/setup/flight-sheets/$flightSheetId/apply': typeof GuardLayoutSetupFlightSheetsFlightSheetIdApplyRoute
@@ -434,7 +465,7 @@ export interface FileRoutesById {
   '/_guard-layout/monitoring': typeof GuardLayoutMonitoringLazyRoute
   '/_guard-layout/rigs': typeof GuardLayoutRigsLazyRoute
   '/_guard-layout/devices/cpus': typeof GuardLayoutDevicesCpusRoute
-  '/_guard-layout/devices/gpus': typeof GuardLayoutDevicesGpusRoute
+  '/_guard-layout/devices/gpus': typeof GuardLayoutDevicesGpusRouteWithChildren
   '/_guard-layout/mining/algorithms': typeof GuardLayoutMiningAlgorithmsRoute
   '/_guard-layout/mining/cryptocurrencies': typeof GuardLayoutMiningCryptocurrenciesRoute
   '/_guard-layout/mining/miners': typeof GuardLayoutMiningMinersRoute
@@ -442,6 +473,7 @@ export interface FileRoutesById {
   '/_guard-layout/mining/wallets': typeof GuardLayoutMiningWalletsRoute
   '/_guard-layout/setup/flight-sheets': typeof GuardLayoutSetupFlightSheetsRouteWithChildren
   '/_guard-layout/setup/presets': typeof GuardLayoutSetupPresetsRouteWithChildren
+  '/_guard-layout/devices/gpus/config': typeof GuardLayoutDevicesGpusConfigRoute
   '/_guard-layout/setup/flight-sheets/config': typeof GuardLayoutSetupFlightSheetsConfigRoute
   '/_guard-layout/setup/presets/config': typeof GuardLayoutSetupPresetsConfigRoute
   '/_guard-layout/setup/flight-sheets_/$flightSheetId/apply': typeof GuardLayoutSetupFlightSheetsFlightSheetIdApplyRoute
@@ -465,6 +497,7 @@ export interface FileRouteTypes {
     | '/mining/wallets'
     | '/setup/flight-sheets'
     | '/setup/presets'
+    | '/devices/gpus/config'
     | '/setup/flight-sheets/config'
     | '/setup/presets/config'
     | '/setup/flight-sheets/$flightSheetId/apply'
@@ -485,6 +518,7 @@ export interface FileRouteTypes {
     | '/mining/wallets'
     | '/setup/flight-sheets'
     | '/setup/presets'
+    | '/devices/gpus/config'
     | '/setup/flight-sheets/config'
     | '/setup/presets/config'
     | '/setup/flight-sheets/$flightSheetId/apply'
@@ -506,6 +540,7 @@ export interface FileRouteTypes {
     | '/_guard-layout/mining/wallets'
     | '/_guard-layout/setup/flight-sheets'
     | '/_guard-layout/setup/presets'
+    | '/_guard-layout/devices/gpus/config'
     | '/_guard-layout/setup/flight-sheets/config'
     | '/_guard-layout/setup/presets/config'
     | '/_guard-layout/setup/flight-sheets_/$flightSheetId/apply'
@@ -588,7 +623,10 @@ export const routeTree = rootRoute
     },
     "/_guard-layout/devices/gpus": {
       "filePath": "_guard-layout/devices/gpus.tsx",
-      "parent": "/_guard-layout"
+      "parent": "/_guard-layout",
+      "children": [
+        "/_guard-layout/devices/gpus/config"
+      ]
     },
     "/_guard-layout/mining/algorithms": {
       "filePath": "_guard-layout/mining/algorithms.tsx",
@@ -623,6 +661,10 @@ export const routeTree = rootRoute
       "children": [
         "/_guard-layout/setup/presets/config"
       ]
+    },
+    "/_guard-layout/devices/gpus/config": {
+      "filePath": "_guard-layout/devices/gpus/config.tsx",
+      "parent": "/_guard-layout/devices/gpus"
     },
     "/_guard-layout/setup/flight-sheets/config": {
       "filePath": "_guard-layout/setup/flight-sheets/config.tsx",

@@ -5,6 +5,7 @@ import { FlightSheetDevicesType } from "./flight-sheet-devices.type";
 import { zodSaveParse } from "@/shared/lib/utils/zod-save-parse";
 import { toaster } from "@/shared/ui/toaster";
 import _ from "lodash";
+import { useCallback } from "react";
 
 export const flightSheetQueryOptions = queryOptions({
   queryKey: ['flightsheets'],
@@ -36,10 +37,13 @@ const useFlightSheetQuery = () => {
 
   const flightSheets = zodSaveParse(data?.data, FlightSheetSchema.array().optional());
 
-  const getById = (id?: string) => {
-    if (!id) return undefined;  
-    return _.find(flightSheets, (flightSheet) => flightSheet.id === id);
-  }
+  const getById = useCallback(
+    (id?: string) => {
+      if (!id) return undefined;  
+      return _.find(flightSheets, (flightSheet) => flightSheet.id === id);
+    },
+    [flightSheets]
+  )
 
   return {
     flightSheets,
@@ -85,6 +89,7 @@ const useFlightSheetMutation = () => {
     mutationFn: ({ id, data }: { id: string, data: string[] }) => applyFlightSheetApi(id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['flightsheets'] });
+      queryClient.invalidateQueries({ queryKey: ['gpus'] });
       toaster.success({
         description: 'You have successfully applied flight sheet on devices',
       })

@@ -1,10 +1,21 @@
+import { sessionRepository } from '@/entities/session';
+import { MonitoringPage } from '@/pages/monitoring';
+import { BACKEND_HUBS } from '@/shared/constants/backend-urls';
+import { SignalRProvider } from '@/shared/lib/providers/signal-r-provider';
 import { createLazyFileRoute } from '@tanstack/react-router'
 
 export const Route = createLazyFileRoute('/_guard-layout/monitoring')({
-  component: RouteComponent,
-  pendingComponent: () => <div>Loading...</div>,
+  component: MonitoringPageWrapper,
 })
 
-function RouteComponent() {
-  return <div>яблоко</div>
+const { sessionQuery } = sessionRepository;
+
+function MonitoringPageWrapper() {
+  const session = sessionQuery();
+  
+  return (
+    <SignalRProvider route={BACKEND_HUBS.MONITORING} token={session?.accessToken ?? ''}>
+      <MonitoringPage />
+    </SignalRProvider>
+  )
 }

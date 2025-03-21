@@ -12,11 +12,11 @@ import { Suspense, useEffect, useMemo } from "react";
 
 const { usePresetQuery } = presetRepository;
 
-export function PresetModal() {
+export function PresetConfigModal() {
   const navigate = useNavigate();
   const { presetId } = useSearch({ from: '/_guard-layout/setup/presets/config' });
   const { data: gpusUniqueNames } = useSuspenseQuery(gpuUniqueNamesOptions);
-  const { setDeviceName, setMode, mode, deviceName } = presetFormStore();
+  const { setDeviceName, setMode, mode, deviceName, setOverclocking, overclocking } = presetFormStore();
   const { presets } = usePresetQuery();
 
   const findedPreset = useMemo(
@@ -52,12 +52,24 @@ export function PresetModal() {
       renderTrigger={() => <Box></Box>}
       renderBody={() => (
         <Stack gap={4}>
-          <PresetForm devicesNames={gpusUniqueNames.data} defaultValues={findedPreset}/>
+          <PresetForm
+            devicesNames={gpusUniqueNames.data} 
+            defaultValues={findedPreset}
+            setDeviceName={setDeviceName}
+            overclocking={overclocking}
+            onClose={() => {
+              navigate({ to: '/setup/presets' })
+              setDeviceName('');
+            }}
+            mode={mode}
+          />
           {isOpen && <Collapsible.Root open={isOpen}>
             <Collapsible.Content>
               <Suspense fallback={<Loader />}>
                 <PresetSlidersForm 
                   overclockingPresetValues={findedPreset?.overclocking as OverclockingGpuType}
+                  setOverclocking={setOverclocking}
+                  deviceName={deviceName}
                 />
               </Suspense>
             </Collapsible.Content>

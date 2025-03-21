@@ -1,5 +1,6 @@
 import { AxiosResponse } from 'axios'
 
+export { generateKeyApi, getProfileApi, editNicknameApi } from './profile'
 export { loginApi, logoutApi, refreshTokensApi, registrationApi, changePasswordApi } from './user'
 export { getRigsApi, getRigCpusApi, getRigGpusApi, getRigDrivesApi, getRigSoftwareApi, getRigMotherboardApi, getRigNetworkAdaptersApi, rigStopMiningApi, rigStartMiningApi } from './rig'
 export { getPresetsApi, getPresetsGroupedByGpuApi, savePresetApi, deletePresetApi, editPresetApi } from './preset'

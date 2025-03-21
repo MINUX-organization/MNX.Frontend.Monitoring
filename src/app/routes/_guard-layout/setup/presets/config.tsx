@@ -1,5 +1,5 @@
 import { gpuUniqueNamesOptions } from '@/entities/devices'
-import { PresetModal } from '@/widgets/preset-modal'
+import { PresetConfigModal } from '@/widgets/config-modal'
 import { createFileRoute } from '@tanstack/react-router'
 import { z } from 'zod'
 
@@ -11,5 +11,5 @@ export const Route = createFileRoute('/_guard-layout/setup/presets/config')({
   loader: ({ context: { queryClient }, }) => {
     return queryClient.prefetchQuery(gpuUniqueNamesOptions)
   },
-  component: PresetModal,
+  component: PresetConfigModal,
 })

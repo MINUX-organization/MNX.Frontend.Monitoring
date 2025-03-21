@@ -1,0 +1,1 @@
+export { CpuDynamicIndicatorsSchema, type CpuDynamicIndicatorsType } from './model/cpu-dynamic-indicators.type';

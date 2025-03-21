@@ -1,10 +1,11 @@
 import { PopoverProps, UiPopover } from "@/shared/ui/popover"
 import { ProfileField } from "../model/profile-fields"
-import { Stack, StackSeparator, VStack, Box, ButtonGroup } from "@chakra-ui/react"
+import { Stack, StackSeparator, VStack, Box, ButtonGroup, Group, IconButton } from "@chakra-ui/react"
 import _ from "lodash"
 import { ProfileType } from "../model/profile.type"
 import { UiAvatar, UiText, UiEditableInput, UiField } from "@/shared/ui"
 import { match } from "ts-pattern"
+import { RefreshIcon } from "@/shared/assets/svg"
 
 interface ProfilePanelPopoverProps extends PopoverProps {
   profile?: ProfileType;
@@ -13,6 +14,7 @@ interface ProfilePanelPopoverProps extends PopoverProps {
   onSaveEmail?: (value: string) => void;
   onSaveTelegram?: (value: string) => void;
   renderEditPasswordButton?: () => React.ReactNode;
+  renderRefreshButton?: () => React.ReactNode;
 }
 
 export function ProfilePanelPopover({ 
@@ -22,6 +24,7 @@ export function ProfilePanelPopover({
   onSaveEmail,
   onSaveTelegram,
   renderEditPasswordButton,
+  renderRefreshButton,
   ...props 
 } : ProfilePanelPopoverProps ) {
   const profileFields: ProfileField[] = [
@@ -29,7 +32,6 @@ export function ProfilePanelPopover({
     { label: 'Signup Date', value: new Date(profile?.registrationDate ?? '').toLocaleDateString() },
     { label: 'Email', value: profile?.email ?? 'Not Linked', confirmed: profile?.emailConfirmed, editable: true, callback: onSaveEmail },
     { label: 'Telegram', value: profile?.telegram ?? 'Not Linked', confirmed: profile?.telegramConfirmed, editable: true, callback: onSaveTelegram },
-    { label: 'Key', value: profile?.key ?? 'Not Linked' },
   ]
 
   return (
@@ -58,7 +60,18 @@ export function ProfilePanelPopover({
               }
               </Box>
             </UiField>
-          ))} 
+          ))}
+          <UiField 
+            label={'Key'}
+            orientation={'horizontal'} 
+            labelprops={{ opacity: 0.75 }}
+          >
+            <Group w={'10.5rem'}>
+              <UiText pl={1} flexGrow={1}>{profile?.key ?? 'Not Generated'}</UiText>
+              {renderRefreshButton?.()}
+            </Group>
+            
+          </UiField>
         </Stack>
         <ButtonGroup flexGrow={1}>
           <Box w={'1/2'}>

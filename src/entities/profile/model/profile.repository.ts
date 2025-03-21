@@ -5,6 +5,7 @@ import { editNicknameApi } from "@/shared/api/profile/edit-nickname"
 import { toaster } from "@/shared/ui/toaster"
 import { changePasswordApi } from "@/shared/api"
 import { zodSaveParse } from "@/shared/lib/utils/zod-save-parse"
+import { generateKeyApi } from "@/shared/api/profile"
 
 const profileQueryOptions = queryOptions({
   queryKey: ['profile'],
@@ -21,6 +22,16 @@ const useProfileQuery = () => {
 
 const useProfileMutation = () => {
   const queryClient = useQueryClient();
+
+  const generateKeyMutation = useMutation({
+    mutationFn: () => generateKeyApi(),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['profile'] });
+      toaster.success({
+        description: 'You have successfully generated a new key',
+      })
+    }
+  })
 
   const editNicknameMutation = useMutation({
     mutationFn: (nickname: string) => editNicknameApi({ nickname }),
@@ -42,7 +53,8 @@ const useProfileMutation = () => {
     },
   })
 
-  return { 
+  return {
+    generateKey: generateKeyMutation.mutateAsync,
     editNickname: editNicknameMutation.mutateAsync,
     changePassword: changePasswordMutation.mutateAsync,
   }

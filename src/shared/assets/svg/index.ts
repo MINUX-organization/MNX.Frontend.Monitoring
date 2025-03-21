@@ -19,3 +19,5 @@ export { TrashIcon } from './trash';
 export { PlusIcon } from './plus';
 export { SearchIcon } from './search';
 export { HiveIcon } from './hive';
+export { SettingInputIcon } from './setting-input';
+export { RefreshIcon } from './refresh';

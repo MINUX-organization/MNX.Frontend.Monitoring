@@ -1,5 +1,5 @@
 import { BACKEND_BASE_URL } from "@/shared/constants/backend-urls";
-import { HubConnection, HubConnectionBuilder } from "@microsoft/signalr";
+import { HttpTransportType, HubConnection, HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
 import { useCallback, useEffect, useState } from "react";
 import { SignalRContext } from "../contexts/signal-r-context";
 
@@ -18,7 +18,10 @@ export function SignalRProvider({
     return new HubConnectionBuilder()
       .withUrl(BACKEND_BASE_URL + route, {
         accessTokenFactory: () => token || '',
+        skipNegotiation: true,
+        transport: HttpTransportType.WebSockets,
       })
+      .configureLogging(LogLevel.Information)
       .withAutomaticReconnect()
       .build();
   }, [route, token]);
@@ -28,7 +31,6 @@ export function SignalRProvider({
 
     try {
       await connection.start();
-      console.log('SignalR Connected');
     } catch (err) {
       console.error('SignalR Connection Error:', err);
     }

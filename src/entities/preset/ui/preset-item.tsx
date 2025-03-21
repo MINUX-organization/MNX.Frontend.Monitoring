@@ -1,7 +1,7 @@
 import { match } from "ts-pattern"
 import { PresetType } from "../model/preset.type"
 import { UiContainerRounded } from "@/shared/ui"
-import { DataList, Flex, Heading, Wrap, WrapItem } from "@chakra-ui/react"
+import { DataList, Flex, Heading, Stack, Wrap, WrapItem } from "@chakra-ui/react"
 import { OverclockingToDataListColumns } from "../utils/overclocking-to-data-list-columns"
 import _ from "lodash"
 import { UiText } from "@/shared/ui"
@@ -27,10 +27,42 @@ export function PresetItem({ type, preset, actions }: PresetItemProps) {
   )
 }
 
-export function PresetItemCard({ preset }: PresetItemVariantProps) {
-  return (
-    <UiContainerRounded>
+export function PresetItemCard({ preset, actions }: PresetItemVariantProps) {
+  const columns = OverclockingToDataListColumns(preset.overclocking)
 
+  return (
+    <UiContainerRounded p={4}>
+      <Stack direction={'row'} justify={'space-between'} alignItems={'center'}>
+        <Stack direction={'column'} gap={0}>
+          <UiText textStyle={'xl'}>{preset.name}</UiText>
+          <UiText color={'gray.400'}> - {preset.deviceName}</UiText>
+        </Stack>
+        {actions && <Wrap>
+          {_.map(actions, (action, index) => (
+            <WrapItem key={index}>
+              {action(preset)}
+            </WrapItem>
+          ))}
+        </Wrap>}
+      </Stack>
+      <Flex gap={2} mt={2}>
+        {_.map(columns, (column, index) => (
+          <DataList.Root key={index} orientation={'horizontal'} gap={0} w={index === 2 ? '8rem' : '9rem'}>
+            {_.map(column, (item, index1) => (
+              <DataList.Item key={index1} gap={0}>
+                <DataList.ItemLabel>
+                  <UiText textStyle={'xs'}>{item.label}</UiText>
+                </DataList.ItemLabel>
+                <DataList.ItemValue justifyContent={'flex-end'}>
+                  <UiText textStyle={'xs'}>{item.value}</UiText>
+                  &nbsp;
+                  <UiText color={'minux.solid'} textStyle={'xs'}>{item.unit}</UiText>
+                </DataList.ItemValue>
+              </DataList.Item>
+            ))}
+          </DataList.Root>
+        ))}
+      </Flex>
     </UiContainerRounded>
   )
 }

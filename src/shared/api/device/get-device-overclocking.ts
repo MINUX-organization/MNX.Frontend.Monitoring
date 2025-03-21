@@ -4,6 +4,6 @@ import { apiInstance } from "../api-instance";
 export const getDeviceOverclockingApi = <T>(id: string) => 
   apiInstance().get<T>(BACKEND_APIS.DEVICES.DEVICE_OVERCLOCKING, {
     params: {
-      id
+      deviceId: id
     }
   });

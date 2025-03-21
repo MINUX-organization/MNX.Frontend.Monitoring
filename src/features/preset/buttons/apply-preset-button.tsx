@@ -3,10 +3,22 @@ import { IconButton } from "@chakra-ui/react";
 import { Link, linkOptions } from "@tanstack/react-router";
 
 export function ApplyPresetButton({
-  presetId
+  presetId,
+  type = 'link'
 } : {
   presetId: string
+  type?: 'action' | 'link'
 }) {
+  const handleClick = () => {
+    
+  }
+
+  if (type === 'action') return (
+    <IconButton variant="ghost" className='group' aria-label="Apply preset">
+      <ConfirmedIcon />
+    </IconButton>
+  )
+
   const link = linkOptions({
     to: '/setup/presets/$presetId/apply',
     params: { presetId }
