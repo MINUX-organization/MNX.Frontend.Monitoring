@@ -1,6 +1,6 @@
 import { Table, Text } from "@chakra-ui/react";
 import _ from "lodash";
-import { CoinType } from "..";
+import { CoinType } from "../../model/coin.type";
 
 export function GpuItemTable({
   coins,

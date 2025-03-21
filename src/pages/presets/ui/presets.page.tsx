@@ -14,7 +14,7 @@ export function PresetsPage() {
 
   const actions = [
     (item: PresetType) => <ApplyPresetButton presetId={item.id} />,
-    (item: PresetType) => <EditPresetButton presetId={item.id} />,
+    (item: PresetType) => <EditPresetButton presetId={item.id} deviceName=""/>,
     (item: PresetType) => <DeletePresetButton presetId={item.id} />,
   ];
 

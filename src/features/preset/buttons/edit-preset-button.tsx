@@ -15,7 +15,7 @@ export function EditPresetButton({
   type = 'link'
 } : {
   presetId: string
-  deviceName: string
+  deviceName?: string
   type?: 'action' | 'link'
 }) {
   if (type === 'action') return (
@@ -27,7 +27,10 @@ export function EditPresetButton({
           <EditIcon />
         </IconButton>
       )}
-      renderBody={(onClose) => <EditPresetWrapperForm presetId={presetId} onClose={onClose} deviceNameProp={deviceName}/>}
+      renderBody={(onClose) => <EditPresetWrapperForm 
+        presetId={presetId} 
+        onClose={onClose} 
+        deviceNameProp={deviceName}/>}
     />
   )
 

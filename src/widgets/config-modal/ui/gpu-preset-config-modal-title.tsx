@@ -13,8 +13,8 @@ export function GpuPresetConfigModelTitle({ deviceName, deviceIndicators, rigNam
   const indicators = [
     { label: 'Fan Speed', value: deviceIndicators?.fanSpeed || 0, unit: '%' },
     { label: 'Power', value: deviceIndicators?.power || 0, unit: 'W' },
-    { label: 'Temp. Core', value: deviceIndicators?.temperatureCore || 0, unit: '°C' },
-    { label: 'Temp. Memory', value: deviceIndicators?.temperatureMemory || 0, unit: '°C' },
+    { label: 'Temp. Core', value: deviceIndicators?.coreTemperature || 0, unit: '°C' },
+    { label: 'Temp. Memory', value: deviceIndicators?.memoryTemperature || 0, unit: '°C' },
   ]
 
   return (

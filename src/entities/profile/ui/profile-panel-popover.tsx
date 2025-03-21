@@ -1,11 +1,10 @@
 import { PopoverProps, UiPopover } from "@/shared/ui/popover"
 import { ProfileField } from "../model/profile-fields"
-import { Stack, StackSeparator, VStack, Box, ButtonGroup, Group, IconButton } from "@chakra-ui/react"
+import { Stack, StackSeparator, VStack, Box, ButtonGroup, Group } from "@chakra-ui/react"
 import _ from "lodash"
 import { ProfileType } from "../model/profile.type"
 import { UiAvatar, UiText, UiEditableInput, UiField } from "@/shared/ui"
 import { match } from "ts-pattern"
-import { RefreshIcon } from "@/shared/assets/svg"
 
 interface ProfilePanelPopoverProps extends PopoverProps {
   profile?: ProfileType;

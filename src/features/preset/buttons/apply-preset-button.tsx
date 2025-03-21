@@ -9,9 +9,9 @@ export function ApplyPresetButton({
   presetId: string
   type?: 'action' | 'link'
 }) {
-  const handleClick = () => {
+  // const handleClick = () => {
     
-  }
+  // }
 
   if (type === 'action') return (
     <IconButton variant="ghost" className='group' aria-label="Apply preset">
