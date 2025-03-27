@@ -1,5 +1,5 @@
 import { FlightSheetDevicesType } from "@/entities/flight-sheet"
-import { Group, Heading, Stack, Wrap, WrapItem } from "@chakra-ui/react";
+import { Group, Heading, Mark, Stack, Wrap, WrapItem } from "@chakra-ui/react";
 import _ from "lodash";
 import { FlightSheetSelectorDeviceCard } from "./flight-sheet-selector-device-card";
 import { Device, UiCheckbox, UiText } from "@/shared/ui";
@@ -71,13 +71,15 @@ export function FlightSheetSelector({
                     flex={1}
                     h={'full'}
                     label={(
-                      <Stack justify={'space-between'} h={'full'}>
+                      <Stack justify={'space-between'} minH={'5.5rem'}>
                         <UiText>{element.model}</UiText>
                         <UiText>BUS {element.pciBus}</UiText>
-                        {element.flightSheetName && <UiText>Flight Sheet {element.flightSheetName}</UiText>}
+                        {element.flightSheetName && <UiText>Flight Sheet &nbsp; 
+                          <Mark color={'minux.solid'}>{element.flightSheetName}</Mark>
+                        </UiText>}
                       </Stack>
                     )}
-                    device={element.manufacturer as Device}
+                    device={(element.manufacturer + device.name) as Device}
                     checked={flightSheetDevicesApplied.has(element.id)}
                     onCheckedChange={() => hanldeCheckBoxClick(element.id)}
                   />

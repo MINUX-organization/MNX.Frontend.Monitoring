@@ -87,6 +87,7 @@ export function RootLayoutSideBarNavItem({
     <Link to={link.to}>
       <NavButton
         isActive={isActive}
+        disabled={link.disabled}
       >
         <TextResponsive link={link} fontSize={fontSize || 'lg'} />
       </NavButton>  

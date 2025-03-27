@@ -1,7 +1,7 @@
 import { BACKEND_BASE_URL } from "@/shared/constants/backend-urls";
-import { HttpTransportType, HubConnection, HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
+import { HttpTransportType, HubConnection, HubConnectionBuilder, HubConnectionState, LogLevel } from "@microsoft/signalr";
 import { useCallback, useEffect, useState } from "react";
-import { SignalRContext } from "../contexts/signal-r-context";
+import { SignalRContext } from "./signal-r-context";
 
 export function SignalRProvider({
   route,
@@ -27,7 +27,9 @@ export function SignalRProvider({
   }, [route, token]);
 
   const startConnection = useCallback(async () => {
-    if (!connection) return;
+    if (!connection && connection === null) return;
+
+    if (connection.state === HubConnectionState.Connected) return;
 
     try {
       await connection.start();
@@ -37,7 +39,9 @@ export function SignalRProvider({
   }, [connection]);
 
   const stopConnection = useCallback(async () => {
-    if (!connection) return;
+    if (!connection && connection === null) return;
+
+    if (connection.state === HubConnectionState.Disconnected) return;
 
     try {
       await connection.stop();
@@ -52,7 +56,8 @@ export function SignalRProvider({
     setConnection(newConnection);
 
     return () => {
-      newConnection.stop();
+      if (newConnection.state === HubConnectionState.Connected)
+        newConnection.stop();
     };
   }, [createConnection]);
 

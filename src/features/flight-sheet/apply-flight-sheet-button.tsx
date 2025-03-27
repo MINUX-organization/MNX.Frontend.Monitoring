@@ -9,7 +9,7 @@ export function ApplyFlightSheetButton({
 }) {
   const link = linkOptions({
     to: '/setup/flight-sheets/$flightSheetId/apply',
-    params: { flightSheetId }
+    params: { flightSheetId },
   })
     
   return (

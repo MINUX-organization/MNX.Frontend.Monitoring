@@ -1,5 +1,5 @@
 import { ActiveIndicator, UiEditableInput } from "@/shared/ui";
-import { Flex, Stack, StackProps } from "@chakra-ui/react";
+import { Group, Stack, StackProps, Wrap } from "@chakra-ui/react";
 import { RigType } from "../model/rig.type";
 import React from "react";
 
@@ -14,15 +14,28 @@ export function RigItemPanel({
   ...props
 }: RigItemPanelProps) {
   return (
-    <Stack direction={{ base: 'column', md: 'row'}} alignItems={'center'} {...props}>
-      <ActiveIndicator active />
-      <UiEditableInput value={rig.name} onSave={() => console.log('111')}/>
+    <Stack 
+      direction={{ base: 'column', md: 'row'}} 
+      alignItems={{ base: 'flex-start', md: 'center'}} 
+      justifyContent={'space-between'} 
+      {...props}
+    >
+      <Group>
+        <ActiveIndicator activeState={'Active'} />
+        <UiEditableInput 
+          disabled 
+          maxW={'20rem'}
+          textStyle={'lg'}
+          value={rig.name} 
+          onSave={() => console.log('111')}
+        />
+      </Group>
       {actions &&
-        <Flex gap={2}>
+        <Wrap gap={2}>
           {actions.map((action) => (
             <React.Fragment key={action.toString()}>{action(rig)}</React.Fragment>
           ))}
-        </Flex>
+        </Wrap>
       }
     </Stack>
   )

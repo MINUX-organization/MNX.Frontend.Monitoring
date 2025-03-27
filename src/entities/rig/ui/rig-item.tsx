@@ -13,7 +13,7 @@ export function RigItem({
   return (
     <UiContainerRounded>
       <Stack>
-        <RigItemPanel rig={rig} actions={actions} h={'3rem'}/>
+        <RigItemPanel rig={rig} actions={actions} minH={'3rem'}/>
       </Stack>
     </UiContainerRounded>
   )

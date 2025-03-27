@@ -1,4 +1,4 @@
-import { FlightSheetSchema } from "@/entities/flight-sheet";
+import { FlightSheetScheme } from "../../model/flight-sheet.type";
 import { z } from "zod";
 import { MiningStateSchema } from "../../model/mining-state";
 
@@ -9,6 +9,6 @@ export const CpuDynamicIndicatorsSchema = z.object({
   temperature: z.number({invalid_type_error: 'Temperature must be a number'}),
   fanSpeed: z.number({invalid_type_error: 'fan must be a number'}),
   power: z.number({invalid_type_error: 'Power must be a number'}),
-  flightSheet: FlightSheetSchema.array(),
+  flightSheet: FlightSheetScheme,
 })
 export type CpuDynamicIndicatorsType = z.infer<typeof CpuDynamicIndicatorsSchema>

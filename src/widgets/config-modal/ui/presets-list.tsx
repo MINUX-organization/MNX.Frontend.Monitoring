@@ -4,7 +4,7 @@ import { GenericList } from "@/widgets/generic-list";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { ColumnDef } from "@tanstack/react-table";
 
-export function PresetsList({ deviceName }: { deviceName: string }) {
+export function PresetsList({ deviceName, deviceId }: { deviceName: string, deviceId: string }) {
   const { data: presets } = useSuspenseQuery(presetsByDeviceNameQueryOptions(deviceName));
 
   const columns: ColumnDef<PresetType>[] = [
@@ -13,7 +13,7 @@ export function PresetsList({ deviceName }: { deviceName: string }) {
 
   const actions = [
     (item: PresetType) => (
-      <ApplyPresetButton presetId={item.id} type="action"/>
+      <ApplyPresetButton presetId={item.id} deviceId={deviceId} type="action"/>
     ),
     (item: PresetType) => (
       <EditPresetButton presetId={item.id} deviceName={item.deviceName} type="action"/>

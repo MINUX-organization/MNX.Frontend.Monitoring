@@ -1,4 +1,4 @@
-import { deletePresetApi, editPresetApi, getPresetsApi, getPresetsGroupedByGpuApi, savePresetApi } from "@/shared/api";
+import { applyPresetApi, deletePresetApi, editPresetApi, getPresetsApi, getPresetsGroupedByGpuApi, savePresetApi } from "@/shared/api";
 import { queryOptions, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { PresetSchema, PresetType } from "./preset.type";
 import { zodSaveParse } from "@/shared/lib/utils/zod-save-parse";
@@ -13,7 +13,7 @@ export const presetQueryOptions = queryOptions({
 })
 
 export const presetsByDeviceNameQueryOptions = (deviceName?: string) => queryOptions({
-  queryKey: ['presets', 'by-device-name'],
+  queryKey: ['presets', deviceName, 'by-device-name'],
   queryFn: () => getPresetsApi<PresetType[]>(deviceName)
 })
 
@@ -74,10 +74,21 @@ const usePresetMutation = () => {
     },
   })
 
+  const applyPresetMutation = useMutation({
+    mutationFn: ({id, data} : {id: string, data: string[]}) => applyPresetApi(id, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['presets'] });
+      toaster.success({
+        description: 'You have successfully applied preset',
+      })
+    },
+  })
+
   return {
     savePreset: savePresetMutation.mutateAsync,
     editPreset: editPresetMutation.mutateAsync,
     deletePreset: deletePresetMutation.mutateAsync,
+    applyPreset: applyPresetMutation.mutateAsync,
   }
 }
 

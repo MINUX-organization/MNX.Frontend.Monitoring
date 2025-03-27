@@ -10,7 +10,7 @@ import { system } from "../theme"
 export function AppStylingProvider(props: ColorModeProviderProps) {
   return (
     <ChakraProvider value={system}>
-      <ColorModeProvider {...props} />
+      <ColorModeProvider {...props} forcedTheme="dark"/>
     </ChakraProvider>
   )
 }

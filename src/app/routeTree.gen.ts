@@ -16,6 +16,8 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as GuardLayoutImport } from './routes/_guard-layout'
 import { Route as AuthImport } from './routes/_auth'
 import { Route as IndexImport } from './routes/index'
+import { Route as GuardLayoutRigsImport } from './routes/_guard-layout/rigs'
+import { Route as GuardLayoutDevicesImport } from './routes/_guard-layout/devices'
 import { Route as AuthRegistrationImport } from './routes/_auth/registration'
 import { Route as AuthLoginImport } from './routes/_auth/login'
 import { Route as GuardLayoutSetupPresetsImport } from './routes/_guard-layout/setup/presets'
@@ -34,7 +36,6 @@ import { Route as GuardLayoutSetupFlightSheetsFlightSheetIdApplyImport } from '.
 
 // Create Virtual Routes
 
-const GuardLayoutRigsLazyImport = createFileRoute('/_guard-layout/rigs')()
 const GuardLayoutMonitoringLazyImport = createFileRoute(
   '/_guard-layout/monitoring',
 )()
@@ -57,14 +58,6 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const GuardLayoutRigsLazyRoute = GuardLayoutRigsLazyImport.update({
-  id: '/rigs',
-  path: '/rigs',
-  getParentRoute: () => GuardLayoutRoute,
-} as any).lazy(() =>
-  import('./routes/_guard-layout/rigs.lazy').then((d) => d.Route),
-)
-
 const GuardLayoutMonitoringLazyRoute = GuardLayoutMonitoringLazyImport.update({
   id: '/monitoring',
   path: '/monitoring',
@@ -72,6 +65,18 @@ const GuardLayoutMonitoringLazyRoute = GuardLayoutMonitoringLazyImport.update({
 } as any).lazy(() =>
   import('./routes/_guard-layout/monitoring.lazy').then((d) => d.Route),
 )
+
+const GuardLayoutRigsRoute = GuardLayoutRigsImport.update({
+  id: '/rigs',
+  path: '/rigs',
+  getParentRoute: () => GuardLayoutRoute,
+} as any)
+
+const GuardLayoutDevicesRoute = GuardLayoutDevicesImport.update({
+  id: '/devices',
+  path: '/devices',
+  getParentRoute: () => GuardLayoutRoute,
+} as any)
 
 const AuthRegistrationRoute = AuthRegistrationImport.update({
   id: '/registration',
@@ -131,15 +136,15 @@ const GuardLayoutMiningAlgorithmsRoute =
   } as any)
 
 const GuardLayoutDevicesGpusRoute = GuardLayoutDevicesGpusImport.update({
-  id: '/devices/gpus',
-  path: '/devices/gpus',
-  getParentRoute: () => GuardLayoutRoute,
+  id: '/gpus',
+  path: '/gpus',
+  getParentRoute: () => GuardLayoutDevicesRoute,
 } as any)
 
 const GuardLayoutDevicesCpusRoute = GuardLayoutDevicesCpusImport.update({
-  id: '/devices/cpus',
-  path: '/devices/cpus',
-  getParentRoute: () => GuardLayoutRoute,
+  id: '/cpus',
+  path: '/cpus',
+  getParentRoute: () => GuardLayoutDevicesRoute,
 } as any)
 
 const GuardLayoutSetupPresetsConfigRoute =
@@ -209,6 +214,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRegistrationImport
       parentRoute: typeof AuthImport
     }
+    '/_guard-layout/devices': {
+      id: '/_guard-layout/devices'
+      path: '/devices'
+      fullPath: '/devices'
+      preLoaderRoute: typeof GuardLayoutDevicesImport
+      parentRoute: typeof GuardLayoutImport
+    }
+    '/_guard-layout/rigs': {
+      id: '/_guard-layout/rigs'
+      path: '/rigs'
+      fullPath: '/rigs'
+      preLoaderRoute: typeof GuardLayoutRigsImport
+      parentRoute: typeof GuardLayoutImport
+    }
     '/_guard-layout/monitoring': {
       id: '/_guard-layout/monitoring'
       path: '/monitoring'
@@ -216,26 +235,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GuardLayoutMonitoringLazyImport
       parentRoute: typeof GuardLayoutImport
     }
-    '/_guard-layout/rigs': {
-      id: '/_guard-layout/rigs'
-      path: '/rigs'
-      fullPath: '/rigs'
-      preLoaderRoute: typeof GuardLayoutRigsLazyImport
-      parentRoute: typeof GuardLayoutImport
-    }
     '/_guard-layout/devices/cpus': {
       id: '/_guard-layout/devices/cpus'
-      path: '/devices/cpus'
+      path: '/cpus'
       fullPath: '/devices/cpus'
       preLoaderRoute: typeof GuardLayoutDevicesCpusImport
-      parentRoute: typeof GuardLayoutImport
+      parentRoute: typeof GuardLayoutDevicesImport
     }
     '/_guard-layout/devices/gpus': {
       id: '/_guard-layout/devices/gpus'
-      path: '/devices/gpus'
+      path: '/gpus'
       fullPath: '/devices/gpus'
       preLoaderRoute: typeof GuardLayoutDevicesGpusImport
-      parentRoute: typeof GuardLayoutImport
+      parentRoute: typeof GuardLayoutDevicesImport
     }
     '/_guard-layout/mining/algorithms': {
       id: '/_guard-layout/mining/algorithms'
@@ -345,6 +357,19 @@ const GuardLayoutDevicesGpusRouteWithChildren =
     GuardLayoutDevicesGpusRouteChildren,
   )
 
+interface GuardLayoutDevicesRouteChildren {
+  GuardLayoutDevicesCpusRoute: typeof GuardLayoutDevicesCpusRoute
+  GuardLayoutDevicesGpusRoute: typeof GuardLayoutDevicesGpusRouteWithChildren
+}
+
+const GuardLayoutDevicesRouteChildren: GuardLayoutDevicesRouteChildren = {
+  GuardLayoutDevicesCpusRoute: GuardLayoutDevicesCpusRoute,
+  GuardLayoutDevicesGpusRoute: GuardLayoutDevicesGpusRouteWithChildren,
+}
+
+const GuardLayoutDevicesRouteWithChildren =
+  GuardLayoutDevicesRoute._addFileChildren(GuardLayoutDevicesRouteChildren)
+
 interface GuardLayoutSetupFlightSheetsRouteChildren {
   GuardLayoutSetupFlightSheetsConfigRoute: typeof GuardLayoutSetupFlightSheetsConfigRoute
 }
@@ -375,10 +400,9 @@ const GuardLayoutSetupPresetsRouteWithChildren =
   )
 
 interface GuardLayoutRouteChildren {
+  GuardLayoutDevicesRoute: typeof GuardLayoutDevicesRouteWithChildren
+  GuardLayoutRigsRoute: typeof GuardLayoutRigsRoute
   GuardLayoutMonitoringLazyRoute: typeof GuardLayoutMonitoringLazyRoute
-  GuardLayoutRigsLazyRoute: typeof GuardLayoutRigsLazyRoute
-  GuardLayoutDevicesCpusRoute: typeof GuardLayoutDevicesCpusRoute
-  GuardLayoutDevicesGpusRoute: typeof GuardLayoutDevicesGpusRouteWithChildren
   GuardLayoutMiningAlgorithmsRoute: typeof GuardLayoutMiningAlgorithmsRoute
   GuardLayoutMiningCryptocurrenciesRoute: typeof GuardLayoutMiningCryptocurrenciesRoute
   GuardLayoutMiningMinersRoute: typeof GuardLayoutMiningMinersRoute
@@ -390,10 +414,9 @@ interface GuardLayoutRouteChildren {
 }
 
 const GuardLayoutRouteChildren: GuardLayoutRouteChildren = {
+  GuardLayoutDevicesRoute: GuardLayoutDevicesRouteWithChildren,
+  GuardLayoutRigsRoute: GuardLayoutRigsRoute,
   GuardLayoutMonitoringLazyRoute: GuardLayoutMonitoringLazyRoute,
-  GuardLayoutRigsLazyRoute: GuardLayoutRigsLazyRoute,
-  GuardLayoutDevicesCpusRoute: GuardLayoutDevicesCpusRoute,
-  GuardLayoutDevicesGpusRoute: GuardLayoutDevicesGpusRouteWithChildren,
   GuardLayoutMiningAlgorithmsRoute: GuardLayoutMiningAlgorithmsRoute,
   GuardLayoutMiningCryptocurrenciesRoute:
     GuardLayoutMiningCryptocurrenciesRoute,
@@ -416,8 +439,9 @@ export interface FileRoutesByFullPath {
   '': typeof GuardLayoutRouteWithChildren
   '/login': typeof AuthLoginRoute
   '/registration': typeof AuthRegistrationRoute
+  '/devices': typeof GuardLayoutDevicesRouteWithChildren
+  '/rigs': typeof GuardLayoutRigsRoute
   '/monitoring': typeof GuardLayoutMonitoringLazyRoute
-  '/rigs': typeof GuardLayoutRigsLazyRoute
   '/devices/cpus': typeof GuardLayoutDevicesCpusRoute
   '/devices/gpus': typeof GuardLayoutDevicesGpusRouteWithChildren
   '/mining/algorithms': typeof GuardLayoutMiningAlgorithmsRoute
@@ -438,8 +462,9 @@ export interface FileRoutesByTo {
   '': typeof GuardLayoutRouteWithChildren
   '/login': typeof AuthLoginRoute
   '/registration': typeof AuthRegistrationRoute
+  '/devices': typeof GuardLayoutDevicesRouteWithChildren
+  '/rigs': typeof GuardLayoutRigsRoute
   '/monitoring': typeof GuardLayoutMonitoringLazyRoute
-  '/rigs': typeof GuardLayoutRigsLazyRoute
   '/devices/cpus': typeof GuardLayoutDevicesCpusRoute
   '/devices/gpus': typeof GuardLayoutDevicesGpusRouteWithChildren
   '/mining/algorithms': typeof GuardLayoutMiningAlgorithmsRoute
@@ -462,8 +487,9 @@ export interface FileRoutesById {
   '/_guard-layout': typeof GuardLayoutRouteWithChildren
   '/_auth/login': typeof AuthLoginRoute
   '/_auth/registration': typeof AuthRegistrationRoute
+  '/_guard-layout/devices': typeof GuardLayoutDevicesRouteWithChildren
+  '/_guard-layout/rigs': typeof GuardLayoutRigsRoute
   '/_guard-layout/monitoring': typeof GuardLayoutMonitoringLazyRoute
-  '/_guard-layout/rigs': typeof GuardLayoutRigsLazyRoute
   '/_guard-layout/devices/cpus': typeof GuardLayoutDevicesCpusRoute
   '/_guard-layout/devices/gpus': typeof GuardLayoutDevicesGpusRouteWithChildren
   '/_guard-layout/mining/algorithms': typeof GuardLayoutMiningAlgorithmsRoute
@@ -486,8 +512,9 @@ export interface FileRouteTypes {
     | ''
     | '/login'
     | '/registration'
-    | '/monitoring'
+    | '/devices'
     | '/rigs'
+    | '/monitoring'
     | '/devices/cpus'
     | '/devices/gpus'
     | '/mining/algorithms'
@@ -507,8 +534,9 @@ export interface FileRouteTypes {
     | ''
     | '/login'
     | '/registration'
-    | '/monitoring'
+    | '/devices'
     | '/rigs'
+    | '/monitoring'
     | '/devices/cpus'
     | '/devices/gpus'
     | '/mining/algorithms'
@@ -529,8 +557,9 @@ export interface FileRouteTypes {
     | '/_guard-layout'
     | '/_auth/login'
     | '/_auth/registration'
-    | '/_guard-layout/monitoring'
+    | '/_guard-layout/devices'
     | '/_guard-layout/rigs'
+    | '/_guard-layout/monitoring'
     | '/_guard-layout/devices/cpus'
     | '/_guard-layout/devices/gpus'
     | '/_guard-layout/mining/algorithms'
@@ -587,10 +616,9 @@ export const routeTree = rootRoute
     "/_guard-layout": {
       "filePath": "_guard-layout.tsx",
       "children": [
-        "/_guard-layout/monitoring",
+        "/_guard-layout/devices",
         "/_guard-layout/rigs",
-        "/_guard-layout/devices/cpus",
-        "/_guard-layout/devices/gpus",
+        "/_guard-layout/monitoring",
         "/_guard-layout/mining/algorithms",
         "/_guard-layout/mining/cryptocurrencies",
         "/_guard-layout/mining/miners",
@@ -609,21 +637,29 @@ export const routeTree = rootRoute
       "filePath": "_auth/registration.tsx",
       "parent": "/_auth"
     },
+    "/_guard-layout/devices": {
+      "filePath": "_guard-layout/devices.tsx",
+      "parent": "/_guard-layout",
+      "children": [
+        "/_guard-layout/devices/cpus",
+        "/_guard-layout/devices/gpus"
+      ]
+    },
+    "/_guard-layout/rigs": {
+      "filePath": "_guard-layout/rigs.tsx",
+      "parent": "/_guard-layout"
+    },
     "/_guard-layout/monitoring": {
       "filePath": "_guard-layout/monitoring.lazy.tsx",
       "parent": "/_guard-layout"
     },
-    "/_guard-layout/rigs": {
-      "filePath": "_guard-layout/rigs.lazy.tsx",
-      "parent": "/_guard-layout"
-    },
     "/_guard-layout/devices/cpus": {
       "filePath": "_guard-layout/devices/cpus.tsx",
-      "parent": "/_guard-layout"
+      "parent": "/_guard-layout/devices"
     },
     "/_guard-layout/devices/gpus": {
       "filePath": "_guard-layout/devices/gpus.tsx",
-      "parent": "/_guard-layout",
+      "parent": "/_guard-layout/devices",
       "children": [
         "/_guard-layout/devices/gpus/config"
       ]

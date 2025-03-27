@@ -1,5 +1,5 @@
 import { SubscriptionType } from "@/shared/constants/subscription-type";
-import { useSignalR } from "@/shared/lib/hooks/hubConnection";
+import { useSignalR } from "@/shared/lib/websocket/hubConnection";
 import { subscriber } from "@/shared/lib/utils/subscriber";
 import { useEffect, useState } from "react";
 

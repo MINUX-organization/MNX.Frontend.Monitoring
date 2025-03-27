@@ -25,7 +25,7 @@ export function ProfilePanel({ profile, groupProps, buttonProps, ...props }: Pro
             <UiButton w={'full'} h={'full'} flexGrow={1} variant={'ghost'} p={0} pt={1} pb={1} justifyContent={'flex-start'} {...buttonProps}> 
               <Group {...groupProps}>
                 <UiAvatar name={profile.nickname} ml={1} mr={1}/>
-                <UiText display={{ base: 'none', lg: 'block' }}>{profile.nickname}</UiText>
+                <UiText w={'10rem'} truncate textAlign={'left'} display={{ base: 'none', lg: 'block' }}>{profile.nickname}</UiText>
               </Group>
             </UiButton>
           ))

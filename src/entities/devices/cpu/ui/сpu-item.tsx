@@ -1,28 +1,26 @@
 import { ActiveIndicator, UiContainerRounded, UiText } from "@/shared/ui";
 import { DataList, Group, Heading, Stack, StackProps, VStack, Wrap } from "@chakra-ui/react";
-import { GpuType } from "../model/gpu.type";
 import _ from "lodash";
-import { GpuDynamicIndicatorsType } from "..";
-import { GpuItemTable } from "./gpu-item-table";
+import { CpuDynamicIndicatorsType } from "..";
+import { CpuItemTable } from "./сpu-item-table";
+import { CpuType } from "../model/cpu.type";
 
-interface GpuItemProps extends StackProps {
-  gpu: GpuType;
-  gpuDynamic?: GpuDynamicIndicatorsType;
-  renderGpuSetting?: (gpuId: string) => React.ReactNode
+interface CpuItemProps extends StackProps {
+  cpu: CpuType;
+  cpuDynamic?: CpuDynamicIndicatorsType;
 }
 
-export function GpuItem({ gpu, gpuDynamic, renderGpuSetting, ...props }: GpuItemProps) {
+export function CpuItem({ cpu, cpuDynamic, ...props }: CpuItemProps) {
   const gpuIndicators = [
-    { label: 'MEM', value: gpuDynamic?.memoryTemperature || 0, unit: '°C' },
-    { label: 'CORE' , value: gpuDynamic?.coreTemperature || 0, unit: '°C' },
-    { label: 'FAN', value: gpuDynamic?.fanSpeed || 0, unit: '%' },
-    { label: 'PWR', value: gpuDynamic?.power || 0, unit: 'W' },
+    { label: 'TMP', value: cpuDynamic?.temperature || 0, unit: '°C' },
+    { label: 'FAN', value: cpuDynamic?.fanSpeed || 0, unit: '%' },
+    { label: 'PWR', value: cpuDynamic?.power || 0, unit: 'W' },
   ];
 
   const stats = [
     { label: 'Preset', value: undefined },
-    { label: 'Flight sheet', value: gpu.flightSheetName },
-    { label: 'Rig', value: gpu.rigName },
+    { label: 'Flight sheet', value: cpu.flightSheetName },
+    { label: 'Rig', value: cpu.rigName },
   ];
 
   return (
@@ -36,8 +34,8 @@ export function GpuItem({ gpu, gpuDynamic, renderGpuSetting, ...props }: GpuItem
       >
         <Stack gap={0}>
           <Group>
-            <ActiveIndicator activeState={gpuDynamic?.miningState} />
-            <Heading>{gpu.information.name}</Heading>
+            <ActiveIndicator activeState={cpuDynamic?.miningState} />
+            <Heading >{cpu.information.name}</Heading>
           </Group>
           <DataList.Root orientation="horizontal" gap={0}>
             {_.map(stats, (stat) => (
@@ -61,10 +59,9 @@ export function GpuItem({ gpu, gpuDynamic, renderGpuSetting, ...props }: GpuItem
             </VStack>
           ))}
         </Wrap>
-        {!_.isEmpty(gpuDynamic?.flightSheet.coins) && 
-          <GpuItemTable coins={gpuDynamic?.flightSheet.coins || []} power={gpuDynamic?.power || 0} />}
+        {!_.isEmpty(cpuDynamic?.flightSheet.coins) && 
+          <CpuItemTable coins={cpuDynamic?.flightSheet.coins || []} power={cpuDynamic?.power || 0} />}
         <Group>
-          {renderGpuSetting?.(gpu.id)}
         </Group>
     </UiContainerRounded>
   )

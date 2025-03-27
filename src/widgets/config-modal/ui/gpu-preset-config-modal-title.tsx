@@ -5,16 +5,16 @@ import _ from "lodash";
 
 export interface GpuPresetConfigModalTitleProps {
   deviceName: string
-  deviceIndicators?: GpuDynamicIndicatorsType
+  dynamicDeviceIndicators?: GpuDynamicIndicatorsType
   rigName?: string
 }
 
-export function GpuPresetConfigModelTitle({ deviceName, deviceIndicators, rigName }: GpuPresetConfigModalTitleProps) {
+export function GpuPresetConfigModelTitle({ deviceName, dynamicDeviceIndicators, rigName }: GpuPresetConfigModalTitleProps) {
   const indicators = [
-    { label: 'Fan Speed', value: deviceIndicators?.fanSpeed || 0, unit: '%' },
-    { label: 'Power', value: deviceIndicators?.power || 0, unit: 'W' },
-    { label: 'Temp. Core', value: deviceIndicators?.coreTemperature || 0, unit: '°C' },
-    { label: 'Temp. Memory', value: deviceIndicators?.memoryTemperature || 0, unit: '°C' },
+    { label: 'Fan Speed', value: dynamicDeviceIndicators?.fanSpeed || 0, unit: '%' },
+    { label: 'Power', value: dynamicDeviceIndicators?.power || 0, unit: 'W' },
+    { label: 'Temp. Core', value: dynamicDeviceIndicators?.coreTemperature || 0, unit: '°C' },
+    { label: 'Temp. Memory', value: dynamicDeviceIndicators?.memoryTemperature || 0, unit: '°C' },
   ]
 
   return (

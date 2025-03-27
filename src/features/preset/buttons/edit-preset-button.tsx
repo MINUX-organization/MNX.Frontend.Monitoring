@@ -82,6 +82,7 @@ export const EditPresetWrapperForm = ({
         defaultValues={findedPreset}
         overclocking={overclocking}
         setDeviceName={setDeviceName}
+        deviceNameInputDisabled
         mode="edit"
         onClose={onClose}
       />

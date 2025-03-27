@@ -29,15 +29,14 @@ export function PresetConfigModal() {
   }, []);
 
   useEffect(() => {
-    if (!presetId || !findedPreset) return;
+    if (presetId) {
+      setMode('edit');
+    }
 
     if (findedPreset) {
       setDeviceName(findedPreset.deviceName);
-      setMode('edit');
       return;
     }
-
-    setMode('add');
   }, [presetId, findedPreset]);
 
   const isOpen = !_.isEmpty(deviceName) && deviceName !== null
@@ -52,17 +51,18 @@ export function PresetConfigModal() {
       renderTrigger={() => <Box></Box>}
       renderBody={() => (
         <Stack gap={4}>
-          <PresetForm
+          {(findedPreset || mode === 'add') && <PresetForm
             devicesNames={gpusUniqueNames.data} 
             defaultValues={findedPreset}
             setDeviceName={setDeviceName}
             overclocking={overclocking}
+            deviceNameInputDisabled={mode == 'edit'}
             onClose={() => {
               navigate({ to: '/setup/presets' })
               setDeviceName('');
             }}
             mode={mode}
-          />
+          />}
           {isOpen && <Collapsible.Root open={isOpen}>
             <Collapsible.Content>
               <Suspense fallback={<Loader />}>

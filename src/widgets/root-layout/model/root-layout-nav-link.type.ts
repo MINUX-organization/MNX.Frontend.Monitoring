@@ -3,4 +3,5 @@ export type RootLayoutNavLink = {
   icon?: React.ReactElement;
   to?: string;
   children?: RootLayoutNavLink[];
+  disabled?: boolean
 }

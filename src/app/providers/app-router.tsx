@@ -4,6 +4,7 @@ import { sessionRepository } from "@/entities/session";
 import { queryClient } from "./app-query";
 
 const router = createRouter({
+  
   routeTree,
   defaultPreload: 'intent',
   defaultPreloadDelay: 100,

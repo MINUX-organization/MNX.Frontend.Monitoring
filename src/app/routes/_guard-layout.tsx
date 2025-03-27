@@ -1,3 +1,6 @@
+import { sessionRepository } from '@/entities/session';
+import { BACKEND_HUBS } from '@/shared/constants/backend-urls';
+import { SignalRProvider } from '@/shared/lib/websocket/signal-r-provider';
 import { TokenRefresher } from '@/shared/lib/utils/refresh-token';
 import { RootLayout } from '@/widgets/root-layout';
 import { createFileRoute, redirect } from '@tanstack/react-router';
@@ -44,6 +47,14 @@ function redirectToLogin(redirectUrl: string) {
   });
 }
 
+const { sessionQuery } = sessionRepository;
+
 function RouteComponent() {
-  return <RootLayout />;
+  const session = sessionQuery();
+
+  return (
+    <SignalRProvider route={BACKEND_HUBS.MONITORING} token={session?.accessToken ?? ''}>
+      <RootLayout />
+    </SignalRProvider>
+  )
 }

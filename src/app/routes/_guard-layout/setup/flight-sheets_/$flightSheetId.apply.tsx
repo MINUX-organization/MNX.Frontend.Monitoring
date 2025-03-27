@@ -15,5 +15,10 @@ export const Route = createFileRoute(
     queryClient.prefetchQuery(flightSheetRigDevicesSupportQueryOptions(flightSheetId))
     queryClient.prefetchQuery(flightSheetRigDevicesQueryOptions(flightSheetId))
   },
+  onLeave: ({ context: { queryClient }, params: { flightSheetId } }) => {
+    queryClient.removeQueries(flightSheetByIdQueryOptions(flightSheetId))
+    queryClient.removeQueries(flightSheetRigDevicesSupportQueryOptions(flightSheetId))
+    queryClient.removeQueries(flightSheetRigDevicesQueryOptions(flightSheetId))
+  },
   component: FlightSheetApplyPage,
 })

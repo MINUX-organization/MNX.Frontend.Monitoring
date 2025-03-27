@@ -10,11 +10,13 @@ import { GpuPresetConfigModelTitle } from "./gpu-preset-config-modal-title";
 import { ApplyOverclockingButton } from "@/features/devices";
 import { SaveAsPresetButton, ApplyPresetFromListButton } from "@/features/preset";
 import { PresetsList } from "./presets-list";
+import { devicesStreamStore } from "@/entities/devices";
 
 const { useGpuQuery } = gpuRepository;
 
 export function GpuPresetConfigModal() {
   const navigate = useNavigate();
+  const { gpuDynamicTotalIndicators } = devicesStreamStore();
   const { gpuId } = useSearch({ from: '/_guard-layout/devices/gpus/config' });
   const { getById } = useGpuQuery();
   const { setDeviceName, deviceName, setOverclocking } = presetFormStore();
@@ -37,7 +39,10 @@ export function GpuPresetConfigModal() {
         navigate({ to: '/devices/gpus' });
       }}
       renderTitle={() => (
-        <GpuPresetConfigModelTitle deviceName={deviceName} rigName={findedGpu?.rigName} />
+        <GpuPresetConfigModelTitle 
+          deviceName={deviceName}
+          dynamicDeviceIndicators={gpuDynamicTotalIndicators.get(gpuId)}
+          rigName={findedGpu?.rigName} />
       )}
       renderTrigger={() => <Box></Box>}
       renderBody={() => {
@@ -55,7 +60,7 @@ export function GpuPresetConfigModal() {
         <Group w={'full'} justifyContent={'space-between'}>
           <ApplyPresetFromListButton renderPresetsList={() => (
             <Suspense fallback={<Loader />}>
-              <PresetsList deviceName={deviceName} />
+              <PresetsList deviceName={deviceName} deviceId={gpuId} />
             </Suspense>
           )} />
           <Group>

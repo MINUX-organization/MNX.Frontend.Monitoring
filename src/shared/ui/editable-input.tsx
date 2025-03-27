@@ -4,10 +4,11 @@ import { LuCheck, LuPencilLine, LuX } from "react-icons/lu"
 
 export interface EditableInputProps extends Editable.RootProps {
   inputprops?: Editable.InputProps
+  previewprops?: Editable.PreviewProps
   onSave?: (value: string) => void
 }
 
-export function UiEditableInput({ inputprops, value, onSave, ...props }: EditableInputProps) {
+export function UiEditableInput({ inputprops, previewprops, value, onSave, ...props }: EditableInputProps) {
   const [name, setName] = useState(value)
 
   useEffect(() => {
@@ -24,13 +25,14 @@ export function UiEditableInput({ inputprops, value, onSave, ...props }: Editabl
       textStyle={'md'} 
       fontSize={'md'}
       > 
-      <Editable.Preview />
+      <Editable.Preview truncate textStyle={props.textStyle} {...previewprops}/>
       <Editable.Input 
-        {...inputprops} 
+        textStyle={props.textStyle}
         onChange={(e) => setName(e.target.value)} 
         colorPalette="input" 
         rounded={'md'} 
         required
+        {...inputprops}
       />
       <Editable.Control>
         <Editable.EditTrigger asChild>
