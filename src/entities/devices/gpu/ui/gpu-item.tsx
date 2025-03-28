@@ -37,7 +37,7 @@ export function GpuItem({ gpu, gpuDynamic, renderGpuSetting, ...props }: GpuItem
         <Stack gap={0}>
           <Group>
             <ActiveIndicator activeState={gpuDynamic?.miningState} />
-            <Heading>{gpu.information.name}</Heading>
+            <Heading w={{ base: '100%', md: '20rem'}}>{gpu.information.name}</Heading>
           </Group>
           <DataList.Root orientation="horizontal" gap={0}>
             {_.map(stats, (stat) => (
