@@ -25,13 +25,7 @@ export function PresetSlidersForm({
   const [savedRestrictions] = useState(restrictions.data);
 
   const sliderType = useMemo(
-    () => {
-      if (_.isEqual(restrictions.data, savedRestrictions)) {
-        return convertToSliders(savedRestrictions, overclockingPresetValues);
-      }
-
-      return convertToSliders(restrictions.data)
-    },
+    () => convertToSliders(savedRestrictions, overclockingPresetValues),
     [restrictions.data, overclockingPresetValues]
   )
 

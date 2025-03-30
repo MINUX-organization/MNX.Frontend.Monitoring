@@ -2,7 +2,7 @@ import { AxiosResponse } from 'axios'
 
 export { generateKeyApi, getProfileApi, editNicknameApi } from './profile'
 export { loginApi, logoutApi, refreshTokensApi, registrationApi, changePasswordApi } from './user'
-export { getRigsApi, getRigCpusApi, getRigGpusApi, getRigDrivesApi, getRigSoftwareApi, getRigMotherboardApi, getRigNetworkAdaptersApi, rigStopMiningApi, rigStartMiningApi } from './rig'
+export { getRigsApi, getRigCpusApi, getRigGpusApi, getRigDrivesApi, getRigSoftwareApi, getRigMotherboardApi, getRigNetworkAdaptersApi, rigStopMiningApi, rigStartMiningApi, rigRebootApi, rigPowerOffApi } from './rig'
 export { getPresetsApi, getPresetsGroupedByGpuApi, savePresetApi, deletePresetApi, editPresetApi, applyPresetApi } from './preset'
 export { getPoolsApi, addPoolApi, editPoolApi, deletePoolApi } from './pool'
 export { getWalletsApi, addWalletApi, deleteWalletApi, editWalletApi } from './wallet'

@@ -54,7 +54,7 @@ export function FlightSheetSelector({
     <Stack gap={3}>
       <Group gap={3}>
         <UiCheckbox
-          colorPalette={"checked"}
+          colorPalette={"minux"}
           checked={currentAllChecked}
           onCheckedChange={handleGroupCheckboxClick}
         />
@@ -82,6 +82,7 @@ export function FlightSheetSelector({
                     device={(element.manufacturer + device.name) as Device}
                     checked={flightSheetDevicesApplied.has(element.id)}
                     onCheckedChange={() => hanldeCheckBoxClick(element.id)}
+                    warn={element.flightSheetIsConfirm ? undefined : 'Flight sheet not confirmed on rig'}
                   />
                 </WrapItem>
               ))}

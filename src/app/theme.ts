@@ -22,9 +22,6 @@ const config = defineConfig({
           amd: { value: "#ED1C24" },
           intel: { value: "#0071C5" },
         },
-        checked: {
-          solid: { value: 'orange' },
-        },
         minux: {
           solid: {
             value: "rgba(60, 158, 165, 1)",

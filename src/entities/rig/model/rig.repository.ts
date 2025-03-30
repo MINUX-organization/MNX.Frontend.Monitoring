@@ -1,4 +1,4 @@
-import { getRigsApi, rigStartMiningApi, rigStopMiningApi } from "@/shared/api"
+import { getRigsApi, rigPowerOffApi, rigRebootApi, rigStartMiningApi, rigStopMiningApi } from "@/shared/api"
 import { queryOptions, useMutation } from "@tanstack/react-query"
 import { RigType } from "./rig.type"
 import { toaster } from "@/shared/ui/toaster"
@@ -28,9 +28,29 @@ const useRigMutation = () => {
     }
   })
 
+  const rebootRigMutation = useMutation({
+    mutationFn: (id: string) => rigRebootApi(id),
+    onSuccess: () => {
+      toaster.success({
+        description: 'You have successfully send reboot command',
+      })
+    }
+  })
+
+  const powerOffRigMutation = useMutation({
+    mutationFn: (id: string) => rigPowerOffApi(id),
+    onSuccess: () => {
+      toaster.success({
+        description: 'You have successfully send power off command',
+      })
+    }
+  })
+
   return {
     startRigMining: startRigMiningMutation.mutateAsync,
     stopRigMining: stopRigMiningMutation.mutateAsync,
+    rebootRig: rebootRigMutation.mutateAsync,
+    powerOffRig: powerOffRigMutation.mutateAsync
   }
 }
 

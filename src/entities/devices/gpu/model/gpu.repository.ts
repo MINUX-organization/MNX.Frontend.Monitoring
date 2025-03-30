@@ -33,6 +33,7 @@ export const gpuOverclockingOptions = (deviceId: string) => queryOptions({
   queryKey: ['gpus', deviceId, 'overclocking'],
   queryFn: () => getDeviceOverclockingApi<OverclockingGpuType>(deviceId),
   enabled: !!deviceId,
+  staleTime: 5000,
 });
 
 export const useGpuQuery = () => {

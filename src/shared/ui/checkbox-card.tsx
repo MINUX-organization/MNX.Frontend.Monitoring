@@ -1,5 +1,6 @@
 import { CheckboxCard as ChakraCheckboxCard, VStack } from "@chakra-ui/react"
 import * as React from "react"
+import { WarnIcon } from "../assets/svg"
 
 export interface CheckboxCardProps extends ChakraCheckboxCard.RootProps {
   icon?: React.ReactElement
@@ -9,6 +10,7 @@ export interface CheckboxCardProps extends ChakraCheckboxCard.RootProps {
   indicator?: React.ReactNode | null
   indicatorPlacement?: "start" | "end" | "inside"
   inputProps?: React.InputHTMLAttributes<HTMLInputElement>
+  warn?: string
   image?: React.ReactNode
 }
 
@@ -25,6 +27,7 @@ export const UiCheckboxCard = React.forwardRef<
     indicator = <ChakraCheckboxCard.Indicator borderColor={'minux.solid'} _checked={{ borderColor: 'transparent' }}/>,
     indicatorPlacement = "end",
     image,
+    warn,
     ...rest
   } = props
 
@@ -35,7 +38,7 @@ export const UiCheckboxCard = React.forwardRef<
     <ChakraCheckboxCard.Root      
       borderColor={'minux.solid'}
       _checked={{ borderColor: 'transparent', borderImage: 'none' }}
-      colorPalette={'checked'}
+      colorPalette={warn ? 'orange' : 'green'}
       bg={'bg.transparent'}
       {...rest}
     >
@@ -46,7 +49,9 @@ export const UiCheckboxCard = React.forwardRef<
           <ContentWrapper h={'full'}>
             {icon}
             {label && (
-              <ChakraCheckboxCard.Label h={'full'} alignItems={'flex-start'}>{label}</ChakraCheckboxCard.Label>
+              <ChakraCheckboxCard.Label h={'full'} alignItems={'flex-start'}>
+                {label}
+              </ChakraCheckboxCard.Label>
             )}
             {description && (
               <ChakraCheckboxCard.Description>
@@ -58,6 +63,7 @@ export const UiCheckboxCard = React.forwardRef<
         )}
         <VStack justify={'space-between'} h={'full'} w={'20px'}>
           {indicatorPlacement === "end" && indicator}
+          {rest.checked && warn && <WarnIcon width={'20px'} height={'20px'} fill={'orange.500'}/>}
           {image}
         </VStack>
       </ChakraCheckboxCard.Control>

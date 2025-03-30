@@ -12,6 +12,12 @@ export const presetQueryOptions = queryOptions({
   queryFn: () => getPresetsApi<PresetType[]>()
 })
 
+export const presetByIdQueryOptions = (id?: string) => queryOptions({
+  queryKey: ['presets', id],
+  queryFn: () => getPresetsApi<PresetType[]>(id),
+  enabled: !!id
+})
+
 export const presetsByDeviceNameQueryOptions = (deviceName?: string) => queryOptions({
   queryKey: ['presets', deviceName, 'by-device-name'],
   queryFn: () => getPresetsApi<PresetType[]>(deviceName)

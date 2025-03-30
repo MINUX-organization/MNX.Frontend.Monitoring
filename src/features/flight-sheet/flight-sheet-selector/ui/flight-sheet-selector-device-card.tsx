@@ -1,5 +1,4 @@
-import { Device, DevicesIcons, UiCheckboxCard } from "@/shared/ui";
-import { CheckboxCardRootProps } from "@chakra-ui/react";
+import { CheckboxCardProps, Device, DevicesIcons, UiCheckboxCard } from "@/shared/ui";
 import React from "react";
 
 export function FlightSheetSelectorDeviceCard({
@@ -11,7 +10,7 @@ export function FlightSheetSelectorDeviceCard({
   label: React.ReactNode;
   description?: React.ReactNode;
   device: Device
-} & CheckboxCardRootProps) {
+} & CheckboxCardProps) {
   return (
     <UiCheckboxCard
       label={label}

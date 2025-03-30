@@ -26,6 +26,10 @@ export function PresetConfigModal() {
 
   useEffect(() => {
     setDeviceName('');
+
+    return() => {
+      setDeviceName('');
+    }
   }, []);
 
   useEffect(() => {
