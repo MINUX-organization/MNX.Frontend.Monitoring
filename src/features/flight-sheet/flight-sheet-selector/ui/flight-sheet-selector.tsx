@@ -82,7 +82,7 @@ export function FlightSheetSelector({
                     device={(element.manufacturer + device.name) as Device}
                     checked={flightSheetDevicesApplied.has(element.id)}
                     onCheckedChange={() => hanldeCheckBoxClick(element.id)}
-                    warn={element.flightSheetIsConfirm ? undefined : 'Flight sheet not confirmed on rig'}
+                    warn={element.flightSheetIsConfirm ? undefined : 'Operation not confirmed on rig'}
                   />
                 </WrapItem>
               ))}

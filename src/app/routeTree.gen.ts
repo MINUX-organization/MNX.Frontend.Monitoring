@@ -16,28 +16,31 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as GuardLayoutImport } from './routes/_guard-layout'
 import { Route as AuthImport } from './routes/_auth'
 import { Route as IndexImport } from './routes/index'
-import { Route as GuardLayoutRigsImport } from './routes/_guard-layout/rigs'
-import { Route as GuardLayoutDevicesImport } from './routes/_guard-layout/devices'
+import { Route as GuardLayoutNotificationImport } from './routes/_guard-layout/_notification'
 import { Route as AuthRegistrationImport } from './routes/_auth/registration'
 import { Route as AuthLoginImport } from './routes/_auth/login'
-import { Route as GuardLayoutSetupPresetsImport } from './routes/_guard-layout/setup/presets'
-import { Route as GuardLayoutSetupFlightSheetsImport } from './routes/_guard-layout/setup/flight-sheets'
-import { Route as GuardLayoutMiningWalletsImport } from './routes/_guard-layout/mining/wallets'
-import { Route as GuardLayoutMiningPoolsImport } from './routes/_guard-layout/mining/pools'
-import { Route as GuardLayoutMiningMinersImport } from './routes/_guard-layout/mining/miners'
-import { Route as GuardLayoutMiningCryptocurrenciesImport } from './routes/_guard-layout/mining/cryptocurrencies'
-import { Route as GuardLayoutMiningAlgorithmsImport } from './routes/_guard-layout/mining/algorithms'
-import { Route as GuardLayoutDevicesGpusImport } from './routes/_guard-layout/devices/gpus'
-import { Route as GuardLayoutDevicesCpusImport } from './routes/_guard-layout/devices/cpus'
-import { Route as GuardLayoutSetupPresetsConfigImport } from './routes/_guard-layout/setup/presets/config'
-import { Route as GuardLayoutSetupFlightSheetsConfigImport } from './routes/_guard-layout/setup/flight-sheets/config'
-import { Route as GuardLayoutDevicesGpusConfigImport } from './routes/_guard-layout/devices/gpus/config'
-import { Route as GuardLayoutSetupFlightSheetsFlightSheetIdApplyImport } from './routes/_guard-layout/setup/flight-sheets_/$flightSheetId.apply'
+import { Route as GuardLayoutNotificationStreamsImport } from './routes/_guard-layout/_notification/_streams'
+import { Route as GuardLayoutNotificationSetupPresetsImport } from './routes/_guard-layout/_notification/setup/presets'
+import { Route as GuardLayoutNotificationSetupFlightSheetsImport } from './routes/_guard-layout/_notification/setup/flight-sheets'
+import { Route as GuardLayoutNotificationMiningWalletsImport } from './routes/_guard-layout/_notification/mining/wallets'
+import { Route as GuardLayoutNotificationMiningPoolsImport } from './routes/_guard-layout/_notification/mining/pools'
+import { Route as GuardLayoutNotificationMiningMinersImport } from './routes/_guard-layout/_notification/mining/miners'
+import { Route as GuardLayoutNotificationMiningCryptocurrenciesImport } from './routes/_guard-layout/_notification/mining/cryptocurrencies'
+import { Route as GuardLayoutNotificationMiningAlgorithmsImport } from './routes/_guard-layout/_notification/mining/algorithms'
+import { Route as GuardLayoutNotificationStreamsRigsImport } from './routes/_guard-layout/_notification/_streams/rigs'
+import { Route as GuardLayoutNotificationStreamsDevicesImport } from './routes/_guard-layout/_notification/_streams/devices'
+import { Route as GuardLayoutNotificationSetupPresetsConfigImport } from './routes/_guard-layout/_notification/setup/presets/config'
+import { Route as GuardLayoutNotificationSetupFlightSheetsConfigImport } from './routes/_guard-layout/_notification/setup/flight-sheets/config'
+import { Route as GuardLayoutNotificationStreamsDevicesGpusImport } from './routes/_guard-layout/_notification/_streams/devices/gpus'
+import { Route as GuardLayoutNotificationStreamsDevicesCpusImport } from './routes/_guard-layout/_notification/_streams/devices/cpus'
+import { Route as GuardLayoutNotificationSetupPresetsPresetIdApplyImport } from './routes/_guard-layout/_notification/setup/presets_/$presetId.apply'
+import { Route as GuardLayoutNotificationSetupFlightSheetsFlightSheetIdApplyImport } from './routes/_guard-layout/_notification/setup/flight-sheets_/$flightSheetId.apply'
+import { Route as GuardLayoutNotificationStreamsDevicesGpusConfigImport } from './routes/_guard-layout/_notification/_streams/devices/gpus/config'
 
 // Create Virtual Routes
 
-const GuardLayoutMonitoringLazyImport = createFileRoute(
-  '/_guard-layout/monitoring',
+const GuardLayoutNotificationStreamsMonitoringLazyImport = createFileRoute(
+  '/_guard-layout/_notification/_streams/monitoring',
 )()
 
 // Create/Update Routes
@@ -58,23 +61,8 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const GuardLayoutMonitoringLazyRoute = GuardLayoutMonitoringLazyImport.update({
-  id: '/monitoring',
-  path: '/monitoring',
-  getParentRoute: () => GuardLayoutRoute,
-} as any).lazy(() =>
-  import('./routes/_guard-layout/monitoring.lazy').then((d) => d.Route),
-)
-
-const GuardLayoutRigsRoute = GuardLayoutRigsImport.update({
-  id: '/rigs',
-  path: '/rigs',
-  getParentRoute: () => GuardLayoutRoute,
-} as any)
-
-const GuardLayoutDevicesRoute = GuardLayoutDevicesImport.update({
-  id: '/devices',
-  path: '/devices',
+const GuardLayoutNotificationRoute = GuardLayoutNotificationImport.update({
+  id: '/_notification',
   getParentRoute: () => GuardLayoutRoute,
 } as any)
 
@@ -90,89 +78,133 @@ const AuthLoginRoute = AuthLoginImport.update({
   getParentRoute: () => AuthRoute,
 } as any)
 
-const GuardLayoutSetupPresetsRoute = GuardLayoutSetupPresetsImport.update({
-  id: '/setup/presets',
-  path: '/setup/presets',
-  getParentRoute: () => GuardLayoutRoute,
-} as any)
+const GuardLayoutNotificationStreamsRoute =
+  GuardLayoutNotificationStreamsImport.update({
+    id: '/_streams',
+    getParentRoute: () => GuardLayoutNotificationRoute,
+  } as any)
 
-const GuardLayoutSetupFlightSheetsRoute =
-  GuardLayoutSetupFlightSheetsImport.update({
+const GuardLayoutNotificationStreamsMonitoringLazyRoute =
+  GuardLayoutNotificationStreamsMonitoringLazyImport.update({
+    id: '/monitoring',
+    path: '/monitoring',
+    getParentRoute: () => GuardLayoutNotificationStreamsRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/_guard-layout/_notification/_streams/monitoring.lazy'
+    ).then((d) => d.Route),
+  )
+
+const GuardLayoutNotificationSetupPresetsRoute =
+  GuardLayoutNotificationSetupPresetsImport.update({
+    id: '/setup/presets',
+    path: '/setup/presets',
+    getParentRoute: () => GuardLayoutNotificationRoute,
+  } as any)
+
+const GuardLayoutNotificationSetupFlightSheetsRoute =
+  GuardLayoutNotificationSetupFlightSheetsImport.update({
     id: '/setup/flight-sheets',
     path: '/setup/flight-sheets',
-    getParentRoute: () => GuardLayoutRoute,
+    getParentRoute: () => GuardLayoutNotificationRoute,
   } as any)
 
-const GuardLayoutMiningWalletsRoute = GuardLayoutMiningWalletsImport.update({
-  id: '/mining/wallets',
-  path: '/mining/wallets',
-  getParentRoute: () => GuardLayoutRoute,
-} as any)
+const GuardLayoutNotificationMiningWalletsRoute =
+  GuardLayoutNotificationMiningWalletsImport.update({
+    id: '/mining/wallets',
+    path: '/mining/wallets',
+    getParentRoute: () => GuardLayoutNotificationRoute,
+  } as any)
 
-const GuardLayoutMiningPoolsRoute = GuardLayoutMiningPoolsImport.update({
-  id: '/mining/pools',
-  path: '/mining/pools',
-  getParentRoute: () => GuardLayoutRoute,
-} as any)
+const GuardLayoutNotificationMiningPoolsRoute =
+  GuardLayoutNotificationMiningPoolsImport.update({
+    id: '/mining/pools',
+    path: '/mining/pools',
+    getParentRoute: () => GuardLayoutNotificationRoute,
+  } as any)
 
-const GuardLayoutMiningMinersRoute = GuardLayoutMiningMinersImport.update({
-  id: '/mining/miners',
-  path: '/mining/miners',
-  getParentRoute: () => GuardLayoutRoute,
-} as any)
+const GuardLayoutNotificationMiningMinersRoute =
+  GuardLayoutNotificationMiningMinersImport.update({
+    id: '/mining/miners',
+    path: '/mining/miners',
+    getParentRoute: () => GuardLayoutNotificationRoute,
+  } as any)
 
-const GuardLayoutMiningCryptocurrenciesRoute =
-  GuardLayoutMiningCryptocurrenciesImport.update({
+const GuardLayoutNotificationMiningCryptocurrenciesRoute =
+  GuardLayoutNotificationMiningCryptocurrenciesImport.update({
     id: '/mining/cryptocurrencies',
     path: '/mining/cryptocurrencies',
-    getParentRoute: () => GuardLayoutRoute,
+    getParentRoute: () => GuardLayoutNotificationRoute,
   } as any)
 
-const GuardLayoutMiningAlgorithmsRoute =
-  GuardLayoutMiningAlgorithmsImport.update({
+const GuardLayoutNotificationMiningAlgorithmsRoute =
+  GuardLayoutNotificationMiningAlgorithmsImport.update({
     id: '/mining/algorithms',
     path: '/mining/algorithms',
-    getParentRoute: () => GuardLayoutRoute,
+    getParentRoute: () => GuardLayoutNotificationRoute,
   } as any)
 
-const GuardLayoutDevicesGpusRoute = GuardLayoutDevicesGpusImport.update({
-  id: '/gpus',
-  path: '/gpus',
-  getParentRoute: () => GuardLayoutDevicesRoute,
-} as any)
+const GuardLayoutNotificationStreamsRigsRoute =
+  GuardLayoutNotificationStreamsRigsImport.update({
+    id: '/rigs',
+    path: '/rigs',
+    getParentRoute: () => GuardLayoutNotificationStreamsRoute,
+  } as any)
 
-const GuardLayoutDevicesCpusRoute = GuardLayoutDevicesCpusImport.update({
-  id: '/cpus',
-  path: '/cpus',
-  getParentRoute: () => GuardLayoutDevicesRoute,
-} as any)
+const GuardLayoutNotificationStreamsDevicesRoute =
+  GuardLayoutNotificationStreamsDevicesImport.update({
+    id: '/devices',
+    path: '/devices',
+    getParentRoute: () => GuardLayoutNotificationStreamsRoute,
+  } as any)
 
-const GuardLayoutSetupPresetsConfigRoute =
-  GuardLayoutSetupPresetsConfigImport.update({
+const GuardLayoutNotificationSetupPresetsConfigRoute =
+  GuardLayoutNotificationSetupPresetsConfigImport.update({
     id: '/config',
     path: '/config',
-    getParentRoute: () => GuardLayoutSetupPresetsRoute,
+    getParentRoute: () => GuardLayoutNotificationSetupPresetsRoute,
   } as any)
 
-const GuardLayoutSetupFlightSheetsConfigRoute =
-  GuardLayoutSetupFlightSheetsConfigImport.update({
+const GuardLayoutNotificationSetupFlightSheetsConfigRoute =
+  GuardLayoutNotificationSetupFlightSheetsConfigImport.update({
     id: '/config',
     path: '/config',
-    getParentRoute: () => GuardLayoutSetupFlightSheetsRoute,
+    getParentRoute: () => GuardLayoutNotificationSetupFlightSheetsRoute,
   } as any)
 
-const GuardLayoutDevicesGpusConfigRoute =
-  GuardLayoutDevicesGpusConfigImport.update({
-    id: '/config',
-    path: '/config',
-    getParentRoute: () => GuardLayoutDevicesGpusRoute,
+const GuardLayoutNotificationStreamsDevicesGpusRoute =
+  GuardLayoutNotificationStreamsDevicesGpusImport.update({
+    id: '/gpus',
+    path: '/gpus',
+    getParentRoute: () => GuardLayoutNotificationStreamsDevicesRoute,
   } as any)
 
-const GuardLayoutSetupFlightSheetsFlightSheetIdApplyRoute =
-  GuardLayoutSetupFlightSheetsFlightSheetIdApplyImport.update({
+const GuardLayoutNotificationStreamsDevicesCpusRoute =
+  GuardLayoutNotificationStreamsDevicesCpusImport.update({
+    id: '/cpus',
+    path: '/cpus',
+    getParentRoute: () => GuardLayoutNotificationStreamsDevicesRoute,
+  } as any)
+
+const GuardLayoutNotificationSetupPresetsPresetIdApplyRoute =
+  GuardLayoutNotificationSetupPresetsPresetIdApplyImport.update({
+    id: '/setup/presets_/$presetId/apply',
+    path: '/setup/presets/$presetId/apply',
+    getParentRoute: () => GuardLayoutNotificationRoute,
+  } as any)
+
+const GuardLayoutNotificationSetupFlightSheetsFlightSheetIdApplyRoute =
+  GuardLayoutNotificationSetupFlightSheetsFlightSheetIdApplyImport.update({
     id: '/setup/flight-sheets_/$flightSheetId/apply',
     path: '/setup/flight-sheets/$flightSheetId/apply',
-    getParentRoute: () => GuardLayoutRoute,
+    getParentRoute: () => GuardLayoutNotificationRoute,
+  } as any)
+
+const GuardLayoutNotificationStreamsDevicesGpusConfigRoute =
+  GuardLayoutNotificationStreamsDevicesGpusConfigImport.update({
+    id: '/config',
+    path: '/config',
+    getParentRoute: () => GuardLayoutNotificationStreamsDevicesGpusRoute,
   } as any)
 
 // Populate the FileRoutesByPath interface
@@ -214,117 +246,138 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRegistrationImport
       parentRoute: typeof AuthImport
     }
-    '/_guard-layout/devices': {
-      id: '/_guard-layout/devices'
+    '/_guard-layout/_notification': {
+      id: '/_guard-layout/_notification'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof GuardLayoutNotificationImport
+      parentRoute: typeof GuardLayoutImport
+    }
+    '/_guard-layout/_notification/_streams': {
+      id: '/_guard-layout/_notification/_streams'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof GuardLayoutNotificationStreamsImport
+      parentRoute: typeof GuardLayoutNotificationImport
+    }
+    '/_guard-layout/_notification/_streams/devices': {
+      id: '/_guard-layout/_notification/_streams/devices'
       path: '/devices'
       fullPath: '/devices'
-      preLoaderRoute: typeof GuardLayoutDevicesImport
-      parentRoute: typeof GuardLayoutImport
+      preLoaderRoute: typeof GuardLayoutNotificationStreamsDevicesImport
+      parentRoute: typeof GuardLayoutNotificationStreamsImport
     }
-    '/_guard-layout/rigs': {
-      id: '/_guard-layout/rigs'
+    '/_guard-layout/_notification/_streams/rigs': {
+      id: '/_guard-layout/_notification/_streams/rigs'
       path: '/rigs'
       fullPath: '/rigs'
-      preLoaderRoute: typeof GuardLayoutRigsImport
-      parentRoute: typeof GuardLayoutImport
+      preLoaderRoute: typeof GuardLayoutNotificationStreamsRigsImport
+      parentRoute: typeof GuardLayoutNotificationStreamsImport
     }
-    '/_guard-layout/monitoring': {
-      id: '/_guard-layout/monitoring'
-      path: '/monitoring'
-      fullPath: '/monitoring'
-      preLoaderRoute: typeof GuardLayoutMonitoringLazyImport
-      parentRoute: typeof GuardLayoutImport
-    }
-    '/_guard-layout/devices/cpus': {
-      id: '/_guard-layout/devices/cpus'
-      path: '/cpus'
-      fullPath: '/devices/cpus'
-      preLoaderRoute: typeof GuardLayoutDevicesCpusImport
-      parentRoute: typeof GuardLayoutDevicesImport
-    }
-    '/_guard-layout/devices/gpus': {
-      id: '/_guard-layout/devices/gpus'
-      path: '/gpus'
-      fullPath: '/devices/gpus'
-      preLoaderRoute: typeof GuardLayoutDevicesGpusImport
-      parentRoute: typeof GuardLayoutDevicesImport
-    }
-    '/_guard-layout/mining/algorithms': {
-      id: '/_guard-layout/mining/algorithms'
+    '/_guard-layout/_notification/mining/algorithms': {
+      id: '/_guard-layout/_notification/mining/algorithms'
       path: '/mining/algorithms'
       fullPath: '/mining/algorithms'
-      preLoaderRoute: typeof GuardLayoutMiningAlgorithmsImport
-      parentRoute: typeof GuardLayoutImport
+      preLoaderRoute: typeof GuardLayoutNotificationMiningAlgorithmsImport
+      parentRoute: typeof GuardLayoutNotificationImport
     }
-    '/_guard-layout/mining/cryptocurrencies': {
-      id: '/_guard-layout/mining/cryptocurrencies'
+    '/_guard-layout/_notification/mining/cryptocurrencies': {
+      id: '/_guard-layout/_notification/mining/cryptocurrencies'
       path: '/mining/cryptocurrencies'
       fullPath: '/mining/cryptocurrencies'
-      preLoaderRoute: typeof GuardLayoutMiningCryptocurrenciesImport
-      parentRoute: typeof GuardLayoutImport
+      preLoaderRoute: typeof GuardLayoutNotificationMiningCryptocurrenciesImport
+      parentRoute: typeof GuardLayoutNotificationImport
     }
-    '/_guard-layout/mining/miners': {
-      id: '/_guard-layout/mining/miners'
+    '/_guard-layout/_notification/mining/miners': {
+      id: '/_guard-layout/_notification/mining/miners'
       path: '/mining/miners'
       fullPath: '/mining/miners'
-      preLoaderRoute: typeof GuardLayoutMiningMinersImport
-      parentRoute: typeof GuardLayoutImport
+      preLoaderRoute: typeof GuardLayoutNotificationMiningMinersImport
+      parentRoute: typeof GuardLayoutNotificationImport
     }
-    '/_guard-layout/mining/pools': {
-      id: '/_guard-layout/mining/pools'
+    '/_guard-layout/_notification/mining/pools': {
+      id: '/_guard-layout/_notification/mining/pools'
       path: '/mining/pools'
       fullPath: '/mining/pools'
-      preLoaderRoute: typeof GuardLayoutMiningPoolsImport
-      parentRoute: typeof GuardLayoutImport
+      preLoaderRoute: typeof GuardLayoutNotificationMiningPoolsImport
+      parentRoute: typeof GuardLayoutNotificationImport
     }
-    '/_guard-layout/mining/wallets': {
-      id: '/_guard-layout/mining/wallets'
+    '/_guard-layout/_notification/mining/wallets': {
+      id: '/_guard-layout/_notification/mining/wallets'
       path: '/mining/wallets'
       fullPath: '/mining/wallets'
-      preLoaderRoute: typeof GuardLayoutMiningWalletsImport
-      parentRoute: typeof GuardLayoutImport
+      preLoaderRoute: typeof GuardLayoutNotificationMiningWalletsImport
+      parentRoute: typeof GuardLayoutNotificationImport
     }
-    '/_guard-layout/setup/flight-sheets': {
-      id: '/_guard-layout/setup/flight-sheets'
+    '/_guard-layout/_notification/setup/flight-sheets': {
+      id: '/_guard-layout/_notification/setup/flight-sheets'
       path: '/setup/flight-sheets'
       fullPath: '/setup/flight-sheets'
-      preLoaderRoute: typeof GuardLayoutSetupFlightSheetsImport
-      parentRoute: typeof GuardLayoutImport
+      preLoaderRoute: typeof GuardLayoutNotificationSetupFlightSheetsImport
+      parentRoute: typeof GuardLayoutNotificationImport
     }
-    '/_guard-layout/setup/presets': {
-      id: '/_guard-layout/setup/presets'
+    '/_guard-layout/_notification/setup/presets': {
+      id: '/_guard-layout/_notification/setup/presets'
       path: '/setup/presets'
       fullPath: '/setup/presets'
-      preLoaderRoute: typeof GuardLayoutSetupPresetsImport
-      parentRoute: typeof GuardLayoutImport
+      preLoaderRoute: typeof GuardLayoutNotificationSetupPresetsImport
+      parentRoute: typeof GuardLayoutNotificationImport
     }
-    '/_guard-layout/devices/gpus/config': {
-      id: '/_guard-layout/devices/gpus/config'
-      path: '/config'
-      fullPath: '/devices/gpus/config'
-      preLoaderRoute: typeof GuardLayoutDevicesGpusConfigImport
-      parentRoute: typeof GuardLayoutDevicesGpusImport
+    '/_guard-layout/_notification/_streams/monitoring': {
+      id: '/_guard-layout/_notification/_streams/monitoring'
+      path: '/monitoring'
+      fullPath: '/monitoring'
+      preLoaderRoute: typeof GuardLayoutNotificationStreamsMonitoringLazyImport
+      parentRoute: typeof GuardLayoutNotificationStreamsImport
     }
-    '/_guard-layout/setup/flight-sheets/config': {
-      id: '/_guard-layout/setup/flight-sheets/config'
+    '/_guard-layout/_notification/_streams/devices/cpus': {
+      id: '/_guard-layout/_notification/_streams/devices/cpus'
+      path: '/cpus'
+      fullPath: '/devices/cpus'
+      preLoaderRoute: typeof GuardLayoutNotificationStreamsDevicesCpusImport
+      parentRoute: typeof GuardLayoutNotificationStreamsDevicesImport
+    }
+    '/_guard-layout/_notification/_streams/devices/gpus': {
+      id: '/_guard-layout/_notification/_streams/devices/gpus'
+      path: '/gpus'
+      fullPath: '/devices/gpus'
+      preLoaderRoute: typeof GuardLayoutNotificationStreamsDevicesGpusImport
+      parentRoute: typeof GuardLayoutNotificationStreamsDevicesImport
+    }
+    '/_guard-layout/_notification/setup/flight-sheets/config': {
+      id: '/_guard-layout/_notification/setup/flight-sheets/config'
       path: '/config'
       fullPath: '/setup/flight-sheets/config'
-      preLoaderRoute: typeof GuardLayoutSetupFlightSheetsConfigImport
-      parentRoute: typeof GuardLayoutSetupFlightSheetsImport
+      preLoaderRoute: typeof GuardLayoutNotificationSetupFlightSheetsConfigImport
+      parentRoute: typeof GuardLayoutNotificationSetupFlightSheetsImport
     }
-    '/_guard-layout/setup/presets/config': {
-      id: '/_guard-layout/setup/presets/config'
+    '/_guard-layout/_notification/setup/presets/config': {
+      id: '/_guard-layout/_notification/setup/presets/config'
       path: '/config'
       fullPath: '/setup/presets/config'
-      preLoaderRoute: typeof GuardLayoutSetupPresetsConfigImport
-      parentRoute: typeof GuardLayoutSetupPresetsImport
+      preLoaderRoute: typeof GuardLayoutNotificationSetupPresetsConfigImport
+      parentRoute: typeof GuardLayoutNotificationSetupPresetsImport
     }
-    '/_guard-layout/setup/flight-sheets_/$flightSheetId/apply': {
-      id: '/_guard-layout/setup/flight-sheets_/$flightSheetId/apply'
+    '/_guard-layout/_notification/_streams/devices/gpus/config': {
+      id: '/_guard-layout/_notification/_streams/devices/gpus/config'
+      path: '/config'
+      fullPath: '/devices/gpus/config'
+      preLoaderRoute: typeof GuardLayoutNotificationStreamsDevicesGpusConfigImport
+      parentRoute: typeof GuardLayoutNotificationStreamsDevicesGpusImport
+    }
+    '/_guard-layout/_notification/setup/flight-sheets_/$flightSheetId/apply': {
+      id: '/_guard-layout/_notification/setup/flight-sheets_/$flightSheetId/apply'
       path: '/setup/flight-sheets/$flightSheetId/apply'
       fullPath: '/setup/flight-sheets/$flightSheetId/apply'
-      preLoaderRoute: typeof GuardLayoutSetupFlightSheetsFlightSheetIdApplyImport
-      parentRoute: typeof GuardLayoutImport
+      preLoaderRoute: typeof GuardLayoutNotificationSetupFlightSheetsFlightSheetIdApplyImport
+      parentRoute: typeof GuardLayoutNotificationImport
+    }
+    '/_guard-layout/_notification/setup/presets_/$presetId/apply': {
+      id: '/_guard-layout/_notification/setup/presets_/$presetId/apply'
+      path: '/setup/presets/$presetId/apply'
+      fullPath: '/setup/presets/$presetId/apply'
+      preLoaderRoute: typeof GuardLayoutNotificationSetupPresetsPresetIdApplyImport
+      parentRoute: typeof GuardLayoutNotificationImport
     }
   }
 }
@@ -343,91 +396,138 @@ const AuthRouteChildren: AuthRouteChildren = {
 
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 
-interface GuardLayoutDevicesGpusRouteChildren {
-  GuardLayoutDevicesGpusConfigRoute: typeof GuardLayoutDevicesGpusConfigRoute
+interface GuardLayoutNotificationStreamsDevicesGpusRouteChildren {
+  GuardLayoutNotificationStreamsDevicesGpusConfigRoute: typeof GuardLayoutNotificationStreamsDevicesGpusConfigRoute
 }
 
-const GuardLayoutDevicesGpusRouteChildren: GuardLayoutDevicesGpusRouteChildren =
+const GuardLayoutNotificationStreamsDevicesGpusRouteChildren: GuardLayoutNotificationStreamsDevicesGpusRouteChildren =
   {
-    GuardLayoutDevicesGpusConfigRoute: GuardLayoutDevicesGpusConfigRoute,
+    GuardLayoutNotificationStreamsDevicesGpusConfigRoute:
+      GuardLayoutNotificationStreamsDevicesGpusConfigRoute,
   }
 
-const GuardLayoutDevicesGpusRouteWithChildren =
-  GuardLayoutDevicesGpusRoute._addFileChildren(
-    GuardLayoutDevicesGpusRouteChildren,
+const GuardLayoutNotificationStreamsDevicesGpusRouteWithChildren =
+  GuardLayoutNotificationStreamsDevicesGpusRoute._addFileChildren(
+    GuardLayoutNotificationStreamsDevicesGpusRouteChildren,
   )
 
-interface GuardLayoutDevicesRouteChildren {
-  GuardLayoutDevicesCpusRoute: typeof GuardLayoutDevicesCpusRoute
-  GuardLayoutDevicesGpusRoute: typeof GuardLayoutDevicesGpusRouteWithChildren
+interface GuardLayoutNotificationStreamsDevicesRouteChildren {
+  GuardLayoutNotificationStreamsDevicesCpusRoute: typeof GuardLayoutNotificationStreamsDevicesCpusRoute
+  GuardLayoutNotificationStreamsDevicesGpusRoute: typeof GuardLayoutNotificationStreamsDevicesGpusRouteWithChildren
 }
 
-const GuardLayoutDevicesRouteChildren: GuardLayoutDevicesRouteChildren = {
-  GuardLayoutDevicesCpusRoute: GuardLayoutDevicesCpusRoute,
-  GuardLayoutDevicesGpusRoute: GuardLayoutDevicesGpusRouteWithChildren,
-}
-
-const GuardLayoutDevicesRouteWithChildren =
-  GuardLayoutDevicesRoute._addFileChildren(GuardLayoutDevicesRouteChildren)
-
-interface GuardLayoutSetupFlightSheetsRouteChildren {
-  GuardLayoutSetupFlightSheetsConfigRoute: typeof GuardLayoutSetupFlightSheetsConfigRoute
-}
-
-const GuardLayoutSetupFlightSheetsRouteChildren: GuardLayoutSetupFlightSheetsRouteChildren =
+const GuardLayoutNotificationStreamsDevicesRouteChildren: GuardLayoutNotificationStreamsDevicesRouteChildren =
   {
-    GuardLayoutSetupFlightSheetsConfigRoute:
-      GuardLayoutSetupFlightSheetsConfigRoute,
+    GuardLayoutNotificationStreamsDevicesCpusRoute:
+      GuardLayoutNotificationStreamsDevicesCpusRoute,
+    GuardLayoutNotificationStreamsDevicesGpusRoute:
+      GuardLayoutNotificationStreamsDevicesGpusRouteWithChildren,
   }
 
-const GuardLayoutSetupFlightSheetsRouteWithChildren =
-  GuardLayoutSetupFlightSheetsRoute._addFileChildren(
-    GuardLayoutSetupFlightSheetsRouteChildren,
+const GuardLayoutNotificationStreamsDevicesRouteWithChildren =
+  GuardLayoutNotificationStreamsDevicesRoute._addFileChildren(
+    GuardLayoutNotificationStreamsDevicesRouteChildren,
   )
 
-interface GuardLayoutSetupPresetsRouteChildren {
-  GuardLayoutSetupPresetsConfigRoute: typeof GuardLayoutSetupPresetsConfigRoute
+interface GuardLayoutNotificationStreamsRouteChildren {
+  GuardLayoutNotificationStreamsDevicesRoute: typeof GuardLayoutNotificationStreamsDevicesRouteWithChildren
+  GuardLayoutNotificationStreamsRigsRoute: typeof GuardLayoutNotificationStreamsRigsRoute
+  GuardLayoutNotificationStreamsMonitoringLazyRoute: typeof GuardLayoutNotificationStreamsMonitoringLazyRoute
 }
 
-const GuardLayoutSetupPresetsRouteChildren: GuardLayoutSetupPresetsRouteChildren =
+const GuardLayoutNotificationStreamsRouteChildren: GuardLayoutNotificationStreamsRouteChildren =
   {
-    GuardLayoutSetupPresetsConfigRoute: GuardLayoutSetupPresetsConfigRoute,
+    GuardLayoutNotificationStreamsDevicesRoute:
+      GuardLayoutNotificationStreamsDevicesRouteWithChildren,
+    GuardLayoutNotificationStreamsRigsRoute:
+      GuardLayoutNotificationStreamsRigsRoute,
+    GuardLayoutNotificationStreamsMonitoringLazyRoute:
+      GuardLayoutNotificationStreamsMonitoringLazyRoute,
   }
 
-const GuardLayoutSetupPresetsRouteWithChildren =
-  GuardLayoutSetupPresetsRoute._addFileChildren(
-    GuardLayoutSetupPresetsRouteChildren,
+const GuardLayoutNotificationStreamsRouteWithChildren =
+  GuardLayoutNotificationStreamsRoute._addFileChildren(
+    GuardLayoutNotificationStreamsRouteChildren,
+  )
+
+interface GuardLayoutNotificationSetupFlightSheetsRouteChildren {
+  GuardLayoutNotificationSetupFlightSheetsConfigRoute: typeof GuardLayoutNotificationSetupFlightSheetsConfigRoute
+}
+
+const GuardLayoutNotificationSetupFlightSheetsRouteChildren: GuardLayoutNotificationSetupFlightSheetsRouteChildren =
+  {
+    GuardLayoutNotificationSetupFlightSheetsConfigRoute:
+      GuardLayoutNotificationSetupFlightSheetsConfigRoute,
+  }
+
+const GuardLayoutNotificationSetupFlightSheetsRouteWithChildren =
+  GuardLayoutNotificationSetupFlightSheetsRoute._addFileChildren(
+    GuardLayoutNotificationSetupFlightSheetsRouteChildren,
+  )
+
+interface GuardLayoutNotificationSetupPresetsRouteChildren {
+  GuardLayoutNotificationSetupPresetsConfigRoute: typeof GuardLayoutNotificationSetupPresetsConfigRoute
+}
+
+const GuardLayoutNotificationSetupPresetsRouteChildren: GuardLayoutNotificationSetupPresetsRouteChildren =
+  {
+    GuardLayoutNotificationSetupPresetsConfigRoute:
+      GuardLayoutNotificationSetupPresetsConfigRoute,
+  }
+
+const GuardLayoutNotificationSetupPresetsRouteWithChildren =
+  GuardLayoutNotificationSetupPresetsRoute._addFileChildren(
+    GuardLayoutNotificationSetupPresetsRouteChildren,
+  )
+
+interface GuardLayoutNotificationRouteChildren {
+  GuardLayoutNotificationStreamsRoute: typeof GuardLayoutNotificationStreamsRouteWithChildren
+  GuardLayoutNotificationMiningAlgorithmsRoute: typeof GuardLayoutNotificationMiningAlgorithmsRoute
+  GuardLayoutNotificationMiningCryptocurrenciesRoute: typeof GuardLayoutNotificationMiningCryptocurrenciesRoute
+  GuardLayoutNotificationMiningMinersRoute: typeof GuardLayoutNotificationMiningMinersRoute
+  GuardLayoutNotificationMiningPoolsRoute: typeof GuardLayoutNotificationMiningPoolsRoute
+  GuardLayoutNotificationMiningWalletsRoute: typeof GuardLayoutNotificationMiningWalletsRoute
+  GuardLayoutNotificationSetupFlightSheetsRoute: typeof GuardLayoutNotificationSetupFlightSheetsRouteWithChildren
+  GuardLayoutNotificationSetupPresetsRoute: typeof GuardLayoutNotificationSetupPresetsRouteWithChildren
+  GuardLayoutNotificationSetupFlightSheetsFlightSheetIdApplyRoute: typeof GuardLayoutNotificationSetupFlightSheetsFlightSheetIdApplyRoute
+  GuardLayoutNotificationSetupPresetsPresetIdApplyRoute: typeof GuardLayoutNotificationSetupPresetsPresetIdApplyRoute
+}
+
+const GuardLayoutNotificationRouteChildren: GuardLayoutNotificationRouteChildren =
+  {
+    GuardLayoutNotificationStreamsRoute:
+      GuardLayoutNotificationStreamsRouteWithChildren,
+    GuardLayoutNotificationMiningAlgorithmsRoute:
+      GuardLayoutNotificationMiningAlgorithmsRoute,
+    GuardLayoutNotificationMiningCryptocurrenciesRoute:
+      GuardLayoutNotificationMiningCryptocurrenciesRoute,
+    GuardLayoutNotificationMiningMinersRoute:
+      GuardLayoutNotificationMiningMinersRoute,
+    GuardLayoutNotificationMiningPoolsRoute:
+      GuardLayoutNotificationMiningPoolsRoute,
+    GuardLayoutNotificationMiningWalletsRoute:
+      GuardLayoutNotificationMiningWalletsRoute,
+    GuardLayoutNotificationSetupFlightSheetsRoute:
+      GuardLayoutNotificationSetupFlightSheetsRouteWithChildren,
+    GuardLayoutNotificationSetupPresetsRoute:
+      GuardLayoutNotificationSetupPresetsRouteWithChildren,
+    GuardLayoutNotificationSetupFlightSheetsFlightSheetIdApplyRoute:
+      GuardLayoutNotificationSetupFlightSheetsFlightSheetIdApplyRoute,
+    GuardLayoutNotificationSetupPresetsPresetIdApplyRoute:
+      GuardLayoutNotificationSetupPresetsPresetIdApplyRoute,
+  }
+
+const GuardLayoutNotificationRouteWithChildren =
+  GuardLayoutNotificationRoute._addFileChildren(
+    GuardLayoutNotificationRouteChildren,
   )
 
 interface GuardLayoutRouteChildren {
-  GuardLayoutDevicesRoute: typeof GuardLayoutDevicesRouteWithChildren
-  GuardLayoutRigsRoute: typeof GuardLayoutRigsRoute
-  GuardLayoutMonitoringLazyRoute: typeof GuardLayoutMonitoringLazyRoute
-  GuardLayoutMiningAlgorithmsRoute: typeof GuardLayoutMiningAlgorithmsRoute
-  GuardLayoutMiningCryptocurrenciesRoute: typeof GuardLayoutMiningCryptocurrenciesRoute
-  GuardLayoutMiningMinersRoute: typeof GuardLayoutMiningMinersRoute
-  GuardLayoutMiningPoolsRoute: typeof GuardLayoutMiningPoolsRoute
-  GuardLayoutMiningWalletsRoute: typeof GuardLayoutMiningWalletsRoute
-  GuardLayoutSetupFlightSheetsRoute: typeof GuardLayoutSetupFlightSheetsRouteWithChildren
-  GuardLayoutSetupPresetsRoute: typeof GuardLayoutSetupPresetsRouteWithChildren
-  GuardLayoutSetupFlightSheetsFlightSheetIdApplyRoute: typeof GuardLayoutSetupFlightSheetsFlightSheetIdApplyRoute
+  GuardLayoutNotificationRoute: typeof GuardLayoutNotificationRouteWithChildren
 }
 
 const GuardLayoutRouteChildren: GuardLayoutRouteChildren = {
-  GuardLayoutDevicesRoute: GuardLayoutDevicesRouteWithChildren,
-  GuardLayoutRigsRoute: GuardLayoutRigsRoute,
-  GuardLayoutMonitoringLazyRoute: GuardLayoutMonitoringLazyRoute,
-  GuardLayoutMiningAlgorithmsRoute: GuardLayoutMiningAlgorithmsRoute,
-  GuardLayoutMiningCryptocurrenciesRoute:
-    GuardLayoutMiningCryptocurrenciesRoute,
-  GuardLayoutMiningMinersRoute: GuardLayoutMiningMinersRoute,
-  GuardLayoutMiningPoolsRoute: GuardLayoutMiningPoolsRoute,
-  GuardLayoutMiningWalletsRoute: GuardLayoutMiningWalletsRoute,
-  GuardLayoutSetupFlightSheetsRoute:
-    GuardLayoutSetupFlightSheetsRouteWithChildren,
-  GuardLayoutSetupPresetsRoute: GuardLayoutSetupPresetsRouteWithChildren,
-  GuardLayoutSetupFlightSheetsFlightSheetIdApplyRoute:
-    GuardLayoutSetupFlightSheetsFlightSheetIdApplyRoute,
+  GuardLayoutNotificationRoute: GuardLayoutNotificationRouteWithChildren,
 }
 
 const GuardLayoutRouteWithChildren = GuardLayoutRoute._addFileChildren(
@@ -436,48 +536,50 @@ const GuardLayoutRouteWithChildren = GuardLayoutRoute._addFileChildren(
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '': typeof GuardLayoutRouteWithChildren
+  '': typeof GuardLayoutNotificationStreamsRouteWithChildren
   '/login': typeof AuthLoginRoute
   '/registration': typeof AuthRegistrationRoute
-  '/devices': typeof GuardLayoutDevicesRouteWithChildren
-  '/rigs': typeof GuardLayoutRigsRoute
-  '/monitoring': typeof GuardLayoutMonitoringLazyRoute
-  '/devices/cpus': typeof GuardLayoutDevicesCpusRoute
-  '/devices/gpus': typeof GuardLayoutDevicesGpusRouteWithChildren
-  '/mining/algorithms': typeof GuardLayoutMiningAlgorithmsRoute
-  '/mining/cryptocurrencies': typeof GuardLayoutMiningCryptocurrenciesRoute
-  '/mining/miners': typeof GuardLayoutMiningMinersRoute
-  '/mining/pools': typeof GuardLayoutMiningPoolsRoute
-  '/mining/wallets': typeof GuardLayoutMiningWalletsRoute
-  '/setup/flight-sheets': typeof GuardLayoutSetupFlightSheetsRouteWithChildren
-  '/setup/presets': typeof GuardLayoutSetupPresetsRouteWithChildren
-  '/devices/gpus/config': typeof GuardLayoutDevicesGpusConfigRoute
-  '/setup/flight-sheets/config': typeof GuardLayoutSetupFlightSheetsConfigRoute
-  '/setup/presets/config': typeof GuardLayoutSetupPresetsConfigRoute
-  '/setup/flight-sheets/$flightSheetId/apply': typeof GuardLayoutSetupFlightSheetsFlightSheetIdApplyRoute
+  '/devices': typeof GuardLayoutNotificationStreamsDevicesRouteWithChildren
+  '/rigs': typeof GuardLayoutNotificationStreamsRigsRoute
+  '/mining/algorithms': typeof GuardLayoutNotificationMiningAlgorithmsRoute
+  '/mining/cryptocurrencies': typeof GuardLayoutNotificationMiningCryptocurrenciesRoute
+  '/mining/miners': typeof GuardLayoutNotificationMiningMinersRoute
+  '/mining/pools': typeof GuardLayoutNotificationMiningPoolsRoute
+  '/mining/wallets': typeof GuardLayoutNotificationMiningWalletsRoute
+  '/setup/flight-sheets': typeof GuardLayoutNotificationSetupFlightSheetsRouteWithChildren
+  '/setup/presets': typeof GuardLayoutNotificationSetupPresetsRouteWithChildren
+  '/monitoring': typeof GuardLayoutNotificationStreamsMonitoringLazyRoute
+  '/devices/cpus': typeof GuardLayoutNotificationStreamsDevicesCpusRoute
+  '/devices/gpus': typeof GuardLayoutNotificationStreamsDevicesGpusRouteWithChildren
+  '/setup/flight-sheets/config': typeof GuardLayoutNotificationSetupFlightSheetsConfigRoute
+  '/setup/presets/config': typeof GuardLayoutNotificationSetupPresetsConfigRoute
+  '/devices/gpus/config': typeof GuardLayoutNotificationStreamsDevicesGpusConfigRoute
+  '/setup/flight-sheets/$flightSheetId/apply': typeof GuardLayoutNotificationSetupFlightSheetsFlightSheetIdApplyRoute
+  '/setup/presets/$presetId/apply': typeof GuardLayoutNotificationSetupPresetsPresetIdApplyRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '': typeof GuardLayoutRouteWithChildren
+  '': typeof GuardLayoutNotificationStreamsRouteWithChildren
   '/login': typeof AuthLoginRoute
   '/registration': typeof AuthRegistrationRoute
-  '/devices': typeof GuardLayoutDevicesRouteWithChildren
-  '/rigs': typeof GuardLayoutRigsRoute
-  '/monitoring': typeof GuardLayoutMonitoringLazyRoute
-  '/devices/cpus': typeof GuardLayoutDevicesCpusRoute
-  '/devices/gpus': typeof GuardLayoutDevicesGpusRouteWithChildren
-  '/mining/algorithms': typeof GuardLayoutMiningAlgorithmsRoute
-  '/mining/cryptocurrencies': typeof GuardLayoutMiningCryptocurrenciesRoute
-  '/mining/miners': typeof GuardLayoutMiningMinersRoute
-  '/mining/pools': typeof GuardLayoutMiningPoolsRoute
-  '/mining/wallets': typeof GuardLayoutMiningWalletsRoute
-  '/setup/flight-sheets': typeof GuardLayoutSetupFlightSheetsRouteWithChildren
-  '/setup/presets': typeof GuardLayoutSetupPresetsRouteWithChildren
-  '/devices/gpus/config': typeof GuardLayoutDevicesGpusConfigRoute
-  '/setup/flight-sheets/config': typeof GuardLayoutSetupFlightSheetsConfigRoute
-  '/setup/presets/config': typeof GuardLayoutSetupPresetsConfigRoute
-  '/setup/flight-sheets/$flightSheetId/apply': typeof GuardLayoutSetupFlightSheetsFlightSheetIdApplyRoute
+  '/devices': typeof GuardLayoutNotificationStreamsDevicesRouteWithChildren
+  '/rigs': typeof GuardLayoutNotificationStreamsRigsRoute
+  '/mining/algorithms': typeof GuardLayoutNotificationMiningAlgorithmsRoute
+  '/mining/cryptocurrencies': typeof GuardLayoutNotificationMiningCryptocurrenciesRoute
+  '/mining/miners': typeof GuardLayoutNotificationMiningMinersRoute
+  '/mining/pools': typeof GuardLayoutNotificationMiningPoolsRoute
+  '/mining/wallets': typeof GuardLayoutNotificationMiningWalletsRoute
+  '/setup/flight-sheets': typeof GuardLayoutNotificationSetupFlightSheetsRouteWithChildren
+  '/setup/presets': typeof GuardLayoutNotificationSetupPresetsRouteWithChildren
+  '/monitoring': typeof GuardLayoutNotificationStreamsMonitoringLazyRoute
+  '/devices/cpus': typeof GuardLayoutNotificationStreamsDevicesCpusRoute
+  '/devices/gpus': typeof GuardLayoutNotificationStreamsDevicesGpusRouteWithChildren
+  '/setup/flight-sheets/config': typeof GuardLayoutNotificationSetupFlightSheetsConfigRoute
+  '/setup/presets/config': typeof GuardLayoutNotificationSetupPresetsConfigRoute
+  '/devices/gpus/config': typeof GuardLayoutNotificationStreamsDevicesGpusConfigRoute
+  '/setup/flight-sheets/$flightSheetId/apply': typeof GuardLayoutNotificationSetupFlightSheetsFlightSheetIdApplyRoute
+  '/setup/presets/$presetId/apply': typeof GuardLayoutNotificationSetupPresetsPresetIdApplyRoute
 }
 
 export interface FileRoutesById {
@@ -487,22 +589,25 @@ export interface FileRoutesById {
   '/_guard-layout': typeof GuardLayoutRouteWithChildren
   '/_auth/login': typeof AuthLoginRoute
   '/_auth/registration': typeof AuthRegistrationRoute
-  '/_guard-layout/devices': typeof GuardLayoutDevicesRouteWithChildren
-  '/_guard-layout/rigs': typeof GuardLayoutRigsRoute
-  '/_guard-layout/monitoring': typeof GuardLayoutMonitoringLazyRoute
-  '/_guard-layout/devices/cpus': typeof GuardLayoutDevicesCpusRoute
-  '/_guard-layout/devices/gpus': typeof GuardLayoutDevicesGpusRouteWithChildren
-  '/_guard-layout/mining/algorithms': typeof GuardLayoutMiningAlgorithmsRoute
-  '/_guard-layout/mining/cryptocurrencies': typeof GuardLayoutMiningCryptocurrenciesRoute
-  '/_guard-layout/mining/miners': typeof GuardLayoutMiningMinersRoute
-  '/_guard-layout/mining/pools': typeof GuardLayoutMiningPoolsRoute
-  '/_guard-layout/mining/wallets': typeof GuardLayoutMiningWalletsRoute
-  '/_guard-layout/setup/flight-sheets': typeof GuardLayoutSetupFlightSheetsRouteWithChildren
-  '/_guard-layout/setup/presets': typeof GuardLayoutSetupPresetsRouteWithChildren
-  '/_guard-layout/devices/gpus/config': typeof GuardLayoutDevicesGpusConfigRoute
-  '/_guard-layout/setup/flight-sheets/config': typeof GuardLayoutSetupFlightSheetsConfigRoute
-  '/_guard-layout/setup/presets/config': typeof GuardLayoutSetupPresetsConfigRoute
-  '/_guard-layout/setup/flight-sheets_/$flightSheetId/apply': typeof GuardLayoutSetupFlightSheetsFlightSheetIdApplyRoute
+  '/_guard-layout/_notification': typeof GuardLayoutNotificationRouteWithChildren
+  '/_guard-layout/_notification/_streams': typeof GuardLayoutNotificationStreamsRouteWithChildren
+  '/_guard-layout/_notification/_streams/devices': typeof GuardLayoutNotificationStreamsDevicesRouteWithChildren
+  '/_guard-layout/_notification/_streams/rigs': typeof GuardLayoutNotificationStreamsRigsRoute
+  '/_guard-layout/_notification/mining/algorithms': typeof GuardLayoutNotificationMiningAlgorithmsRoute
+  '/_guard-layout/_notification/mining/cryptocurrencies': typeof GuardLayoutNotificationMiningCryptocurrenciesRoute
+  '/_guard-layout/_notification/mining/miners': typeof GuardLayoutNotificationMiningMinersRoute
+  '/_guard-layout/_notification/mining/pools': typeof GuardLayoutNotificationMiningPoolsRoute
+  '/_guard-layout/_notification/mining/wallets': typeof GuardLayoutNotificationMiningWalletsRoute
+  '/_guard-layout/_notification/setup/flight-sheets': typeof GuardLayoutNotificationSetupFlightSheetsRouteWithChildren
+  '/_guard-layout/_notification/setup/presets': typeof GuardLayoutNotificationSetupPresetsRouteWithChildren
+  '/_guard-layout/_notification/_streams/monitoring': typeof GuardLayoutNotificationStreamsMonitoringLazyRoute
+  '/_guard-layout/_notification/_streams/devices/cpus': typeof GuardLayoutNotificationStreamsDevicesCpusRoute
+  '/_guard-layout/_notification/_streams/devices/gpus': typeof GuardLayoutNotificationStreamsDevicesGpusRouteWithChildren
+  '/_guard-layout/_notification/setup/flight-sheets/config': typeof GuardLayoutNotificationSetupFlightSheetsConfigRoute
+  '/_guard-layout/_notification/setup/presets/config': typeof GuardLayoutNotificationSetupPresetsConfigRoute
+  '/_guard-layout/_notification/_streams/devices/gpus/config': typeof GuardLayoutNotificationStreamsDevicesGpusConfigRoute
+  '/_guard-layout/_notification/setup/flight-sheets_/$flightSheetId/apply': typeof GuardLayoutNotificationSetupFlightSheetsFlightSheetIdApplyRoute
+  '/_guard-layout/_notification/setup/presets_/$presetId/apply': typeof GuardLayoutNotificationSetupPresetsPresetIdApplyRoute
 }
 
 export interface FileRouteTypes {
@@ -514,9 +619,6 @@ export interface FileRouteTypes {
     | '/registration'
     | '/devices'
     | '/rigs'
-    | '/monitoring'
-    | '/devices/cpus'
-    | '/devices/gpus'
     | '/mining/algorithms'
     | '/mining/cryptocurrencies'
     | '/mining/miners'
@@ -524,10 +626,14 @@ export interface FileRouteTypes {
     | '/mining/wallets'
     | '/setup/flight-sheets'
     | '/setup/presets'
-    | '/devices/gpus/config'
+    | '/monitoring'
+    | '/devices/cpus'
+    | '/devices/gpus'
     | '/setup/flight-sheets/config'
     | '/setup/presets/config'
+    | '/devices/gpus/config'
     | '/setup/flight-sheets/$flightSheetId/apply'
+    | '/setup/presets/$presetId/apply'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -536,9 +642,6 @@ export interface FileRouteTypes {
     | '/registration'
     | '/devices'
     | '/rigs'
-    | '/monitoring'
-    | '/devices/cpus'
-    | '/devices/gpus'
     | '/mining/algorithms'
     | '/mining/cryptocurrencies'
     | '/mining/miners'
@@ -546,10 +649,14 @@ export interface FileRouteTypes {
     | '/mining/wallets'
     | '/setup/flight-sheets'
     | '/setup/presets'
-    | '/devices/gpus/config'
+    | '/monitoring'
+    | '/devices/cpus'
+    | '/devices/gpus'
     | '/setup/flight-sheets/config'
     | '/setup/presets/config'
+    | '/devices/gpus/config'
     | '/setup/flight-sheets/$flightSheetId/apply'
+    | '/setup/presets/$presetId/apply'
   id:
     | '__root__'
     | '/'
@@ -557,22 +664,25 @@ export interface FileRouteTypes {
     | '/_guard-layout'
     | '/_auth/login'
     | '/_auth/registration'
-    | '/_guard-layout/devices'
-    | '/_guard-layout/rigs'
-    | '/_guard-layout/monitoring'
-    | '/_guard-layout/devices/cpus'
-    | '/_guard-layout/devices/gpus'
-    | '/_guard-layout/mining/algorithms'
-    | '/_guard-layout/mining/cryptocurrencies'
-    | '/_guard-layout/mining/miners'
-    | '/_guard-layout/mining/pools'
-    | '/_guard-layout/mining/wallets'
-    | '/_guard-layout/setup/flight-sheets'
-    | '/_guard-layout/setup/presets'
-    | '/_guard-layout/devices/gpus/config'
-    | '/_guard-layout/setup/flight-sheets/config'
-    | '/_guard-layout/setup/presets/config'
-    | '/_guard-layout/setup/flight-sheets_/$flightSheetId/apply'
+    | '/_guard-layout/_notification'
+    | '/_guard-layout/_notification/_streams'
+    | '/_guard-layout/_notification/_streams/devices'
+    | '/_guard-layout/_notification/_streams/rigs'
+    | '/_guard-layout/_notification/mining/algorithms'
+    | '/_guard-layout/_notification/mining/cryptocurrencies'
+    | '/_guard-layout/_notification/mining/miners'
+    | '/_guard-layout/_notification/mining/pools'
+    | '/_guard-layout/_notification/mining/wallets'
+    | '/_guard-layout/_notification/setup/flight-sheets'
+    | '/_guard-layout/_notification/setup/presets'
+    | '/_guard-layout/_notification/_streams/monitoring'
+    | '/_guard-layout/_notification/_streams/devices/cpus'
+    | '/_guard-layout/_notification/_streams/devices/gpus'
+    | '/_guard-layout/_notification/setup/flight-sheets/config'
+    | '/_guard-layout/_notification/setup/presets/config'
+    | '/_guard-layout/_notification/_streams/devices/gpus/config'
+    | '/_guard-layout/_notification/setup/flight-sheets_/$flightSheetId/apply'
+    | '/_guard-layout/_notification/setup/presets_/$presetId/apply'
   fileRoutesById: FileRoutesById
 }
 
@@ -616,17 +726,7 @@ export const routeTree = rootRoute
     "/_guard-layout": {
       "filePath": "_guard-layout.tsx",
       "children": [
-        "/_guard-layout/devices",
-        "/_guard-layout/rigs",
-        "/_guard-layout/monitoring",
-        "/_guard-layout/mining/algorithms",
-        "/_guard-layout/mining/cryptocurrencies",
-        "/_guard-layout/mining/miners",
-        "/_guard-layout/mining/pools",
-        "/_guard-layout/mining/wallets",
-        "/_guard-layout/setup/flight-sheets",
-        "/_guard-layout/setup/presets",
-        "/_guard-layout/setup/flight-sheets_/$flightSheetId/apply"
+        "/_guard-layout/_notification"
       ]
     },
     "/_auth/login": {
@@ -637,82 +737,111 @@ export const routeTree = rootRoute
       "filePath": "_auth/registration.tsx",
       "parent": "/_auth"
     },
-    "/_guard-layout/devices": {
-      "filePath": "_guard-layout/devices.tsx",
+    "/_guard-layout/_notification": {
+      "filePath": "_guard-layout/_notification.tsx",
       "parent": "/_guard-layout",
       "children": [
-        "/_guard-layout/devices/cpus",
-        "/_guard-layout/devices/gpus"
+        "/_guard-layout/_notification/_streams",
+        "/_guard-layout/_notification/mining/algorithms",
+        "/_guard-layout/_notification/mining/cryptocurrencies",
+        "/_guard-layout/_notification/mining/miners",
+        "/_guard-layout/_notification/mining/pools",
+        "/_guard-layout/_notification/mining/wallets",
+        "/_guard-layout/_notification/setup/flight-sheets",
+        "/_guard-layout/_notification/setup/presets",
+        "/_guard-layout/_notification/setup/flight-sheets_/$flightSheetId/apply",
+        "/_guard-layout/_notification/setup/presets_/$presetId/apply"
       ]
     },
-    "/_guard-layout/rigs": {
-      "filePath": "_guard-layout/rigs.tsx",
-      "parent": "/_guard-layout"
-    },
-    "/_guard-layout/monitoring": {
-      "filePath": "_guard-layout/monitoring.lazy.tsx",
-      "parent": "/_guard-layout"
-    },
-    "/_guard-layout/devices/cpus": {
-      "filePath": "_guard-layout/devices/cpus.tsx",
-      "parent": "/_guard-layout/devices"
-    },
-    "/_guard-layout/devices/gpus": {
-      "filePath": "_guard-layout/devices/gpus.tsx",
-      "parent": "/_guard-layout/devices",
+    "/_guard-layout/_notification/_streams": {
+      "filePath": "_guard-layout/_notification/_streams.tsx",
+      "parent": "/_guard-layout/_notification",
       "children": [
-        "/_guard-layout/devices/gpus/config"
+        "/_guard-layout/_notification/_streams/devices",
+        "/_guard-layout/_notification/_streams/rigs",
+        "/_guard-layout/_notification/_streams/monitoring"
       ]
     },
-    "/_guard-layout/mining/algorithms": {
-      "filePath": "_guard-layout/mining/algorithms.tsx",
-      "parent": "/_guard-layout"
-    },
-    "/_guard-layout/mining/cryptocurrencies": {
-      "filePath": "_guard-layout/mining/cryptocurrencies.tsx",
-      "parent": "/_guard-layout"
-    },
-    "/_guard-layout/mining/miners": {
-      "filePath": "_guard-layout/mining/miners.tsx",
-      "parent": "/_guard-layout"
-    },
-    "/_guard-layout/mining/pools": {
-      "filePath": "_guard-layout/mining/pools.tsx",
-      "parent": "/_guard-layout"
-    },
-    "/_guard-layout/mining/wallets": {
-      "filePath": "_guard-layout/mining/wallets.tsx",
-      "parent": "/_guard-layout"
-    },
-    "/_guard-layout/setup/flight-sheets": {
-      "filePath": "_guard-layout/setup/flight-sheets.tsx",
-      "parent": "/_guard-layout",
+    "/_guard-layout/_notification/_streams/devices": {
+      "filePath": "_guard-layout/_notification/_streams/devices.tsx",
+      "parent": "/_guard-layout/_notification/_streams",
       "children": [
-        "/_guard-layout/setup/flight-sheets/config"
+        "/_guard-layout/_notification/_streams/devices/cpus",
+        "/_guard-layout/_notification/_streams/devices/gpus"
       ]
     },
-    "/_guard-layout/setup/presets": {
-      "filePath": "_guard-layout/setup/presets.tsx",
-      "parent": "/_guard-layout",
+    "/_guard-layout/_notification/_streams/rigs": {
+      "filePath": "_guard-layout/_notification/_streams/rigs.tsx",
+      "parent": "/_guard-layout/_notification/_streams"
+    },
+    "/_guard-layout/_notification/mining/algorithms": {
+      "filePath": "_guard-layout/_notification/mining/algorithms.tsx",
+      "parent": "/_guard-layout/_notification"
+    },
+    "/_guard-layout/_notification/mining/cryptocurrencies": {
+      "filePath": "_guard-layout/_notification/mining/cryptocurrencies.tsx",
+      "parent": "/_guard-layout/_notification"
+    },
+    "/_guard-layout/_notification/mining/miners": {
+      "filePath": "_guard-layout/_notification/mining/miners.tsx",
+      "parent": "/_guard-layout/_notification"
+    },
+    "/_guard-layout/_notification/mining/pools": {
+      "filePath": "_guard-layout/_notification/mining/pools.tsx",
+      "parent": "/_guard-layout/_notification"
+    },
+    "/_guard-layout/_notification/mining/wallets": {
+      "filePath": "_guard-layout/_notification/mining/wallets.tsx",
+      "parent": "/_guard-layout/_notification"
+    },
+    "/_guard-layout/_notification/setup/flight-sheets": {
+      "filePath": "_guard-layout/_notification/setup/flight-sheets.tsx",
+      "parent": "/_guard-layout/_notification",
       "children": [
-        "/_guard-layout/setup/presets/config"
+        "/_guard-layout/_notification/setup/flight-sheets/config"
       ]
     },
-    "/_guard-layout/devices/gpus/config": {
-      "filePath": "_guard-layout/devices/gpus/config.tsx",
-      "parent": "/_guard-layout/devices/gpus"
+    "/_guard-layout/_notification/setup/presets": {
+      "filePath": "_guard-layout/_notification/setup/presets.tsx",
+      "parent": "/_guard-layout/_notification",
+      "children": [
+        "/_guard-layout/_notification/setup/presets/config"
+      ]
     },
-    "/_guard-layout/setup/flight-sheets/config": {
-      "filePath": "_guard-layout/setup/flight-sheets/config.tsx",
-      "parent": "/_guard-layout/setup/flight-sheets"
+    "/_guard-layout/_notification/_streams/monitoring": {
+      "filePath": "_guard-layout/_notification/_streams/monitoring.lazy.tsx",
+      "parent": "/_guard-layout/_notification/_streams"
     },
-    "/_guard-layout/setup/presets/config": {
-      "filePath": "_guard-layout/setup/presets/config.tsx",
-      "parent": "/_guard-layout/setup/presets"
+    "/_guard-layout/_notification/_streams/devices/cpus": {
+      "filePath": "_guard-layout/_notification/_streams/devices/cpus.tsx",
+      "parent": "/_guard-layout/_notification/_streams/devices"
     },
-    "/_guard-layout/setup/flight-sheets_/$flightSheetId/apply": {
-      "filePath": "_guard-layout/setup/flight-sheets_/$flightSheetId.apply.tsx",
-      "parent": "/_guard-layout"
+    "/_guard-layout/_notification/_streams/devices/gpus": {
+      "filePath": "_guard-layout/_notification/_streams/devices/gpus.tsx",
+      "parent": "/_guard-layout/_notification/_streams/devices",
+      "children": [
+        "/_guard-layout/_notification/_streams/devices/gpus/config"
+      ]
+    },
+    "/_guard-layout/_notification/setup/flight-sheets/config": {
+      "filePath": "_guard-layout/_notification/setup/flight-sheets/config.tsx",
+      "parent": "/_guard-layout/_notification/setup/flight-sheets"
+    },
+    "/_guard-layout/_notification/setup/presets/config": {
+      "filePath": "_guard-layout/_notification/setup/presets/config.tsx",
+      "parent": "/_guard-layout/_notification/setup/presets"
+    },
+    "/_guard-layout/_notification/_streams/devices/gpus/config": {
+      "filePath": "_guard-layout/_notification/_streams/devices/gpus/config.tsx",
+      "parent": "/_guard-layout/_notification/_streams/devices/gpus"
+    },
+    "/_guard-layout/_notification/setup/flight-sheets_/$flightSheetId/apply": {
+      "filePath": "_guard-layout/_notification/setup/flight-sheets_/$flightSheetId.apply.tsx",
+      "parent": "/_guard-layout/_notification"
+    },
+    "/_guard-layout/_notification/setup/presets_/$presetId/apply": {
+      "filePath": "_guard-layout/_notification/setup/presets_/$presetId.apply.tsx",
+      "parent": "/_guard-layout/_notification"
     }
   }
 }

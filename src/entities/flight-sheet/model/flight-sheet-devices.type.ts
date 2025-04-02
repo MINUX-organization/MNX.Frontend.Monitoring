@@ -14,6 +14,7 @@ export const FlightSheetDevicesSchema = z.object({
       flightSheetIsConfirm: z.boolean({invalid_type_error: 'Flight sheet is confirm must be a boolean'}),
       minerName: z.string({invalid_type_error: 'Miner name must be a string'}).optional(),
       pciBus: z.string({invalid_type_error: 'PCI bus must be a string'}),
+      presetName: z.string({invalid_type_error: 'Preset name must be a string'}).optional()
     }))
   })) 
 })

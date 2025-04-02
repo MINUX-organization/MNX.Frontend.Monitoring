@@ -22,3 +22,4 @@ export { HiveIcon } from './hive';
 export { SettingInputIcon } from './setting-input';
 export { RefreshIcon } from './refresh';
 export { WarnIcon } from './warn';
+export { CircleRoundedIcon } from './circle-rounded';

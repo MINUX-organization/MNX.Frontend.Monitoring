@@ -14,7 +14,7 @@ const { usePresetQuery } = presetRepository;
 
 export function PresetConfigModal() {
   const navigate = useNavigate();
-  const { presetId } = useSearch({ from: '/_guard-layout/setup/presets/config' });
+  const { presetId } = useSearch({ from: '/_guard-layout/_notification/setup/presets/config' });
   const { data: gpusUniqueNames } = useSuspenseQuery(gpuUniqueNamesOptions);
   const { setDeviceName, setMode, mode, deviceName, setOverclocking, overclocking } = presetFormStore();
   const { presets } = usePresetQuery();
@@ -31,8 +31,10 @@ export function PresetConfigModal() {
       setDeviceName('');
     }
   }, []);
-
+  
   useEffect(() => {
+    setMode('add');
+
     if (presetId) {
       setMode('edit');
     }
@@ -73,7 +75,7 @@ export function PresetConfigModal() {
                 <PresetSlidersForm 
                   overclockingPresetValues={findedPreset?.overclocking as OverclockingGpuType}
                   setOverclocking={setOverclocking}
-                  deviceName={deviceName}
+                  deviceIdOrName={deviceName}
                 />
               </Suspense>
             </Collapsible.Content>

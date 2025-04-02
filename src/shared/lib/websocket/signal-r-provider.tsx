@@ -1,20 +1,17 @@
-import { BACKEND_BASE_URL } from "@/shared/constants/backend-urls";
-import { HttpTransportType, HubConnection, HubConnectionBuilder, HubConnectionState, LogLevel } from "@microsoft/signalr";
-import { useCallback, useEffect, useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { BACKEND_BASE_URL, BACKEND_HUBS } from "@/shared/constants/backend-urls";
+import { HttpTransportType, HubConnectionBuilder, HubConnectionState, LogLevel } from "@microsoft/signalr";
+import { useCallback, useEffect, useMemo } from "react";
 import { SignalRContext } from "./signal-r-context";
 
 export function SignalRProvider({
-  route,
   token,
   children,
 } : {
-  route: string;
   token?: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }) {
-  const [connection, setConnection] = useState<HubConnection | null>(null);
-
-  const createConnection = useCallback(() => {
+  const createConnection = useCallback((route: string, token?: string) => {
     return new HubConnectionBuilder()
       .withUrl(BACKEND_BASE_URL + route, {
         accessTokenFactory: () => token || '',
@@ -24,45 +21,25 @@ export function SignalRProvider({
       .configureLogging(LogLevel.Information)
       .withAutomaticReconnect()
       .build();
-  }, [route, token]);
+  }, []);
 
-  const startConnection = useCallback(async () => {
-    if (!connection && connection === null) return;
-
-    if (connection.state === HubConnectionState.Connected) return;
-
-    try {
-      await connection.start();
-    } catch (err) {
-      console.error('SignalR Connection Error:', err);
-    }
-  }, [connection]);
-
-  const stopConnection = useCallback(async () => {
-    if (!connection && connection === null) return;
-
-    if (connection.state === HubConnectionState.Disconnected) return;
-
-    try {
-      await connection.stop();
-      console.log('SignalR Disconnected');
-    } catch (err) {
-      console.error('SignalR Disconnection Error:', err);
-    }
-  }, [connection]);
+  const streamConnection = useMemo(() => createConnection(BACKEND_HUBS.MONITORING, token), [createConnection]);
+  const notificationConnection = useMemo(() => createConnection(BACKEND_HUBS.NOTIFICATION, token), [createConnection]);
 
   useEffect(() => {
-    const newConnection = createConnection();
-    setConnection(newConnection);
-
     return () => {
-      if (newConnection.state === HubConnectionState.Connected)
-        newConnection.stop();
+      if (streamConnection.state === HubConnectionState.Connected) {
+        streamConnection.stop();
+      }
+
+      if (notificationConnection.state === HubConnectionState.Connected) {
+        notificationConnection.stop();
+      }
     };
-  }, [createConnection]);
+  }, [createConnection, notificationConnection, streamConnection]);
 
   return (
-    <SignalRContext.Provider value={{ connection, startConnection, stopConnection }}>
+    <SignalRContext.Provider value={{ streamConnection, notificationConnection }}>
       {children}
     </SignalRContext.Provider>
   );

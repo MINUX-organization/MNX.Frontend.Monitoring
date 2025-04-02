@@ -9,24 +9,22 @@ import { UiSlider } from "@/shared/ui/slider"
 import { Controller, useForm } from "react-hook-form"
 import { transformSlidersToObject } from "../utils/transformSlidersToObject"
 import { useSuspenseQuery } from "@tanstack/react-query"
-import { useCallback, useEffect, useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo } from "react"
 
 export function PresetSlidersForm({
   overclockingPresetValues,
   setOverclocking,
-  deviceName
+  deviceIdOrName
 } : {
   overclockingPresetValues?: OverclockingGpuType
   setOverclocking: (overclocking: Omit<OverclockingGpuType, '$type'>) => void
-  deviceName: string
+  deviceIdOrName?: string
 }) {
-  const { data: restrictions } = useSuspenseQuery(gpuRestrictionsOptions(deviceName));
-
-  const [savedRestrictions] = useState(restrictions.data);
+  const { data: restrictions } = useSuspenseQuery(gpuRestrictionsOptions(deviceIdOrName));
 
   const sliderType = useMemo(
-    () => convertToSliders(savedRestrictions, overclockingPresetValues),
-    [restrictions.data, overclockingPresetValues]
+    () => convertToSliders(restrictions?.data, overclockingPresetValues),
+    [restrictions?.data, overclockingPresetValues]
   )
 
   const defaultValues = useMemo(
@@ -34,13 +32,9 @@ export function PresetSlidersForm({
     [sliderType]
   )
 
-  const { control, reset, handleSubmit, getValues } = useForm({
+  const { control, reset, getValues } = useForm({
     defaultValues,
   })
-
-  const handleSubmitForm = (data: typeof defaultValues) => {
-    console.log(data)
-  }
 
   const handleChangeValueEnd = () => setOverclocking(getValues());
 
@@ -50,7 +44,7 @@ export function PresetSlidersForm({
   }
 
   const handleResetToDefault = () => {
-    const restrictionsSlider = convertToSliders(restrictions.data)
+    const restrictionsSlider = convertToSliders(restrictions?.data)
     const object = transformSlidersToObject(restrictionsSlider);
     reset(object);
     handleChangeValueEnd();
@@ -87,9 +81,9 @@ export function PresetSlidersForm({
   );
 
   return (
-    <form onSubmit={handleSubmit(handleSubmitForm)}>
+    <form>
       <Stack gap={4}>
-        {_.map(sliderType, (slider) => (
+        {restrictions && _.map(sliderType, (slider) => (
           <Stack key={slider.label}>
             <HeaderSeparator label={slider.label} />
             <Stack gap={4} pl={3} pr={3}>

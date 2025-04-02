@@ -3,4 +3,7 @@ export { editPresetApi } from './edit-preset';
 export { getPresetsApi } from './get-presets';
 export { getPresetsGroupedByGpuApi } from './get-presets-grouped-by-gpu';
 export { savePresetApi } from './save-preset';
-export { applyPresetApi } from './apply-preset';
+export { applyPresetDevicesApi } from './apply-preset';
+export { getPresetDevicesApi } from './get-preset-devices';
+export { getPresetDevicesSupportedApi } from './get-preset-devices-support';
+export { getPresetByIdApi } from './get-preset-by-id';

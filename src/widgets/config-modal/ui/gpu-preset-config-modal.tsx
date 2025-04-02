@@ -18,7 +18,7 @@ const { useGpuQuery } = gpuRepository;
 export function GpuPresetConfigModal() {
   const navigate = useNavigate();
   const { gpuDynamicTotalIndicators } = devicesStreamStore();
-  const { gpuId } = useSearch({ from: '/_guard-layout/devices/gpus/config' });
+  const { gpuId } = useSearch({ from: '/_guard-layout/_notification/_streams/devices/gpus/config' });
   const { getById } = useGpuQuery();
   const { setDeviceName, deviceName, setOverclocking } = presetFormStore();
   const findedGpu = useMemo(
@@ -55,7 +55,7 @@ export function GpuPresetConfigModal() {
               <PresetSlidersForm
                 overclockingPresetValues={currentGpuOverclocking.data}
                 setOverclocking={setOverclocking}
-                deviceName={deviceName}
+                deviceIdOrName={gpuId}
               />
           </Suspense>
         )

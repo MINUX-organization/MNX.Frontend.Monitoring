@@ -18,7 +18,7 @@ export function CpuItem({ cpu, cpuDynamic, ...props }: CpuItemProps) {
   ];
 
   const stats = [
-    { label: 'Preset', value: undefined },
+    { label: 'Preset', value: cpu.presetName },
     { label: 'Flight sheet', value: cpu.flightSheetName },
     { label: 'Rig', value: cpu.rigName },
   ];
@@ -34,14 +34,14 @@ export function CpuItem({ cpu, cpuDynamic, ...props }: CpuItemProps) {
       >
         <Stack gap={0}>
           <Group>
-            <ActiveIndicator activeState={cpuDynamic?.miningState} />
-            <Heading >{cpu.information.name}</Heading>
+            <ActiveIndicator activeState={cpuDynamic?.miningState} isOnline={cpu?.isOnline} />
+            <Heading w={{ base: '100%', md: '20rem'}}>{cpu.information.name}</Heading>
           </Group>
           <DataList.Root orientation="horizontal" gap={0}>
             {_.map(stats, (stat) => (
               <DataList.Item key={stat.label}>
                 <DataList.ItemLabel minW={'5rem'}>{stat.label}</DataList.ItemLabel>
-                <DataList.ItemValue color={'minux.solid'}>{stat.value ?? 'Not setted'}</DataList.ItemValue>
+                <DataList.ItemValue color={'minux.solid'}>{stat.value ?? '-'}</DataList.ItemValue>
               </DataList.Item>
             ))}
           </DataList.Root>

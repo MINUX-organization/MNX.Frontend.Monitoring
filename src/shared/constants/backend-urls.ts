@@ -8,6 +8,7 @@ export const BACKEND_SECURITY_URL = `/${BACKEND_SECURITY}/api`;
 
 export const BACKEND_HUBS = {
   MONITORING: `/${BACKEND_MONITORING}/hubs/monitoring`,
+  NOTIFICATION: `/${BACKEND_MONITORING}/hubs/notification`,
 } as const
 
 export const BACKEND_APIS = {
@@ -38,19 +39,23 @@ export const BACKEND_APIS = {
   },
   FLIGHT_SHEET: {
     FLIGHT_SHEETS: `${BACKEND_MONITORING_URL}/flight_sheets`,
-    FLIGHT_SHEETS_DEVICES: (id?: string) => `${BACKEND_MONITORING_URL}/flight_sheets/${id}/devices`,
-    FLIGHT_SHEETS_DEVICES_SUPPORTED: (id?: string) => `${BACKEND_MONITORING_URL}/flight_sheets/${id}/devices/supported`,
+    FLIGHT_SHEET_DEVICES: (id?: string) => `${BACKEND_MONITORING_URL}/flight_sheets/${id}/devices`,
+    FLIGHT_SHEET_DEVICES_SUPPORTED: (id?: string) => `${BACKEND_MONITORING_URL}/flight_sheets/${id}/devices/supported`,
   },
   PROFILE: {
     BASE: `${BACKEND_SECURITY_URL}/profile`,
     NICKNAME: `${BACKEND_SECURITY_URL}/profile/nickname`,
     GENERATE: `${BACKEND_SECURITY_URL}/profile/key/generate`
   },
+  PRESET: {
+    PRESETS: `${BACKEND_MONITORING_URL}/presets`,
+    PRESET_DEVICES: (id?: string) => `${BACKEND_MONITORING_URL}/presets/${id}/devices`,
+    PRESET_DEVICES_SUPPORTED: (id?: string) => `${BACKEND_MONITORING_URL}/presets/${id}/devices/supported`,
+  },
   CRYPTOCURRENCIES: `${BACKEND_MONITORING_URL}/cryptocurrencies`,
   ALHORITHMS: `${BACKEND_MONITORING_URL}/algorithms/available`,
   POOLS: `${BACKEND_MONITORING_URL}/pools`,
   WALLETS: `${BACKEND_MONITORING_URL}/wallets`,
   MINERS: `${BACKEND_MONITORING_URL}/miners/available`,
-  PRESETS: `${BACKEND_MONITORING_URL}/presets`,
   NICKNAME : `${BACKEND_SECURITY_URL}/profile/nickname`,
 } as const

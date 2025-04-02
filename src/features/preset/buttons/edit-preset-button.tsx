@@ -1,10 +1,10 @@
 import { EditIcon } from "@/shared/assets/svg";
 import { UiDialog } from "@/shared/ui";
-import { IconButton, Stack } from "@chakra-ui/react";
+import { Center, IconButton, Spinner, Stack } from "@chakra-ui/react";
 import { Link, linkOptions } from "@tanstack/react-router";
 import { PresetForm, PresetSlidersForm } from "../forms";
-import { OverclockingGpuType, presetsByDeviceNameQueryOptions } from "@/entities/preset";
-import { useEffect, useMemo, useState } from "react";
+import { OverclockingGpuType, presetByIdQueryOptions } from "@/entities/preset";
+import { Suspense, useEffect, useState } from "react";
 import _ from "lodash";
 import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { gpuUniqueNamesOptions } from "@/entities/devices";
@@ -27,11 +27,15 @@ export function EditPresetButton({
           <EditIcon />
         </IconButton>
       )}
-      renderBody={(onClose) => <EditPresetWrapperForm 
-        presetId={presetId} 
-        onClose={onClose} 
-        deviceNameProp={deviceName}/>}
-    />
+      renderBody={(onClose) => (
+        <Suspense fallback={<Center><Spinner /></Center>}>
+          <EditPresetWrapperForm 
+            presetId={presetId} 
+            onClose={onClose} 
+            deviceNameProp={deviceName}
+          />
+        </Suspense>
+      )}/>
   )
 
   const link = linkOptions({
@@ -51,35 +55,32 @@ export function EditPresetButton({
 export const EditPresetWrapperForm = ({ 
   presetId, 
   onClose, 
-  deviceNameProp
+  deviceNameProp,
 }: { 
   presetId: string, 
   onClose?: () => void,
   deviceNameProp?: string
 }) => {
-  const { data: presets } = useSuspenseQuery(presetsByDeviceNameQueryOptions(deviceNameProp));
+  const { data: presetData } = useSuspenseQuery(presetByIdQueryOptions(presetId));
   const [deviceName, setDeviceName] = useState('');
   const [overclocking, setOverclocking] = useState<Omit<OverclockingGpuType, '$type'> | null>(null);
   const { data: gpusUniqueNames } = useQuery(gpuUniqueNamesOptions);
 
-  const findedPreset = useMemo(
-    () =>  _.find(presets.data, (preset) => preset.id === presetId),
-    [presets.data, presetId]
-  )
+  const preset = presetData.data;
 
   const isOpen = !_.isEmpty(deviceName) && deviceName !== null
 
   useEffect(() => {
-    if (findedPreset) {
-      setDeviceName(findedPreset.deviceName);
+    if (preset) {
+      setDeviceName(preset.deviceName);
     }
-  }, [findedPreset]);
+  }, [preset]);
 
   return (
     <Stack>
       <PresetForm 
         devicesNames={gpusUniqueNames?.data}
-        defaultValues={findedPreset}
+        defaultValues={preset}
         overclocking={overclocking}
         setDeviceName={setDeviceName}
         deviceNameInputDisabled
@@ -87,9 +88,9 @@ export const EditPresetWrapperForm = ({
         onClose={onClose}
       />
       {isOpen && <PresetSlidersForm 
-        overclockingPresetValues={findedPreset?.overclocking as OverclockingGpuType}
+        overclockingPresetValues={preset.overclocking as OverclockingGpuType}
         setOverclocking={setOverclocking}
-        deviceName={deviceName}
+        deviceIdOrName={deviceNameProp}
       />}
     </Stack>
   )

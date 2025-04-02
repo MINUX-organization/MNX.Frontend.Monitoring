@@ -1,14 +1,15 @@
-import { sessionRepository } from '@/entities/session';
-import { BACKEND_HUBS } from '@/shared/constants/backend-urls';
-import { SignalRProvider } from '@/shared/lib/websocket/signal-r-provider';
 import { TokenRefresher } from '@/shared/lib/utils/refresh-token';
+import { unregisterHandler } from '@/shared/lib/websocket';
 import { RootLayout } from '@/widgets/root-layout';
 import { createFileRoute, redirect } from '@tanstack/react-router';
 
 const tokenRefresher = TokenRefresher.getInstance();
 
 export const Route = createFileRoute('/_guard-layout')({
-  component: RouteComponent,
+  component: RootLayout,
+  onLeave: ({ context: { websockets } }) => {
+    unregisterHandler(websockets?.notificationConnection, 'MiningDeviceStateChanged');
+  },
   beforeLoad: async ({ context, location }) => {
     const session = context.session.get();
 
@@ -45,16 +46,4 @@ function redirectToLogin(redirectUrl: string) {
     to: '/login',
     search: { redirect: redirectUrl },
   });
-}
-
-const { sessionQuery } = sessionRepository;
-
-function RouteComponent() {
-  const session = sessionQuery();
-
-  return (
-    <SignalRProvider route={BACKEND_HUBS.MONITORING} token={session?.accessToken ?? ''}>
-      <RootLayout />
-    </SignalRProvider>
-  )
 }

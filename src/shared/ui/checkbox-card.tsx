@@ -35,7 +35,8 @@ export const UiCheckboxCard = React.forwardRef<
   const ContentWrapper = indicator ? ChakraCheckboxCard.Content : React.Fragment
 
   return (
-    <ChakraCheckboxCard.Root      
+    <ChakraCheckboxCard.Root  
+      cursor={"pointer"}    
       borderColor={'minux.solid'}
       _checked={{ borderColor: 'transparent', borderImage: 'none' }}
       colorPalette={warn ? 'orange' : 'green'}
@@ -63,7 +64,7 @@ export const UiCheckboxCard = React.forwardRef<
         )}
         <VStack justify={'space-between'} h={'full'} w={'20px'}>
           {indicatorPlacement === "end" && indicator}
-          {rest.checked && warn && <WarnIcon width={'20px'} height={'20px'} fill={'orange.500'}/>}
+          {warn && <WarnIcon width={'20px'} height={'20px'} fill={'orange.500'}/>}
           {image}
         </VStack>
       </ChakraCheckboxCard.Control>

@@ -1,69 +1,74 @@
-// import { presetByIdQueryOptions } from "@/entities/preset"
-// import { FlightSheetSelector, FlightSheetSelectorApplyButton } from "@/features/flight-sheet";
-// import { UiText } from "@/shared/ui";
-// import { UiContainerRounded } from "@/shared/ui";
-// import { GenericList } from "@/widgets/generic-list";
-// import { Heading, Stack, VStack } from "@chakra-ui/react";
-// import { useSuspenseQueries } from "@tanstack/react-query"
-// import { useParams } from "@tanstack/react-router"
-// import { ColumnDef } from "@tanstack/react-table";
-// import _ from "lodash";
-// import { useEffect, useState } from "react";
+import { 
+  presetByIdQueryOptions, 
+  PresetDevicesType, 
+  presetRigDevicesQueryOptions, 
+  presetRigDevicesSupportQueryOptions 
+} from "@/entities/preset";
+import { PresetSelector, PresetSelectorApplyButton } from "@/features/preset/preset-selector";
+import { UiText } from "@/shared/ui";
+import { UiContainerRounded } from "@/shared/ui";
+import { GenericList } from "@/widgets/generic-list";
+import { Heading, Stack, VStack } from "@chakra-ui/react";
+import { useSuspenseQueries } from "@tanstack/react-query"
+import { useParams } from "@tanstack/react-router"
+import { ColumnDef } from "@tanstack/react-table";
+import _ from "lodash";
+import { useEffect, useState } from "react";
 
-// export function PresetApplyPage() {
-//   const { presetId } = useParams({ strict: false });
-//   const [devicesAppliedIds, setDevicesAppliedIds] = useState<Set<string>>(new Set());
-//   const [
-//     { data: flightSheetData }, 
-//     { data: flightSheetRigDevicesData }, 
-//     { data: flightSheetRigDevicesSupportData }
-//   ] = useSuspenseQueries({
-//     queries: [
-//       presetByIdQueryOptions(flightSheetId),
-//       flightSheetRigDevicesQueryOptions(flightSheetId),
-//       flightSheetRigDevicesSupportQueryOptions(flightSheetId),
-//     ] 
-//   })
+export function PresetApplyPage() {
+  const { presetId } = useParams({ strict: false });
+  const [devicesAppliedIds, setDevicesAppliedIds] = useState<Set<string>>(new Set());
+  const [
+    { data: presetData }, 
+    { data: presetRigDevicesData }, 
+    { data: presetRigDevicesSupportData }
+  ] = useSuspenseQueries({
+    queries: [
+      presetByIdQueryOptions(presetId),
+      presetRigDevicesQueryOptions(presetId),
+      presetRigDevicesSupportQueryOptions(presetId),
+    ] 
+  })
 
-//   const flightSheet = flightSheetData.data;
+  const preset = presetData.data;
 
-//   const flightSheetRigsColumns: ColumnDef<FlightSheetDevicesType>[] = [
-//     { accessorKey: 'name', header: 'By Rig' },
-//   ]
+  const flightSheetRigsColumns: ColumnDef<PresetDevicesType>[] = [
+    { accessorKey: 'name', header: 'By Rig' },
+  ]
 
-//   useEffect(() => {
-//     const ids: Set<string> = new Set();
+  useEffect(() => {
+    const ids: Set<string> = new Set();
 
-//     _.forEach(flightSheetRigDevicesData.data, (device) => 
-//       _.forEach(device.elements, (element) => 
-//         _.forEach(element.elements, (device) => ids.add(device.id))))
+    _.forEach(presetRigDevicesData.data, (device) => 
+      _.forEach(device.elements, (element) => 
+        _.forEach(element.elements, (device) => ids.add(device.id))))
 
-//     setDevicesAppliedIds(ids)
-//   }, [flightSheetRigDevicesData.data])
+    setDevicesAppliedIds(ids)
+  }, [presetRigDevicesData.data])
 
-//   return (
-//     <Stack gap={4}> 
-//       <VStack>
-//         <Heading color={'minux.solid'}>{flightSheet.name}</Heading>
-//         <UiText textStyle={'lg'}>Apply flight sheet for devices</UiText>
-//       </VStack>
-//       <GenericList 
-//         data={flightSheetRigDevicesSupportData.data}
-//         columns={flightSheetRigsColumns}
-//         searchable
-//         sortable
-//         renderAddButton={() => 
-//           <FlightSheetSelectorApplyButton flightSheetId={flightSheetId} devicesIds={Array.from(devicesAppliedIds)}/>}
-//         renderItem={(item) => 
-//           <UiContainerRounded bg={'bg.panel'}>
-//               <FlightSheetSelector
-//                 flightSheetDevicesSupported={item}
-//                 flightSheetDevicesApplied={devicesAppliedIds}
-//                 setDevicesApplied={setDevicesAppliedIds}
-//               /> 
-//           </UiContainerRounded>
-//         }
-//       />
-//     </Stack>
-//   )
-// }
+  return (
+    <Stack gap={4}> 
+      <VStack>
+        <Heading color={'minux.solid'}>{preset.name}</Heading>
+        <UiText textStyle={'lg'}>Apply preset for devices</UiText>
+      </VStack>
+      <GenericList 
+        data={presetRigDevicesSupportData.data}
+        columns={flightSheetRigsColumns}
+        searchable
+        sortable
+        renderAddButton={() => 
+          <PresetSelectorApplyButton presetId={presetId} devicesIds={Array.from(devicesAppliedIds)}/>}
+        renderItem={(item) => 
+          <UiContainerRounded bg={'bg.panel'}>
+              <PresetSelector
+                presetDevicesSupported={item}
+                presetDevicesApplied={devicesAppliedIds}
+                setDevicesApplied={setDevicesAppliedIds}
+              />
+          </UiContainerRounded>
+        }
+      />
+    </Stack>
+  )
+}

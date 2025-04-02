@@ -30,7 +30,6 @@ const NavButton = ({ children, isActive, ...props }: { isActive?: boolean } & Bu
     _hover={{
       opacity: 1,
     }}
-    transition={"all 0.2s ease-in-out"}
   >
     {children}
   </UiButton>

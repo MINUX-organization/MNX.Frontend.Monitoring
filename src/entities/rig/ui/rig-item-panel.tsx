@@ -21,7 +21,7 @@ export function RigItemPanel({
       {...props}
     >
       <Group>
-        <ActiveIndicator activeState={'Active'} />
+        <ActiveIndicator isOnline activeState={'Active'} />
         <UiEditableInput 
           disabled 
           maxW={'20rem'}

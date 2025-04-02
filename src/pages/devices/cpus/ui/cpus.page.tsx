@@ -10,7 +10,7 @@ export function CpusPage() {
   const columns: ColumnDef<CpuType>[] = [
     { accessorKey: 'information.name', header: 'By Name' },
   ];
-  console.log(cpuDynamicTotalIndicators)
+
   return (
     <>
       <GenericList

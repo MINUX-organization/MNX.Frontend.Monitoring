@@ -14,10 +14,10 @@ export function ApplyPresetButton({
   deviceId?: string
   type?: 'action' | 'link'
 }) {
-  const { applyPreset } = usePresetMutation();
+  const { applyPresetDevices } = usePresetMutation();
 
   const handleClick = () => {
-    applyPreset({id: presetId, data: [deviceId ?? '']});
+    applyPresetDevices({id: presetId, data: [deviceId ?? '']});
   }
 
   if (type === 'action') return (
@@ -32,8 +32,8 @@ export function ApplyPresetButton({
   })
   
   return (
-    <Link disabled {...link}>
-      <IconButton disabled variant="ghost" className='group' aria-label="Apply flight sheet">
+    <Link {...link}>
+      <IconButton variant="ghost" className='group' aria-label="Apply flight sheet">
         <ConfirmedIcon />
       </IconButton>
     </Link>

@@ -1,4 +1,4 @@
-import { applyPresetApi, deletePresetApi, editPresetApi, getPresetsApi, getPresetsGroupedByGpuApi, savePresetApi } from "@/shared/api";
+import { applyPresetDevicesApi, deletePresetApi, editPresetApi, getPresetsApi, getPresetsGroupedByGpuApi, savePresetApi } from "@/shared/api";
 import { queryOptions, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { PresetSchema, PresetType } from "./preset.type";
 import { zodSaveParse } from "@/shared/lib/utils/zod-save-parse";
@@ -6,6 +6,8 @@ import { toaster } from "@/shared/ui/toaster";
 import { PresetGroupedByGpuType } from "./preset-grouped-by-gpu.type";
 import { useCallback, useMemo } from "react";
 import _ from "lodash";
+import { PresetDevicesType } from "./preset-devices.type";
+import { getPresetByIdApi, getPresetDevicesApi, getPresetDevicesSupportedApi } from "@/shared/api/preset";
 
 export const presetQueryOptions = queryOptions({
   queryKey: ['presets'],
@@ -14,7 +16,19 @@ export const presetQueryOptions = queryOptions({
 
 export const presetByIdQueryOptions = (id?: string) => queryOptions({
   queryKey: ['presets', id],
-  queryFn: () => getPresetsApi<PresetType[]>(id),
+  queryFn: () => getPresetByIdApi<PresetType>(id!),
+  enabled: !!id
+})
+
+export const presetRigDevicesQueryOptions = (id: string) => queryOptions({
+  queryKey: ['presets', id, 'devices'],
+  queryFn: () => getPresetDevicesApi<PresetDevicesType[]>(id),
+  enabled: !!id
+})
+
+export const presetRigDevicesSupportQueryOptions = (id: string) => queryOptions({
+  queryKey: ['presets', id, 'devices-support'],
+  queryFn: () => getPresetDevicesSupportedApi<PresetDevicesType[]>(id),
   enabled: !!id
 })
 
@@ -80,8 +94,8 @@ const usePresetMutation = () => {
     },
   })
 
-  const applyPresetMutation = useMutation({
-    mutationFn: ({id, data} : {id: string, data: string[]}) => applyPresetApi(id, data),
+  const applyPresetDevicesMutation = useMutation({
+    mutationFn: ({id, data} : {id: string, data: string[]}) => applyPresetDevicesApi(id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['presets'] });
       toaster.success({
@@ -94,7 +108,7 @@ const usePresetMutation = () => {
     savePreset: savePresetMutation.mutateAsync,
     editPreset: editPresetMutation.mutateAsync,
     deletePreset: deletePresetMutation.mutateAsync,
-    applyPreset: applyPresetMutation.mutateAsync,
+    applyPresetDevices: applyPresetDevicesMutation.mutateAsync,
   }
 }
 

@@ -1,6 +1,8 @@
 import { Box, Table, Text } from "@chakra-ui/react";
 import _ from "lodash";
 import { CoinType } from "../../model/coin.type";
+import { calculateHashRate } from "@/shared/lib/utils/calculateHashRate";
+import { calculatePerformance } from "@/shared/lib/utils/calculatePerformance";
 
 export function CpuItemTable({
   coins,
@@ -29,15 +31,17 @@ export function CpuItemTable({
           </Table.Row>
         </Table.Header>
         <Table.Body bg={'transparent'}>
-          {_.map(coins, (coin) => (
-            <Table.Row key={coin.coinName} bg={'transparent'}>
+          {_.map(coins, (coin) => {
+            const hashRate = calculateHashRate(coin.hashRate);
+
+            return (<Table.Row key={coin.coinName} bg={'transparent'}>
               <Table.Cell p={1} bg={'bg.transparent'} textAlign={"center"} w={'3rem'}>
                 {coin.coinName}
               </Table.Cell>
               <Table.Cell p={1} bg={'bg.transparent'} textAlign={"center"} w={'7rem'}>
-                {coin.hashRate}
+                {hashRate.value}
                 &nbsp;
-                <Text color={'minux.solid'} display={'inline'}>MH/s</Text>
+                <Text color={'minux.solid'} display={'inline'}>{hashRate.unit}</Text>
               </Table.Cell>
               <Table.Cell p={1} bg={'bg.transparent'} h={'full'} textAlign={'center'}>
                   <Box display={'inline'} color={'green.500'} border={'none'} textAlign={"center"} w={'3rem'} p={0} pr={2}>
@@ -48,10 +52,10 @@ export function CpuItemTable({
                   </Box>
               </Table.Cell >
               <Table.Cell p={1} bg={'bg.transparent'} textAlign={"center"}>
-                {power > 0 ? (((coin.hashRate / 1000) * 1000) / power).toFixed(2) : '-'}
+                {power > 0 ? calculatePerformance(coin.hashRate, power) : '-'}
               </Table.Cell>
-            </Table.Row>
-          ))}
+            </Table.Row>)
+          })}
         </Table.Body>
       </Table.Root>
     </Table.ScrollArea>

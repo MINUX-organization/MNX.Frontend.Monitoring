@@ -12,7 +12,7 @@ const { useFlightSheetQuery } = flightSheetRepository;
 export function FlightSheetModal() {
   const navigate = useNavigate();
   const { getById } = useFlightSheetQuery();
-  const { id } = useSearch({ from: '/_guard-layout/setup/flight-sheets/config' });
+  const { id } = useSearch({ from: '/_guard-layout/_notification/setup/flight-sheets/config' });
   const { reset, formRef, clearUploadFiles, mode } = useFlightSheetFormStore();
 
   const flightSheet = useMemo(() => {

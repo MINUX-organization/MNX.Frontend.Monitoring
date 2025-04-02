@@ -14,10 +14,10 @@ export const gpusQueryOptions = queryOptions({
   staleTime: 5000,
 });
 
-export const gpuRestrictionsOptions = (deviceName?: string) => queryOptions({
-  queryKey: ['gpu', 'restrictions', deviceName],
-  queryFn: () => getGpuRestrictionsApi<GpuRestrictionsType>(deviceName || ''),
-  enabled: !!deviceName,
+export const gpuRestrictionsOptions = (deviceNameOrId?: string) => queryOptions({
+  queryKey: ['gpu', 'restrictions', deviceNameOrId],
+  queryFn: () => getGpuRestrictionsApi<GpuRestrictionsType>(deviceNameOrId || ''),
+  enabled: !!deviceNameOrId,
   staleTime: 5000,
 });
 

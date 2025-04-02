@@ -20,7 +20,7 @@ export function GpuItem({ gpu, gpuDynamic, renderGpuSetting, ...props }: GpuItem
   ];
 
   const stats = [
-    { label: 'Preset', value: undefined },
+    { label: 'Preset', value: gpu.presetName },
     { label: 'Flight sheet', value: gpu.flightSheetName },
     { label: 'Rig', value: gpu.rigName },
   ];
@@ -36,14 +36,14 @@ export function GpuItem({ gpu, gpuDynamic, renderGpuSetting, ...props }: GpuItem
       >
         <Stack gap={0}>
           <Group>
-            <ActiveIndicator activeState={gpuDynamic?.miningState} />
+            <ActiveIndicator activeState={gpuDynamic?.miningState} isOnline={gpu.isOnline} />
             <Heading w={{ base: '100%', md: '20rem'}}>{gpu.information.name}</Heading>
           </Group>
           <DataList.Root orientation="horizontal" gap={0}>
             {_.map(stats, (stat) => (
               <DataList.Item key={stat.label}>
                 <DataList.ItemLabel minW={'5rem'}>{stat.label}</DataList.ItemLabel>
-                <DataList.ItemValue color={'minux.solid'}>{stat.value ?? 'Not setted'}</DataList.ItemValue>
+                <DataList.ItemValue color={'minux.solid'}>{stat.value ?? '-'}</DataList.ItemValue>
               </DataList.Item>
             ))}
           </DataList.Root>
