@@ -37,14 +37,8 @@ export default ({ mode }: { mode: string }) => {
               if (id.includes('@chakra-ui')) {
                 return 'vendor_chakra';
               }
-              if (id.includes('react') || id.includes('react-dom')) {
-                 return 'vendor_react';
-              }
                if (id.includes('lodash')) {
                   return 'vendor_lodash';
-              }
-               if (id.includes('@tanstack')) {
-                  return 'vendor_tanstack';
               }
 
               return 'vendor';
