@@ -4,7 +4,10 @@ import { walletRepository, WalletType } from "@/entities/wallet"
 import { Device, DevicesIcons, UiField, UiInput, UiSelect, UiTextarea, UiToggler } from "@/shared/ui"
 import { FileInput } from "@/shared/ui/file-upload"
 import { FileUploadFileAcceptDetails, FileUploadHiddenInput, FileUploadRootProvider, Stack, StackProps, useFileUpload } from "@chakra-ui/react"
-import _ from "lodash"
+import find from "lodash/find"
+import map from "lodash/map"
+import slice from "lodash/slice"
+import range from "lodash/range"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { Controller, useFormContext, useWatch } from "react-hook-form"
 import { match } from "ts-pattern"
@@ -55,7 +58,7 @@ export function FlightSheetFormTarget({
 
   const miner = useMemo(() => {
     if (!targets[targetIndex]?.minerId) return;
-    const miner = _.find(miners, { id: targets?.[targetIndex]?.minerId })
+    const miner = find(miners, { id: targets?.[targetIndex]?.minerId })
     return miner
   }, [targets, targetIndex, miners])
 
@@ -108,7 +111,7 @@ export function FlightSheetFormTarget({
     );  
   
     if (currentConfigs.length > safeMiningMode) {
-      _.range(safeMiningMode, currentConfigs.length).forEach((index) => {
+      range(safeMiningMode, currentConfigs.length).forEach((index) => {
         clearErrors(`targets.${targetIndex}.miningConfig.coinConfigs.${index}`);
       });
     }
@@ -131,7 +134,7 @@ export function FlightSheetFormTarget({
   }, [])
 
   const slisedModes = useMemo(
-    () => _.slice(['Single', 'Dual', 'Triple'], 0, maxMiningMode), 
+    () => slice(['Single', 'Dual', 'Triple'], 0, maxMiningMode), 
     [maxMiningMode]
   )
 
@@ -156,7 +159,7 @@ export function FlightSheetFormTarget({
               items={pools ?? []}
               getLabel={(item) => `${item.domain} - ${item.cryptocurrency}`}
               onChange={(item) => field.onChange(item?.id)}
-              selectedItem={_.find(pools, { id: poolId })}
+              selectedItem={find(pools, { id: poolId })}
             />
           }}
         />
@@ -179,7 +182,7 @@ export function FlightSheetFormTarget({
               items={wallets ?? []}
               getLabel={(item) => `${item.name} - ${item.cryptocurrency}`}
               onChange={(item) => field.onChange(item?.id)}
-              selectedItem={_.find(wallets, { id: walletId })}
+              selectedItem={find(wallets, { id: walletId })}
             />
           }}
         />
@@ -287,7 +290,7 @@ export function FlightSheetFormTarget({
         </Stack>
       )}
 
-      {_.map(_.range(currentMiningMode), (index) => (
+      {map(range(currentMiningMode), (index) => (
         <Stack key={index} direction={{ base: 'column', md: 'row'}} gap={4}>
           {renderCommonFields(index)}
         </Stack>

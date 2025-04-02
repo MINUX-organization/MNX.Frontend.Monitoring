@@ -3,7 +3,7 @@ import { SearchIcon } from "../assets/svg";
 import { UiInput } from "./input";
 import { InputGroup, InputGroupProps } from "./input-group";
 import { CloseButton } from "./close-button";
-import _ from "lodash";
+import isEmpty from "lodash/isEmpty";
 
 export interface UiSearchProps extends InputProps {
   inputGroupporps?: InputGroupProps;
@@ -17,7 +17,7 @@ export function UiSearch({ inputGroupporps, onQueryClear, ...props }: UiSearchPr
     <InputGroup 
       w={"100%"}
       startElement={<SearchIcon />} 
-      endElement={!_.isEmpty(props.value) && <CloseButton 
+      endElement={!isEmpty(props.value) && <CloseButton 
         onClick={hadndleClearQuery} 
         _hover={{ color: "red.500" }}
         cursor={"pointer"}

@@ -2,7 +2,9 @@ import { UiContainerRounded } from "@/shared/ui";
 import { Box, Flex, Grid, GridItem, Group, Heading, Stack, Wrap, WrapItem } from "@chakra-ui/react";
 import { FlightSheetType } from "..";
 import { Device, DevicesIcons, UiText } from "@/shared/ui";
-import _ from "lodash";
+import map from "lodash/map";
+import flatMap from "lodash/flatMap";
+import orderBy from "lodash/orderBy";
 import React from "react";
 
 export interface FlightSheetItemPanelProps {
@@ -13,21 +15,21 @@ export interface FlightSheetItemPanelProps {
 }
 
 export function FlightSheetItemPanel({ state, flightSheet, renderActions, renderOpenButton }: FlightSheetItemPanelProps) {
-  const coinConfigs = _.flatMap(flightSheet.targets, (target) => 
-    _.map(target.miningConfig.coinConfigs, (coinConfig) => ({
+  const coinConfigs = flatMap(flightSheet.targets, (target) => 
+    map(target.miningConfig.coinConfigs, (coinConfig) => ({
       type: target.miningConfig.$type,
       cryptocurrency: coinConfig.pool.cryptocurrency,
       pool: coinConfig.pool.domain,
       wallet: coinConfig.wallet.name,
     })));
 
-  const miners = _.map(flightSheet.targets, (target) => ({
+  const miners = map(flightSheet.targets, (target) => ({
     type: target.miningConfig.$type,
     ...target.miner,
   }));
 
-  const minersSortedByType = _.orderBy(miners, ['type'], ['desc']);
-  const coinConfigsSortedByType = _.orderBy(coinConfigs, ['type'], ['desc']);
+  const minersSortedByType = orderBy(miners, ['type'], ['desc']);
+  const coinConfigsSortedByType = orderBy(coinConfigs, ['type'], ['desc']);
 
   return (
     <UiContainerRounded 
@@ -50,7 +52,7 @@ export function FlightSheetItemPanel({ state, flightSheet, renderActions, render
               direction={'row'} 
             >             
               <Flex gap={2} direction={'column'} justifySelf={'flex-end'}>
-                {_.map(minersSortedByType, (miner, index) => (
+                {map(minersSortedByType, (miner, index) => (
                   <Stack key={miner.type + index} gap={1}>  
                     <Group>
                       <UiText color={'minux.solid'} mr={2}>{miner.type} miner</UiText>
@@ -69,7 +71,7 @@ export function FlightSheetItemPanel({ state, flightSheet, renderActions, render
                 flexWrap={'wrap'}
                 gap={2}
               >
-                {_.map(coinConfigsSortedByType, (coinConfig, index) => {
+                {map(coinConfigsSortedByType, (coinConfig, index) => {
                   const isCpu = coinConfig.type === 'CPU';
                   const indexAdded = index + 1;
                   return (
@@ -102,7 +104,7 @@ export function FlightSheetItemPanel({ state, flightSheet, renderActions, render
         </GridItem>
         <GridItem gridRow={'1 / 3'} gridColumn={'3 / 4'}>
           <Wrap h={'full'} justifyContent={'center'} alignItems={'center'} gap={{ base: 4, md: 2}} justify={'center'} w={{ base: 6, md: 'auto'}}>
-            {_.map(renderActions ?? [], (action, index) => (
+            {map(renderActions ?? [], (action, index) => (
               <WrapItem key={index}>
                 {action(flightSheet.id)}
               </WrapItem>

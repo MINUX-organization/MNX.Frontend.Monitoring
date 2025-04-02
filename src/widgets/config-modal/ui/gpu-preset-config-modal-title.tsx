@@ -1,7 +1,7 @@
 import { GpuDynamicIndicatorsType } from "@/entities/devices/gpu";
 import { HeaderSeparator, UiText } from "@/shared/ui";
 import { Box, DataList, Heading, Stack } from "@chakra-ui/react";
-import _ from "lodash";
+import map from "lodash/map";
 
 export interface GpuPresetConfigModalTitleProps {
   deviceName: string
@@ -24,7 +24,7 @@ export function GpuPresetConfigModelTitle({ deviceName, dynamicDeviceIndicators,
       <Box>
         <HeaderSeparator fontWeight={'500'} label={'Current Indicators'} />
         <DataList.Root orientation="horizontal" gap={0}>
-          {_.map(indicators, (indicator) => (
+          {map(indicators, (indicator) => (
             <DataList.Item key={indicator.label}>
               <DataList.ItemLabel>
                 <UiText>{indicator.label}</UiText>

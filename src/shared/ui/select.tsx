@@ -9,7 +9,7 @@ import { useEffect, useRef, useState } from "react"
 import { UiInput } from './input'
 import { UiContainerRounded } from './container-rounded'
 import { UiText } from './text'
-import _ from 'lodash'
+import isEmpty from 'lodash/isEmpty'
 import { match } from 'ts-pattern'
 import { InputGroup } from './input-group'
 
@@ -246,7 +246,7 @@ export function UiSelect<T>({
           }}
         >
           {match(filteredObjects)
-          .when((filteredObjects) => _.isEmpty(filteredObjects), () => (
+          .when((filteredObjects) => isEmpty(filteredObjects), () => (
             <Center asChild bg={'bg.input'} p={0} h={'14rem'}>
               <UiText color={'fg.input'}>No results</UiText>
             </Center>

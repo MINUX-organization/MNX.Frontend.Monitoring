@@ -1,6 +1,7 @@
 import { FlightSheetDevicesType } from "@/entities/flight-sheet"
 import { Group, Heading, Mark, Stack, Wrap, WrapItem } from "@chakra-ui/react";
-import _ from "lodash";
+import map from "lodash/map";
+import flatMap from "lodash/flatMap";
 import { FlightSheetSelectorDeviceCard } from "./flight-sheet-selector-device-card";
 import { Device, UiCheckbox, UiText } from "@/shared/ui";
 
@@ -15,9 +16,9 @@ export function FlightSheetSelector({
   flightSheetDevicesSupported,
   setDevicesApplied
 }: FlightSheetSelectorProps) {
-  const allGroupDeviceIds = _.flatMap(
+  const allGroupDeviceIds = flatMap(
     flightSheetDevicesSupported.elements,
-    (device) => _.map(device.elements, (element) => element.id)
+    (device) => map(device.elements, (element) => element.id)
   );
 
   const currentAllChecked = allGroupDeviceIds.every(id => 
@@ -61,11 +62,11 @@ export function FlightSheetSelector({
         <Heading>{flightSheetDevicesSupported.name}</Heading>
       </Group>
       <Stack>
-        {_.map(flightSheetDevicesSupported.elements, (device) => (
+        {map(flightSheetDevicesSupported.elements, (device) => (
           <Group key={device.name} gap={4} flexDirection={'column'} md={{ ml: 4, flexDirection: 'row' }}>
             <Heading color={'minux.solid'} alignSelf={{ base: 'flex-start', md: 'center'}}>{device.name}</Heading>
             <Wrap flex={1} gap={4}>
-              {_.map(device.elements, (element) => (
+              {map(device.elements, (element) => (
                 <WrapItem key={element.id} flex={1} maxW={'20rem'} >
                   <FlightSheetSelectorDeviceCard
                     flex={1}
@@ -82,7 +83,7 @@ export function FlightSheetSelector({
                     device={(element.manufacturer + device.name) as Device}
                     checked={flightSheetDevicesApplied.has(element.id)}
                     onCheckedChange={() => hanldeCheckBoxClick(element.id)}
-                    warn={element.flightSheetIsConfirm ? undefined : 'Operation not confirmed on rig'}
+                    warn={element.flightSheetConfirmationState === 'Unconfirmed' ? 'Operation not confirmed on rig' : undefined}
                   />
                 </WrapItem>
               ))}

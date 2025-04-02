@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { DevicesIndicatorsType } from "./dynamic-devices-indicators.type";
 import { CpuDynamicIndicatorsType, GpuDynamicIndicatorsType } from "@/entities/devices";
-import _ from "lodash";
+import forEach from "lodash/forEach";
 
 type DevicesStreamStore = {
   cpuDynamicTotalIndicators: Map<string, CpuDynamicIndicatorsType>
@@ -19,11 +19,11 @@ export const devicesStreamStore = create<DevicesStreamStore & Actions>((set) => 
     const gpuDevicesIndicatorsMap = new Map();
     const cpuDevicesIndicatorsMap = new Map();
 
-    _.forEach(devicesIndicators.gpuDynamicTotalIndicators, (value) => {
+    forEach(devicesIndicators.gpuDynamicTotalIndicators, (value) => {
       gpuDevicesIndicatorsMap.set(value.deviceId, value);
     });
 
-    _.forEach(devicesIndicators.cpuDynamicTotalIndicators, (value) => {
+    forEach(devicesIndicators.cpuDynamicTotalIndicators, (value) => {
       cpuDevicesIndicatorsMap.set(value.deviceId, value);
     });
 

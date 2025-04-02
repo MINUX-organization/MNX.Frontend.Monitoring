@@ -1,5 +1,6 @@
 import { Group, Heading, Mark, Stack, Wrap, WrapItem } from "@chakra-ui/react";
-import _ from "lodash";
+import map from "lodash/map";
+import flatMap from "lodash/flatMap";
 import { Device, UiCheckbox, UiText } from "@/shared/ui";
 import { PresetDevicesType } from "@/entities/preset";
 import { PresetSelectorDeviceCard } from "./preset-selector-device-card";
@@ -15,9 +16,9 @@ export function PresetSelector({
   presetDevicesSupported,
   setDevicesApplied,
 }: PresetSelectorProps) {
-  const allGroupDeviceIds = _.flatMap(
+  const allGroupDeviceIds = flatMap(
     presetDevicesSupported.elements,
-    (device) => _.map(device.elements, (element) => element.id)
+    (device) => map(device.elements, (element) => element.id)
   );
 
   const currentAllChecked = allGroupDeviceIds.every(id => 
@@ -61,11 +62,11 @@ export function PresetSelector({
         <Heading>{presetDevicesSupported.name}</Heading>
       </Group>
       <Stack>
-        {_.map(presetDevicesSupported.elements, (device) => (
+        {map(presetDevicesSupported.elements, (device) => (
           <Group key={device.name} gap={4} flexDirection={'column'} md={{ ml: 4, flexDirection: 'row' }}>
             <Heading color={'minux.solid'} alignSelf={{ base: 'flex-start', md: 'center'}}>{device.name}</Heading>
             <Wrap flex={1} gap={4}>
-              {_.map(device.elements, (element) => (
+              {map(device.elements, (element) => (
                 <WrapItem key={element.id} flex={1} maxW={'20rem'} >
                   <PresetSelectorDeviceCard
                     flex={1}

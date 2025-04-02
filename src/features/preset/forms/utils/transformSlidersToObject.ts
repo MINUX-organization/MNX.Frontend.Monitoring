@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import camelCase from 'lodash/camelCase';
 import { SliderType } from '../model/slider.type';
 import { OverclockingGpuType } from '@/entities/preset';
 
@@ -20,7 +20,7 @@ export function transformSlidersToObject(sliderType: SliderType[]): Omit<Overclo
 
   sliderType.forEach((group) => {
     group.values.forEach((slider) => {
-      const key = _.camelCase(slider.label) as keyof Omit<OverclockingGpuType, '$type'>;
+      const key = camelCase(slider.label) as keyof Omit<OverclockingGpuType, '$type'>;
       
       if (validKeys.has(key)) {
         result[key] = slider.value ?? slider.default;

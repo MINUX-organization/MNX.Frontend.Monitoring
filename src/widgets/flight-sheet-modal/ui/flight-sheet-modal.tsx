@@ -4,7 +4,7 @@ import { useFlightSheetFormStore } from "@/features/flight-sheet";
 import { UiDialog } from "@/shared/ui";
 import { Box, Group } from "@chakra-ui/react";
 import { useNavigate, useSearch } from "@tanstack/react-router";
-import _ from "lodash";
+import startCase from "lodash/startCase";
 import { useMemo } from "react";
 
 const { useFlightSheetQuery } = flightSheetRepository;
@@ -25,7 +25,7 @@ export function FlightSheetModal() {
       open
       size={'xl'}
       onOpenChange={() => navigate({ to: '..' })}
-      renderTitle={() => `${_.startCase(mode)} Flight Sheet`}
+      renderTitle={() => `${startCase(mode)} Flight Sheet`}
       renderTrigger={() => <Box></Box>}
       renderBody={() => <FlightSheetForm flightSheet={flightSheet}/>}
       renderFooter={() => (

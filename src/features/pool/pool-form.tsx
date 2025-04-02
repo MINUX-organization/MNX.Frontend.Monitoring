@@ -3,8 +3,9 @@ import { poolRepository, PoolType, PostPoolSchema, PostPoolType } from "@/entiti
 import { isSuccessResponse } from "@/shared/api";
 import { UiInput, UiSelect } from "@/shared/ui";
 import { FormConfig, GenericForm } from "@/shared/ui";
-import _ from "lodash";
 import { match } from "ts-pattern";
+import find from "lodash/find";
+import isEmpty from 'lodash/isEmpty';
 
 const { usePoolMutation } = poolRepository;
 
@@ -21,7 +22,7 @@ export function PoolForm({
 }) {
   const { addPool, editPool } = usePoolMutation();
 
-  const findedCryptocurrency = _.find(cryptocurrencies, { fullName: pool?.cryptocurrency });
+  const findedCryptocurrency = find(cryptocurrencies, { fullName: pool?.cryptocurrency });
 
   const config: FormConfig<PostPoolType> = {
     validationSchema: PostPoolSchema,
@@ -45,7 +46,7 @@ export function PoolForm({
           items={cryptocurrencies ?? []}
           getLabel={(item) => item.fullName}
           onChange={(item) => field.onChange(item?.id)}
-          selectedItem={_.find(cryptocurrencies, { id: field.value })}
+          selectedItem={find(cryptocurrencies, { id: field.value })}
         />
       )},
     ],
@@ -59,7 +60,7 @@ export function PoolForm({
         return;
       }
     },
-    isSubmitDisabled: (errors) => !_.isEmpty(errors)
+    isSubmitDisabled: (errors) => !isEmpty(errors)
   }
 
   return (   

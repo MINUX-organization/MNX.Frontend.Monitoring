@@ -3,7 +3,7 @@ import { poolQueryOptions, PoolType } from "@/entities/pool"
 import { AddPoolButton, PoolForm, DeletePoolButton, EditPoolButton } from "@/features/pool"
 import { MiningTable } from "@/widgets/mining-table"
 import { useSuspenseQuery } from "@tanstack/react-query"
-import _ from "lodash"
+import map from "lodash/map"
 
 const { useCryptocurrencyQuery } = cryptocurrencyRepository;
 
@@ -11,7 +11,7 @@ export function PoolsPage() {
   const { data } = useSuspenseQuery(poolQueryOptions)
   const { cryptocurrencies } = useCryptocurrencyQuery()
 
-  const poolsTable = _.map(data.data, (item) => ({
+  const poolsTable = map(data.data, (item) => ({
     id: item.id,
     domain: item.domain,
     port: item.port.toString(),

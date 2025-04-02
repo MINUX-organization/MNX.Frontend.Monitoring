@@ -3,7 +3,7 @@ import { isSuccessResponse } from "@/shared/api";
 import { UiField, UiFormButtonsGroup, UiPasswordInput } from "@/shared/ui";
 import { Fieldset } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import _ from "lodash";
+import isEmpty from "lodash/isEmpty";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
@@ -39,7 +39,7 @@ export function EditPasswordForm({ onClose, ...props }: EditPasswordFormProps) {
     onClose?.();
   }
 
-  const isInvalidPasswordConfirm = !_.isEmpty(passwordConfirm) && getValues('newPassword') !== passwordConfirm;
+  const isInvalidPasswordConfirm = !isEmpty(passwordConfirm) && getValues('newPassword') !== passwordConfirm;
 
   return (
     <form onSubmit={handleSubmit(handleSubmitChangePassword)}>

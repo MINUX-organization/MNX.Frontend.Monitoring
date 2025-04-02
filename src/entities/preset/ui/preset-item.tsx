@@ -3,7 +3,7 @@ import { PresetType } from "../model/preset.type"
 import { UiContainerRounded } from "@/shared/ui"
 import { DataList, Flex, Heading, Stack, Wrap, WrapItem } from "@chakra-ui/react"
 import { OverclockingToDataListColumns } from "../utils/overclocking-to-data-list-columns"
-import _ from "lodash"
+import map from "lodash/map"
 import { UiText } from "@/shared/ui"
 
 interface PresetItemProps extends PresetItemVariantProps {
@@ -38,7 +38,7 @@ export function PresetItemCard({ preset, actions }: PresetItemVariantProps) {
           <UiText color={'gray.400'}> - {preset.deviceName}</UiText>
         </Stack>
         {actions && <Wrap>
-          {_.map(actions, (action, index) => (
+          {map(actions, (action, index) => (
             <WrapItem key={index}>
               {action(preset)}
             </WrapItem>
@@ -46,9 +46,9 @@ export function PresetItemCard({ preset, actions }: PresetItemVariantProps) {
         </Wrap>}
       </Stack>
       <Flex gap={2} mt={2}>
-        {_.map(columns, (column, index) => (
+        {map(columns, (column, index) => (
           <DataList.Root key={index} orientation={'horizontal'} gap={0} w={index === 2 ? '8rem' : '9rem'}>
-            {_.map(column, (item, index1) => (
+            {map(column, (item, index1) => (
               <DataList.Item key={index1} gap={0}>
                 <DataList.ItemLabel>
                   <UiText textStyle={'xs'}>{item.label}</UiText>
@@ -79,10 +79,10 @@ export function PresetItemList({ preset, actions }: PresetItemVariantProps) {
     >
       <Heading w={{ base: 'full', lg: '15rem'}} truncate>{preset.name}</Heading>
       <Wrap gap={4}>
-        {_.map(columns, (column, index) => (
+        {map(columns, (column, index) => (
           <WrapItem key={index} flex={1}>
             <DataList.Root orientation={'horizontal'} gap={0} w={{ base: '11.75rem', md: '14rem'}}>
-              {_.map(column, (item, index1) => (
+              {map(column, (item, index1) => (
                 <DataList.Item key={index1}>
                   <DataList.ItemLabel>
                     <UiText>{item.label}</UiText>
@@ -99,7 +99,7 @@ export function PresetItemList({ preset, actions }: PresetItemVariantProps) {
         ))}
       </Wrap>
       <Wrap justify={'center'}>
-        {_.map(actions, (action, index) => (
+        {map(actions, (action, index) => (
           <WrapItem key={index}>
             {action(preset)}
           </WrapItem>

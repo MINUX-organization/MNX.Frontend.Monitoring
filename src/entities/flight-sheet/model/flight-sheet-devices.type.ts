@@ -11,7 +11,7 @@ export const FlightSheetDevicesSchema = z.object({
       rigName: z.string({invalid_type_error: 'Rig name must be a string'}),
       type: z.string({invalid_type_error: 'Type must be a string'}),
       flightSheetName: z.string({invalid_type_error: 'Flight sheet name must be a string'}).optional(),
-      flightSheetIsConfirm: z.boolean({invalid_type_error: 'Flight sheet is confirm must be a boolean'}),
+      flightSheetConfirmationState: z.enum(['Successfully', 'Unconfirmed', 'Error'], {invalid_type_error: 'Flight sheet confirmation state must be a string'}),
       minerName: z.string({invalid_type_error: 'Miner name must be a string'}).optional(),
       pciBus: z.string({invalid_type_error: 'PCI bus must be a string'}),
       presetName: z.string({invalid_type_error: 'Preset name must be a string'}).optional()

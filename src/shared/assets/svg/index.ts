@@ -23,3 +23,4 @@ export { SettingInputIcon } from './setting-input';
 export { RefreshIcon } from './refresh';
 export { WarnIcon } from './warn';
 export { CircleRoundedIcon } from './circle-rounded';
+export { ErrorIcon } from './error';

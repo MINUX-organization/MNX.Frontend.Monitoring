@@ -8,9 +8,9 @@ import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { isSuccessResponse } from "@/shared/api";
 import { Link, useNavigate, useSearch } from "@tanstack/react-router";
-import _ from "lodash";
 import { useState } from "react";
 import { UiButton } from "@/shared/ui/button";
+import isEmpty from "lodash/isEmpty";
 
 const { useSessionMutation } = sessionRepository;
 
@@ -34,7 +34,7 @@ export function RegistrationForm({ ...props }: FieldsetContentProps) {
     if (isSuccessResponse(response)) navigate({ to: search.redirect || '/' });
   }
 
-  const isInvalidPasswordConfirm = !_.isEmpty(passwordConfirm) && getValues('password') !== passwordConfirm;
+  const isInvalidPasswordConfirm = !isEmpty(passwordConfirm) && getValues('password') !== passwordConfirm;
 
   return (
     <form onSubmit={handleSubmit(handleSubmitLogin)}>

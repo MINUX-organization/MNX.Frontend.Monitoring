@@ -2,7 +2,7 @@ import { CpuIcon, GpuIcon, MiningIcon, SetupIcon, MicrochipIcon, MonitoringIcon,
 import { RootLayoutNavLink } from "../root-layout-nav-link.type";
 
 export const NAV_FIELDS: RootLayoutNavLink[] = [
-  { label: "Monitoring", to: "/monitoring", icon: <MonitoringIcon /> },
+  { label: "Monitoring", to: "/monitoring", icon: <MonitoringIcon />, disabled: true },
   { label: "Rigs", to: "/rigs", icon: <HiveIcon /> },
   { label: "Devices", to: "/devices", icon: <MicrochipIcon />, children: [
     { label: "GPUs", to: "/gpus", icon: <GpuIcon /> },

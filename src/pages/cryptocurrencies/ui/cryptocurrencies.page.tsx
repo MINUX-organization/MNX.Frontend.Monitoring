@@ -2,12 +2,12 @@ import { cryptocurrencyQueryOptions, CryptocurrencyType } from "@/entities/crypt
 import { AddCryptocurrencyButton, AddCryptocurrencyForm, DeleteCryptocurrencyButton } from "@/features/cryptocurrency";
 import { MiningTable } from "@/widgets/mining-table";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import _ from "lodash";
+import map from "lodash/map";
 
 export function CryptocurrenciesPage() {
   const { data } = useSuspenseQuery(cryptocurrencyQueryOptions)
 
-  const cryptocurrenciesTable = _.map(data.data, (item) => ({
+  const cryptocurrenciesTable = map(data.data, (item) => ({
     id: item.id,
     shortName: item.shortName,
     fullName: item.fullName,

@@ -7,8 +7,9 @@ import { UiDialog } from "@/shared/ui";
 import { Box, Collapsible, Loader, Stack } from "@chakra-ui/react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useNavigate, useSearch } from "@tanstack/react-router";
-import _ from "lodash";
 import { Suspense, useEffect, useMemo } from "react";
+import find from "lodash/find";
+import isEmpty from "lodash/isEmpty";
 
 const { usePresetQuery } = presetRepository;
 
@@ -20,7 +21,7 @@ export function PresetConfigModal() {
   const { presets } = usePresetQuery();
 
   const findedPreset = useMemo(
-    () =>  _.find(presets, (preset) => preset.id === presetId),
+    () =>  find(presets, (preset) => preset.id === presetId),
     [presetId, presets]
   );
 
@@ -45,7 +46,7 @@ export function PresetConfigModal() {
     }
   }, [presetId, findedPreset]);
 
-  const isOpen = !_.isEmpty(deviceName) && deviceName !== null
+  const isOpen = !isEmpty(deviceName) && deviceName !== null
 
   return (
     <UiDialog

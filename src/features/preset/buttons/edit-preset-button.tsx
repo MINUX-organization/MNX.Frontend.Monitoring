@@ -5,7 +5,7 @@ import { Link, linkOptions } from "@tanstack/react-router";
 import { PresetForm, PresetSlidersForm } from "../forms";
 import { OverclockingGpuType, presetByIdQueryOptions } from "@/entities/preset";
 import { Suspense, useEffect, useState } from "react";
-import _ from "lodash";
+import isEmpty from "lodash/isEmpty";
 import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { gpuUniqueNamesOptions } from "@/entities/devices";
 
@@ -68,7 +68,7 @@ export const EditPresetWrapperForm = ({
 
   const preset = presetData.data;
 
-  const isOpen = !_.isEmpty(deviceName) && deviceName !== null
+  const isOpen = !isEmpty(deviceName) && deviceName !== null
 
   useEffect(() => {
     if (preset) {

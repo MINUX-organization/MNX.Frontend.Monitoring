@@ -1,7 +1,7 @@
 import { Box, HStack, Stack, Table } from "@chakra-ui/react";
 import { ColumnType, DataType } from "../model/column.type";
 import { flexRender, getCoreRowModel, getFilteredRowModel, getSortedRowModel, SortingState, useReactTable } from "@tanstack/react-table";
-import _ from "lodash";
+import map from "lodash/map";
 import { generateColumnsFromData } from "../utils/generate-columns-from-data";
 import { useMemo, useState } from "react";
 import { SortingIcon, UiSearch } from "@/shared/ui";
@@ -61,9 +61,9 @@ export function MiningTable<T>({
       <Table.ScrollArea borderWidth="1px" rounded="md" borderColor={'minux.solid'}>
         <Table.Root {...props} interactive>
           <Table.Header>
-            {_.map(table.getHeaderGroups(), (headerGroup) => (
+            {map(table.getHeaderGroups(), (headerGroup) => (
               <Table.Row key={headerGroup.id} bg={'bg.transparent'} borderBottomColor={'minux.solid'}>
-                {_.map(headerGroup.headers, (header) => {
+                {map(headerGroup.headers, (header) => {
                   const column = header.column;
                   return (
                     <Table.ColumnHeader 
@@ -92,14 +92,14 @@ export function MiningTable<T>({
             ))}
           </Table.Header>
           <Table.Body >
-            {_.map(table.getRowModel().rows, (row) => (
+            {map(table.getRowModel().rows, (row) => (
               <Table.Row 
                 key={row.id} 
                 bg={'bg.transparent'} 
                 _hover={{ bg: 'bg.hover' }} 
                 transition={'background-color 0.1s ease-in-out'}
               >
-                {_.map(row.getVisibleCells(), (cell) => (
+                {map(row.getVisibleCells(), (cell) => (
                   <Table.Cell key={cell.id} textStyle={'md'}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </Table.Cell>
@@ -107,7 +107,7 @@ export function MiningTable<T>({
                 {actions && 
                   <Table.Cell>
                     <Stack direction={'row'} justify={'flex-end'}>
-                      {_.map(actions, (action) => (
+                      {map(actions, (action) => (
                         <Box key={action.toString()}>{action(row.original as T)}</Box>
                       ))}
                     </Stack>

@@ -1,6 +1,7 @@
 import { CheckboxCard as ChakraCheckboxCard, VStack } from "@chakra-ui/react"
 import * as React from "react"
-import { WarnIcon } from "../assets/svg"
+import { ErrorIcon, WarnIcon } from "../assets/svg"
+import { match } from "ts-pattern"
 
 export interface CheckboxCardProps extends ChakraCheckboxCard.RootProps {
   icon?: React.ReactElement
@@ -11,6 +12,7 @@ export interface CheckboxCardProps extends ChakraCheckboxCard.RootProps {
   indicatorPlacement?: "start" | "end" | "inside"
   inputProps?: React.InputHTMLAttributes<HTMLInputElement>
   warn?: string
+  error?: string
   image?: React.ReactNode
 }
 
@@ -28,6 +30,7 @@ export const UiCheckboxCard = React.forwardRef<
     indicatorPlacement = "end",
     image,
     warn,
+    error,
     ...rest
   } = props
 
@@ -39,7 +42,10 @@ export const UiCheckboxCard = React.forwardRef<
       cursor={"pointer"}    
       borderColor={'minux.solid'}
       _checked={{ borderColor: 'transparent', borderImage: 'none' }}
-      colorPalette={warn ? 'orange' : 'green'}
+      colorPalette={match({ warn, error })
+      .when(() => warn !== undefined, () => 'orange')
+      .when(() => error !== undefined, () => 'red')
+      .otherwise(() => 'green')}
       bg={'bg.transparent'}
       {...rest}
     >
@@ -65,6 +71,7 @@ export const UiCheckboxCard = React.forwardRef<
         <VStack justify={'space-between'} h={'full'} w={'20px'}>
           {indicatorPlacement === "end" && indicator}
           {warn && <WarnIcon width={'20px'} height={'20px'} fill={'orange.500'}/>}
+          {error && <ErrorIcon width={'20px'} height={'20px'} fill={'red.500'}/>}
           {image}
         </VStack>
       </ChakraCheckboxCard.Control>

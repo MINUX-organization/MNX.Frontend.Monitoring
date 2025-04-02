@@ -1,6 +1,7 @@
 import { ActiveIndicator, UiContainerRounded, UiText } from "@/shared/ui";
 import { DataList, Group, Heading, Stack, StackProps, VStack, Wrap } from "@chakra-ui/react";
-import _ from "lodash";
+import map from "lodash/map";
+import isEmpty from "lodash/isEmpty";
 import { CpuDynamicIndicatorsType } from "..";
 import { CpuItemTable } from "./сpu-item-table";
 import { CpuType } from "../model/cpu.type";
@@ -38,7 +39,7 @@ export function CpuItem({ cpu, cpuDynamic, ...props }: CpuItemProps) {
             <Heading w={{ base: '100%', md: '20rem'}}>{cpu.information.name}</Heading>
           </Group>
           <DataList.Root orientation="horizontal" gap={0}>
-            {_.map(stats, (stat) => (
+            {map(stats, (stat) => (
               <DataList.Item key={stat.label}>
                 <DataList.ItemLabel minW={'5rem'}>{stat.label}</DataList.ItemLabel>
                 <DataList.ItemValue color={'minux.solid'}>{stat.value ?? '-'}</DataList.ItemValue>
@@ -47,7 +48,7 @@ export function CpuItem({ cpu, cpuDynamic, ...props }: CpuItemProps) {
           </DataList.Root>
         </Stack>
         <Wrap>
-          {_.map(gpuIndicators, (indicator) => (
+          {map(gpuIndicators, (indicator) => (
             <VStack key={indicator.label} gap={0}>
               <UiText w={16} textAlign={'center'} bg={'bg.transparent'} color={'gray.400'}>
                 {indicator.label}
@@ -59,7 +60,7 @@ export function CpuItem({ cpu, cpuDynamic, ...props }: CpuItemProps) {
             </VStack>
           ))}
         </Wrap>
-        {!_.isEmpty(cpuDynamic?.flightSheet.coins) && 
+        {!isEmpty(cpuDynamic?.flightSheet.coins) && 
           <CpuItemTable coins={cpuDynamic?.flightSheet.coins || []} power={cpuDynamic?.power || 0} />}
         <Group>
         </Group>

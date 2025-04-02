@@ -4,7 +4,7 @@ import { FlightSheetSchema, FlightSheetType, PostFlightSheetType } from "./fligh
 import { FlightSheetDevicesType } from "./flight-sheet-devices.type";
 import { zodSaveParse } from "@/shared/lib/utils/zod-save-parse";
 import { toaster } from "@/shared/ui/toaster";
-import _ from "lodash";
+import find from "lodash/find";
 import { useCallback } from "react";
 
 export const flightSheetQueryOptions = queryOptions({
@@ -40,7 +40,7 @@ const useFlightSheetQuery = () => {
   const getById = useCallback(
     (id?: string) => {
       if (!id) return undefined;  
-      return _.find(flightSheets, (flightSheet) => flightSheet.id === id);
+      return find(flightSheets, (flightSheet) => flightSheet.id === id);
     },
     [flightSheets]
   )

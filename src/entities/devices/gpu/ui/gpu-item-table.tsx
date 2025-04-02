@@ -1,5 +1,5 @@
 import { Box, Table, Text } from "@chakra-ui/react";
-import _ from "lodash";
+import map from "lodash/map";
 import { CoinType } from "../../model/coin.type";
 import { calculatePerformance } from "@/shared/lib/utils/calculatePerformance";
 import { calculateHashRate } from "@/shared/lib/utils/calculateHashRate";
@@ -23,7 +23,7 @@ export function GpuItemTable({
       <Table.Root bg={'transparent'}>
         <Table.Header bg={'transparent'}>
           <Table.Row bg={'transparent'}>
-            {_.map(headers, (header) => (
+            {map(headers, (header) => (
               <Table.ColumnHeader bg={'bg.transparent'} p={1} pl={4} pr={4} key={header} textAlign={"center"}>
                 {header}
               </Table.ColumnHeader>
@@ -31,7 +31,7 @@ export function GpuItemTable({
           </Table.Row>
         </Table.Header>
         <Table.Body bg={'transparent'}>
-          {_.map(coins, (coin) => {
+          {map(coins, (coin) => {
             const hashRate = calculateHashRate(coin.hashRate);
 
             return (<Table.Row key={coin.coinName} bg={'transparent'}>

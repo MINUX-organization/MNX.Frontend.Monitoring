@@ -6,7 +6,7 @@ import { GpuSchema, GpuType } from "./gpu.type";
 import { useCallback, useMemo } from "react";
 import { OverclockingGpuType } from "@/entities/preset";
 import { toaster } from "@/shared/ui/toaster";
-import _ from "lodash";
+import find from "lodash/find";
 
 export const gpusQueryOptions = queryOptions({
   queryKey: ['gpus'],
@@ -47,7 +47,7 @@ export const useGpuQuery = () => {
   const getById = useCallback(
     (id?: string) => {
       if (!id) return undefined;  
-      return _.find(gpus, (gpu) => gpu.id === id);
+      return find(gpus, (gpu) => gpu.id === id);
     },
     [gpus]
   )

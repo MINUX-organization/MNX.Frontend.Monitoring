@@ -1,12 +1,12 @@
 import { Button, Group, GroupProps, Heading } from "@chakra-ui/react";
 import { useLocation, useRouter } from "@tanstack/react-router";
-import _ from "lodash";
+import { chain } from "lodash";
 import { BsArrowLeft } from "react-icons/bs";
 
 function formatPath(path: string): string {
   const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
-  return _.chain(path)
+  return chain(path)
     .split('/')
     .filter(Boolean)
     .map(part => {
@@ -14,7 +14,7 @@ function formatPath(path: string): string {
         return 'Item';
       }
       
-      return _.chain(part)
+      return chain(part)
         .split('-')
         .filter(Boolean)
         .map(word => 

@@ -10,11 +10,11 @@ import { useFlightSheetFormStore } from "../model/flight-sheet-form.store";
 import { AnimatePresence, motion } from "motion/react";
 import { Separator, Stack } from "@chakra-ui/react";
 import { match } from "ts-pattern";
-import _ from "lodash";
 import { deepClean } from "@/shared/lib/utils/deep-clean";
 import { isSuccessResponse } from "@/shared/api";
 import { useNavigate } from "@tanstack/react-router";
 import { flightSheetToPost } from "../utils/flight-sheet-to-post";
+import times from "lodash/times";
 
 const targetAnimation = {
   initial: { opacity: 0, y: -30, height: 0 },
@@ -98,7 +98,7 @@ export function FlightSheetForm({
         $type: type,
         configFileContent: '',
         additionalArguments: '',
-        coinConfigs: _.times(length, () => ({
+        coinConfigs: times(length, () => ({
           poolId: '',
           walletId: '',
           poolPassword: '',
@@ -113,7 +113,7 @@ export function FlightSheetForm({
         $type: type,
         configFileContent: '',
         additionalArguments: '',
-        coinConfigs: _.times(length, () => ({
+        coinConfigs: times(length, () => ({
           poolId: '',
           walletId: '',
           poolPassword: '',

@@ -1,21 +1,26 @@
-import _ from "lodash";
+import isArray from "lodash/isArray";
+import isNil from "lodash/isNil";
+import isObject from "lodash/isObject";
+import isPlainObject from "lodash/isPlainObject";
+import isEmpty from "lodash/isEmpty";
+import { chain } from "lodash";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const deepClean = (obj: any): any => {
-  if (_.isArray(obj)) {
-    return _.chain(obj)
+  if (isArray(obj)) {
+    return chain(obj)
       .map(deepClean)
-      .filter(v => !_.isNil(v) && v.toString().trim() !== '')
+      .filter(v => !isNil(v) && v.toString().trim() !== '')
       .value();
   }
 
-  if (_.isPlainObject(obj)) {
-    return _.chain(obj)
+  if (isPlainObject(obj)) {
+    return chain(obj)
       .mapValues(deepClean)
       .omitBy(v => 
-        _.isNil(v) || 
+        isNil(v) || 
         v.toString().trim() === '' || 
-        (_.isObject(v) && _.isEmpty(v)))
+        (isObject(v) && isEmpty(v)))
       .value();
   }
 

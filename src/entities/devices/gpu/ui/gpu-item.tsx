@@ -1,7 +1,8 @@
 import { ActiveIndicator, UiContainerRounded, UiText } from "@/shared/ui";
 import { DataList, Group, Heading, Stack, StackProps, VStack, Wrap } from "@chakra-ui/react";
 import { GpuType } from "../model/gpu.type";
-import _ from "lodash";
+import map from "lodash/map";
+import isEmpty from "lodash/isEmpty";
 import { GpuDynamicIndicatorsType } from "..";
 import { GpuItemTable } from "./gpu-item-table";
 
@@ -40,7 +41,7 @@ export function GpuItem({ gpu, gpuDynamic, renderGpuSetting, ...props }: GpuItem
             <Heading w={{ base: '100%', md: '20rem'}}>{gpu.information.name}</Heading>
           </Group>
           <DataList.Root orientation="horizontal" gap={0}>
-            {_.map(stats, (stat) => (
+            {map(stats, (stat) => (
               <DataList.Item key={stat.label}>
                 <DataList.ItemLabel minW={'5rem'}>{stat.label}</DataList.ItemLabel>
                 <DataList.ItemValue color={'minux.solid'}>{stat.value ?? '-'}</DataList.ItemValue>
@@ -49,7 +50,7 @@ export function GpuItem({ gpu, gpuDynamic, renderGpuSetting, ...props }: GpuItem
           </DataList.Root>
         </Stack>
         <Wrap>
-          {_.map(gpuIndicators, (indicator) => (
+          {map(gpuIndicators, (indicator) => (
             <VStack key={indicator.label} gap={0}>
               <UiText w={16} textAlign={'center'} bg={'bg.transparent'} color={'gray.400'}>
                 {indicator.label}
@@ -61,7 +62,7 @@ export function GpuItem({ gpu, gpuDynamic, renderGpuSetting, ...props }: GpuItem
             </VStack>
           ))}
         </Wrap>
-        {!_.isEmpty(gpuDynamic?.flightSheet.coins) && 
+        {!isEmpty(gpuDynamic?.flightSheet.coins) && 
           <GpuItemTable coins={gpuDynamic?.flightSheet.coins || []} power={gpuDynamic?.power || 0} />}
         <Group>
           {renderGpuSetting?.(gpu.id)}

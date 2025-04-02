@@ -11,7 +11,7 @@ import { ApplyOverclockingButton } from "@/features/devices";
 import { SaveAsPresetButton, ApplyPresetFromListButton } from "@/features/preset";
 import { PresetsList } from "./presets-list";
 import { devicesStreamStore } from "@/entities/devices";
-import _ from "lodash";
+import isEmpty from "lodash/isEmpty";
 
 const { useGpuQuery } = gpuRepository;
 
@@ -50,7 +50,7 @@ export function GpuPresetConfigModal() {
       )}
       renderTrigger={() => <Box></Box>}
       renderBody={() => {
-        return !_.isEmpty(deviceName) && currentGpuOverclocking?.data && (
+        return !isEmpty(deviceName) && currentGpuOverclocking?.data && (
           <Suspense fallback={<Loader />}>
               <PresetSlidersForm
                 overclockingPresetValues={currentGpuOverclocking.data}

@@ -4,7 +4,8 @@ import { HeaderSeparator, UiButton } from "@/shared/ui"
 import { Group, Stack } from "@chakra-ui/react"
 import { convertToSliders } from "../utils/convert-to-sliders-values"
 import { OverclockingGpuType } from "@/entities/preset"
-import _ from "lodash"
+import map from "lodash/map"
+import camelCase from "lodash/camelCase"
 import { UiSlider } from "@/shared/ui/slider"
 import { Controller, useForm } from "react-hook-form"
 import { transformSlidersToObject } from "../utils/transformSlidersToObject"
@@ -83,15 +84,15 @@ export function PresetSlidersForm({
   return (
     <form>
       <Stack gap={4}>
-        {restrictions && _.map(sliderType, (slider) => (
+        {restrictions && map(sliderType, (slider) => (
           <Stack key={slider.label}>
             <HeaderSeparator label={slider.label} />
             <Stack gap={4} pl={3} pr={3}>
-              {_.map(slider.values, (value) => (
+              {map(slider.values, (value) => (
                 <Controller
                   key={value.label}
                   control={control}
-                  name={_.camelCase(value.label) as keyof typeof defaultValues}
+                  name={camelCase(value.label) as keyof typeof defaultValues}
                   render={({ field }) => renderSlider({ field, value })}
                 />
               ))}

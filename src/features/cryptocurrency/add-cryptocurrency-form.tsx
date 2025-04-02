@@ -3,7 +3,8 @@ import { cryptocurrencyRepository, PostCryptocurrencySchema, PostCryptocurrencyT
 import { isSuccessResponse } from "@/shared/api";
 import { UiInput, UiSelect } from "@/shared/ui";
 import { FormConfig, GenericForm } from "@/shared/ui";
-import _ from "lodash";
+import find from "lodash/find";
+import isEmpty from "lodash/isEmpty";
 
 const { useAlgorithmQuery } = algorithmRepository;
 const { useCryptocurrencyMutation } = cryptocurrencyRepository;
@@ -32,7 +33,7 @@ export function AddCryptocurrencyForm({
           items={algorithms ?? []}
           getLabel={(item) => item.name}
           onChange={(item) => field.onChange(item?.id)}
-          selectedItem={_.find(algorithms, { id: field.value })}
+          selectedItem={find(algorithms, { id: field.value })}
         />
       )},
     ],
@@ -43,7 +44,7 @@ export function AddCryptocurrencyForm({
         return;
       }
     },
-    isSubmitDisabled: (errors) => !_.isEmpty(errors)
+    isSubmitDisabled: (errors) => !isEmpty(errors)
   }
 
   return (   

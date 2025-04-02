@@ -1,7 +1,7 @@
 import { PopoverProps, UiPopover } from "@/shared/ui/popover"
 import { ProfileField } from "../model/profile-fields"
 import { Stack, StackSeparator, VStack, Box, ButtonGroup, Group } from "@chakra-ui/react"
-import _ from "lodash"
+import map from "lodash/map"
 import { ProfileType } from "../model/profile.type"
 import { UiAvatar, UiText, UiEditableInput, UiField } from "@/shared/ui"
 import { match } from "ts-pattern"
@@ -41,7 +41,7 @@ export function ProfilePanelPopover({
           <UiText>{profile?.login}</UiText>
         </VStack>
         <Stack gap={{ base: 2, lg: 4 }} mt={3} mb={3}>
-          {_.map(profileFields, (field) => (
+          {map(profileFields, (field) => (
             <UiField 
               key={field.label} 
               label={field.label} 

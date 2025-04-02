@@ -3,7 +3,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, FieldValues, DefaultValues, Path, FieldErrors, Controller } from "react-hook-form";
 import { UiField, UiFormButtonsGroup } from "@/shared/ui";
 import { ZodSchema } from "zod";
-import _ from "lodash";
+import map from "lodash/map";
+import isEmpty from "lodash/isEmpty";
 
 export type FormField<T extends FieldValues> = {
   name: Path<T>;
@@ -44,7 +45,7 @@ export function GenericForm<T extends FieldValues>({
     mode: "onChange",
   });
 
-  const watchedValues = _.map(config.fields, (fieldPart) => watch(fieldPart.name));
+  const watchedValues = map(config.fields, (fieldPart) => watch(fieldPart.name));
 
   const handleFormSubmit = async (data: T) => {
     await config.onSubmit(data);
@@ -58,19 +59,19 @@ export function GenericForm<T extends FieldValues>({
   };
 
   const isDisabled = (config.isSubmitDisabled?.(errors) ?? false) || 
-  _.map(watchedValues, (fieldPart) => {
+  map(watchedValues, (fieldPart) => {
     if (typeof fieldPart === 'number') {
-      return _.isEmpty(fieldPart.toString());
+      return isEmpty(fieldPart.toString());
     }
 
-    return _.isEmpty(fieldPart);
+    return isEmpty(fieldPart);
   }).includes(true);
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)}>
       <Fieldset.Root>
         <Fieldset.Content>
-          {_.map(config.fields, (fieldPart) => (
+          {map(config.fields, (fieldPart) => (
             <UiField
               key={fieldPart.name.toString()}
               label={fieldPart.label}

@@ -5,7 +5,7 @@ import { zodSaveParse } from "@/shared/lib/utils/zod-save-parse";
 import { toaster } from "@/shared/ui/toaster";
 import { PresetGroupedByGpuType } from "./preset-grouped-by-gpu.type";
 import { useCallback, useMemo } from "react";
-import _ from "lodash";
+import find from "lodash/find";
 import { PresetDevicesType } from "./preset-devices.type";
 import { getPresetByIdApi, getPresetDevicesApi, getPresetDevicesSupportedApi } from "@/shared/api/preset";
 
@@ -53,7 +53,7 @@ const usePresetQuery = () => {
   const getById = useCallback(
     (id?: string) => {
       if (!id) return undefined;  
-      return _.find(presets, (preset) => preset.id === id);
+      return find(presets, (preset) => preset.id === id);
     },
     [presets]
   )

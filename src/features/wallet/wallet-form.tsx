@@ -4,7 +4,8 @@ import { walletRepository } from "@/entities/wallet/model/wallet.repository";
 import { isSuccessResponse } from "@/shared/api";
 import { UiInput, UiSelect } from "@/shared/ui";
 import { FormConfig, GenericForm } from "@/shared/ui";
-import _ from "lodash";
+import find from "lodash/find";
+import isEmpty from "lodash/isEmpty";
 import { match } from "ts-pattern";
 
 const { useWalletMutation } = walletRepository;
@@ -22,7 +23,7 @@ export function WalletForm({
 }) {
   const { addWallet, editWallet } = useWalletMutation();
 
-  const findedCryptocurrency = _.find(cryptocurrencies, { fullName: wallet?.cryptocurrency });
+  const findedCryptocurrency = find(cryptocurrencies, { fullName: wallet?.cryptocurrency });
 
   const config: FormConfig<PostWalletType> = {
     validationSchema: PostWalletSchema,
@@ -46,7 +47,7 @@ export function WalletForm({
           items={cryptocurrencies ?? []}
           getLabel={(item) => item.fullName}
           onChange={(item) => field.onChange(item?.id)}
-          selectedItem={_.find(cryptocurrencies, { id: field.value })}
+          selectedItem={find(cryptocurrencies, { id: field.value })}
         />
       )},
     ],
@@ -60,7 +61,7 @@ export function WalletForm({
         return;
       }
     },
-    isSubmitDisabled: (errors) => !_.isEmpty(errors)
+    isSubmitDisabled: (errors) => !isEmpty(errors)
   }
 
   return (   

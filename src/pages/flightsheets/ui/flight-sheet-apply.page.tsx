@@ -7,8 +7,8 @@ import { Heading, Stack, VStack } from "@chakra-ui/react";
 import { useSuspenseQueries } from "@tanstack/react-query"
 import { useParams } from "@tanstack/react-router"
 import { ColumnDef } from "@tanstack/react-table";
-import _ from "lodash";
 import { useEffect, useState } from "react";
+import forEach from "lodash/forEach";
 
 export function FlightSheetApplyPage() {
   const { flightSheetId } = useParams({ strict: false });
@@ -34,9 +34,9 @@ export function FlightSheetApplyPage() {
   useEffect(() => {
     const ids: Set<string> = new Set();
 
-    _.forEach(flightSheetRigDevicesData.data, (device) => 
-      _.forEach(device.elements, (element) => 
-        _.forEach(element.elements, (device) => ids.add(device.id))))
+    forEach(flightSheetRigDevicesData.data, (device) => 
+      forEach(device.elements, (element) => 
+        forEach(element.elements, (device) => ids.add(device.id))))
 
     setDevicesAppliedIds(ids)
   }, [flightSheetRigDevicesData.data])

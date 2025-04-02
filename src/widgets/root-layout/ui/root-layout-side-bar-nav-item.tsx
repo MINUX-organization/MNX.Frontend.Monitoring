@@ -2,7 +2,8 @@ import { useState } from "react";
 import { RootLayoutNavLink } from "../model/root-layout-nav-link.type";
 import { Collapsible, Stack, ButtonProps } from "@chakra-ui/react";
 import { useRouterState, Link } from "@tanstack/react-router";
-import _ from "lodash";
+import map from "lodash/map";
+import includes from "lodash/includes";
 import { motion } from "motion/react";
 import { ChevronDownIcon } from "@/shared/assets/svg/chevron-down";
 import { UiText, UiButton } from "@/shared/ui";
@@ -49,7 +50,7 @@ export function RootLayoutSideBarNavItem({
     return null;
   }
   
-  const isActive = _.includes(router.location.pathname, link.to);
+  const isActive = includes(router.location.pathname, link.to);
 
   if (link.children) {
     return (
@@ -69,7 +70,7 @@ export function RootLayoutSideBarNavItem({
         </Collapsible.Trigger>
         <Collapsible.Content>
           <Stack pl={{ lg: 4 }} mt={2} gap={2} >
-            {_.map(link.children, (child) => (
+            {map(link.children, (child) => (
               <RootLayoutSideBarNavItem 
                 key={child.label} 
                 link={{...child, to: `${link.to}${child.to}`}}

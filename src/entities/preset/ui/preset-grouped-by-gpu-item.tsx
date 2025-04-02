@@ -4,7 +4,7 @@ import { Collapsible, Heading, HStack, IconButton, Separator, Stack } from "@cha
 import { ChevronDownIcon } from "@/shared/assets/svg/chevron-down"
 import { motion } from "motion/react"
 import { PresetItem } from "./preset-item"
-import _ from "lodash"
+import map from "lodash/map"
 
 const MChevron = motion.create(ChevronDownIcon);
 
@@ -34,7 +34,7 @@ export function PresetGroupedByGpuItem({ presetGroupedByGpu, actions }: PresetGr
               </HStack>
               <Collapsible.Content>
                 <Stack separator={<Separator />} mt={4}>
-                  {_.map(presetGroupedByGpu.presets, preset => (
+                  {map(presetGroupedByGpu.presets, preset => (
                     <PresetItem key={preset.id} type="list" preset={preset} actions={actions}/>
                   ))}
                 </Stack>

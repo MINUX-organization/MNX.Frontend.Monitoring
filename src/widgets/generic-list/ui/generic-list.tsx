@@ -10,7 +10,8 @@ import {
   SortingState, 
   useReactTable 
 } from "@tanstack/react-table"
-import _ from "lodash";
+import flatMap from "lodash/flatMap";
+import map from "lodash/map";
 import React, { useState } from "react";
 
 export interface GenericListProps<T> extends Omit<StackProps, 'columns'> {
@@ -36,7 +37,7 @@ export function GenericList<T>({
   const [sorting, setSorting] = useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = useState('');
 
-  const columnsMap: ColumnDef<T>[] = _.map(columns, (column) => ({
+  const columnsMap: ColumnDef<T>[] = map(columns, (column) => ({
     ...column,
     enableSorting: sortable ?? false
   }))
@@ -67,9 +68,9 @@ export function GenericList<T>({
             onChange={(event) => setGlobalFilter(event.target.value)}
           />
         )}
-        {_.flatMap(table.getHeaderGroups(), (headerGroup) => (
+        {flatMap(table.getHeaderGroups(), (headerGroup) => (
           <Stack key={headerGroup.id} direction={'row'}>
-            {_.map(headerGroup.headers, (header) => (
+            {map(headerGroup.headers, (header) => (
               <React.Fragment key={header.id}>
                 {sortable && <UiButton onClick={header.column.getToggleSortingHandler()}>
                   {flexRender(header.column.columnDef.header, header.getContext())}
@@ -82,7 +83,7 @@ export function GenericList<T>({
         ))}
       </Stack>
       <Stack gap={3}>
-        {_.map(table.getRowModel().rows, (row) => (
+        {map(table.getRowModel().rows, (row) => (
           <React.Fragment key={row.id}>
             {renderItem?.(row.original)}
           </React.Fragment>
