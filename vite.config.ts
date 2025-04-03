@@ -37,7 +37,7 @@ export default ({ mode }: { mode: string }) => {
               if (id.includes('@chakra-ui')) {
                 return 'vendor_chakra';
               }
-               if (id.includes('lodash')) {
+              if (id.includes('lodash')) {
                   return 'vendor_lodash';
               }
 

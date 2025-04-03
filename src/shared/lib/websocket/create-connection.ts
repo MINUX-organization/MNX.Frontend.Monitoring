@@ -8,7 +8,7 @@ export const createConnection = (route: string, token?: string) => {
       skipNegotiation: true,
       transport: HttpTransportType.WebSockets,
     })
-    .configureLogging(LogLevel.Information)
+    .configureLogging(LogLevel.None)
     .withAutomaticReconnect()
     .build();
 };
