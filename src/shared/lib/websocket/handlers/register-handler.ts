@@ -1,6 +1,6 @@
 import { HubConnection, HubConnectionState } from "@microsoft/signalr"
 
-export const registerHandler = async <T>(websocket: HubConnection | null, methodName: string, callback: (data?: T) => void) => {
+export const registerHandler = async <T>(websocket: HubConnection | null, methodName: string, callback: (data: T) => void) => {
   if (websocket === null) return
   
   if (websocket?.state === HubConnectionState.Disconnected) {

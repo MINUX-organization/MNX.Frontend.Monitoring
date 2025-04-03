@@ -1,15 +1,12 @@
 import { TokenRefresher } from '@/shared/lib/utils/refresh-token';
-import { unregisterHandler } from '@/shared/lib/websocket';
+import { SignalRProvider } from '@/shared/lib/websocket';
 import { RootLayout } from '@/widgets/root-layout';
 import { createFileRoute, redirect } from '@tanstack/react-router';
 
 const tokenRefresher = TokenRefresher.getInstance();
 
 export const Route = createFileRoute('/_guard-layout')({
-  component: RootLayout,
-  onLeave: ({ context: { websockets } }) => {
-    unregisterHandler(websockets?.notificationConnection, 'MiningDeviceStateChanged');
-  },
+  component: RouteComponent,
   beforeLoad: async ({ context, location }) => {
     const session = context.session.get();
 
@@ -30,7 +27,7 @@ export const Route = createFileRoute('/_guard-layout')({
       );
 
       const newSession = context.session.get();
-      
+
       if (!newSession) {
         throw new Error('Session not found after refresh');
       }
@@ -47,4 +44,12 @@ function redirectToLogin(redirectUrl: string) {
     to: '/login',
     search: { redirect: redirectUrl },
   });
+}
+
+function RouteComponent() {
+  return (
+    <SignalRProvider>
+      <RootLayout />
+    </SignalRProvider>
+  )
 }

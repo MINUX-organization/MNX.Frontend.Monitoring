@@ -26,7 +26,7 @@ export const flightSheetRigDevicesQueryOptions = (id?: string) => queryOptions({
 })
 
 export const flightSheetRigDevicesSupportQueryOptions = (id?: string) => queryOptions({
-  queryKey: ['flightsheets', id, 'devices-support'],
+  queryKey: ['flightsheets', id, 'devices', 'support'],
   queryFn: () => getFlightSheetDevicesSupportedApi<FlightSheetDevicesType[]>(id!),
   enabled: !!id,
   staleTime: 5000

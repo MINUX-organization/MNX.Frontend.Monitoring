@@ -6,7 +6,7 @@ type RefreshSessionFn = (refreshToken: string) => Promise<any>;
 type OnTokenRefreshed = (data: {
   accessToken: string;
   refreshToken: string;
-  refreshExpiration: string;
+  refreshExpiration?: string;
 }) => void;
 
 export class TokenRefresher {
@@ -37,7 +37,7 @@ export class TokenRefresher {
     this.refreshPromise = (async () => {
       try {
         const response = await refreshFn(refreshToken);
-        
+
         if (!isSuccessResponse(response)) {
           throw new Error('Refresh failed');
         }
@@ -63,7 +63,14 @@ export class TokenRefresher {
     onFailure: () => void
   ): Promise<void> {
     if (checkTokenExp(currentToken)) {
-      await this.refreshToken(refreshFn, refreshToken, onSuccess, onFailure);
+      return await this.refreshToken(refreshFn, refreshToken, onSuccess, onFailure);
     }
+
+    onSuccess({
+      accessToken: currentToken,
+      refreshToken
+    })
+
+    return Promise.resolve();
   }
 }
