@@ -19,14 +19,14 @@ export const flightSheetByIdQueryOptions = (id?: string) => queryOptions({
 })
 
 export const flightSheetRigDevicesQueryOptions = (id?: string) => queryOptions({
-  queryKey: ['flightsheets', id, 'devices'],
+  queryKey: ['flightsheet-devices', id],
   queryFn: () => getFlightSheetDevicesApi<FlightSheetDevicesType[]>(id),
   enabled: !!id,
   staleTime: 5000
 })
 
 export const flightSheetRigDevicesSupportQueryOptions = (id?: string) => queryOptions({
-  queryKey: ['flightsheets', id, 'devices', 'support'],
+  queryKey: ['flightsheet-devices', id, 'support'],
   queryFn: () => getFlightSheetDevicesSupportedApi<FlightSheetDevicesType[]>(id!),
   enabled: !!id,
   staleTime: 5000
@@ -88,7 +88,7 @@ const useFlightSheetMutation = () => {
   const applyFlightSheetDevicesMutation = useMutation({
     mutationFn: ({ id, data }: { id: string, data: string[] }) => applyFlightSheetApi(id, data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['flightsheets'] });
+      queryClient.invalidateQueries({ queryKey: ['flightsheet-devices'] });
       queryClient.invalidateQueries({ queryKey: ['gpus'] });
       toaster.success({
         description: 'You have successfully applied flight sheet on devices',

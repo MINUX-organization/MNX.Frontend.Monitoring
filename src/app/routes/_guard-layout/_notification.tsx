@@ -19,7 +19,17 @@ function RouteComponent() {
     registerHandler(
       notificationConnection,
       'MiningDeviceStateChanged',
-      () => queryClient.refetchQueries({ queryKey: ['devices'] }),
+      () => {
+        const location = window.location.pathname;
+        
+        if (location.includes('flight-sheets')) {
+          queryClient.invalidateQueries({ queryKey: ['flightsheet-devices'] })
+        }
+        if (location.includes('devices')) {
+          queryClient.invalidateQueries({ queryKey: ['gpus']})
+          queryClient.invalidateQueries({ queryKey: ['cpus']})
+        }
+      },
     );
 
     return () => {
