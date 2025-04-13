@@ -23,7 +23,7 @@ function formatPath(path: string): string {
         .join(' ')
         .value();
     })
-    .join(' => ')
+    .join(' / ')
     .value();
 }
 

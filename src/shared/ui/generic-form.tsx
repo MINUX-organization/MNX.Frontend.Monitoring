@@ -27,11 +27,13 @@ export type FormConfig<T extends FieldValues> = {
 interface GenericFormProps<T extends FieldValues> {
   config: FormConfig<T>;
   onClose?: () => void;
+  disableCancelButton?: boolean;
 }
 
 export function GenericForm<T extends FieldValues>({
   config,
   onClose,
+  disableCancelButton
 }: GenericFormProps<T>) {
   const {
     control,
@@ -53,8 +55,8 @@ export function GenericForm<T extends FieldValues>({
   };
 
   const handleCancel = () => {
-    reset();
     onClose?.();
+    reset();
     config.onReset?.();
   };
 
@@ -87,6 +89,7 @@ export function GenericForm<T extends FieldValues>({
             </UiField>
           ))}
           <UiFormButtonsGroup
+            disableCancelButton={disableCancelButton}
             mt={4}
             confirmButtonprops={{
               disabled: isDisabled,

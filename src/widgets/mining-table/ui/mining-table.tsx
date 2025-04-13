@@ -5,6 +5,7 @@ import map from "lodash/map";
 import { generateColumnsFromData } from "../utils/generate-columns-from-data";
 import { useMemo, useState } from "react";
 import { SortingIcon, UiSearch } from "@/shared/ui";
+import { CheckIcon, UncheckIcon } from "@/shared/assets/svg";
 
 interface MiningTableProps<T> extends Table.RootProps {
   columnsDef?: ColumnType[];
@@ -84,9 +85,9 @@ export function MiningTable<T>({
                     </Table.ColumnHeader>
                   )
                 })}
-                {actions && 
+                {renderAddButton && 
                   <Table.ColumnHeader borderBottomColor={'minux.solid'}>
-                    <Stack direction={'row'} justify={'flex-end'}>{renderAddButton?.()}</Stack>
+                    <Stack direction={'row'} justify={'flex-end'}>{renderAddButton()}</Stack>
                   </Table.ColumnHeader>}
               </Table.Row>
             ))}
@@ -99,11 +100,24 @@ export function MiningTable<T>({
                 _hover={{ bg: 'bg.hover' }} 
                 transition={'background-color 0.1s ease-in-out'}
               >
-                {map(row.getVisibleCells(), (cell) => (
-                  <Table.Cell key={cell.id} textStyle={'md'}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </Table.Cell>
-                ))}
+                {map(row.getVisibleCells(), (cell) => {
+                  const render = flexRender(cell.column.columnDef.cell, cell.getContext());
+                  const value = cell.getContext().getValue()
+
+                  if (typeof cell.getContext().getValue() === 'boolean') {
+                    return (
+                      <Table.Cell key={cell.id} textStyle={'md'}>
+                        {value ? <CheckIcon  w={6} h={6}/> : <UncheckIcon  w={6} h={6}/>}
+                      </Table.Cell>
+                    )
+                  }
+
+                  return (
+                    <Table.Cell key={cell.id} textStyle={'md'}>
+                      {render}
+                    </Table.Cell>
+                  )
+                })}
                 {actions && 
                   <Table.Cell>
                     <Stack direction={'row'} justify={'flex-end'}>

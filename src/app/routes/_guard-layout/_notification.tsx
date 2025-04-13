@@ -1,3 +1,4 @@
+import { ErrorPage } from '@/app/error.page';
 import { registerHandler, unregisterHandler, useSignalR } from '@/shared/lib/websocket';
 import { HubConnectionState } from '@microsoft/signalr';
 import { useQueryClient } from '@tanstack/react-query';
@@ -6,6 +7,7 @@ import { useEffect } from 'react';
 
 export const Route = createFileRoute('/_guard-layout/_notification')({
   component: RouteComponent,
+  errorComponent: ErrorPage
 })
 
 function RouteComponent() {

@@ -53,7 +53,10 @@ export const BACKEND_APIS = {
     PRESET_DEVICES_SUPPORTED: (id?: string) => `${BACKEND_MONITORING_URL}/presets/${id}/devices/supported`,
   },
   CRYPTOCURRENCIES: `${BACKEND_MONITORING_URL}/cryptocurrencies`,
-  ALHORITHMS: `${BACKEND_MONITORING_URL}/algorithms/available`,
+  ALHORITHMS: {
+    BASE: `${BACKEND_MONITORING_URL}/algorithms`,
+    AVAILABLE: `${BACKEND_MONITORING_URL}/algorithms/available`,
+  },
   POOLS: `${BACKEND_MONITORING_URL}/pools`,
   WALLETS: `${BACKEND_MONITORING_URL}/wallets`,
   MINERS: `${BACKEND_MONITORING_URL}/miners/available`,

@@ -4,9 +4,10 @@ import { UiButton } from "./button";
 export interface FormButtonsProps extends ButtonGroupProps {
   confirmButtonprops?: ButtonProps
   cancelButtonprops?: ButtonProps
+  disableCancelButton?: boolean
 }
 
-export function UiFormButtonsGroup({ confirmButtonprops, cancelButtonprops,...props }: FormButtonsProps) {
+export function UiFormButtonsGroup({ confirmButtonprops, cancelButtonprops, disableCancelButton, ...props }: FormButtonsProps) {
   return (
     <ButtonGroup {...props} grow>
       <UiButton
@@ -19,14 +20,14 @@ export function UiFormButtonsGroup({ confirmButtonprops, cancelButtonprops,...pr
       >
         Confirm
       </UiButton>
-      <UiButton
+      {!disableCancelButton && <UiButton
         {...cancelButtonprops}
         borderTopLeftRadius={0}
         borderBottomLeftRadius={0}
         colorPalette={"cancel"} 
       >
         Cancel
-      </UiButton>
+      </UiButton>}
     </ButtonGroup>
   )
 } 

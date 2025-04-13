@@ -6,7 +6,7 @@ export { getRigsApi, getRigCpusApi, getRigGpusApi, getRigDrivesApi, getRigSoftwa
 export { getPresetsApi, getPresetsGroupedByGpuApi, savePresetApi, deletePresetApi, editPresetApi, applyPresetDevicesApi } from './preset'
 export { getPoolsApi, addPoolApi, editPoolApi, deletePoolApi } from './pool'
 export { getWalletsApi, addWalletApi, deleteWalletApi, editWalletApi } from './wallet'
-export { getAvailableAlgorithmsApi } from './algorithm'
+export { getAvailableAlgorithmsApi, getAlgorithmByIdApi, deleteAlgorithmApi, addAlgorithmApi, editAlgorithmApi } from './algorithm'
 export { getMinersApi } from './miner'
 export { getCryptocurrenciesApi, addCryptocurrencyApi, deleteCryptocurrencyApi } from './cryptocurrency'
 export { getCpuDevices, getGpuDevices, getGpuRestrictionsApi, getGpusUniqueNamesApi, getDeviceOverclockingApi, applyDeviceOverclockingApi } from './device'

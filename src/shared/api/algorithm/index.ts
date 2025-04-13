@@ -1,1 +1,5 @@
 export { getAvailableAlgorithmsApi } from './get-available-algorithms'
+export { getAlgorithmByIdApi } from './get-algorithm-by-id'
+export { deleteAlgorithmApi } from './delete-algorithm'
+export { addAlgorithmApi } from './add-algorithm'
+export { editAlgorithmApi } from './edit-algorithm'

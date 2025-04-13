@@ -24,3 +24,7 @@ export { RefreshIcon } from './refresh';
 export { WarnIcon } from './warn';
 export { CircleRoundedIcon } from './circle-rounded';
 export { ErrorIcon } from './error';
+export { CirclePlusIcon } from './circle-plus';
+export { CircleMinusIcon } from './circle-minus';
+export { CheckIcon } from './check';
+export { UncheckIcon } from './uncheck';
