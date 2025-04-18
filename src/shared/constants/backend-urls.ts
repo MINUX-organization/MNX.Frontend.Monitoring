@@ -1,6 +1,18 @@
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
-const BACKEND_MONITORING = import.meta.env.VITE_BACKEND_MONITORING;
-const BACKEND_SECURITY = import.meta.env.VITE_BACKEND_SECURITY;
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+function getRuntimeConfig(): { backendUrl?: string; backendSecurity?: string; backendMonitoring?: string } {
+  if (typeof window !== 'undefined' && (window as any).__RUNTIME_CONFIG__) {
+    return (window as any).__RUNTIME_CONFIG__;
+  }
+
+  return {};
+}
+
+const runtimeConfig = getRuntimeConfig();
+
+const BACKEND_URL = runtimeConfig.backendUrl || import.meta.env.VITE_BACKEND_URL || 'http://localhost:9999';
+const BACKEND_MONITORING = runtimeConfig.backendMonitoring || import.meta.env.VITE_BACKEND_MONITORING || 'monitoring';
+const BACKEND_SECURITY = runtimeConfig.backendSecurity || import.meta.env.VITE_BACKEND_SECURITY || 'security';
 
 export const BACKEND_BASE_URL = BACKEND_URL;
 export const BACKEND_MONITORING_URL = `/${BACKEND_MONITORING}/api`;

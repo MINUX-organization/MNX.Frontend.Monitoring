@@ -2,6 +2,7 @@ import { CheckboxCard as ChakraCheckboxCard, VStack } from "@chakra-ui/react"
 import * as React from "react"
 import { ErrorIcon, WarnIcon } from "../assets/svg"
 import { match } from "ts-pattern"
+import { UiTooltip } from "./tooltip"
 
 export interface CheckboxCardProps extends ChakraCheckboxCard.RootProps {
   icon?: React.ReactElement
@@ -70,8 +71,8 @@ export const UiCheckboxCard = React.forwardRef<
         )}
         <VStack justify={'space-between'} h={'full'} w={'20px'}>
           {indicatorPlacement === "end" && indicator}
-          {warn && <WarnIcon width={'20px'} height={'20px'} fill={'orange.500'}/>}
-          {error && <ErrorIcon width={'20px'} height={'20px'} fill={'red.500'}/>}
+          {warn && <UiTooltip content={warn}><WarnIcon width={'20px'} height={'20px'} fill={'orange.500'}/></UiTooltip>}
+          {error && <UiTooltip content={error}><ErrorIcon width={'20px'} height={'20px'} fill={'red.500'}/></UiTooltip>}
           {image}
         </VStack>
       </ChakraCheckboxCard.Control>
