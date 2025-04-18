@@ -12,7 +12,7 @@ RUN npm run build
 # Stage 2: Create the production image with Nginx
 FROM nginx:alpine as production
 
-ARG VITE_FRONTEND_PORT = 3100
+ARG VITE_FRONTEND_PORT=3100
 ENV VITE_FRONTEND_PORT=${VITE_FRONTEND_PORT}
 
 RUN apk add --no-cache gettext openssl
