@@ -1,0 +1,1 @@
+export { RigsPage } from './ui/rigs.page';

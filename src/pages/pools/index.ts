@@ -1,0 +1,1 @@
+export { PoolsPage } from './ui/pools.page';
