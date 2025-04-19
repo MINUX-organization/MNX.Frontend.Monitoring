@@ -1,30 +1,30 @@
-# React + TypeScript + Vite
+# Frontend Monitoring
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Install
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```bash
+npm ci
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Build
+
+```bash
+npm run build
+```
+
+## Build Path
+
+/dist
+
+## CI / CD
+
+```bash
+docker build -t web-monitoring-frontend-app .
+
+docker run -d --name web-monitoring-frontend -p 3111:3111 \
+  -e VITE_FRONTEND_PORT=3111 \
+  -e VITE_BACKEND_URL=http://localhost:9999 \
+  -e VITE_BACKEND_SECURITY=security \
+  -e VITE_BACKEND_MONITORING=rigs_api \
+  web-monitoring-frontend-app
+```

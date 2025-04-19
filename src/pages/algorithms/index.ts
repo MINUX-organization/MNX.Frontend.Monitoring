@@ -1,0 +1,1 @@
+export { AlgorithmsPage } from './ui/algorithms.page';

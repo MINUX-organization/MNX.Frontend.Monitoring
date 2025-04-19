@@ -1,11 +1,7 @@
-import React from "react"
+import { AppComposer } from "./providers/app-composer";
 
-function App() {
-  return ( 
-    <React.Fragment>
-      
-    </React.Fragment>
-  )
-}
-
-export default App
+export function App() {
+  return (
+    <AppComposer />
+  );
+};
