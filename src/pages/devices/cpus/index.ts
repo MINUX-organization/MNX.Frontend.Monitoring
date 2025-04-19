@@ -1,1 +1,0 @@
-export { CpusPage } from "./ui/cpus.page";

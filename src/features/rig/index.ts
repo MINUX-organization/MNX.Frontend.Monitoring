@@ -1,1 +1,0 @@
-export { StartMiningButton, StopMiningButton } from './buttons';

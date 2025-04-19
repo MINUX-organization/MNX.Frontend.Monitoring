@@ -1,1 +1,0 @@
-export { MiningTable } from './ui/mining-table';

@@ -1,1 +1,0 @@
-export { CryptocurrenciesPage } from './ui/cryptocurrencies.page'
