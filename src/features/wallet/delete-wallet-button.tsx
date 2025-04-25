@@ -1,19 +1,19 @@
-import { poolRepository } from "@/entities/pool";
+import { walletRepository } from "@/entities/wallet";
 import { TrashIcon } from "@/shared/assets/svg";
 import { IconButton } from "@chakra-ui/react";
 import { IconBaseProps } from "react-icons/lib";
 
-const { usePoolMutation } = poolRepository;
+const { useWalletMutation } = walletRepository;
 
 interface DeletePoolButtonProps extends IconBaseProps {
   id: string;
 }
 
 export function DeleteWalletButton({id, ...props}: DeletePoolButtonProps) {
-  const { deletePool } = usePoolMutation();
+  const { deleteWallet } = useWalletMutation();
 
   const handleClick = async () => {
-    await deletePool(id);
+    await deleteWallet(id);
   }
 
   return (
