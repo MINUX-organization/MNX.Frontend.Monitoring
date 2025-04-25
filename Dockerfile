@@ -21,11 +21,11 @@ COPY nginx.conf.template /etc/nginx/templates/nginx.conf.template
 
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+COPY entrypoint.sh ./entrypoint.sh
+RUN apk add --no-cache dos2unix && dos2unix ./entrypoint.sh && chmod +x ./entrypoint.sh
 
 EXPOSE ${VITE_FRONTEND_PORT}
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["./entrypoint.sh"]
 
 CMD ["nginx", "-g", "daemon off;"]
