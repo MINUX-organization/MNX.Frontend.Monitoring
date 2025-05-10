@@ -12,7 +12,7 @@ export const NAV_FIELDS: RootLayoutNavLink[] = [
     { label: "Cryptocurrencies", to: "/cryptocurrencies", icon: <CoinIcon /> },
     { label: "Wallets", to: "/wallets", icon: <WalletIcon /> },
     { label: "Pools", to: "/pools", icon: <PoolIcon /> },
-    { label: "Miners", to: "/miners", icon: <MinerIcon />, disabled: true },
+    { label: "Miners", to: "/miners", icon: <MinerIcon /> },
     { label: "Algorithms", to: "/algorithms", icon: <AlgorithmIcon /> },
   ]},
   { label: "Setup", to: "/setup", icon: <SetupIcon />, children: [
