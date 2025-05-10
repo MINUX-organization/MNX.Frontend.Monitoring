@@ -11,7 +11,7 @@ export const UiCheckbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
   function Checkbox(props, ref) {
     const { icon, children, inputProps, rootRef, ...rest } = props
     return (
-      <ChakraCheckbox.Root ref={rootRef} {...rest} cursor={'pointer'}>
+      <ChakraCheckbox.Root ref={rootRef} colorPalette={'minux'} {...rest} cursor={'pointer'}>
         <ChakraCheckbox.HiddenInput ref={ref} {...inputProps} />
         <ChakraCheckbox.Control 
           border={'1px solid'} 

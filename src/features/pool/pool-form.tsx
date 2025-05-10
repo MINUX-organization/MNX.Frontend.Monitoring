@@ -1,7 +1,7 @@
 import { CryptocurrencyType } from "@/entities/cryptocurrency";
 import { poolRepository, PoolType, PostPoolSchema, PostPoolType } from "@/entities/pool";
 import { isSuccessResponse } from "@/shared/api";
-import { UiInput, UiSelect } from "@/shared/ui";
+import { UiCheckbox, UiInput, UiSelect } from "@/shared/ui";
 import { FormConfig, GenericForm } from "@/shared/ui";
 import { match } from "ts-pattern";
 import find from "lodash/find";
@@ -22,8 +22,6 @@ export function PoolForm({
 }) {
   const { addPool, editPool } = usePoolMutation();
 
-  const findedCryptocurrency = find(cryptocurrencies, { fullName: pool?.cryptocurrency });
-
   const config: FormConfig<PostPoolType> = {
     validationSchema: PostPoolSchema,
     defaultValues: match(pool)
@@ -31,11 +29,13 @@ export function PoolForm({
         domain: '',
         port: '',
         cryptocurrencyId: '',
+        tls: false,
       }))
       .otherwise((pool) => ({
         domain: pool.domain,
         port: pool.port.toString(),
-        cryptocurrencyId: findedCryptocurrency?.id,
+        cryptocurrencyId: pool.cryptocurrencyId,
+        tls: pool.tls,
       })),
     fields: [
       { name: 'domain', label: 'Domain', component: ({field}) => <UiInput {...field} /> },
@@ -49,6 +49,13 @@ export function PoolForm({
           selectedItem={find(cryptocurrencies, { id: field.value })}
         />
       )},
+      { name: 'tls', label: 'TLS', orientation: 'horizontal', component: ({field}) => 
+        <UiCheckbox 
+          name={field.name} 
+          checked={field.value} 
+          onCheckedChange={(value) => field.onChange(value.checked)}
+        /> 
+      }
     ],
     onSubmit: async (data) => {
       const response = await match(mode)

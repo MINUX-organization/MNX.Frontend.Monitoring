@@ -5,6 +5,8 @@ export const PoolSchema = z.object({
   domain: z.string({invalid_type_error: 'Domain must be a string'}),
   port: z.number({invalid_type_error: 'Port must be a number'}),
   cryptocurrency: z.string({invalid_type_error: 'Cryptocurrency must be a string'}),
+  cryptocurrencyId: z.string({invalid_type_error: 'Cryptocurrency id must be a string'}),
+  tls: z.boolean({invalid_type_error: 'Tls must be a boolean'}),
 });
 export type PoolType = z.infer<typeof PoolSchema>;
 
@@ -18,5 +20,6 @@ export const PostPoolSchema = z.object({
     }),
   cryptocurrencyId: z.string({ invalid_type_error: 'Cryptocurrency id must be a string' })
     .nonempty({ message: 'Cryptocurrency is required' }),
+  tls: z.boolean({ invalid_type_error: 'Tls must be a boolean' }),
 });
 export type PostPoolType = z.infer<typeof PostPoolSchema>;

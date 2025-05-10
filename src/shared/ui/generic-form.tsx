@@ -9,6 +9,7 @@ import isEmpty from "lodash/isEmpty";
 export type FormField<T extends FieldValues> = {
   name: Path<T>;
   label: string;
+  orientation?: 'horizontal' | 'vertical'
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   component: ({field, invalid}: { field: any; invalid: boolean }) => React.ReactElement;
 };
@@ -50,6 +51,7 @@ export function GenericForm<T extends FieldValues>({
   const watchedValues = map(config.fields, (fieldPart) => watch(fieldPart.name));
 
   const handleFormSubmit = async (data: T) => {
+
     await config.onSubmit(data);
     handleCancel();
   };
@@ -61,13 +63,16 @@ export function GenericForm<T extends FieldValues>({
   };
 
   const isDisabled = (config.isSubmitDisabled?.(errors) ?? false) || 
-  map(watchedValues, (fieldPart) => {
-    if (typeof fieldPart === 'number') {
-      return isEmpty(fieldPart.toString());
-    }
+    map(watchedValues, (fieldPart) => {
+      if (typeof fieldPart === 'boolean')
+        return false
 
-    return isEmpty(fieldPart);
-  }).includes(true);
+      if (typeof fieldPart === 'number') {
+        return isEmpty(fieldPart.toString());
+      }
+      
+      return isEmpty(fieldPart);
+    }).includes(true);
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)}>
@@ -77,6 +82,8 @@ export function GenericForm<T extends FieldValues>({
             <UiField
               key={fieldPart.name.toString()}
               label={fieldPart.label}
+              orientation={fieldPart.orientation ?? 'vertical'}
+              justifyContent={'flex-start'}
               errorText={errors[fieldPart.name]?.message?.toString()}
               invalid={!!errors[fieldPart.name]}
               className="group"
