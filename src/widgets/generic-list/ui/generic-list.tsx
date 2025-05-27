@@ -1,5 +1,5 @@
-import { SortingIcon, UiButton, UiSearch } from "@/shared/ui";
-import { Stack, StackProps } from "@chakra-ui/react";
+import { SortingIcon, UiButton, UiSearch, UiTooltip } from "@/shared/ui";
+import { Box, Stack, StackProps } from "@chakra-ui/react";
 import { 
   ColumnDef,
   FilterFn, 
@@ -41,6 +41,7 @@ export function GenericList<T>({
     ...column,
     enableSorting: sortable ?? false
   }))
+  
 
   const table = useReactTable({
     state: {
@@ -57,6 +58,12 @@ export function GenericList<T>({
     globalFilterFn: customGlobalFilterFn || 'includesString',
   })
 
+  const sortingDescription = new Map<string, string>([
+  ['asc', 'Sort in ascending order'],
+  ['desc', 'Sort in descending order'],
+  ['false', 'There is no sorting'],
+]);
+
   return (
     <Stack gap={4} {...props}>
       <Stack direction={{ base: 'column', md: 'row'}}>
@@ -72,10 +79,10 @@ export function GenericList<T>({
           <Stack key={headerGroup.id} direction={'row'}>
             {map(headerGroup.headers, (header) => (
               <React.Fragment key={header.id}>
-                {sortable && <UiButton onClick={header.column.getToggleSortingHandler()}>
+                {sortable &&  <UiTooltip  content = {sortingDescription.get(String(header.column.getIsSorted()))}><UiButton onClick={header.column.getToggleSortingHandler()}>
                   {flexRender(header.column.columnDef.header, header.getContext())}
                   <SortingIcon state={header.column.getIsSorted()} />
-                </UiButton>}
+                </UiButton></UiTooltip>}
               </React.Fragment>
             ))}
             {renderAddButton?.()}
