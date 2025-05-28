@@ -1,5 +1,5 @@
 import { SortingIcon, UiButton, UiSearch, UiTooltip } from "@/shared/ui";
-import { Box, Stack, StackProps } from "@chakra-ui/react";
+import { Stack, StackProps } from "@chakra-ui/react";
 import { 
   ColumnDef,
   FilterFn, 
@@ -79,7 +79,7 @@ export function GenericList<T>({
           <Stack key={headerGroup.id} direction={'row'}>
             {map(headerGroup.headers, (header) => (
               <React.Fragment key={header.id}>
-                {sortable &&  <UiTooltip  content = {sortingDescription.get(String(header.column.getIsSorted()))}><UiButton onClick={header.column.getToggleSortingHandler()}>
+                {sortable &&  <UiTooltip  content = {sortingDescription.get(header.column.getIsSorted().toString())}><UiButton onClick={header.column.getToggleSortingHandler()}>
                   {flexRender(header.column.columnDef.header, header.getContext())}
                   <SortingIcon state={header.column.getIsSorted()} />
                 </UiButton></UiTooltip>}

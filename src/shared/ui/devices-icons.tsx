@@ -4,7 +4,6 @@ import endsWith from 'lodash/endsWith'
 import { match } from 'ts-pattern'
 import { CpuIcon, GpuIcon } from '../assets/svg'
 import { Stack, StackProps } from '@chakra-ui/react'
-import React from 'react'
 import { UiTooltip } from './tooltip'
 
 export type Device = 'NvidiaGpu' | 'IntelGpu' | 'IntelCpu' | 'AmdGpu' | 'AmdCpu' | 'Amd' | 'Intel' | 'Nvidia'
