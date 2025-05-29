@@ -4,7 +4,7 @@ import { flexRender, getCoreRowModel, getFilteredRowModel, getSortedRowModel, So
 import map from "lodash/map";
 import { generateColumnsFromData } from "../utils/generate-columns-from-data";
 import { ReactNode, useMemo, useState } from "react";
-import { SortingIcon, UiEmptyState, UiSearch } from "@/shared/ui";
+import { SortingIcon, UiSearch } from "@/shared/ui";
 import { CheckIcon, UncheckIcon } from "@/shared/assets/svg";
 
 interface MiningTableProps<T> extends Table.RootProps {
@@ -49,10 +49,8 @@ export function MiningTable<T>({
 
   return (
     <Stack direction={'column'} gap={4}>
-      {searchable && <HStack justify={'flex-end'}>
+      {searchable && <HStack justify={'flex-end'} maxW={'300px'}>
         <UiSearch
-          w={'100%'}
-          maxW={'300px'}
           bgColor={'bg.transparent'} 
           value={globalFilter} 
           onChange={(event) => setGlobalFilter(event.target.value)} 
@@ -93,9 +91,7 @@ export function MiningTable<T>({
             ))}
           </Table.Header>
           <Table.Body >
-            <For each={table.getRowModel().rows} fallback={
-              <UiEmptyState bg={'bg.transparent'} />
-            }>
+            <For each={table.getRowModel().rows}>
               {(row) => (
                 <Table.Row
                   key={row.id}
@@ -120,14 +116,13 @@ export function MiningTable<T>({
                       </Table.Cell>
                     )
                   })}
-                  {actions && 
-                    <Table.Cell>
-                      <Stack direction={'row'} justify={'flex-end'}>
-                        {map(actions, (action) => (
-                          <Box key={action.toString()}>{action(row.original as T)}</Box>
-                        ))}
-                      </Stack>
-                    </Table.Cell>}
+                  <Table.Cell>
+                    <Stack direction={'row'} justify={'flex-end'}>
+                      {map(actions, (action) => (
+                        <Box key={action.toString()}>{action(row.original as T)}</Box>
+                      ))}
+                    </Stack>
+                  </Table.Cell>
                 </Table.Row>
               )}
             </For>

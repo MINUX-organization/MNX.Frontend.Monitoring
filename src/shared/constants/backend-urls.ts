@@ -71,6 +71,9 @@ export const BACKEND_APIS = {
   },
   POOLS: `${BACKEND_MONITORING_URL}/pools`,
   WALLETS: `${BACKEND_MONITORING_URL}/wallets`,
-  MINERS: `${BACKEND_MONITORING_URL}/miners/available`,
+  MINERS: {
+    AVIALABLE: `${BACKEND_MONITORING_URL}/miners/available`,
+    CUSTOM_MINERS: `${BACKEND_MONITORING_URL}/miners/custom`,
+  },
   NICKNAME : `${BACKEND_SECURITY_URL}/profile/nickname`,
 } as const
