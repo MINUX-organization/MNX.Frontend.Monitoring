@@ -1,6 +1,6 @@
 import { EditIcon } from "@/shared/assets/svg";
-import { UiDialog } from "@/shared/ui";
-import { IconButton } from "@chakra-ui/react";
+import { UiDialog, UiTooltip } from "@/shared/ui";
+import { Box, IconButton } from "@chakra-ui/react";
 import { FC, ReactNode } from "react";
 
 interface EditCustomMinerButtonProps {
@@ -12,9 +12,13 @@ export const EditCustomMinerButton: FC<EditCustomMinerButtonProps> = ({ renderMi
   return (
     <UiDialog 
       renderTrigger={() => (
-        <IconButton variant="ghost" className='group' aria-label="Edit Custom Miner">
-          <EditIcon />
-        </IconButton>
+        <Box>
+          <UiTooltip content="Edit custom miner">
+            <IconButton variant="ghost" className='group' aria-label="Edit Custom Miner">
+              <EditIcon />
+            </IconButton>
+          </UiTooltip>
+        </Box>
       )}
       renderTitle={() => "Edit Custom Miner"}
       renderBody={(onClose) => renderMinerForm(onClose)}

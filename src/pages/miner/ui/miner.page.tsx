@@ -40,11 +40,11 @@ export const MinerPage: FC = () => {
 
   const actions = [
     (item: MinerType & { custom: boolean }) => 
-      !item.custom && <EditCustomMinerButton renderMinerForm={(onClose) => 
+      item.custom && <EditCustomMinerButton renderMinerForm={(onClose) => 
         <MinerForm onClose={onClose} miner={minersMap.get(item.id)} mode="edit"/>}
       />,
-    ({ id }: MinerType) => (
-      <DeleteCustomMinerButton id={id}/>
+    (item: MinerType & { custom: boolean }) => (
+      item.custom && <DeleteCustomMinerButton id={item.id}/>
     ),
   ]
 

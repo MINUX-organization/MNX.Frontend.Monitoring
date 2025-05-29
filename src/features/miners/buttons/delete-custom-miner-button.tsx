@@ -1,5 +1,6 @@
 import { minerRepository } from "@/entities/miner";
 import { TrashIcon } from "@/shared/assets/svg";
+import { UiTooltip } from "@/shared/ui";
 import { IconButton } from "@chakra-ui/react";
 import { IconBaseProps } from "react-icons/lib";
 
@@ -15,8 +16,10 @@ export function DeleteCustomMinerButton({id, ...props}: DeleteCustomMinerButtonP
   const handleClick = () => deleteCustomMiner(id);
 
   return (
-    <IconButton variant="ghost" className='group' aria-label="Delete algorithm" onClick={handleClick}>
-      <TrashIcon {...props} />
-    </IconButton>
+    <UiTooltip content="Delete custom miner">
+      <IconButton variant="ghost" className='group' aria-label="Delete algorithm" onClick={handleClick}>
+        <TrashIcon {...props} />
+      </IconButton>
+    </UiTooltip>
   )
 }

@@ -1,5 +1,5 @@
 import { CustomMinerPost, CustomMinerPostSchema, minerRepository, MinerType } from "@/entities/miner";
-import { DevicesIcons, FormConfig, GenericForm, UiInput, UiMultipleSelect, UiText } from "@/shared/ui";
+import { DevicesIcons, FormConfig, GenericForm, UiInput, UiMultipleSelect, UiSelect, UiText } from "@/shared/ui";
 import { createListCollection, Group } from "@chakra-ui/react";
 import { FC } from "react";
 import { match } from "ts-pattern";
@@ -89,6 +89,8 @@ export const MinerForm: FC<MinerFormProps> = ({
       )},
       { name: 'poolTemplate', label: 'Pool template', component: ({field}) => <UiInput {...field} /> },
       { name: 'walletWorkerTemplate', label: 'Wallet and worker template', component: ({field}) => <UiInput {...field} /> },
+      { name: 'miningMode', label: 'Mining mode', component: ({field}) => 
+        <UiSelect items={['Single', 'Dual', 'Triple']} onChange={field.onChange} getLabel={(item) => item} selectedItem={field.value}/> }, 
     ],
     onSubmit: async (values) => {
       if (mode === 'add') {
