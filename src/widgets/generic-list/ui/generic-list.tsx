@@ -1,5 +1,5 @@
-import { SortingIcon, UiButton, UiSearch } from "@/shared/ui";
-import { Stack, StackProps } from "@chakra-ui/react";
+import { SortingIcon, UiButton, UiSearch, UiEmptyState } from "@/shared/ui";
+import { For, Stack, StackProps } from "@chakra-ui/react";
 import { 
   ColumnDef,
   FilterFn, 
@@ -83,11 +83,13 @@ export function GenericList<T>({
         ))}
       </Stack>
       <Stack gap={3}>
-        {map(table.getRowModel().rows, (row) => (
-          <React.Fragment key={row.id}>
-            {renderItem?.(row.original)}
-          </React.Fragment>
-        ))}
+        <For each={table.getRowModel().rows} fallback={<UiEmptyState />}>
+          {(row) => (
+            <React.Fragment key={row.id}>
+              {renderItem?.(row.original)}
+            </React.Fragment>
+          )}
+        </For>
       </Stack>
     </Stack>
   )

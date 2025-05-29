@@ -1,9 +1,9 @@
-import { Box, HStack, Stack, Table } from "@chakra-ui/react";
+import { Box, For, HStack, Stack, Table } from "@chakra-ui/react";
 import { ColumnType, DataType } from "../model/column.type";
 import { flexRender, getCoreRowModel, getFilteredRowModel, getSortedRowModel, SortingState, useReactTable } from "@tanstack/react-table";
 import map from "lodash/map";
 import { generateColumnsFromData } from "../utils/generate-columns-from-data";
-import { useMemo, useState } from "react";
+import { ReactNode, useMemo, useState } from "react";
 import { SortingIcon, UiSearch } from "@/shared/ui";
 import { CheckIcon, UncheckIcon } from "@/shared/assets/svg";
 
@@ -49,10 +49,8 @@ export function MiningTable<T>({
 
   return (
     <Stack direction={'column'} gap={4}>
-      {searchable && <HStack justify={'flex-end'}>
+      {searchable && <HStack justify={'flex-end'} maxW={'300px'}>
         <UiSearch
-          w={'100%'}
-          maxW={'300px'}
           bgColor={'bg.transparent'} 
           value={globalFilter} 
           onChange={(event) => setGlobalFilter(event.target.value)} 
@@ -93,41 +91,41 @@ export function MiningTable<T>({
             ))}
           </Table.Header>
           <Table.Body >
-            {map(table.getRowModel().rows, (row) => (
-              <Table.Row 
-                key={row.id} 
-                bg={'bg.transparent'} 
-                _hover={{ bg: 'bg.hover' }} 
-                transition={'background-color 0.1s ease-in-out'}
-              >
-                {map(row.getVisibleCells(), (cell) => {
-                  const render = flexRender(cell.column.columnDef.cell, cell.getContext());
-                  const value = cell.getContext().getValue()
+            <For each={table.getRowModel().rows}>
+              {(row) => (
+                <Table.Row
+                  key={row.id}
+                  bg={'bg.transparent'}
+                  _hover={{ bg: 'bg.hover' }}
+                  transition={'background-color 0.1s ease-in-out'}
+                >
+                  {map(row.getVisibleCells(), (cell) => {
+                    const value = cell.getValue()
 
-                  if (typeof cell.getContext().getValue() === 'boolean') {
+                    if (typeof value === 'boolean') {
+                      return (
+                        <Table.Cell key={cell.id} textStyle={'md'}>
+                          {value ? <CheckIcon  w={6} h={6}/> : <UncheckIcon  w={6} h={6}/>}
+                        </Table.Cell>
+                      )
+                    }
+
                     return (
                       <Table.Cell key={cell.id} textStyle={'md'}>
-                        {value ? <CheckIcon  w={6} h={6}/> : <UncheckIcon  w={6} h={6}/>}
+                        {cell.renderValue() as ReactNode}
                       </Table.Cell>
                     )
-                  }
-
-                  return (
-                    <Table.Cell key={cell.id} textStyle={'md'}>
-                      {render}
-                    </Table.Cell>
-                  )
-                })}
-                {actions && 
+                  })}
                   <Table.Cell>
                     <Stack direction={'row'} justify={'flex-end'}>
                       {map(actions, (action) => (
                         <Box key={action.toString()}>{action(row.original as T)}</Box>
                       ))}
                     </Stack>
-                  </Table.Cell>}
-              </Table.Row>
-            ))}
+                  </Table.Cell>
+                </Table.Row>
+              )}
+            </For>
           </Table.Body>
         </Table.Root>
       </Table.ScrollArea>

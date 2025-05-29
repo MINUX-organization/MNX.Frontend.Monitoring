@@ -6,7 +6,7 @@ import { CpuIcon, GpuIcon } from '../assets/svg'
 import { Stack, StackProps } from '@chakra-ui/react'
 import React from 'react'
 
-export type Device = 'NvidiaGpu' | 'IntelGpu' | 'IntelCpu' | 'AmdGpu' | 'AmdCpu' | 'Amd' | 'Intel' | 'Nvidia'
+export type Device = 'NvidiaGpu' | 'IntelGpu' | 'IntelCpu' | 'AmdGpu' | 'AmdCpu' | 'Amd' | 'Intel' | 'Nvidia' | 'None'
 
 export function DevicesIcons({ devices, wi, he, ...props }: { devices: Device[], wi?: string, he?: string } & StackProps) {
   const sortedDevices = sortBy(devices, (device) => !endsWith(device.toLowerCase(), 'gpu'))
