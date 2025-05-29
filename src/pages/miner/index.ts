@@ -1,0 +1,1 @@
+export { MinerPage } from './ui/miner.page';

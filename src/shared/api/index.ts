@@ -7,7 +7,7 @@ export { getPresetsApi, getPresetsGroupedByGpuApi, savePresetApi, deletePresetAp
 export { getPoolsApi, addPoolApi, editPoolApi, deletePoolApi } from './pool'
 export { getWalletsApi, addWalletApi, deleteWalletApi, editWalletApi } from './wallet'
 export { getAvailableAlgorithmsApi, getAlgorithmByIdApi, deleteAlgorithmApi, addAlgorithmApi, editAlgorithmApi } from './algorithm'
-export { getMinersApi } from './miner'
+export { getMinersApi, addCustomMinerApi, deleteCustomMinerApi, editCustomMinerApi } from './miner'
 export { getCryptocurrenciesApi, addCryptocurrencyApi, deleteCryptocurrencyApi } from './cryptocurrency'
 export { getCpuDevices, getGpuDevices, getGpuRestrictionsApi, getGpusUniqueNamesApi, getDeviceOverclockingApi, applyDeviceOverclockingApi } from './device'
 export { getFlightSheetsApi, getFlightSheetByIdApi, createFlightSheetApi, deleteFlightSheetApi, editFlightSheetApi, getFlightSheetDevicesApi, getFlightSheetDevicesSupportedApi, applyFlightSheetApi } from './flight-sheet'

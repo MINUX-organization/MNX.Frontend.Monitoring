@@ -1,7 +1,7 @@
 import { minerRepository, MinerType } from "@/entities/miner"
 import { poolRepository, PoolType } from "@/entities/pool"
 import { walletRepository, WalletType } from "@/entities/wallet"
-import { Device, DevicesIcons, UiField, UiInput, UiSelect, UiTextarea, UiToggler } from "@/shared/ui"
+import { DevicesIcons, UiField, UiInput, UiSelect, UiTextarea, UiToggler } from "@/shared/ui"
 import { FileInput } from "@/shared/ui/file-upload"
 import { FileUploadFileAcceptDetails, FileUploadHiddenInput, FileUploadRootProvider, Stack, StackProps, useFileUpload } from "@chakra-ui/react"
 import find from "lodash/find"
@@ -219,14 +219,14 @@ export function FlightSheetFormTarget({
                 invalid={!!targetsErrors?.[targetIndex]?.minerId}
                 placeholder="Select miner"
                 items={miners ?? []}
-                getLabel={(item) => item.name}
+                getLabel={(item) => `${item.name} ${item.version}`}
                 onChange={(item) => {
                   field.onChange(item?.id)
                   setMaxMiningMode(transformMiningMode(item?.miningMode))
                 }}
                 selectedItem={miner}
                 renderEndElement={(item) => 
-                  <DevicesIcons devices={item?.supportedDevices as Device[]} />}
+                  <DevicesIcons devices={item?.supportedDevices} />}
               />
             )}
           />

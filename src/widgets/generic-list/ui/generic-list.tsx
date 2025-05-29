@@ -1,5 +1,5 @@
-import { SortingIcon, UiButton, UiSearch, UiTooltip } from "@/shared/ui";
-import { Stack, StackProps } from "@chakra-ui/react";
+import { SortingIcon, UiButton, UiSearch, UiEmptyState, UiTooltip } from "@/shared/ui";
+import { For, Stack, StackProps } from "@chakra-ui/react";
 import { 
   ColumnDef,
   FilterFn, 
@@ -41,7 +41,6 @@ export function GenericList<T>({
     ...column,
     enableSorting: sortable ?? false
   }))
-  
 
   const table = useReactTable({
     state: {
@@ -79,7 +78,7 @@ export function GenericList<T>({
           <Stack key={headerGroup.id} direction={'row'}>
             {map(headerGroup.headers, (header) => (
               <React.Fragment key={header.id}>
-                {sortable &&  <UiTooltip  content = {sortingDescription.get(header.column.getIsSorted().toString())}><UiButton onClick={header.column.getToggleSortingHandler()}>
+                {sortable &&  <UiTooltip content = {sortingDescription.get(header.column.getIsSorted().toString())}><UiButton onClick={header.column.getToggleSortingHandler()}>
                   {flexRender(header.column.columnDef.header, header.getContext())}
                   <SortingIcon state={header.column.getIsSorted()} />
                 </UiButton></UiTooltip>}
@@ -90,11 +89,13 @@ export function GenericList<T>({
         ))}
       </Stack>
       <Stack gap={3}>
-        {map(table.getRowModel().rows, (row) => (
-          <React.Fragment key={row.id}>
-            {renderItem?.(row.original)}
-          </React.Fragment>
-        ))}
+        <For each={table.getRowModel().rows} fallback={<UiEmptyState />}>
+          {(row) => (
+            <React.Fragment key={row.id}>
+              {renderItem?.(row.original)}
+            </React.Fragment>
+          )}
+        </For>
       </Stack>
     </Stack>
   )

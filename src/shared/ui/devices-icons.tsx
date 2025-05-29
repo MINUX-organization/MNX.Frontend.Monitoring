@@ -6,7 +6,7 @@ import { CpuIcon, GpuIcon } from '../assets/svg'
 import { Stack, StackProps } from '@chakra-ui/react'
 import { UiTooltip } from './tooltip'
 
-export type Device = 'NvidiaGpu' | 'IntelGpu' | 'IntelCpu' | 'AmdGpu' | 'AmdCpu' | 'Amd' | 'Intel' | 'Nvidia'
+export type Device = 'NvidiaGpu' | 'IntelGpu' | 'IntelCpu' | 'AmdGpu' | 'AmdCpu' | 'Amd' | 'Intel' | 'Nvidia' | 'None'
 
 
 

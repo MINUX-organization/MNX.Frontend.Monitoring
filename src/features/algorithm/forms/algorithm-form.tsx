@@ -114,7 +114,7 @@ export function AlgorithmForm({
                         invalid={!!errors.bindings?.[index]?.minerId}
                         placeholder="Select miner"
                         items={miners ?? []}
-                        getLabel={(item) => item.name}
+                        getLabel={(item) => `${item.name} ${item.version}`}
                         onChange={(item) => field.onChange(item?.id)}
                         selectedItem={find(miners, { id: field.value })}
                       />
