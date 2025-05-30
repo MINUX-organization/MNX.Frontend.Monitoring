@@ -1,5 +1,6 @@
 import { devicesStreamStore, GpuItem, gpusQueryOptions, GpuType } from "@/entities/devices";
 import { GpuConfigButton } from "@/features/devices";
+import { UiTooltip } from "@/shared/ui";
 import { GenericList } from "@/widgets/generic-list";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Outlet } from "@tanstack/react-router";
@@ -25,7 +26,7 @@ export function GpusPage() {
             minH={'8rem'}
             gpu={item}
             gpuDynamic={gpuDynamicTotalIndicators.get(item.id)}
-            renderGpuSetting={(gpuId) => <GpuConfigButton gpuId={gpuId} />} 
+            renderGpuSetting={(gpuId) => <UiTooltip content='Overclocking config'> <GpuConfigButton gpuId={gpuId} /> </UiTooltip>} 
           />
         )}
       />

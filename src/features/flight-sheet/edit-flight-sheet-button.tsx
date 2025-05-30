@@ -1,4 +1,5 @@
 import { EditIcon } from "@/shared/assets/svg";
+import { UiTooltip } from "@/shared/ui";
 import { IconButton } from "@chakra-ui/react";
 import { Link, linkOptions } from "@tanstack/react-router";
 
@@ -14,9 +15,11 @@ export function EditFlightSheetButton({
 
   return (
     <Link {...link}>
-      <IconButton variant="ghost" className='group' aria-label="Edit flight sheet">
-        <EditIcon />
-      </IconButton>
+      <UiTooltip content='Edit flight sheet'>
+        <IconButton variant="ghost" className='group' aria-label="Edit flight sheet">
+          <EditIcon />
+        </IconButton>
+      </UiTooltip>
     </Link>
   )
 }

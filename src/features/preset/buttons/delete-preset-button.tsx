@@ -1,5 +1,6 @@
 import { presetRepository } from "@/entities/preset"
 import { TrashIcon } from "@/shared/assets/svg";
+import { UiTooltip } from "@/shared/ui";
 import { IconButton } from "@chakra-ui/react"
 
 const { usePresetMutation } = presetRepository;
@@ -16,8 +17,10 @@ export function DeletePresetButton({
   };
 
   return (
-    <IconButton variant="ghost" className='group' aria-label="Delete preset" onClick={handleClick}>
-      <TrashIcon />
-    </IconButton>
+    <UiTooltip content='Delete preset'>
+      <IconButton variant="ghost" className='group' aria-label="Delete preset" onClick={handleClick}>
+        <TrashIcon />
+      </IconButton>
+    </UiTooltip>
   )
 }

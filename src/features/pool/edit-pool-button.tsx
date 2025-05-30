@@ -1,6 +1,6 @@
 import { EditIcon } from "@/shared/assets/svg";
-import { UiDialog } from "@/shared/ui";
-import { IconButton } from "@chakra-ui/react";
+import { UiDialog, UiTooltip } from "@/shared/ui";
+import { Box, IconButton } from "@chakra-ui/react";
 
 export function EditPoolButton({
   renderPoolForm
@@ -10,9 +10,14 @@ export function EditPoolButton({
   return (
     <UiDialog
       renderTrigger={() => (
-        <IconButton variant="ghost" className='group' aria-label="Edit pool">
-          <EditIcon />
-        </IconButton>
+        <Box>
+          <UiTooltip content='Edit pool'>
+            <IconButton variant="ghost" className='group' aria-label="Edit pool">
+              <EditIcon />
+            </IconButton>
+          </UiTooltip>
+        </Box>
+
       )}
       renderTitle={() => "Edit Pool"}
       renderBody={(onClose) => renderPoolForm(onClose)}

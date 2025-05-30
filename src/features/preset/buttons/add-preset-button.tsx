@@ -1,5 +1,5 @@
 import { PlusIcon } from "@/shared/assets/svg";
-import { UiButton } from "@/shared/ui";
+import { UiButton, UiTooltip } from "@/shared/ui";
 import { Link, linkOptions } from "@tanstack/react-router";
 
 export function AddPresetButton() {
@@ -9,9 +9,9 @@ export function AddPresetButton() {
 
   return (
     <Link {...link}>
-      <UiButton colorPalette={'accept'}>
-        Add <PlusIcon />
-      </UiButton>
+        <UiButton colorPalette={'accept'}>
+          Add <PlusIcon />
+        </UiButton>
     </Link>
   )
 }
