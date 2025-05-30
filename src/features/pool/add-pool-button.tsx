@@ -1,5 +1,5 @@
 import { PlusIcon } from "@/shared/assets/svg";
-import { UiButton, UiDialog } from "@/shared/ui";
+import { UiButton, UiDialog, UiTooltip } from "@/shared/ui";
 
 export function AddPoolButton({
   renderPoolForm
@@ -7,16 +7,16 @@ export function AddPoolButton({
   renderPoolForm: (onClose: () => void) => React.ReactNode
 }) {
   return (
-    <UiDialog
-      renderTrigger={() => (
+  <UiDialog
+    renderTrigger={() => (
         <UiButton
           colorPalette={'accept'}
         >
           Add <PlusIcon />
         </UiButton>
-      )}
-      renderTitle={() => "Add Pool"}
-      renderBody={(onClose) => renderPoolForm(onClose)}
-    />
+    )}
+    renderTitle={() => "Add Pool"}
+    renderBody={(onClose) => renderPoolForm(onClose)}
+  />
   );
 }

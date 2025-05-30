@@ -1,5 +1,5 @@
 import { PlusIcon } from "@/shared/assets/svg";
-import { UiButton, UiDialog } from "@/shared/ui";
+import { UiButton, UiDialog, UiTooltip } from "@/shared/ui";
 
 export function AddWalletButton({
   renderPoolForm
