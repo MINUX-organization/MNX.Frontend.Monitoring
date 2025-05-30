@@ -1,4 +1,4 @@
-import { Clipboard, ClipboardRootProps } from "@chakra-ui/react";
+import { Box, Clipboard, ClipboardRootProps } from "@chakra-ui/react";
 import { FC } from "react";
 import { UiButton } from "./button";
 import { UiText } from "./text";
@@ -14,12 +14,14 @@ export const UiClipboard: FC<ClipboardRootProps & { label?: string }> = ({ label
   return (
     <Clipboard.Root value="https://chakra-ui.com" {...props}>
       <Clipboard.Trigger asChild>
-        <UiTooltip content="Copy to clipboard">
-          <UiButton variant="surface" size="sm" onClick={handleCopy}>
-            <FaRegCopy />
-            {label && <UiText>{label}</UiText>}
-          </UiButton>
-        </UiTooltip>
+        <Box>
+          <UiTooltip content="Copy to clipboard">
+            <UiButton variant="surface" size="sm" onClick={handleCopy}>
+              <FaRegCopy />
+              {label && <UiText>{label}</UiText>}
+            </UiButton>
+          </UiTooltip>
+        </Box>
       </Clipboard.Trigger>
     </Clipboard.Root>
   )
