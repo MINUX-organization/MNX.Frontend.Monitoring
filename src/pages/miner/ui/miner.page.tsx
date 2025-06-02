@@ -32,7 +32,7 @@ export const MinerPage: FC = () => {
       </Group>
       ),
       miningMode: item.miningMode,
-      custom: item.userId ? true : false
+      custom: item.ownerId ? true : false
     })
 
     return [item.id, item]
