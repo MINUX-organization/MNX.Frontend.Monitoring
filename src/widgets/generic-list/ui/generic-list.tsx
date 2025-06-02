@@ -10,9 +10,10 @@ import {
   SortingState, 
   useReactTable 
 } from "@tanstack/react-table"
+import { debounce } from "lodash";
 import flatMap from "lodash/flatMap";
 import map from "lodash/map";
-import React, { useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 
 export interface GenericListProps<T> extends Omit<StackProps, 'columns'> {
   data: T[];
@@ -36,6 +37,7 @@ export function GenericList<T>({
 }: GenericListProps<T>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = useState('');
+  const [searchText, setSearchText] = useState('');
 
   const columnsMap: ColumnDef<T>[] = map(columns, (column) => ({
     ...column,
@@ -63,15 +65,33 @@ export function GenericList<T>({
   ['false', 'There is no sorting'],
 ]);
 
+const debouncedSetGlobalFilter = useRef(
+    debounce((value: string) => {
+      setGlobalFilter(value);
+    }, 500,
+    { leading: true })
+  ).current;
+
+  useEffect(() => {
+    return () => {
+      debouncedSetGlobalFilter.cancel();
+    };
+  }, [debouncedSetGlobalFilter]);
+
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchText(event.target.value);
+    debouncedSetGlobalFilter(event.target.value);
+  };
+
   return (
     <Stack gap={4} {...props}>
       <Stack direction={{ base: 'column', md: 'row'}}>
         {searchable && (
           <UiSearch
-            value={globalFilter}
+            value={searchText}
             bg={'bg.transparent'}
-            onQueryClear={() => setGlobalFilter('')}
-            onChange={(event) => setGlobalFilter(event.target.value)}
+            onQueryClear={() =>{setSearchText(''), setGlobalFilter('')}}
+            onChange={handleSearchChange}
           />
         )}
         {flatMap(table.getHeaderGroups(), (headerGroup) => (
