@@ -1,3 +1,4 @@
+import { useDebounced } from "@/shared/lib/utils/debounce";
 import { SortingIcon, UiButton, UiSearch, UiEmptyState, UiTooltip } from "@/shared/ui";
 import { For, Stack, StackProps } from "@chakra-ui/react";
 import { 
@@ -10,10 +11,9 @@ import {
   SortingState, 
   useReactTable 
 } from "@tanstack/react-table"
-import { debounce } from "lodash";
 import flatMap from "lodash/flatMap";
 import map from "lodash/map";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState } from "react";
 
 export interface GenericListProps<T> extends Omit<StackProps, 'columns'> {
   data: T[];
@@ -36,8 +36,8 @@ export function GenericList<T>({
   ...props
 }: GenericListProps<T>) {
   const [sorting, setSorting] = useState<SortingState>([]);
-  const [globalFilter, setGlobalFilter] = useState('');
-  const [searchText, setSearchText] = useState('');
+  const [ globalFilter, setGlobalFilter] = useState('')
+  const [searchText, setSearchChange] = useDebounced((val) => setGlobalFilter(val),'', 500, { leading: true, maxWait:1000});
 
   const columnsMap: ColumnDef<T>[] = map(columns, (column) => ({
     ...column,
@@ -65,24 +65,6 @@ export function GenericList<T>({
   ['false', 'There is no sorting'],
 ]);
 
-const debouncedSetGlobalFilter = useRef(
-    debounce((value: string) => {
-      setGlobalFilter(value);
-    }, 500,
-    { leading: true })
-  ).current;
-
-  useEffect(() => {
-    return () => {
-      debouncedSetGlobalFilter.cancel();
-    };
-  }, [debouncedSetGlobalFilter]);
-
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchText(event.target.value);
-    debouncedSetGlobalFilter(event.target.value);
-  };
-
   return (
     <Stack gap={4} {...props}>
       <Stack direction={{ base: 'column', md: 'row'}}>
@@ -90,8 +72,8 @@ const debouncedSetGlobalFilter = useRef(
           <UiSearch
             value={searchText}
             bg={'bg.transparent'}
-            onQueryClear={() =>{setSearchText(''), setGlobalFilter('')}}
-            onChange={handleSearchChange}
+            onQueryClear={() => setSearchChange('')}
+            onChange={(e) => setSearchChange(e.target.value)}
           />
         )}
         {flatMap(table.getHeaderGroups(), (headerGroup) => (

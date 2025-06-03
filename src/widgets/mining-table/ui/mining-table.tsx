@@ -3,10 +3,10 @@ import { ColumnType, DataType } from "../model/column.type";
 import { flexRender, getCoreRowModel, getFilteredRowModel, getSortedRowModel, SortingState, useReactTable } from "@tanstack/react-table";
 import map from "lodash/map";
 import { generateColumnsFromData } from "../utils/generate-columns-from-data";
-import { ReactNode, useEffect, useMemo, useRef, useState } from "react";
+import { ReactNode,  useMemo, useState } from "react";
 import { SortingIcon, UiSearch } from "@/shared/ui";
 import { CheckIcon, UncheckIcon } from "@/shared/assets/svg";
-import { debounce } from "lodash";
+import { useDebounced } from "@/shared/lib/utils/debounce";
 
 interface MiningTableProps<T> extends Table.RootProps {
   columnsDef?: ColumnType[];
@@ -27,8 +27,8 @@ export function MiningTable<T>({
   ...props 
 } : MiningTableProps<T>) {
   const [sorting, setSorting] = useState<SortingState>([]);
-  const [globalFilter, setGlobalFilter] = useState('');
-  const [searchText, setSearchText] = useState('');
+  const [ globalFilter, setGlobalFilter] = useState('')
+  const [searchText, setSearchChange] = useDebounced((val) => setGlobalFilter(val),'', 500, { leading: true, maxWait:1000});
   
   const columnsDefDefault = useMemo(() => 
     columnsDef || generateColumnsFromData(data, sortable ?? false),
@@ -49,32 +49,14 @@ export function MiningTable<T>({
     getCoreRowModel: getCoreRowModel(),
   })
 
-  const debouncedSetGlobalFilter = useRef(
-    debounce((value: string) => {
-      setGlobalFilter(value);
-    }, 500,
-    { leading: true })
-  ).current;
-
-  useEffect(() => {
-    return () => {
-      debouncedSetGlobalFilter.cancel();
-    };
-  }, [debouncedSetGlobalFilter]);
-
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchText(event.target.value);
-    debouncedSetGlobalFilter(event.target.value);
-  };
-
   return (
     <Stack direction={'column'} gap={4}>
       {searchable && <HStack justify={'flex-end'} maxW={'300px'}>
         <UiSearch
           bgColor={'bg.transparent'} 
           value={searchText}
-            onChange={handleSearchChange}
-          onQueryClear={() => {setSearchText(''), setGlobalFilter('')}}
+            onChange={(e) => setSearchChange(e.target.value)}
+          onQueryClear={() => setSearchChange('')}
         />
       </HStack>}
       <Table.ScrollArea borderWidth="1px" rounded="md" borderColor={'minux.solid'}>

@@ -12,6 +12,7 @@ import { UiText } from './text'
 import isEmpty from 'lodash/isEmpty'
 import { match } from 'ts-pattern'
 import { InputGroup } from './input-group'
+import { useDebounced } from '../lib/utils/debounce'
 
 interface SelectTriggerProps extends ChakraSelect.ControlProps {
   clearable?: boolean
@@ -167,6 +168,7 @@ export function UiSelect<T>({
   ...props
 }: SelectItemProps<T>) {
   const [query, setQuery] = useState('')
+  const [_, setDebounceChange] = useDebounced((val) => setQuery(val),'', 500, { leading: true, maxWait:1000})
   const [item, setItem] = useState<T | null>(null)
   const [inputWidth, setInputWidth] = useState<number | string>('auto');
   const inputRef = useRef<HTMLInputElement>(null);
@@ -207,7 +209,7 @@ export function UiSelect<T>({
         )
 
   return (
-    <Combobox immediate value={item} onChange={handleChange} onClose={() => setQuery('')}>
+    <Combobox immediate value={item} onChange={handleChange} onClose={() => setDebounceChange('')}>
       <InputGroup w={'100%'} endElement={renderEndElement?.(item as T)}>
         <UiInput 
           asChild
@@ -226,7 +228,7 @@ export function UiSelect<T>({
 
               return selectedItem ? getLabel(selectedItem) : getLabel(item as T);
             }}
-            onChange={(event) => setQuery(event.target.value ?? '')}
+            onChange={(event) => setDebounceChange(event.target.value ?? '')}
           />
         </UiInput>
       </InputGroup>
