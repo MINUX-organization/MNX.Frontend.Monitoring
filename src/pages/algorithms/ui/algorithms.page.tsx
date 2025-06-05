@@ -11,7 +11,7 @@ export function AlgorithmsPage() {
   const algorithmsTabe = map(data.data, (item) => ({
     id: item.id,
     name: item.name,
-    custom: item.userId ? true : false
+    custom: item.ownerId ? true : false
   }))
 
   const actions = [

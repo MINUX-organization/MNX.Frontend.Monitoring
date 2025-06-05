@@ -2,7 +2,7 @@ import { z } from "zod"
 
 export const AlgorithmSchema = z.object({
   id: z.string({invalid_type_error: 'Id must be a string'}),
-  userId: z.string({invalid_type_error: 'User id must be a string'}).optional(),
+  ownerId: z.string({invalid_type_error: 'Owner id must be a string'}).optional(),
   name: z.string({invalid_type_error: 'Name must be a string'}),
 })
 

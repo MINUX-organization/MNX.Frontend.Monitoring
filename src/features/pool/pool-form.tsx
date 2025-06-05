@@ -43,6 +43,7 @@ export function PoolForm({
       { name: 'cryptocurrencyId', label: 'Cryptocurrency', component: ({field, invalid}) => (
         <UiSelect<CryptocurrencyType>
           invalid={invalid}
+          disabled={mode === 'edit'}
           items={cryptocurrencies ?? []}
           getLabel={(item) => item.fullName}
           onChange={(item) => field.onChange(item?.id)}
@@ -51,7 +52,7 @@ export function PoolForm({
       )},
       { name: 'tls', label: 'TLS', orientation: 'horizontal', component: ({field}) => 
         <UiCheckbox 
-          name={field.name} 
+          name={field.name}
           checked={field.value} 
           onCheckedChange={(value) => field.onChange(value.checked)}
         /> 
