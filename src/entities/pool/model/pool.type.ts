@@ -2,6 +2,7 @@ import { z } from "zod";
 
 export const PoolSchema = z.object({
   id: z.string({invalid_type_error: 'Id must be a string'}),
+  userId: z.string({invalid_type_error: 'User id must be a string'}),
   domain: z.string({invalid_type_error: 'Domain must be a string'}),
   port: z.number({invalid_type_error: 'Port must be a number'}),
   cryptocurrency: z.string({invalid_type_error: 'Cryptocurrency must be a string'}),

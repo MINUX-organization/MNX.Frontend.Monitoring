@@ -11,21 +11,29 @@ export function PoolsPage() {
   const { data } = useSuspenseQuery(poolQueryOptions)
   const { cryptocurrencies } = useCryptocurrencyQuery()
 
-  const poolsTable = map(data.data, (item) => ({
-    id: item.id,
-    domain: item.domain,
-    port: item.port.toString(),
-    cryptocurrency: item.cryptocurrency
-  }))
+  const poolsMap = new Map<string, PoolType>();
+
+  const poolsTable = map(data.data, (item) => {
+    poolsMap.set(item.id, item);
+
+    return {
+      id: item.id,
+      domain: item.domain,
+      port: item.port,
+      cryptocurrency: item.cryptocurrency,
+      custom: item.userId ? true : false,
+      tls: item.tls
+    }
+  })
 
   const actions = [
-    (item: PoolType) => (
-      <EditPoolButton renderPoolForm={(onClose) => 
-        <PoolForm onClose={onClose} mode={'edit'} pool={item} cryptocurrencies={cryptocurrencies}/>
+    (item: PoolType & { custom: boolean }) => (
+      item.custom && <EditPoolButton renderPoolForm={(onClose) => 
+        <PoolForm onClose={onClose} mode={'edit'} pool={poolsMap.get(item.id)} cryptocurrencies={cryptocurrencies}/>
       }/>
     ),
-    ({ id }: PoolType) => (
-      <DeletePoolButton id={id}/>
+    (item: PoolType & { custom: boolean }) => (
+      item.custom && <DeletePoolButton id={item.id}/>
     ),
   ]
 
