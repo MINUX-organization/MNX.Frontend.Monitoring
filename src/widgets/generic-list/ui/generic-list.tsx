@@ -37,7 +37,7 @@ export function GenericList<T>({
 }: GenericListProps<T>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [ globalFilter, setGlobalFilter] = useState('')
-  const [searchText, setSearchChange] = useDebounced((val) => setGlobalFilter(val),'', 500, { leading: true, trailing: true});
+  const [searchText, setSearchChange] = useDebounced((val) => setGlobalFilter(val),'', 500);
 
   const columnsMap: ColumnDef<T>[] = map(columns, (column) => ({
     ...column,

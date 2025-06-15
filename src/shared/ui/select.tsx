@@ -168,7 +168,7 @@ export function UiSelect<T>({
   ...props
 }: SelectItemProps<T>) {
   const [query, setQuery] = useState('')
-  const [_, setDebounceChange] = useDebounced((val) => setQuery(val),'', 500, { leading: true, trailing: true})
+  const [_, setDebounceChange] = useDebounced((val) => setQuery(val),'', 500)
   const [item, setItem] = useState<T | null>(null)
   const [inputWidth, setInputWidth] = useState<number | string>('auto');
   const inputRef = useRef<HTMLInputElement>(null);

@@ -1,19 +1,13 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import debounce from 'lodash/debounce';
 
-interface DebounceOptions {
-  leading?: boolean;
-  maxWait?: number;
-  trailing?: boolean;
-}
-
-export function useDebounced<T>(func: (value: T) => void, initialValue: T, delay: number = 500, options: DebounceOptions = { leading: false, trailing: false }) {
+export function useDebounced<T>(func: (value: T) => void, initialValue: T, delay: number = 500) {
   const [value, setValue] = useState<T>(initialValue);
 
   const debouncedSetter = useRef(
     debounce((val: T) => {
       func(val)
-    }, delay, options)
+    }, delay)
   ).current;
 
   const setValueDebounced = useCallback((val: T) => {

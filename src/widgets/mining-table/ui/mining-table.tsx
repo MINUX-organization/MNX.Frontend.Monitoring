@@ -28,7 +28,7 @@ export function MiningTable<T>({
 } : MiningTableProps<T>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [ globalFilter, setGlobalFilter] = useState('')
-  const [searchText, setSearchChange] = useDebounced((val) => setGlobalFilter(val),'', 500, { leading: true, trailing: true});
+  const [searchText, setSearchChange] = useDebounced((val) => setGlobalFilter(val),'', 1000);
   
   const columnsDefDefault = useMemo(() => 
     columnsDef || generateColumnsFromData(data, sortable ?? false),
