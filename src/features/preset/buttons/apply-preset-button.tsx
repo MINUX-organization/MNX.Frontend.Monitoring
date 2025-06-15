@@ -36,7 +36,7 @@ export function ApplyPresetButton({
   
   return (
     <Link {...link}>
-      <UiTooltip content='Apply flight sheet'>
+      <UiTooltip content='Apply preset'>
         <IconButton variant="ghost" className='group' aria-label="Apply flight sheet">
           <ConfirmedIcon />
         </IconButton>

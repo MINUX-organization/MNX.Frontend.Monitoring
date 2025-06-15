@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import debounce from 'lodash/debounce';
 
 interface DebounceOptions {
@@ -16,10 +16,10 @@ export function useDebounced<T>(func: (value: T) => void, initialValue: T, delay
     }, delay, options)
   ).current;
 
-  const setValueDebounced = (val: T) => {
+  const setValueDebounced = useCallback((val: T) => {
     setValue(val);
     debouncedSetter(val);
-  };
+  }, [debouncedSetter, setValue]);
 
   useEffect(() => {
     return () => {

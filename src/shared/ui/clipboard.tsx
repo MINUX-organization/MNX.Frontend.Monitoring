@@ -16,7 +16,7 @@ export const UiClipboard: FC<ClipboardRootProps & { label?: string }> = ({ label
       <Clipboard.Trigger asChild>
         <Box>
           <UiTooltip content="Copy to clipboard">
-            <UiButton variant="surface" size="sm" onClick={handleCopy}>
+            <UiButton variant="surface" size="sm" as={'div'} onClick={handleCopy}>
               <FaRegCopy />
               {label && <UiText>{label}</UiText>}
             </UiButton>

@@ -14,7 +14,7 @@ export function RefreshKeyButton() {
 
   return (
     <UiTooltip content="Update the user's key">
-      <IconButton variant={'ghost'} aria-label="Generate key" onClick={handleClick}>
+      <IconButton variant={'ghost'} aria-label="Generate key" as="div" onClick={handleClick}>
         <RefreshIcon />
       </IconButton>
     </UiTooltip>
