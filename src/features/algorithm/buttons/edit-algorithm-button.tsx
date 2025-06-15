@@ -1,6 +1,6 @@
 import { EditIcon } from "@/shared/assets/svg";
-import { UiDialog } from "@/shared/ui";
-import { IconButton } from "@chakra-ui/react";
+import { UiDialog, UiTooltip } from "@/shared/ui";
+import { Box, IconButton } from "@chakra-ui/react";
 
 export function EditAlgorithmButton({
   renderAlgorithmForm
@@ -10,9 +10,13 @@ export function EditAlgorithmButton({
   return (
     <UiDialog
       renderTrigger={() => (
-        <IconButton variant="ghost" className='group' aria-label="Edit algorithm">
-          <EditIcon />
-        </IconButton>
+        <Box>
+          <UiTooltip content='Edit algorithm'>
+            <IconButton variant="ghost" className='group' aria-label="Edit algorithm">
+              <EditIcon />
+            </IconButton>
+          </UiTooltip>
+        </Box>
       )}
       renderTitle={() => "Edit Pool"}
       renderBody={(onClose) => renderAlgorithmForm(onClose)}
