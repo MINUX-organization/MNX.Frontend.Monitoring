@@ -1,5 +1,6 @@
 import { cryptocurrencyRepository } from "@/entities/cryptocurrency";
 import { TrashIcon } from "@/shared/assets/svg";
+import { UiTooltip } from "@/shared/ui";
 import { IconButton } from "@chakra-ui/react";
 import { IconBaseProps } from "react-icons/lib";
 
@@ -17,8 +18,10 @@ export function DeleteCryptocurrencyButton({id, ...props}: DeleteCryptocurrencyB
   }
 
   return (
-    <IconButton variant="ghost" className='group' aria-label="Delete cryptocurrency" onClick={handleClick}>
-      <TrashIcon {...props} />
-    </IconButton>
+    <UiTooltip content="Delete cryptocurrency">
+      <IconButton variant="ghost" className='group' aria-label="Delete cryptocurrency" onClick={handleClick}>
+        <TrashIcon {...props} />
+      </IconButton>
+    </UiTooltip>
   ) 
 }

@@ -16,7 +16,7 @@ export function DeleteCustomMinerButton({id, ...props}: DeleteCustomMinerButtonP
   const handleClick = () => deleteCustomMiner(id);
 
   return (
-    <UiTooltip content="Delete custom miner">
+    <UiTooltip content="Delete algorithm">
       <IconButton variant="ghost" className='group' aria-label="Delete algorithm" onClick={handleClick}>
         <TrashIcon {...props} />
       </IconButton>

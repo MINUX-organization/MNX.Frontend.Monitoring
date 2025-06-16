@@ -1,6 +1,6 @@
 import { EditIcon } from "@/shared/assets/svg";
-import { UiDialog } from "@/shared/ui";
-import { Center, IconButton, Spinner, Stack } from "@chakra-ui/react";
+import { UiDialog, UiTooltip } from "@/shared/ui";
+import { Box, Center, IconButton, Spinner, Stack } from "@chakra-ui/react";
 import { Link, linkOptions } from "@tanstack/react-router";
 import { PresetForm, PresetSlidersForm } from "../forms";
 import { OverclockingGpuType, presetByIdQueryOptions } from "@/entities/preset";
@@ -23,9 +23,13 @@ export function EditPresetButton({
       lazyMount
       renderTitle={() => "Edit preset"}
       renderTrigger={() => (
-        <IconButton variant="ghost" className='group' aria-label="Edit preset">
-          <EditIcon />
-        </IconButton>
+        <Box>
+          <UiTooltip content='Edit preset'>
+            <IconButton variant="ghost" className='group' aria-label="Edit preset">
+              <EditIcon />
+            </IconButton>
+          </UiTooltip>
+        </Box>
       )}
       renderBody={(onClose) => (
         <Suspense fallback={<Center><Spinner /></Center>}>
@@ -45,10 +49,13 @@ export function EditPresetButton({
 
   return (
     <Link {...link}>
-      <IconButton variant="ghost" className='group' aria-label="Edit preset">
-        <EditIcon />
-      </IconButton>
+      <UiTooltip content='Edit preset'>
+        <IconButton variant="ghost" className='group' aria-label="Edit preset">
+          <EditIcon />
+        </IconButton>
+      </UiTooltip>
     </Link>
+
   )
 }
 

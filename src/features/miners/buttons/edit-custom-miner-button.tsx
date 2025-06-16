@@ -13,7 +13,7 @@ export const EditCustomMinerButton: FC<EditCustomMinerButtonProps> = ({ renderMi
     <UiDialog 
       renderTrigger={() => (
         <Box>
-          <UiTooltip content="Edit custom miner">
+          <UiTooltip content="Edit algorithm">
             <IconButton variant="ghost" className='group' aria-label="Edit Custom Miner">
               <EditIcon />
             </IconButton>
