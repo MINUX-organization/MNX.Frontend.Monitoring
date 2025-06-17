@@ -3,10 +3,12 @@ import { routeTree } from "../routeTree.gen";
 import { sessionRepository } from "@/entities/session";
 import { queryClient } from "./app-query";
 import { devicesStreamStore } from "@/entities/devices";
+import { NotFoundPage } from "@/pages/notfound";
 
 const router = createRouter({
   routeTree,
   defaultPreload: 'intent',
+  defaultNotFoundComponent: NotFoundPage,
   defaultPreloadDelay: 100,
   context: {
     queryClient,
