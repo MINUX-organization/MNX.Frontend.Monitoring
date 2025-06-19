@@ -1,5 +1,5 @@
 import { PlusIcon } from "@/shared/assets/svg";
-import { UiButton, UiTooltip } from "@/shared/ui";
+import { UiButton } from "@/shared/ui";
 import { Link, linkOptions } from "@tanstack/react-router";
 
 export function AddPresetButton() {
