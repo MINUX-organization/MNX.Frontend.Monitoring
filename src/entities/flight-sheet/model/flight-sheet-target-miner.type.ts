@@ -1,8 +1,7 @@
 import { z } from "zod";
 
 export const SupportedAlgorithmsSchema = z.object({
-  algorithmId: z.string({invalid_type_error: 'Algorithm id must be a string'}),
-  minerId: z.string({invalid_type_error: 'Miner id must be a string'}),
+  id: z.string({invalid_type_error: 'Algorithm id must be a string'}),
   name: z.string({invalid_type_error: 'Name must be a string'}),
 })
 export type SupportedAlgorithmsType = z.infer<typeof SupportedAlgorithmsSchema>

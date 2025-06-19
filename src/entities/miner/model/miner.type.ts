@@ -6,8 +6,7 @@ export const MinerSchema = z.object({
   name: z.string({invalid_type_error: 'Name must be a string'}),
   version: z.string({invalid_type_error: 'Version must be a string'}),
   supportedAlgorithms: z.array(z.object({
-    algorithmId: z.string({invalid_type_error: 'Algorithm id must be a string'}),
-    minerId: z.string({invalid_type_error: 'Miner id must be a string'}),
+    id: z.string({invalid_type_error: 'Algorithm id must be a string'}),
     name: z.string({invalid_type_error: 'Name must be a string'})
   })),
   installationUrl: z.string({invalid_type_error: 'Installation url must be a string'}),
