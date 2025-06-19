@@ -5,7 +5,7 @@ export const MinerSchema = z.object({
   ownerId: z.string({invalid_type_error: 'Owner id must be a string'}).optional(),
   name: z.string({invalid_type_error: 'Name must be a string'}),
   version: z.string({invalid_type_error: 'Version must be a string'}),
-  algorithms: z.array(z.object({
+  supportedAlgorithms: z.array(z.object({
     algorithmId: z.string({invalid_type_error: 'Algorithm id must be a string'}),
     minerId: z.string({invalid_type_error: 'Miner id must be a string'}),
     name: z.string({invalid_type_error: 'Name must be a string'})
