@@ -7,6 +7,7 @@ import { FormConfig, GenericForm } from "@/shared/ui";
 import find from "lodash/find";
 import isEmpty from "lodash/isEmpty";
 import { match } from "ts-pattern";
+import {UiCombobox} from "@/shared/ui/combobox";
 
 const { useWalletMutation } = walletRepository;
 
@@ -50,6 +51,16 @@ export function WalletForm({
           selectedItem={find(cryptocurrencies, { id: field.value })}
         />
       )},
+      { name: 'cryptocurrencyId', label: 'cbCryptocurrency', component: ({field, invalid}) => (
+        <UiCombobox<CryptocurrencyType>
+          invalid={invalid}
+          items={cryptocurrencies ?? []}
+          getLabel={(item) => item.fullName}
+          onChange={(item) => field.onChange(item?.id)}
+          selectedItem={find(cryptocurrencies, { id: field.value })}
+        />
+      )},
+      
     ],
     onSubmit: async (data) => {
       const response = await match(mode)
