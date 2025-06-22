@@ -1,8 +1,9 @@
 import { algorithmRepository, AlgorithmType } from "@/entities/algorithm";
 import { cryptocurrencyRepository, PostCryptocurrencySchema, PostCryptocurrencyType } from "@/entities/cryptocurrency";
 import { isSuccessResponse } from "@/shared/api";
-import { UiInput, UiSelect } from "@/shared/ui";
+import { UiInput } from "@/shared/ui";
 import { FormConfig, GenericForm } from "@/shared/ui";
+import { UiCombobox } from "@/shared/ui/combobox";
 import find from "lodash/find";
 import isEmpty from "lodash/isEmpty";
 
@@ -28,7 +29,7 @@ export function AddCryptocurrencyForm({
       { name: 'shortName', label: 'Short name', component: ({field}) => <UiInput {...field} /> },
       { name: 'fullName', label: 'Full name', component: ({field}) => <UiInput {...field} /> },
       { name: 'algorithmId', label: 'Algorithm', component: ({field, invalid}) => (
-        <UiSelect<AlgorithmType>
+        <UiCombobox<AlgorithmType>
           invalid={invalid}
           items={algorithms ?? []}
           getLabel={(item) => item.name}

@@ -2,7 +2,7 @@ import { CryptocurrencyType } from "@/entities/cryptocurrency";
 import { PostWalletSchema, PostWalletType, WalletType } from "@/entities/wallet";
 import { walletRepository } from "@/entities/wallet/model/wallet.repository";
 import { isSuccessResponse } from "@/shared/api";
-import { UiInput, UiSelect } from "@/shared/ui";
+import { UiInput } from "@/shared/ui";
 import { FormConfig, GenericForm } from "@/shared/ui";
 import find from "lodash/find";
 import isEmpty from "lodash/isEmpty";
@@ -43,15 +43,6 @@ export function WalletForm({
       { name: 'name', label: 'Name', component: ({field}) => <UiInput {...field} /> },
       { name: 'address', label: 'Address', component: ({field}) => <UiInput {...field} /> },
       { name: 'cryptocurrencyId', label: 'Cryptocurrency', component: ({field, invalid}) => (
-        <UiSelect<CryptocurrencyType>
-          invalid={invalid}
-          items={cryptocurrencies ?? []}
-          getLabel={(item) => item.fullName}
-          onChange={(item) => field.onChange(item?.id)}
-          selectedItem={find(cryptocurrencies, { id: field.value })}
-        />
-      )},
-      { name: 'cryptocurrencyId', label: 'cbCryptocurrency', component: ({field, invalid}) => (
         <UiCombobox<CryptocurrencyType>
           invalid={invalid}
           items={cryptocurrencies ?? []}

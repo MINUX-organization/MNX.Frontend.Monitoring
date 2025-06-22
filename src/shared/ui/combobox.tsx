@@ -47,7 +47,7 @@ export function UiCombobox<T>({
     itemToValue: (item) => getLabel(item),
   })
 
-  const [inputValue, setInputValueDebounced] = useDebounced<string>((val) => {filter(val)}, "", 500);
+  const [_, setInputValueDebounced] = useDebounced<string>((val) => {filter(val)}, "", 500);
 
   const updateWidth = () => {
     if (inputRef.current && inputRef.current.offsetWidth !== inputWidth) {
@@ -95,7 +95,6 @@ export function UiCombobox<T>({
                     {...props}
                   >
               <Combobox.Input 
-              value={inputValue}
               onChange={(event) => setInputValueDebounced(event.target.value ?? '')}
               ref={inputRef}
               aria-label="Assignee"
