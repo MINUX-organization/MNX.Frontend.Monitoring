@@ -165,3 +165,5 @@ export function UiCombobox<T>({
   )
 }
 
+export const ComboboxLabel = Combobox.Label
+export const ComboboxmText = Combobox.ItemText
