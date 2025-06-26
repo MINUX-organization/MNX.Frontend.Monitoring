@@ -21,7 +21,7 @@ export function PoolsPage() {
       domain: item.domain,
       port: item.port,
       cryptocurrency: item.cryptocurrency,
-      custom: item.userId ? true : false,
+      custom: item.ownerId ? true : false,
       tls: item.tls
     }
   })
