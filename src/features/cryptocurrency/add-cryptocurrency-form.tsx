@@ -1,13 +1,13 @@
-import { algorithmRepository, AlgorithmType } from "@/entities/algorithm";
+import { algorithmQueryOptions, AlgorithmType } from "@/entities/algorithm";
 import { cryptocurrencyRepository, PostCryptocurrencySchema, PostCryptocurrencyType } from "@/entities/cryptocurrency";
 import { isSuccessResponse } from "@/shared/api";
 import { UiInput } from "@/shared/ui";
 import { FormConfig, GenericForm } from "@/shared/ui";
 import { UiCombobox } from "@/shared/ui/combobox";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import find from "lodash/find";
 import isEmpty from "lodash/isEmpty";
 
-const { useAlgorithmQuery } = algorithmRepository;
 const { useCryptocurrencyMutation } = cryptocurrencyRepository;
 
 export function AddCryptocurrencyForm({
@@ -15,9 +15,9 @@ export function AddCryptocurrencyForm({
 } : {
   onClose?: () => void
 }) {
-  const { algorithms } = useAlgorithmQuery();
+  const { data: { data: algorithms } } = useSuspenseQuery(algorithmQueryOptions);
   const { addCryptocurrency } = useCryptocurrencyMutation();
-
+  
   const config: FormConfig<PostCryptocurrencyType> = {
     validationSchema: PostCryptocurrencySchema,
     defaultValues: {
