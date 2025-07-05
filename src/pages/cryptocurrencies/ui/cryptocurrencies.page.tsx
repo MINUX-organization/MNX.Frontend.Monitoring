@@ -1,8 +1,10 @@
 import { cryptocurrencyQueryOptions, CryptocurrencyType } from "@/entities/cryptocurrency";
 import { AddCryptocurrencyButton, AddCryptocurrencyForm, DeleteCryptocurrencyButton } from "@/features/cryptocurrency";
 import { MiningTable } from "@/widgets/mining-table";
+import { Center, Spinner } from "@chakra-ui/react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import map from "lodash/map";
+import { Suspense } from "react";
 
 export function CryptocurrenciesPage() {
   const { data } = useSuspenseQuery(cryptocurrencyQueryOptions)
@@ -28,7 +30,10 @@ export function CryptocurrenciesPage() {
       searchable
       renderAddButton={() => 
         <AddCryptocurrencyButton 
-          renderCryptocurrencyForm={(onClose) => <AddCryptocurrencyForm onClose={onClose}/>}
+          renderCryptocurrencyForm={(onClose) => 
+            <Suspense fallback={<Center><Spinner /></Center>}>
+              <AddCryptocurrencyForm onClose={onClose}/>
+            </Suspense>}
         />}
     />
   )

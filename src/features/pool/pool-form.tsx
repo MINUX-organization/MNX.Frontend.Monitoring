@@ -1,11 +1,12 @@
 import { CryptocurrencyType } from "@/entities/cryptocurrency";
 import { poolRepository, PoolType, PostPoolSchema, PostPoolType } from "@/entities/pool";
 import { isSuccessResponse } from "@/shared/api";
-import { UiCheckbox, UiInput, UiSelect } from "@/shared/ui";
+import { UiCheckbox, UiInput } from "@/shared/ui";
 import { FormConfig, GenericForm } from "@/shared/ui";
 import { match } from "ts-pattern";
 import find from "lodash/find";
 import isEmpty from 'lodash/isEmpty';
+import { UiCombobox } from "@/shared/ui/combobox";
 
 const { usePoolMutation } = poolRepository;
 
@@ -41,7 +42,7 @@ export function PoolForm({
       { name: 'domain', label: 'Domain', component: ({field}) => <UiInput {...field} /> },
       { name: 'port', label: 'Port', component: ({field}) => <UiInput {...field} /> },
       { name: 'cryptocurrencyId', label: 'Cryptocurrency', component: ({field, invalid}) => (
-        <UiSelect<CryptocurrencyType>
+        <UiCombobox<CryptocurrencyType>
           invalid={invalid}
           disabled={mode === 'edit'}
           items={cryptocurrencies ?? []}

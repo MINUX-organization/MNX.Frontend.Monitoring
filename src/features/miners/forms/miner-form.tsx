@@ -90,7 +90,7 @@ export const MinerForm: FC<MinerFormProps> = ({
       { name: 'poolTemplate', label: 'Pool template', component: ({field}) => <UiInput {...field} /> },
       { name: 'walletWorkerTemplate', label: 'Wallet and worker template', component: ({field}) => <UiInput {...field} /> },
       { name: 'miningMode', label: 'Mining mode', component: ({field}) => 
-        <UiSelect items={['Single', 'Dual', 'Triple']} onChange={field.onChange} getLabel={(item) => item} selectedItem={field.value}/> }, 
+        <UiSelect items={['Single', 'Dual', 'Triple']} onChange={field.onChange} getLabel={(item) => item} selectedItem={field.value}/> },
     ],
     onSubmit: async (values) => {
       if (mode === 'add') {
