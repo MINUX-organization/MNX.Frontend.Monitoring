@@ -4,7 +4,7 @@ import { queryOptions, useMutation, useQuery, useQueryClient } from "@tanstack/r
 import { GpuRestrictionsSchema, GpuRestrictionsType } from "./restrictions.type";
 import { GpuSchema, GpuType } from "./gpu.type";
 import { useCallback, useMemo } from "react";
-import { OverclockingGpuType } from "@/entities/preset";
+import { OverclockingGpuType } from "../../../preset/model/overclocking.type";
 import { toaster } from "@/shared/ui/toaster";
 import find from "lodash/find";
 

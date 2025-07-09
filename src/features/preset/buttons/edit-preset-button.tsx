@@ -2,8 +2,8 @@ import { EditIcon } from "@/shared/assets/svg";
 import { UiDialog, UiTooltip } from "@/shared/ui";
 import { Box, Center, IconButton, Spinner, Stack } from "@chakra-ui/react";
 import { Link, linkOptions } from "@tanstack/react-router";
-import { PresetForm, PresetSlidersForm } from "../forms";
-import { OverclockingGpuType, presetByIdQueryOptions } from "@/entities/preset";
+import { PresetForm, PresetInputsForm } from "../forms";
+import { OverclockingType, presetByIdQueryOptions } from "@/entities/preset";
 import { Suspense, useEffect, useState } from "react";
 import isEmpty from "lodash/isEmpty";
 import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
@@ -70,7 +70,7 @@ export const EditPresetWrapperForm = ({
 }) => {
   const { data: presetData } = useSuspenseQuery(presetByIdQueryOptions(presetId));
   const [deviceName, setDeviceName] = useState('');
-  const [overclocking, setOverclocking] = useState<Omit<OverclockingGpuType, '$type'> | null>(null);
+  const [overclocking, setOverclocking] = useState<OverclockingType | null>(null);
   const { data: gpusUniqueNames } = useQuery(gpuUniqueNamesOptions);
 
   const preset = presetData.data;
@@ -94,8 +94,8 @@ export const EditPresetWrapperForm = ({
         mode="edit"
         onClose={onClose}
       />
-      {isOpen && <PresetSlidersForm 
-        overclockingPresetValues={preset.overclocking as OverclockingGpuType}
+      {isOpen && <PresetInputsForm 
+        overclockingPresetValues={preset.overclocking}
         setOverclocking={setOverclocking}
         deviceIdOrName={deviceNameProp}
       />}

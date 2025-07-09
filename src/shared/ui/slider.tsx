@@ -1,4 +1,4 @@
-import { Slider as ChakraSlider, For, HStack } from "@chakra-ui/react"
+import { Slider as ChakraSlider, For, Group, HStack } from "@chakra-ui/react"
 import * as React from "react"
 import { UiText } from "./text";
 import { UiInput } from "./input";
@@ -8,6 +8,7 @@ export interface SliderProps extends ChakraSlider.RootProps {
   label?: React.ReactNode
   showValue?: boolean
   showMarks?: boolean
+  unit?: string
 }
 
 const alignValues = (value: number, min: number, max: number) => {
@@ -36,8 +37,8 @@ export const UiSlider = React.forwardRef<HTMLDivElement, SliderProps>(
 
     const hasMarkLabel = !!marks?.some((mark) => mark.label)
 
-    const handleAction = () => {
-      const alignedValue = alignValues(inputValue, props.min ?? 0, props.max ?? 100)
+    const handleAction = (value: number) => {
+      const alignedValue = alignValues(value, props.min ?? 0, props.max ?? 100)
     
       setInputValue(alignedValue)
 
@@ -67,26 +68,20 @@ export const UiSlider = React.forwardRef<HTMLDivElement, SliderProps>(
               <ChakraSlider.Label>
                 <UiText>{label}</UiText>
               </ChakraSlider.Label>
-              <UiInput 
-                value={inputValue}
-                onChange={(e) => {
-                  const number = Number(e.target.value);
+              <Group>
+                <UiInput
+                  value={inputValue}
+                  onChange={(e) => {
+                    const number = Number(e.target.value);
 
-                  if (Number.isNaN(number)) return;
+                    if (Number.isNaN(number)) return;
 
-                  setInputValue(number);
-                  props.onValueChange?.({ value: [number] });
-                }}
-                onBlur={() => handleAction()}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    handleAction();
-                    e.currentTarget.blur();
-                  }
-                }}
-                bg={"transparent"} 
-                w={"65px"} h={'24px'} 
-                textAlign={"right"} />
+                    handleAction(number);
+                  }}
+                  w={"65px"} h={'26px'} 
+                  textAlign={"right"} />
+                {props.unit && <UiText >{props.unit}</UiText>}
+              </Group>
             </HStack>
           )}
         <ChakraSlider.Control data-has-mark-label={hasMarkLabel || undefined}>

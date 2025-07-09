@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { gpuOverclockingOptions, gpuRepository } from "@/entities/devices/gpu";
-import { presetFormStore, PresetSlidersForm } from "@/features/preset/forms";
+import { presetFormStore, PresetInputsForm } from "@/features/preset/forms";
 import { UiDialog } from "@/shared/ui";
 import { Box, Group, Loader } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
@@ -21,11 +21,12 @@ export function GpuPresetConfigModal() {
   const { gpuId } = useSearch({ from: '/_guard-layout/_notification/_streams/devices/gpus/config' });
   const { getById } = useGpuQuery();
   const { setDeviceName, deviceName, setOverclocking } = presetFormStore();
+  const { data: currentGpuOverclocking } = useQuery(gpuOverclockingOptions(gpuId));
+  
   const findedGpu = useMemo(
     () => getById(gpuId),
     [gpuId]
   );
-  const { data: currentGpuOverclocking } = useQuery(gpuOverclockingOptions(gpuId));
 
   useEffect(() => {
     if (findedGpu) {
@@ -52,7 +53,7 @@ export function GpuPresetConfigModal() {
       renderBody={() => {
         return !isEmpty(deviceName) && currentGpuOverclocking?.data && (
           <Suspense fallback={<Loader />}>
-              <PresetSlidersForm
+              <PresetInputsForm
                 overclockingPresetValues={currentGpuOverclocking.data}
                 setOverclocking={setOverclocking}
                 deviceIdOrName={gpuId}

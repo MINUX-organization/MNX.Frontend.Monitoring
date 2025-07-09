@@ -1,16 +1,16 @@
-import { OverclockingGpuType } from "@/entities/preset";
+import { OverclockingType } from "@/entities/preset";
 import { create } from "zustand";
 
 type PresetFormStore = {
   deviceName: string;
   mode: 'add' | 'edit';
-  overclocking: Omit<OverclockingGpuType, '$type'> | null
+  overclocking: OverclockingType | null
 }
 
 type Actions = {
   setDeviceName: (deviceName: string) => void
   setMode: (mode: 'add' | 'edit') => void
-  setOverclocking: (overclocking: Omit<OverclockingGpuType, '$type'>) => void
+  setOverclocking: (overclocking: OverclockingType) => void
 }
 
 export const presetFormStore = create<PresetFormStore & Actions>((set) => ({

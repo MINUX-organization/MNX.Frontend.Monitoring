@@ -1,4 +1,4 @@
-import { OverclockingGpuType, presetRepository, PresetSchema, PresetType } from "@/entities/preset";
+import { OverclockingType, presetRepository, PresetSchema, PresetType } from "@/entities/preset";
 import { FormConfig, GenericForm, UiInput, UiSelect } from "@/shared/ui";
 import { isSuccessResponse } from "@/shared/api";
 import { match } from "ts-pattern";
@@ -18,7 +18,7 @@ export function PresetForm({
   devicesNames?: string[];
   defaultValues?: Partial<Omit<PresetType, 'overclocking'>>
   deviceNameInputDisabled?: boolean
-  overclocking?: Omit<OverclockingGpuType, '$type'> | null
+  overclocking?: OverclockingType | null
   mode?: 'add' | 'edit'
   onClose?: () => void
 }) {
@@ -53,8 +53,8 @@ export function PresetForm({
       if (!overclocking) return;
 
       const response = await match(mode)
-        .with('add', () => savePreset({ ...data, overclocking: { $type: 'GPU', ...overclocking } }))
-        .with('edit', () => editPreset({ id: defaultValues!.id!, ...data, overclocking: { $type: 'GPU', ...overclocking } }))
+        .with('add', () => savePreset({ ...data, overclocking }))
+        .with('edit', () => editPreset({ id: defaultValues!.id!, ...data, overclocking }))
         .exhaustive();
 
       if (isSuccessResponse(response))

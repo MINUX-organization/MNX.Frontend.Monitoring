@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { gpuUniqueNamesOptions } from "@/entities/devices";
-import { OverclockingGpuType, presetRepository } from "@/entities/preset";
+import { OverclockingType, presetRepository } from "@/entities/preset";
 import { PresetForm } from "@/features/preset";
-import { presetFormStore, PresetSlidersForm } from "@/features/preset/forms";
+import { presetFormStore, PresetInputsForm } from "@/features/preset/forms";
 import { UiDialog } from "@/shared/ui";
 import { Box, Collapsible, Loader, Stack } from "@chakra-ui/react";
 import { useSuspenseQuery } from "@tanstack/react-query";
@@ -47,7 +47,7 @@ export function PresetConfigModal() {
   }, [presetId, findedPreset]);
 
   const isOpen = !isEmpty(deviceName) && deviceName !== null
-
+  console.log(findedPreset)
   return (
     <UiDialog
       open
@@ -73,8 +73,8 @@ export function PresetConfigModal() {
           {isOpen && <Collapsible.Root open={isOpen}>
             <Collapsible.Content>
               <Suspense fallback={<Loader />}>
-                <PresetSlidersForm 
-                  overclockingPresetValues={findedPreset?.overclocking as OverclockingGpuType}
+                <PresetInputsForm 
+                  overclockingPresetValues={findedPreset?.overclocking}
                   setOverclocking={setOverclocking}
                   deviceIdOrName={deviceName}
                 />

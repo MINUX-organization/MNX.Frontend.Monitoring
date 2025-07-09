@@ -13,10 +13,11 @@ export const UiCheckbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     return (
       <ChakraCheckbox.Root ref={rootRef} colorPalette={'minux'} {...rest} cursor={'pointer'}>
         <ChakraCheckbox.HiddenInput ref={ref} {...inputProps} />
-        <ChakraCheckbox.Control 
+        <ChakraCheckbox.Control
+          bg={'bg.transparent'}
           border={'1px solid'} 
           borderColor={'minux.solid'} 
-          _checked={{ borderColor: 'transparent' }}
+          _checked={{ borderColor: 'transparent', bg: 'minux.solid' }}
         >
           {icon || <ChakraCheckbox.Indicator />}
         </ChakraCheckbox.Control>
