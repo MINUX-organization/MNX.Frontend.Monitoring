@@ -10,7 +10,8 @@ export { UiEditableInput } from "./editable-input"
 export { UiField } from "./field"
 export { UiFormButtonsGroup } from "./form-buttons-group"
 export { GenericForm, type FormConfig } from "./generic-form"
-export { SelectContent, SelectItem, SelectItemGroup, SelectRoot, SelectTrigger, SelectValueText, UiSelect } from './select'
+export { UiCombobox } from './combobox'
+export { UiSelect } from './select'
 export { UiDialog } from "./dialog"
 export { UiTooltip } from "./tooltip"
 export { UiSearch } from "./search"

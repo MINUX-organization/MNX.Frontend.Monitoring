@@ -1,7 +1,8 @@
 import { algorithmByIdQueryOptions, AlgorithmPostSchema, AlgorithmPostType, algorithmRepository } from "@/entities/algorithm";
 import { minerRepository, MinerType } from "@/entities/miner";
 import { CircleMinusIcon, CirclePlusIcon } from "@/shared/assets/svg";
-import { UiButton, UiField, UiInput, UiSelect } from "@/shared/ui";
+import { UiButton, UiField, UiInput } from "@/shared/ui";
+import { UiCombobox } from "@/shared/ui/combobox";
 import { Group, IconButton, Stack } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQuery } from "@tanstack/react-query";
@@ -110,7 +111,7 @@ export function AlgorithmForm({
                       errorText={errors.bindings?.[index]?.minerId?.message?.toString()}
                       invalid={!!errors.bindings?.[index]?.minerId}
                     >
-                      <UiSelect<MinerType>
+                      <UiCombobox<MinerType>
                         invalid={!!errors.bindings?.[index]?.minerId}
                         placeholder="Select miner"
                         items={miners ?? []}

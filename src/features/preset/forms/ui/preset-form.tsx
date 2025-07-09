@@ -1,7 +1,8 @@
 import { OverclockingType, presetRepository, PresetSchema, PresetType } from "@/entities/preset";
-import { FormConfig, GenericForm, UiInput, UiSelect } from "@/shared/ui";
+import { FormConfig, GenericForm, UiInput } from "@/shared/ui";
 import { isSuccessResponse } from "@/shared/api";
 import { match } from "ts-pattern";
+import { UiCombobox } from "@/shared/ui/combobox";
 
 const { usePresetMutation } = presetRepository;
 
@@ -37,7 +38,7 @@ export function PresetForm({
     fields: [
       { name: 'name', label: 'Name', component: ({field}) => <UiInput {...field} /> },
       { name: 'deviceName', label: 'Device name', component: ({field}) => (
-        <UiSelect
+        <UiCombobox
           items={devicesNames ?? []}
           getLabel={(item) => item}
           onChange={(item) => {

@@ -1,7 +1,7 @@
 import { minerRepository, MinerType } from "@/entities/miner"
 import { poolRepository, PoolType } from "@/entities/pool"
 import { walletRepository, WalletType } from "@/entities/wallet"
-import { DevicesIcons, UiField, UiInput, UiSelect, UiTextarea, UiToggler } from "@/shared/ui"
+import { DevicesIcons, UiField, UiInput, UiTextarea, UiToggler } from "@/shared/ui"
 import { FileInput } from "@/shared/ui/file-upload"
 import { FileUploadFileAcceptDetails, FileUploadHiddenInput, FileUploadRootProvider, Stack, StackProps, useFileUpload } from "@chakra-ui/react"
 import find from "lodash/find"
@@ -12,6 +12,7 @@ import { useCallback, useEffect, useMemo, useState } from "react"
 import { Controller, useFormContext, useWatch } from "react-hook-form"
 import { match } from "ts-pattern"
 import { useFlightSheetFormStore } from "../model/flight-sheet-form.store"
+import { UiCombobox } from "@/shared/ui/combobox"
 const { useWalletQuery } = walletRepository;
 const { usePoolQuery } = poolRepository;
 const { useMinerQuery } = minerRepository;
@@ -153,7 +154,7 @@ export function FlightSheetFormTarget({
           name={`targets.${targetIndex}.miningConfig.coinConfigs.${index}.poolId`}
           render={({ field }) => {
             const poolId = targets[targetIndex]?.miningConfig?.coinConfigs?.[index]?.poolId
-            return <UiSelect<PoolType>
+            return <UiCombobox<PoolType>
               invalid={!!targetsErrors?.[targetIndex]?.miningConfig?.coinConfigs?.[index]?.poolId}
               placeholder="Select pool"
               items={pools ?? []}
@@ -176,7 +177,7 @@ export function FlightSheetFormTarget({
           render={({ field }) => {
             const walletId = targets[targetIndex]?.miningConfig?.coinConfigs?.[index]?.walletId
 
-            return <UiSelect<WalletType>
+            return <UiCombobox<WalletType>
               invalid={!!targetsErrors?.[targetIndex]?.miningConfig?.coinConfigs?.[index]?.walletId}
               placeholder="Select wallet"
               items={wallets ?? []}
@@ -215,7 +216,7 @@ export function FlightSheetFormTarget({
             control={control}
             name={`targets.${targetIndex}.minerId`}
             render={({ field }) => (
-              <UiSelect<MinerType>
+              <UiCombobox<MinerType>
                 invalid={!!targetsErrors?.[targetIndex]?.minerId}
                 placeholder="Select miner"
                 items={miners ?? []}
