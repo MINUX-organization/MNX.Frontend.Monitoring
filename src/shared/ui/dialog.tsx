@@ -74,11 +74,11 @@ export function UiDialog({ renderBody, renderTitle, renderTrigger, renderFooter,
     >
       <DialogTrigger asChild>{renderTrigger?.()}</DialogTrigger>
       <DialogContent>
-      {match(renderTitle)
+        {match(renderTitle)
         .with(undefined, () => null)
         .otherwise(() => (
           <DialogHeader>
-            <DialogTitle textAlign={"center"}>
+            <DialogTitle w={'100%'} textAlign={"center"}>
               {renderTitle?.()}
             </DialogTitle>
           </DialogHeader>

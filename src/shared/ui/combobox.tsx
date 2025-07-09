@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client"
 
 import {
@@ -37,7 +39,6 @@ export function UiCombobox<T>({
   }: ComboboxItemProps<T>) {
   const [item, setItem] = useState<T | null>(null)
   const { contains } = useFilter({ sensitivity: "base" })
-  const [inputWidth, setInputWidth] = useState<number | string>('auto');
   const inputRef = useRef<HTMLInputElement>(null);
 
   const { collection, filter } = useListCollection({
@@ -49,12 +50,6 @@ export function UiCombobox<T>({
 
   const [_, setInputValueDebounced] = useDebounced<string>((val) => {filter(val)}, "", 500);
 
-  const updateWidth = () => {
-    if (inputRef.current && inputRef.current.offsetWidth !== inputWidth) {
-      setInputWidth(inputRef.current.offsetWidth);
-    }
-  };
-
   const handleSelect = (newItem: T) => {
     setInputValueDebounced(getLabel(newItem));
     setItem(newItem);
@@ -62,44 +57,35 @@ export function UiCombobox<T>({
   };
 
   useEffect(() => {
-      if (!selectedItem) {
-        setInputValueDebounced('');
-        setItem(null);
-      } else {
-        setItem(selectedItem ?? null);
-      }
-    }, [selectedItem]);
-
-
-  useEffect(() => {    
-      updateWidth();
-      window.addEventListener('resize', updateWidth);
-      return () => window.removeEventListener('resize', updateWidth);
-    }, []);
+    if (!selectedItem) {
+      setInputValueDebounced('');
+      setItem(null);
+    } else {
+      setItem(selectedItem ?? null);
+    }
+  }, [selectedItem]);
 
   return (
     <Combobox.Root
       collection={collection}
       openOnClick = {true}
+      defaultValue={selectedItem ? [getLabel(selectedItem)] : []}
       positioning={{ placement: 'bottom-end' }}
     >
       <Combobox.Control>
         <InputGroup w={'100%'} endElement={renderEndElement?.(item as T)}>
           <UiInput 
-                    asChild
-                    aria-invalid={invalid ? 'true' : 'false'}
-                    placeholder={placeholder}
-                    onMouseEnter={() => updateWidth()} 
-                    onTouchStart={() => updateWidth()}
-                    onFocus={() => updateWidth()}
-                    {...props}
-                  >
-              <Combobox.Input 
+            asChild
+            aria-invalid={invalid ? 'true' : 'false'}
+            placeholder={placeholder}
+            {...props}
+          >
+            <Combobox.Input 
               onChange={(event) => setInputValueDebounced(event.target.value ?? '')}
               ref={inputRef}
               aria-label="Assignee"
-               />
-            </UiInput>
+            />
+          </UiInput>
         </InputGroup>
         <Combobox.IndicatorGroup>
           <Combobox.ClearTrigger onClick={() => {
@@ -112,24 +98,20 @@ export function UiCombobox<T>({
       </Combobox.Control>
       <Portal>
         <Combobox.Positioner>
-
           <UiContainerRounded
-                  asChild 
-                  zIndex={'max'} 
-                  bg={'bg.input'} 
-                  p={0} 
-                  maxH='12rem'
-                  mt={0}
-                >
-                  <Combobox.Content
-                    style={{ 
-                      width: inputWidth,
-                      emptyCells: 'hide',
-                      boxSizing: 'border-box',
-                      
-                    }}
-                  >
-
+            asChild 
+            zIndex={'max'} 
+            bg={'bg.input'} 
+            p={0} 
+            maxH='12rem'
+            mt={0}
+          >
+            <Combobox.Content
+              style={{ 
+                emptyCells: 'hide',
+                boxSizing: 'border-box',
+              }}
+            >
               <Combobox.Empty>
                 <Center asChild bg={'bg.input'} p={0} maxH='12rem'>
                   <UiText color={'fg.input'}>No results</UiText>
@@ -156,7 +138,6 @@ export function UiCombobox<T>({
                   </Combobox.Item>
                 </HStack>
               ))}
-
             </Combobox.Content>
           </UiContainerRounded>
         </Combobox.Positioner>
