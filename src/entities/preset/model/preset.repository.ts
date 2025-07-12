@@ -1,10 +1,9 @@
 import { applyPresetDevicesApi, deletePresetApi, editPresetApi, getPresetsApi, getPresetsGroupedByGpuApi, savePresetApi } from "@/shared/api";
 import { queryOptions, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { PresetSchema, PresetType } from "./preset.type";
-import { zodSaveParse } from "@/shared/lib/utils/zod-save-parse";
+import { PresetType } from "./preset.type";
 import { toaster } from "@/shared/ui/toaster";
 import { PresetGroupedByGpuType } from "./preset-grouped-by-gpu.type";
-import { useCallback, useMemo } from "react";
+import { useCallback } from "react";
 import find from "lodash/find";
 import { PresetDevicesType } from "./preset-devices.type";
 import { getPresetByIdApi, getPresetDevicesApi, getPresetDevicesSupportedApi } from "@/shared/api/preset";
@@ -45,10 +44,7 @@ export const presetGroupedByGpuQueryOptions = queryOptions({
 const usePresetQuery = () => {
   const { data, ...query } = useQuery(presetQueryOptions);
 
-  const presets = useMemo(
-    () => zodSaveParse(data?.data, PresetSchema.array().optional()),
-    [data?.data]
-  );
+  const presets = data?.data;
 
   const getById = useCallback(
     (id?: string) => {

@@ -25,7 +25,7 @@ export function PresetInputsForm({
   const { data: restrictions } = useSuspenseQuery(gpuRestrictionsOptions(deviceIdOrName));
 
   const inputType = useMemo(
-    () => convertToInput(restrictions?.data, overclockingPresetValues),
+    () => convertToInput(overclockingPresetValues?.$type, restrictions?.data, overclockingPresetValues),
     [restrictions?.data, overclockingPresetValues]
   );
 
@@ -78,7 +78,10 @@ export function PresetInputsForm({
               h={'32px'}
               name={field.name}
               value={field.value ?? ''}
-              onChange={(e) => field.onChange(e.target.value)}
+              onChange={(e) => {
+                field.onChange(e.target.value)
+                handleChangeValueEnd();
+              }}
             />
           </UiField>
         )

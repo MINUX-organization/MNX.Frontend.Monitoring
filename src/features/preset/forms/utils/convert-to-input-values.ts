@@ -1,6 +1,6 @@
 import { InputType } from "../model/input.type";
 import { GpuRestrictionsType, RestrictionsType } from "@/entities/devices";
-import { AmdOverclockingGpuType, NvidiaOverclockingGpuType, OverclockingType } from "@/entities/preset/model/overclocking.type";
+import { AmdOverclockingGpuType, DeviceType, NvidiaOverclockingGpuType, OverclockingType } from "@/entities/preset/model/overclocking.type";
 
 function convertToRestrictions<T>(restrictions?: RestrictionsType, value?: T) {
   return {
@@ -12,8 +12,8 @@ function convertToRestrictions<T>(restrictions?: RestrictionsType, value?: T) {
   }
 }
 
-export function convertToInput(restrictions?: GpuRestrictionsType, overclocking?: OverclockingType): InputType[] {
-  if (overclocking?.$type === 'NvidiaGPU') {
+export function convertToInput(type?: DeviceType, restrictions?: GpuRestrictionsType, overclocking?: OverclockingType): InputType[] {
+  if (type === 'NvidiaGPU') {
     const overclock = overclocking as NvidiaOverclockingGpuType;
 
     return [
@@ -45,7 +45,7 @@ export function convertToInput(restrictions?: GpuRestrictionsType, overclocking?
     ];
   }
 
-  if (overclocking?.$type === 'AmdGPU') {
+  if (type === 'AmdGPU') {
     const overclock = overclocking as AmdOverclockingGpuType;
 
     return [

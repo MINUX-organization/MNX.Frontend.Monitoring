@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { gpuUniqueNamesOptions } from "@/entities/devices";
-import { OverclockingType, presetRepository } from "@/entities/preset";
+import { presetRepository } from "@/entities/preset";
 import { PresetForm } from "@/features/preset";
 import { presetFormStore, PresetInputsForm } from "@/features/preset/forms";
 import { UiDialog } from "@/shared/ui";
@@ -47,7 +47,7 @@ export function PresetConfigModal() {
   }, [presetId, findedPreset]);
 
   const isOpen = !isEmpty(deviceName) && deviceName !== null
-  console.log(findedPreset)
+
   return (
     <UiDialog
       open
