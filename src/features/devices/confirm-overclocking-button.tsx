@@ -15,12 +15,12 @@ export function ApplyOverclockingButton({
   const handleClick = () => {
     if (!overclocking) return;
 
-    setOverclocking({ data: { $type: 'GPU', ... overclocking}, id: deviceId })
+    setOverclocking({ data: overclocking, id: deviceId })
   };
 
   return (
     <UiButton colorPalette={'accept'} onClick={handleClick}>
-      Apply
+      Confirm
     </UiButton>
   )
 }

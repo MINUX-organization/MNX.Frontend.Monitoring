@@ -9,31 +9,18 @@ export const RestrictionsSchema = z.object({
 export type RestrictionsType = z.infer<typeof RestrictionsSchema>
 
 export const GpuRestrictionsSchema = z.object({
+  targetGpuType: z.enum(['Amd', 'Nvidia', 'Intel']),
   power: RestrictionsSchema,
   fanSpeed: RestrictionsSchema,
-  temperature: z.object({
-    core: RestrictionsSchema,
-    memory: RestrictionsSchema
-  }),
-  voltage: z.object({
-    core: z.object({
-      lock: RestrictionsSchema,
-      offset: RestrictionsSchema
-    }),
-    memory: z.object({
-      lock: RestrictionsSchema,
-      offset: RestrictionsSchema
-    })
-  }),
-  clock: z.object({
-    core: z.object({
-      lock: RestrictionsSchema,
-      offset: RestrictionsSchema
-    }),
-    memory: z.object({
-      lock: RestrictionsSchema,
-      offset: RestrictionsSchema
-    })
-  })
+  temperatureCore: RestrictionsSchema,
+  temperatureMemory: RestrictionsSchema,
+  clockCoreLock: RestrictionsSchema,
+  clockCoreOffset: RestrictionsSchema,
+  clockMemoryLock: RestrictionsSchema,
+  clockMemoryOffset: RestrictionsSchema,
+  voltageCoreLock: RestrictionsSchema,
+  voltageCoreOffset: RestrictionsSchema,
+  voltageMemoryLock: RestrictionsSchema,
+  voltageMemoryOffset: RestrictionsSchema
 })
 export type GpuRestrictionsType = z.infer<typeof GpuRestrictionsSchema>
