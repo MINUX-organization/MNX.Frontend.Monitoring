@@ -8,12 +8,12 @@ function convertToRestrictions<T>(restrictions?: RestrictionsType, value?: T) {
     max: restrictions?.maximal,
     value,
     isWritable: restrictions?.isWritable ? restrictions.isWritable : true,
-    default: restrictions?.default
+    default: restrictions?.default ?? 0
   }
 }
 
 export function convertToInput(type?: DeviceType, restrictions?: GpuRestrictionsType, overclocking?: OverclockingType): InputType[] {
-  if (type === 'NvidiaGPU') {
+  if (type == 'NvidiaGPU') {
     const overclock = overclocking as NvidiaOverclockingGpuType;
 
     return [
@@ -45,7 +45,7 @@ export function convertToInput(type?: DeviceType, restrictions?: GpuRestrictions
     ];
   }
 
-  if (type === 'AmdGPU') {
+  if (type == 'AmdGPU') {
     const overclock = overclocking as AmdOverclockingGpuType;
 
     return [
@@ -74,9 +74,9 @@ export function convertToInput(type?: DeviceType, restrictions?: GpuRestrictions
           { label: 'Power Limit', unit: 'W', inputType: 'slider', ...convertToRestrictions(restrictions?.power, overclock?.powerLimit) },
           { label: 'SOC Frequency', unit: 'MHz', inputType: 'number', ...convertToRestrictions(undefined, overclock?.socFrequency) },
           { label: 'SOC Voltage', unit: 'mV', inputType: 'number', ...convertToRestrictions(undefined, overclock?.socVoltage) },
-          { label: 'Memory Tweak', inputType: 'text', ...convertToRestrictions(undefined, overclock?.memoryTweak) },
-          { label: 'Alternative Down Voltage', inputType: 'checkbox', ...convertToRestrictions(undefined, overclock?.alternativeDownVoltage) },
-          { label: 'Enhanced Overclock', inputType: 'checkbox', ...convertToRestrictions(undefined, overclock?.enhancedOverclock) },
+          { label: 'Memory Tweak', inputType: 'text', ...convertToRestrictions(undefined, overclock?.memoryTweak ?? '') },
+          { label: 'Alternative Down Voltage', inputType: 'checkbox', ...convertToRestrictions(undefined, overclock?.alternativeDownVoltage ?? false) },
+          { label: 'Enhanced Overclock', inputType: 'checkbox', ...convertToRestrictions(undefined, overclock?.enhancedOverclock ?? false) },
         ]
       }
     ];

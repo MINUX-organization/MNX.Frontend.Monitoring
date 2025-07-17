@@ -4,9 +4,9 @@ import { queryOptions, useMutation, useQuery, useQueryClient } from "@tanstack/r
 import { GpuRestrictionsSchema, GpuRestrictionsType } from "./restrictions.type";
 import { GpuSchema, GpuType } from "./gpu.type";
 import { useCallback, useMemo } from "react";
-import { OverclockingGpuType } from "../../../preset/model/overclocking.type";
 import { toaster } from "@/shared/ui/toaster";
 import find from "lodash/find";
+import { OverclockingType } from "@/entities/preset";
 
 export const gpusQueryOptions = queryOptions({
   queryKey: ['gpus'],
@@ -31,7 +31,7 @@ export const useGpuRestrictions = (deviceName: string) => {
 
 export const gpuOverclockingOptions = (deviceId: string) => queryOptions({
   queryKey: ['gpus', deviceId, 'overclocking'],
-  queryFn: () => getDeviceOverclockingApi<OverclockingGpuType>(deviceId),
+  queryFn: () => getDeviceOverclockingApi<OverclockingType>(deviceId),
   enabled: !!deviceId,
   staleTime: 5000,
 });
@@ -59,7 +59,11 @@ export const useGpuMutation = () => {
   const queryClient = useQueryClient();
 
   const setOverclockingMutation = useMutation({
-    mutationFn: ({data, id}: {data: OverclockingGpuType, id: string}) => applyDeviceOverclockingApi<OverclockingGpuType>(data, id),
+    mutationFn: ({ data, id }: { data: OverclockingType, id: string }) => {
+      const { $type, ...rest } = data
+
+      return applyDeviceOverclockingApi<OverclockingType>({ $type, ...rest }, id)
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['gpus'] });
       toaster.success({

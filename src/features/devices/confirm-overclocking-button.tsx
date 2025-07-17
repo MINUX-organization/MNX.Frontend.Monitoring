@@ -15,7 +15,7 @@ export function ApplyOverclockingButton({
   const handleClick = () => {
     if (!overclocking) return;
 
-    setOverclocking({ data: { ...overclocking}, id: deviceId })
+    setOverclocking({ data: overclocking, id: deviceId })
   };
 
   return (

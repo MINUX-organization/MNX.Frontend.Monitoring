@@ -9,7 +9,7 @@ const transformToInput = <T>(inputType: InputType[], value: T): Omit<Overclockin
   inputType.forEach((group) => {
     group.values.forEach((slider) => {
       const key = camelCase(slider.label) as keyof T;
-      
+
       if (validKeys.has(key as string)) {
         value[key] = (slider.value ?? slider.default) as T[keyof T];
       }

@@ -61,7 +61,15 @@ const usePresetMutation = () => {
   const queryClient = useQueryClient();
 
   const savePresetMutation = useMutation({
-    mutationFn: (data: Omit<PresetType, 'id'>) => savePresetApi(data),
+    mutationFn: (data: Omit<PresetType, 'id'>) => {
+      const { overclocking, ...rest } = data
+      const { $type, ...restOverclocking } = overclocking
+      
+      return savePresetApi({
+        ...rest,
+        overclocking: { $type, ...restOverclocking }
+      })  
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['presets'] });
       toaster.success({
@@ -71,7 +79,15 @@ const usePresetMutation = () => {
   })
 
   const editPresetMutation = useMutation({
-    mutationFn: ({ id, ...data }: { id: string } & PresetType) => editPresetApi(id, data),
+    mutationFn: ({ id, ...data }: { id: string } & PresetType) => {
+      const { overclocking, ...rest } = data
+      const { $type, ...restOverclocking } = overclocking
+      
+      return editPresetApi(id, {
+        ...rest,
+        overclocking: { $type, ...restOverclocking }
+      });
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['presets'] });
       toaster.success({

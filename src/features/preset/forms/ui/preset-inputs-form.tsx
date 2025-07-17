@@ -11,7 +11,8 @@ import { transformInputToObject } from "../utils/transform-input-to-object"
 import { useSuspenseQuery } from "@tanstack/react-query"
 import { useCallback, useEffect, useMemo } from "react"
 import { InputValuesType } from "../model/input.type"
-import { OverclockingType } from "@/entities/preset"
+import { DeviceType, OverclockingType } from "@/entities/preset"
+import { match } from "ts-pattern"
 
 export function PresetInputsForm({
   overclockingPresetValues,
@@ -24,13 +25,23 @@ export function PresetInputsForm({
 }) {
   const { data: restrictions } = useSuspenseQuery(gpuRestrictionsOptions(deviceIdOrName));
 
+  const gpuRestrictionsType = match(restrictions.data.targetGpuType)
+    .with('Amd', () => 'AmdGPU')
+    .with('Nvidia', () => 'NvidiaGPU')
+    .with('Intel', () => 'IntelGPU')
+    .otherwise(() => 'AmdGPU');
+
   const inputType = useMemo(
-    () => convertToInput(overclockingPresetValues?.$type, restrictions?.data, overclockingPresetValues),
+    () => convertToInput(
+      overclockingPresetValues?.$type ?? (gpuRestrictionsType as DeviceType), 
+      restrictions?.data, 
+      overclockingPresetValues
+    ),
     [restrictions?.data, overclockingPresetValues]
   );
 
   const defaultValues = useMemo(
-    () => transformInputToObject(inputType, overclockingPresetValues?.$type),
+    () => transformInputToObject(inputType, overclockingPresetValues?.$type ?? (gpuRestrictionsType as DeviceType)),
     [inputType]
   );
 
@@ -39,7 +50,7 @@ export function PresetInputsForm({
   });
 
   const handleChangeValueEnd = () => setOverclocking(
-    {...getValues(), $type: overclockingPresetValues?.$type} as OverclockingType
+    { $type: overclockingPresetValues?.$type ?? (gpuRestrictionsType as DeviceType), ...getValues() } as OverclockingType
   );
 
   const handleReset = () => {
