@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { OverclockingSchema } from "./overclocking.type";
+import { OverclockingSchema } from "@/shared/types";
 
 export const PresetSchema = z.object({
   id: z.string({invalid_type_error: 'Id must be a string'}),

@@ -6,7 +6,7 @@ import { GpuSchema, GpuType } from "./gpu.type";
 import { useCallback, useMemo } from "react";
 import { toaster } from "@/shared/ui/toaster";
 import find from "lodash/find";
-import { OverclockingType } from "@/entities/preset";
+import { OverclockingType } from "@/shared/types";
 
 export const gpusQueryOptions = queryOptions({
   queryKey: ['gpus'],

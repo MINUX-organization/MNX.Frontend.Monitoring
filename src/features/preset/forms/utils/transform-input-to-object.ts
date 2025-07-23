@@ -1,7 +1,7 @@
 import camelCase from 'lodash/camelCase';
 import { InputType } from '../model/input.type';
-import { OverclockingType } from '@/entities/preset';
-import { AmdOverclockingGpuType, NvidiaOverclockingGpuType } from '@/entities/preset/model/overclocking.type';
+import { OverclockingType, AmdOverclockingGpuType, NvidiaOverclockingGpuType } from '@/shared/types'
+import isObject from 'lodash/isObject';
 
 const transformToInput = <T>(inputType: InputType[], value: T): Omit<OverclockingType, '$type'> => {
   const validKeys = new Set(Object.keys(value as object));
@@ -11,6 +11,14 @@ const transformToInput = <T>(inputType: InputType[], value: T): Omit<Overclockin
       const key = camelCase(slider.label) as keyof T;
 
       if (validKeys.has(key as string)) {
+        if (isObject(slider.value)) {
+          value[key] = {
+            ...value[key],
+            ...slider.value
+          };
+          return;
+        };
+
         value[key] = (slider.value ?? slider.default) as T[keyof T];
       }
     });
@@ -25,7 +33,14 @@ export function transformInputToObject(
 ) : Omit<OverclockingType, '$type'> | undefined {
   if ($type === 'NvidiaGPU') {
     const result: Omit<NvidiaOverclockingGpuType, '$type'> = {
-      fanSpeed: 0,
+      fanOverclocking: {
+        $type: 'TargetSpeed',
+        targetSpeed: 0,
+        minTargetSpeed: 0,
+        maxTargetSpeed: 0,
+        targetCoreTemperature: 0,
+        targetMemoryTemperature:0,
+      },
       powerLimit: 0,
       coreClockLock: 0,
       coreClockOffset: 0,
@@ -43,7 +58,14 @@ export function transformInputToObject(
   if ($type === 'AmdGPU') {
     const result: Omit<AmdOverclockingGpuType, '$type'> = {
       powerLimit: 0,
-      fanSpeed: 0,
+      fanOverclocking: {
+        $type: 'TargetSpeed',
+        targetSpeed: 0,
+        minTargetSpeed: 0,
+        maxTargetSpeed: 0,
+        targetCoreTemperature: 0,
+        targetMemoryTemperature:0,
+      },
       coreClockLock: 0,
       coreClockState: 0,
       memoryClockLock: 0,

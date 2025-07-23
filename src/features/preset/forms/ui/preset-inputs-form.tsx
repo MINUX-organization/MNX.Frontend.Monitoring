@@ -11,8 +11,9 @@ import { transformInputToObject } from "../utils/transform-input-to-object"
 import { useSuspenseQuery } from "@tanstack/react-query"
 import { useCallback, useEffect, useMemo } from "react"
 import { InputValuesType } from "../model/input.type"
-import { DeviceType, OverclockingType } from "@/entities/preset"
+import { DeviceType, OverclockingType } from "@/shared/types"
 import { match } from "ts-pattern"
+import { FanTabs } from "./fan/fan-tabs"
 
 export function PresetInputsForm({
   overclockingPresetValues,
@@ -66,6 +67,9 @@ export function PresetInputsForm({
   const renderInputs = useCallback(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ({ field, value }: { field: any; value: InputValuesType }) => {
+      if (value.inputType === 'fanSpeed')
+        return <FanTabs field={field} handleChangeValueEnd={handleChangeValueEnd} />
+
       if (value.inputType === 'checkbox') {
         return (
           <UiField label={value.label} orientation="horizontal" labelprops={{ flex: 1 }}>
@@ -86,7 +90,7 @@ export function PresetInputsForm({
           <UiField label={value.label} orientation="horizontal" labelprops={{ flex: 1 }}>
             <UiInput
               w={'300px'}
-              h={'32px'}
+              h={'28px'}
               name={field.name}
               value={field.value ?? ''}
               onChange={(e) => {
@@ -104,7 +108,7 @@ export function PresetInputsForm({
             <Group>
               <UiInput
                 w={'80px'}
-                h={'30px'}
+                h={'28px'}
                 textAlign="right"
                 name={field.name}
                 value={field.value}

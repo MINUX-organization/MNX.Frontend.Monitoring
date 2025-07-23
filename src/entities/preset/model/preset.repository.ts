@@ -109,7 +109,8 @@ const usePresetMutation = () => {
   const applyPresetDevicesMutation = useMutation({
     mutationFn: ({id, data} : {id: string, data: string[]}) => applyPresetDevicesApi(id, data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['presets'] });
+      queryClient.invalidateQueries({ queryKey: ['gpus'] });
+
       toaster.success({
         description: 'You have successfully applied preset',
       })

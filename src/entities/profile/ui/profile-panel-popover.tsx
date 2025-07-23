@@ -1,6 +1,6 @@
 import { PopoverProps, UiPopover } from "@/shared/ui/popover"
 import { ProfileField } from "../model/profile-fields"
-import { Stack, StackSeparator, VStack, Box, ButtonGroup, Group } from "@chakra-ui/react"
+import { Stack, StackSeparator, VStack, Box, ButtonGroup, Group, Clipboard, IconButton } from "@chakra-ui/react"
 import map from "lodash/map"
 import { ProfileType } from "../model/profile.type"
 import { UiAvatar, UiText, UiEditableInput, UiField } from "@/shared/ui"
@@ -65,11 +65,26 @@ export function ProfilePanelPopover({
             orientation={'horizontal'} 
             labelprops={{ opacity: 0.75 }}
           >
-            <Group w={'10.5rem'}>
-              <UiText pl={1} flexGrow={1}>{profile?.key ?? 'Not Generated'}</UiText>
+            <Group w={'10.5rem'} gap={1}>
+              <UiText 
+                pl={1}
+                flexGrow={1}
+                color={'transparent'}
+                textShadow={'0 0 8px rgba(255, 255, 255, 0.7)'}
+                userSelect={'none'}
+                _hover={{ textShadow: 'none', color: 'inherit' }}
+              >
+                {profile?.key ?? 'Not Generated'}
+              </UiText>
+              <Clipboard.Root value={profile?.key ?? ''}>
+                <Clipboard.Trigger asChild>
+                  <IconButton variant="ghost">
+                    <Clipboard.Indicator />
+                  </IconButton>
+                </Clipboard.Trigger>
+              </Clipboard.Root>
               {renderRefreshButton?.()}
-            </Group>
-            
+            </Group>   
           </UiField>
         </Stack>
         <ButtonGroup flexGrow={1}>

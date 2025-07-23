@@ -1,4 +1,4 @@
-import { OverclockingType } from "@/entities/preset";
+import { OverclockingType } from "@/shared/types";
 import { create } from "zustand";
 
 type PresetFormStore = {
