@@ -1,12 +1,13 @@
 import { z } from "zod"
+import { FanOverclockingSchema } from "./fan-overclocking.type"
 
-export const DeviceSchema = z.enum(['CPU', 'AmdGPU', 'NvidiaGPU', 'IntelGPU'])
-export type DeviceType = z.infer<typeof DeviceSchema>
+export const DeviceTypeSchema = z.enum(['CPU', 'AmdGPU', 'NvidiaGPU', 'IntelGPU'])
+export type DeviceType = z.infer<typeof DeviceTypeSchema>
 
 export const AmdOverclockingGpuSchema = z.object({
-  $type: DeviceSchema,
+  $type: DeviceTypeSchema,
   powerLimit: z.number({invalid_type_error: 'Power limit must be a number'}),
-  fanSpeed: z.number({invalid_type_error: 'Fan speed must be a number'}),
+  fanOverclocking: FanOverclockingSchema,
   coreClockLock: z.number({invalid_type_error: 'Core clock lock must be a number'}),
   coreClockState: z.number({invalid_type_error: 'Core clock state must be a number'}),
   memoryClockLock: z.number({invalid_type_error: 'Memory clock lock must be a number'}),
@@ -24,9 +25,9 @@ export const AmdOverclockingGpuSchema = z.object({
 export type AmdOverclockingGpuType = z.infer<typeof AmdOverclockingGpuSchema>
 
 export const NvidiaOverclockingGpuSchema = z.object({
-  $type: DeviceSchema,
+  $type: DeviceTypeSchema,
   powerLimit: z.number({invalid_type_error: 'Power limit must be a number'}),
-  fanSpeed: z.number({invalid_type_error: 'Fan speed must be a number'}),
+  fanOverclocking: FanOverclockingSchema,
   coreClockLock: z.number({invalid_type_error: 'Core clock lock must be a number'}),
   coreClockOffset: z.number({invalid_type_error: 'Core clock offset must be a number'}),
   memoryClockLock: z.number({invalid_type_error: 'Memory clock lock must be a number'}),
@@ -39,7 +40,7 @@ export const NvidiaOverclockingGpuSchema = z.object({
 export type NvidiaOverclockingGpuType = z.infer<typeof NvidiaOverclockingGpuSchema>
 
 export const OverclockingCpuSchema = z.object({
-  $type: DeviceSchema,
+  $type: DeviceTypeSchema,
   coreClockLock: z.number({invalid_type_error: 'Core clock lock must be a number'}),
   coreVoltage: z.number({invalid_type_error: 'Core voltage lock must be a number'}),
 })

@@ -1,4 +1,5 @@
-import { OverclockingType, presetRepository, PresetSchema, PresetType } from "@/entities/preset";
+import { presetRepository, PresetSchema, PresetType } from "@/entities/preset";
+import { OverclockingType } from "@/shared/types";
 import { FormConfig, GenericForm, UiInput } from "@/shared/ui";
 import { isSuccessResponse } from "@/shared/api";
 import { match } from "ts-pattern";
@@ -11,11 +12,9 @@ export function PresetForm({
   defaultValues,
   deviceNameInputDisabled,
   onClose,
-  setDeviceName,
   overclocking,
   mode = 'add',
 } : {
-  setDeviceName: (deviceName: string) => void
   devicesNames?: string[];
   defaultValues?: Partial<Omit<PresetType, 'overclocking'>>
   deviceNameInputDisabled?: boolean
@@ -41,10 +40,7 @@ export function PresetForm({
         <UiCombobox
           items={devicesNames ?? []}
           getLabel={(item) => item}
-          onChange={(item) => {
-            field.onChange(item);
-            setDeviceName(item);
-          }}
+          onChange={(item) => field.onChange(item)}
           selectedItem={field.value}
           disabled={deviceNameInputDisabled}
         />

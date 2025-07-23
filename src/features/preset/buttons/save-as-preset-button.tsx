@@ -1,9 +1,12 @@
 import { UiButton, UiDialog } from "@/shared/ui";
 import { PresetForm, presetFormStore } from "../forms";
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { gpuUniqueNamesOptions } from "@/entities/devices";
 
 export function SaveAsPresetButton() {
-  const { setMode, deviceName, setDeviceName, overclocking } = presetFormStore();
+  const { setMode, deviceName, overclocking } = presetFormStore();
+  const { data: deviceNames } = useQuery(gpuUniqueNamesOptions);
   const [open, setOpen] = useState(false);
 
   return (
@@ -21,10 +24,10 @@ export function SaveAsPresetButton() {
       renderTitle={() => "Save as preset"}
       renderBody={() => (
         <PresetForm 
+          devicesNames={deviceNames?.data}
           defaultValues={{ name: '', deviceName }}
           onClose={() => setOpen(false)}
           deviceNameInputDisabled
-          setDeviceName={setDeviceName}
           overclocking={overclocking}
         />
       )}

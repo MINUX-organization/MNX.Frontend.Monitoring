@@ -1,6 +1,11 @@
 import { InputType } from "../model/input.type";
 import { GpuRestrictionsType, RestrictionsType } from "@/entities/devices";
-import { AmdOverclockingGpuType, DeviceType, NvidiaOverclockingGpuType, OverclockingType } from "@/entities/preset/model/overclocking.type";
+import { 
+  AmdOverclockingGpuType, 
+  DeviceType, 
+  NvidiaOverclockingGpuType, 
+  OverclockingType 
+} from "@/shared/types";
 
 function convertToRestrictions<T>(restrictions?: RestrictionsType, value?: T) {
   return {
@@ -12,7 +17,11 @@ function convertToRestrictions<T>(restrictions?: RestrictionsType, value?: T) {
   }
 }
 
-export function convertToInput(type?: DeviceType, restrictions?: GpuRestrictionsType, overclocking?: OverclockingType): InputType[] {
+export function convertToInput(
+  type?: DeviceType, 
+  restrictions?: GpuRestrictionsType, 
+  overclocking?: OverclockingType
+) : InputType[] {
   if (type == 'NvidiaGPU') {
     const overclock = overclocking as NvidiaOverclockingGpuType;
 
@@ -38,7 +47,7 @@ export function convertToInput(type?: DeviceType, restrictions?: GpuRestrictions
       {
         label: 'Other',
         values: [
-          { label: 'Fan Speed', unit: '%', inputType: 'slider', ...convertToRestrictions(restrictions?.fanSpeed, overclock?.fanSpeed) },
+          { label: 'Fan Overclocking', inputType: 'fanSpeed', ...convertToRestrictions(restrictions?.fanSpeed, overclock.fanOverclocking) },
           { label: 'Power Limit', unit: 'W', inputType: 'slider', ...convertToRestrictions(restrictions?.power, overclock?.powerLimit) },
         ]
       }
@@ -70,7 +79,7 @@ export function convertToInput(type?: DeviceType, restrictions?: GpuRestrictions
       {
         label: 'Other',
         values: [
-          { label: 'Fan Speed', unit: '%', inputType: 'slider', ...convertToRestrictions(restrictions?.fanSpeed, overclock?.fanSpeed) },
+          { label: 'Fan Overclocking', inputType: 'fanSpeed', ...convertToRestrictions(restrictions?.fanSpeed, overclock.fanOverclocking) },
           { label: 'Power Limit', unit: 'W', inputType: 'slider', ...convertToRestrictions(restrictions?.power, overclock?.powerLimit) },
           { label: 'SOC Frequency', unit: 'MHz', inputType: 'number', ...convertToRestrictions(undefined, overclock?.socFrequency) },
           { label: 'SOC Voltage', unit: 'mV', inputType: 'number', ...convertToRestrictions(undefined, overclock?.socVoltage) },

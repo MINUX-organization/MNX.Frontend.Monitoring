@@ -1,6 +1,14 @@
-import { AmdOverclockingGpuType, NvidiaOverclockingGpuType, OverclockingCpuType, OverclockingType } from "../model/overclocking.type";
+import { AmdOverclockingGpuType, NvidiaOverclockingGpuType, OverclockingCpuType, OverclockingType } from "@/shared/types";
 
-export function OverclockingToDataListColumns(overclocking: OverclockingType) {
+type OverclockingColumns = {
+  label: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  value: any;
+  unit?: string;
+  type?: 'fanSpeed' | 'memTweak';
+}
+
+export function OverclockingToDataListColumns(overclocking: OverclockingType): OverclockingColumns[][] {
   if (overclocking.$type === 'CPU') {
     const cpuOverclocking = overclocking as OverclockingCpuType
     return [
@@ -27,21 +35,22 @@ export function OverclockingToDataListColumns(overclocking: OverclockingType) {
         { label: 'Core Voltage Offset', value: gpuOverclocking.coreVoltageOffset, unit: 'mV' },
       ],
       [
-        { label: 'Fan Speed', value: gpuOverclocking.fanSpeed, unit: '%' },
+        { label: 'Fan Speed', value: gpuOverclocking.fanOverclocking, type: 'fanSpeed' },
         { label: 'Power Limit', value: gpuOverclocking.powerLimit, unit: 'W' },
       ],
     ];
   }
 
   if (overclocking.$type === 'AmdGPU') {
-    const gpuOverclocking = overclocking as AmdOverclockingGpuType
+    const gpuOverclocking = overclocking as AmdOverclockingGpuType 
+
     return [
       [
         { label: 'Mem. Clock Lock', value: gpuOverclocking.memoryClockLock, unit: 'MHz' },
         { label: 'Mem. Clock State', value: gpuOverclocking.memoryClockState, unit: 'MHz' },
         { label: 'Mem. Voltage', value: gpuOverclocking.memoryVoltage, unit: 'mV' },
-        { label: 'Mem. Controller Voltage', value: gpuOverclocking.memoryControllerVoltage, unit: 'mV' },
-        { label: 'Mem. Tweak', value: gpuOverclocking.memoryTweak },
+        { label: 'Mem. Ctl. Voltage', value: gpuOverclocking.memoryControllerVoltage, unit: 'mV' },
+        { label: 'Mem. Tweak', value: gpuOverclocking.memoryTweak, type: 'memTweak' },
       ],
       [
         { label: 'Core Clock Lock', value: gpuOverclocking.coreClockLock, unit: 'MHz' },
@@ -50,11 +59,13 @@ export function OverclockingToDataListColumns(overclocking: OverclockingType) {
         { label: 'Core Voltage Offset', value: gpuOverclocking.coreVoltageOffset, unit: 'mV' },
       ],
       [
-        { label: 'Fan Speed', value: gpuOverclocking.fanSpeed, unit: '%' },
+        { label: 'Fan Speed', value: gpuOverclocking.fanOverclocking, type: 'fanSpeed' },
         { label: 'Power Limit', value: gpuOverclocking.powerLimit, unit: 'W' },
-        { label: 'SOC Tweak', value: gpuOverclocking.socFrequency, unit: '%' },
-        { label: 'SOC Voltage', value: gpuOverclocking.socVoltage, unit: '%' },
+        { label: 'SOC Frequency', value: gpuOverclocking.socFrequency, unit: 'MHz' },
+        { label: 'SOC Voltage', value: gpuOverclocking.socVoltage, unit: 'mV' },
       ],
     ];
   }
+
+  return [];
 }
