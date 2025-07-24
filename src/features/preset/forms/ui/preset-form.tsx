@@ -11,15 +11,17 @@ export function PresetForm({
   devicesNames,
   defaultValues,
   deviceNameInputDisabled,
-  onClose,
   overclocking,
   mode = 'add',
+  setDeviceName,
+  onClose,
 } : {
   devicesNames?: string[];
   defaultValues?: Partial<Omit<PresetType, 'overclocking'>>
   deviceNameInputDisabled?: boolean
   overclocking?: OverclockingType | null
   mode?: 'add' | 'edit'
+  setDeviceName?: (deviceName: string) => void
   onClose?: () => void
 }) {
   const { savePreset, editPreset } = usePresetMutation();
@@ -40,7 +42,10 @@ export function PresetForm({
         <UiCombobox
           items={devicesNames ?? []}
           getLabel={(item) => item}
-          onChange={(item) => field.onChange(item)}
+          onChange={(item) => {
+            field.onChange(item); 
+            setDeviceName?.(item)
+          }}
           selectedItem={field.value}
           disabled={deviceNameInputDisabled}
         />

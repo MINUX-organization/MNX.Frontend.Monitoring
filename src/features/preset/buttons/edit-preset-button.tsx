@@ -90,7 +90,6 @@ export const EditPresetWrapperForm = ({
         devicesNames={gpusUniqueNames?.data}
         defaultValues={preset}
         overclocking={overclocking}
-        setDeviceName={setDeviceName}
         deviceNameInputDisabled
         mode="edit"
         onClose={onClose}

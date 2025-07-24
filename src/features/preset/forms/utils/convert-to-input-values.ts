@@ -47,7 +47,7 @@ export function convertToInput(
       {
         label: 'Other',
         values: [
-          { label: 'Fan Overclocking', inputType: 'fanSpeed', ...convertToRestrictions(restrictions?.fanSpeed, overclock.fanOverclocking) },
+          { label: 'Fan Overclocking', inputType: 'fanSpeed', ...convertToRestrictions(restrictions?.fanSpeed, overclock?.fanOverclocking ?? {}) },
           { label: 'Power Limit', unit: 'W', inputType: 'slider', ...convertToRestrictions(restrictions?.power, overclock?.powerLimit) },
         ]
       }
@@ -79,7 +79,7 @@ export function convertToInput(
       {
         label: 'Other',
         values: [
-          { label: 'Fan Overclocking', inputType: 'fanSpeed', ...convertToRestrictions(restrictions?.fanSpeed, overclock.fanOverclocking) },
+          { label: 'Fan Overclocking', inputType: 'fanSpeed', ...convertToRestrictions(restrictions?.fanSpeed, overclock?.fanOverclocking ?? {}) },
           { label: 'Power Limit', unit: 'W', inputType: 'slider', ...convertToRestrictions(restrictions?.power, overclock?.powerLimit) },
           { label: 'SOC Frequency', unit: 'MHz', inputType: 'number', ...convertToRestrictions(undefined, overclock?.socFrequency) },
           { label: 'SOC Voltage', unit: 'mV', inputType: 'number', ...convertToRestrictions(undefined, overclock?.socVoltage) },
