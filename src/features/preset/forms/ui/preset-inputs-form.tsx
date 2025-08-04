@@ -51,7 +51,10 @@ export function PresetInputsForm({
   });
 
   const handleChangeValueEnd = () => setOverclocking(
-    { $type: overclockingPresetValues?.$type ?? (gpuRestrictionsType as DeviceType), ...getValues() } as OverclockingType
+    { 
+      $type: overclockingPresetValues?.$type ?? (gpuRestrictionsType as DeviceType), 
+      ...getValues() 
+    } as OverclockingType
   );
 
   const handleReset = () => {
@@ -61,7 +64,10 @@ export function PresetInputsForm({
 
   useEffect(() => {
     reset(defaultValues);
-    setOverclocking({...getValues(), $type: overclockingPresetValues?.$type} as OverclockingType);
+    setOverclocking({ 
+      $type: overclockingPresetValues?.$type ?? (gpuRestrictionsType as DeviceType), 
+      ...getValues() 
+    } as OverclockingType);
   }, [defaultValues])
 
   const renderInputs = useCallback(
